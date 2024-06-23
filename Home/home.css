@@ -11,7 +11,7 @@
 
 body {
     margin: 0;
-    font-family: Arial, sans-serif;
+    font-family:Arial, Helvetica, sans-serif;
     display: grid;
     grid-template-rows: auto 1fr auto;
     min-height: 100vh;
@@ -75,6 +75,7 @@ body {
 }
 .photo-logo{
     margin-top: 40px;
+    margin-bottom: 35px;
     width: 90%;
     height: auto;
     display: block;
@@ -112,7 +113,7 @@ body {
 
 
 .recommendations{
-    margin-top: 5rem;
+    margin-top: 1rem;
     font-size: 40px;
  
 }
@@ -144,10 +145,11 @@ body {
 }
 
 .find-box{
-    
+   
     margin-left: 30px;
     text-align: start;
     width:14rem;
+    padding: 7px;
     height: 7rem;
     background-color: var(--dark-blue);
     box-shadow: 1px 1px 1px 1px  var(#6bb6f7);
@@ -167,14 +169,13 @@ body {
 
 }
 .button-text-2 {
-    font-family: Arial, Helvetica, sans-serif;
     position: absolute; /* מיקום מוחלט בתוך ההורה */
     bottom: 5px; /* מרחק מהחלק התחתון של ההורה */
     left: 6px; /* מרחק מהחלק השמאלי של ההורה */
     right: 0; /* מרחק מהחלק הימני של ההורה */
     color: var(--white); /* צבע הטקסט */
-    font-size: 20px; /* גודל הטקסט */
-    font-weight: bold;
+    font-size: 15px; /* גודל הטקסט */
+    
     width: 92%;
     pointer-events: none; /* מונע מהטקסט להפריע ללחיצה על הכפתור */
     background: rgba(0, 0, 0, 0.5); /* רקע חצי שקוף */
@@ -191,6 +192,63 @@ body {
 }
 .vacation-inspired img{
     border-radius: 20px;
+}
+
+
+
+.border-rad{
+    border-radius: 30px;
+}
+
+
+.over-photo {
+    margin-left: 24.3rem;
+    position: absolute; 
+    top: 50%; 
+    left: 20%; 
+    transform: translate(-50%, -50%); 
+    color: var(--white); 
+    font-size: 36px; 
+    width: 96.9%;
+    font-weight: bold;
+    text-align: left;
+    padding: 10px 20px; 
+    border-radius: 5px;
+   
+}
+.card-vacations1,.card-vacations2,.card-vacations3,.card-vacations4{
+
+    font-weight: lighter;
+    font-size: 15px;
+    margin-bottom: 10px;
+}
+.space{
+    justify-content: space-between;
+   padding: 10px;
+}
+.space.space2{
+    text-decoration: underline;
+    padding-top: 10px;
+    font-weight: bold;
+    font-size: 18px;
+}
+.card-vacations img{
+    border-radius: 10px;
+    box-shadow: inset;
+}
+.cards img{
+    border-radius: 10px;
+}
+.position-relative {
+    position: relative; /* מיקום יחסי להורה */
+    display: inline-block; /* כדי להתאים את התמונה והטקסט */
+}
+
+.cards {
+    
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
 }
 .footer {
     background-color: var(--gray-dark);
