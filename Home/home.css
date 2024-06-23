@@ -1,7 +1,14 @@
 /* home.css */
 
-/* home.css */
+:root {
+    --red: #771011;
+    --black:#221712;
+    --gray-dark:#6F6358;
+   --white:#fffeea;
+   
 
+    
+  }
 body {
     margin: 0;
     font-family: Arial, sans-serif;
@@ -12,7 +19,7 @@ body {
 }
 
 .top {
-    background-color: #333;
+    background-color:var(--red);
     color: #fff;
     padding: 40px;
     grid-row: 1;
@@ -21,12 +28,12 @@ body {
 .mid {
     flex: 1;
     text-align: center;
-    background-color: #f0f0f0;
+    background-color: #fffeea;
 }
 
 .footer {
-    background-color: #333;
+    background-color:var(--gray-dark);
     color: #fff;
-    padding: 80px;
+    padding: 25px;
     width: 100%;
 }
