@@ -106,3 +106,18 @@ body {
 .care-mid img{
     border-radius: 2px;
 }
+.footer {
+    background-color: var(--gray-dark);
+    color: #fff;
+    padding: 15px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between; 
+    align-items: center; 
+}
+
+.footer-text
+{
+    font-size: 14px;
+    color: var(--gray);
+}
