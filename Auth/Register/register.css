@@ -31,6 +31,9 @@ body {
     box-shadow: 0 2px 4px -2px rgba(0, 0, 0, 0.2);
     
 }
+#vacation-photo{
+    padding: none;
+}
 
 .log-in{
     background-color: transparent;
@@ -64,14 +67,55 @@ body {
     padding-left: 30px;
     margin-top: 50px;
     display: flex;
+    flex-direction: column;
     width: 850px;
     border: 1px solid #221712;
     height: 400px;
 }
-.new{
+
+.new {
     font-size: 25px;
     font-weight: bold;
     color: var(--gray-dark);
+    margin-bottom: 20px; /* Space below the heading */
+}
+
+.deta-new {
+    display: flex;
+    flex-direction: column;
+}
+
+.deta-new label {
+    display: inline-block;
+    width: 100px; /* Fixed width for labels */
+    margin-right: 10px; /* Space between label and input */
+}
+
+.form-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 13px; /* Space between each input group */
+}
+
+.form-group label {
+    width: 100px; /* Fixed width for labels */
+    margin-right: 10px; /* Space between label and input */
+    
+}
+
+.form-group input {
+    font-size: 16px;
+    flex-grow: 0;
+    width: 20%; /* Ensure inputs take up the remaining space */
+    padding: 3px; /* Add some padding for better appearance */
+    border: 1px solid var(--gray-dark); /* Set the default border color */
+    outline: none; /* Remove default outline */
+}
+
+.form-group input:focus,
+.form-group input:active {
+    border-color: var(--red); /* Change border color on focus and active */
+    box-shadow: 0 0 5px var(--red); /* Optional: Add shadow for better visibility */
 }
 .customer-care {
     padding: 10px;
@@ -121,4 +165,35 @@ body {
 {
     font-size: 14px;
     color: var(--gray);
+}
+
+label {
+    display: block;
+    
+  }
+  
+  input,
+  label {
+    margin: 0.4rem 0;
+  }
+
+
+input[type="radio"]:focus,
+input[type="radio"]:active,
+input[type="radio"] {
+    outline: none;
+    box-shadow: none;
+    border: none;
+}
+.gender-input {
+    display: flex;
+    align-items: center;
+}
+
+.gender-input label {
+    margin-right: 35px; /* רווח בין התווית לאלמנטים של הקלט */
+}
+
+.gender-input input {
+    margin-right: 5px; /* רווח בין הקלטים לבין עצמם */
 }
