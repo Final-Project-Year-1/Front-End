@@ -112,11 +112,60 @@ body {
 }
 
 
+
+
 .recommendations{
     margin-top: 1rem;
     font-size: 40px;
  
 }
+.slider-container {
+    position: relative;
+    width: 80%;
+    overflow: hidden;
+}
+
+.slider {
+    display: flex;
+    transition: transform 0.5s ease;
+}
+
+.slide {
+    min-width: 25%; /* 4 תמונות במסך אחד */
+    transition: transform 0.5s ease;
+}
+
+.slide img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.slider-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--white);
+    background:transparent;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    z-index: 10;
+}
+
+.slider-button:hover{
+   color: var(--blue);
+}
+
+#prev-slide {
+    left: 0;
+}
+
+
+#next-slide {
+    right: 0;
+}
+
 
 .not-bold {
     font-weight: 100; 
@@ -170,7 +219,7 @@ body {
 }
 .button-text-2 {
     position: absolute; /* מיקום מוחלט בתוך ההורה */
-    bottom: 5px; /* מרחק מהחלק התחתון של ההורה */
+    bottom: 2px; /* מרחק מהחלק התחתון של ההורה */
     left: 6px; /* מרחק מהחלק השמאלי של ההורה */
     right: 0; /* מרחק מהחלק הימני של ההורה */
     color: var(--white); /* צבע הטקסט */
@@ -222,9 +271,15 @@ body {
     font-size: 15px;
     margin-bottom: 10px;
 }
+
+.tmp{
+    width: 300px;
+    margin-left: 9px;
+}
 .space{
+    justify-content: center;
+    text-align:center;
     justify-content: space-between;
-   padding: 10px;
 }
 .space.space2{
     text-decoration: underline;
@@ -237,7 +292,7 @@ body {
     box-shadow: inset;
 }
 .cards img{
-    border-radius: 10px;
+    border-radius: 8px;
 }
 .position-relative {
     position: relative; /* מיקום יחסי להורה */
@@ -250,6 +305,30 @@ body {
     justify-content: space-between;
     gap: 10px;
 }
+.no-back{
+    background-color: transparent;
+    border: none;
+}
+.no-back:hover{
+    cursor: pointer;
+
+}
+
+
+.all-vacations{
+    background-color: var(--white);
+    color: var(--red);
+    padding: 13px;
+    border-radius: 20px;
+    font-size: 16px;
+}
+
+
+.cards a{
+    color: var(--white);
+}
+
+
 .footer {
     background-color: var(--gray-dark);
     color: #fff;
@@ -265,7 +344,12 @@ body {
     text-decoration: none;
     margin: 0 10px;
 }
-
+.footer-text
+{
+    font-size: 14px;
+    color: var(--gray);
+}
 .footer a:hover {
     text-decoration: underline;
 }
+
