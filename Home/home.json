@@ -1,0 +1,51 @@
+[
+    {
+        "image": "../assets/home-images/img/Trip1.png",
+        "description": "Come explore Santorini's stunning views, unique beaches, and delicious Greek cuisine. Perfect for a memorable getaway!",
+        "location": "Santorini, Greece",
+        "rating": 9,
+        "reviews": 146
+    },
+    {
+        "image": "../assets/home-images/img/Trip2.png",
+        "description": "Relax in Maui's paradise with stunning beaches, lush rainforests, and exciting water activities. Ideal for adventure!",
+        "location": "Maui, Hawaii",
+        "rating": 9.7,
+        "reviews": 116
+    },
+    {
+        "image": "../assets/home-images/img/Trip3.png",
+        "description": "Experience Paris's iconic landmarks, charming cafes, and exquisite cuisine. Perfect for a romantic getaway!",
+        "location": "Paris, France",
+        "rating": 9.8,
+        "reviews": 198
+    },
+    {
+        "image": "../assets/home-images/img/Trip4.png",
+        "description": "Discover Kyoto's beautiful temples, serene gardens, and traditional tea houses. Perfect for a cultural escape!",
+        "location": "Kyoto, Japan",
+        "rating": 9.9,
+        "reviews": 283
+    },
+    {
+        "image": "../assets/home-images/img/Trip5.png",
+        "description": "Explore the vibrant city life and cultural landmarks of New York. Perfect for an exciting urban adventure!",
+        "location": "New York, USA",
+        "rating": 9.1,
+        "reviews": 305
+    },
+    {
+        "image": "../assets/home-images/img/Trip6.png",
+        "description": "Experience the magic of the Northern Lights in Reykjavik with breathtaking landscapes and cozy accommodations. Perfect for a winter adventure!",
+        "location": "Reykjavik, Iceland",
+        "rating": 9.1,
+        "reviews":400
+    },
+    {
+        "image": "../assets/home-images/img/Trip7.png",
+        "description": "Discover the historic charm of Rome with its ancient ruins, delicious Italian cuisine, and vibrant city life. Perfect for a cultural journey!",
+        "location": "Rome, Italy",
+        "rating": 9.5,
+        "reviews": 210
+    }
+]

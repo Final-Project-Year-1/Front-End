@@ -257,12 +257,13 @@ body {
     left: 20%; 
     transform: translate(-50%, -50%); 
     color: var(--white); 
-    font-size: 36px; 
     width: 96.9%;
     font-weight: bold;
     text-align: left;
     padding: 10px 20px; 
     border-radius: 5px;
+    font-size: 25px;
+
    
 }
 .card-vacations1,.card-vacations2,.card-vacations3,.card-vacations4{
@@ -272,24 +273,31 @@ body {
     margin-bottom: 10px;
 }
 
-.tmp{
+.tmp {
+    font-size: 14px; /* ודא שהגודל הגופן מתאים למה שאתה רוצה */
     width: 300px;
     margin-left: 9px;
 }
-.space{
+.space {
     justify-content: center;
-    text-align:center;
+    text-align: center;
     justify-content: space-between;
 }
-.space.space2{
+.space.space2 {
     text-decoration: underline;
     padding-top: 10px;
     font-weight: bold;
     font-size: 18px;
 }
+.space.space3 {
+    font-size: 14px; /* ודא שהגודל הגופן מתאים למה שאתה רוצה */
+}
+
 .card-vacations img{
     border-radius: 10px;
     box-shadow: inset;
+    width: 100%; /* וודא שהתמונה מתאימה לרוחב הכרטיס */
+    height: auto; /* שמור על היחס הנכון של התמונה */
 }
 .cards img{
     border-radius: 8px;
