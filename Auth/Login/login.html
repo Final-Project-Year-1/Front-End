@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <link href="login.css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Login - VacationHub</title>
 </head>
 <body>
     <div class="top">
@@ -19,25 +19,21 @@
                 <span class="new">
                     LOGIN TO YOUR ACCOUNT<br>
                 </span>
-                <form action="action_page.php" method="post">
+                <form id="loginForm" action="action_page.php" method="post">
                     <div class="container">
-                      <label for="uname"><b>Email</b></label>
-                      <input type="text" placeholder="Enter Email" name="uname" required>
+                        <label for="uname"><b>Email</b></label>
+                        <input type="text" placeholder="Enter Email" name="uname" id="uname" required>
                   
-                      <label for="psw"><b>Password</b></label>
-                      <input type="password" placeholder="Enter Password" name="psw" required>
+                        <label for="psw"><b>Password</b></label>
+                        <input type="password" placeholder="Enter Password" name="psw" id="psw" required>
                   
-                      <button type="submit">Login</button>
-                      <!--<label>
-                        <input type="checkbox" checked="checked" name="remember"> Remember me
-                      </label>-->
+                        <button type="submit">Login</button>
                     </div>
                   
                     <div class="container" style="background-color:#f1f1f1">
-                      <button type="button" class="cancelbtn">Cancel</button>
-                      <!--<span class="psw">Forgot <a href="#">password?</a></span>-->
+                        <button type="button" class="cancelbtn">Cancel</button>
                     </div>
-                  </form>
+                </form>
             </div>
             
             <div class="customer-care">
@@ -48,7 +44,6 @@
                     Call us! 1-865-522-3214 <br><br>
                     <img src="../../assets/home-images/img/logo.jpeg" width="210px"><br>
                     You can call us any day of the week! Vacation planning assistance is available from 9AM to 12AM EST.
-
                     For help with your current reservation, contact us Mon - Sun from 9AM to 9PM EST.
                     <br><br><br>
                     <img src="../../assets/home-images/img/logo-big.png" width="210px">
@@ -63,6 +58,6 @@
             Your ultimate travel companion. Discover, plan, and book your perfect getaway with us.
         </span>
     </div>
-    <script src="register.js"></script>
+    <script src="login.js"></script>
 </body>
 </html>
