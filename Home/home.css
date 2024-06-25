@@ -35,8 +35,13 @@ body {
 .top-button {
     display: inline-block;
 }
+.top-button a{
+    font-size: 10px;
+}
 
-#login {
+#login{
+    color: #467470;
+    font-size: 14px;
     font-weight: bolder;
     background-color: transparent;
     position: relative;
