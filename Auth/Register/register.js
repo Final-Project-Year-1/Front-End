@@ -57,7 +57,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         if (value.length > 0) {
             if (!/^[a-zA-Z]+$/.test(value)) {
-                errorMessage = `Invalid input: Only English letters are allowed.`;
+                errorMessage = `Invalid input`;
             } else if (value.length < 2) {
                 errorMessage = `${nameType} too short`;
             } else if (value.length > 20) {
@@ -75,15 +75,15 @@ document.addEventListener("DOMContentLoaded", function() {
 
         if (passValue.length > 0) {
             if (!/^[a-zA-Z0-9!@#$^₪]+$/.test(passValue)) {
-                passMessage = `Invalid input: Only English letters, numbers, and special characters (!@#$^₪) are allowed.`;
+                passMessage = `Invalid input`;
             } else if (passValue.length < 8) {
                 passMessage = 'Password too short';
             } else if (passValue.length > 30) {
                 passMessage = 'Password too long';
             } else if (!/[a-zA-Z]/.test(passValue)) {
-                passMessage = 'Password must contain at least one letter';
+                passMessage = 'Password must contain letters';
             } else if (!/[0-9]/.test(passValue)) {
-                passMessage = 'Password must contain at least one number';
+                passMessage = 'Password must contain numbers';
             }
         }
 
