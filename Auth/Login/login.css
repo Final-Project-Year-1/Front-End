@@ -1,71 +1,276 @@
-/* Bordered form */
-form {
-    border: 3px solid #f1f1f1;
-  }
-  
-  /* Full-width inputs */
-  input[type=text], input[type=password] {
-    width: 100%;
-    padding: 12px 20px;
-    margin: 8px 0;
-    display: inline-block;
-    border: 1px solid #ccc;
-    box-sizing: border-box;
-  }
-  
-  /* Set a style for all buttons */
-  button {
-    background-color: #04AA6D;
-    color: white;
-    padding: 14px 20px;
-    margin: 8px 0;
+:root {
+    --red: #771011;
+    --gray-transparent: rgba(111, 99, 88, 0.2);
+    --black: #221712;
+    --gray-dark: #6F6358;
+    --white: #fffeea;
+    --gray: #acacac;
+    --blue:#5d9792;
+    --dark-blue:#467470;
+}
+
+body {
+    background-color: var(--white);
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    min-height: 100vh;
+    overflow-x: hidden;
+    background: url('../../assets/home-images/img/sea.png') no-repeat center center fixed;
+    background-size: cover;
+}
+
+.top {
+    background-color: var(--dark-blue);
+    display: flex;
+    font-size: 20px;
+    justify-content: space-between;
+    align-items: center;
+    color: #fff;
+    padding: 10px 30px; 
+    grid-row: 1;
+    border-bottom: 0.6px solid var(--gray); 
+    box-shadow: 0 2px 4px -2px rgba(0, 0, 0, 0.2);
+}
+
+#vacation-photo {
+    padding: none;
+}
+
+.log-in {
+    background-color: transparent;
     border: none;
+    color: #771011;
+    text-decoration: underline;
+    font-size: 20px;
+}
+
+.log-in:hover {
     cursor: pointer;
+}
+
+.mid {
+    color: var(--red);
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    grid-row: 2;
+    position: relative;
+}
+
+#logo-top {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+
+.data {
+    z-index: 3;
+    border-radius: 3px;
+    background-color: white;
+    padding: 10px;
+    padding-left: 30px;
+    display: flex;
+    flex-direction: column;
+    width: 450px;
+    height: auto;
+}
+
+.form-container {
+    display: flex;
+    justify-content: space-between; /* Add space between form and image */
+}
+
+.new {
+    font-size: 25px;
+    font-weight: bold;
+    color: var(--gray-dark);
+    margin-bottom: 20px; /* Space below the heading */
+    width: fit-content;
+}
+
+.deta-new {
+    display: flex;
+    flex-direction: column;
+}
+
+.deta-new label {
+    display: inline-block;
+    width: 100px; /* Fixed width for labels */
+    margin-right: 8px; /* Space between label and input */
+}
+
+.form-group {
+    display: inline-block;
+
+    display: flex;
+    align-items: center;
+    margin-bottom: 13px; /* Space between each input group */
+}
+
+.form-group label {
+    width: 200px; /* Fixed width for labels */
+    margin-right: 10px; /* Space between label and input */
+}
+
+.form-group input {
+    font-size: 12px;
+    flex-grow: 0;
+    width: 148%; /* Ensure inputs take up the remaining space */
+    padding: 3px; /* Add some padding for better appearance */
+    border: 1px solid var(--gray-dark); /* Set the default border color */
+    outline: none; /* Remove default outline */
+    z-index: 3;
+    border-radius: 10px;
+}
+
+.form-group input:focus,
+.form-group input:active {
+    box-shadow: 0 0 5px var(--red); /* Optional: Add shadow for better visibility */
+}
+
+.customer-care {
+    padding: 10px;
+    padding-left: 30px;
+    border-radius: 3px;
+    display: flex;
+    width: 220px;
+    flex-direction: column;
+    background-color: white;
+    height: 400px;
+    margin-left: 20px; /* Added margin to separate from .data */
+}
+
+.deta-new {
+    display: flex;
+    flex-direction: column;
+    width: 60%; /* Adjust as needed */
+}
+
+.content-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin-top: 100px; /* Adjust as needed for spacing from top */
+}
+
+.care-text-top {
+    margin-bottom: 10px; /* Add some space below */
+    height: 30px;
+    padding: none;
+    border-bottom: 0.5px solid rgb(67, 67, 67);
+    width: 185px;
+    font-size: 20px;
+    color: var(--red);
+    font-weight: bold;
+}
+
+.care-mid img {
+    border-radius: 13px;
+}
+
+.footer {
+    background-color: var(--gray-dark);
+    color: #fff;
+    padding: 15px;
     width: 100%;
-  }
-  
-  /* Add a hover effect for buttons */
-  button:hover {
-    opacity: 0.8;
-  }
-  
-  /* Extra style for the cancel button (red) */
-  .cancelbtn {
-    width: auto;
-    padding: 10px 18px;
-    background-color: #f44336;
-  }
-  
-  /* Center the avatar image inside this container */
-  .imgcontainer {
-    text-align: center;
-    margin: 24px 0 12px 0;
-  }
-  
-  /* Avatar image */
-  img.avatar {
-    width: 40%;
-    border-radius: 50%;
-  }
-  
-  /* Add padding to containers */
-  .container {
-    padding: 16px;
-  }
-  
-  /* The "Forgot password" text */
-  span.psw {
-    float: right;
-    padding-top: 16px;
-  }
-  
-  /* Change styles for span and cancel button on extra small screens */
-  @media screen and (max-width: 300px) {
-    span.psw {
-      display: block;
-      float: none;
-    }
-    .cancelbtn {
-      width: 100%;
-    }
-  }
+    display: flex;
+    justify-content: space-between; 
+    align-items: center; 
+}
+
+.footer-text {
+    font-size: 14px;
+    color: var(--gray);
+}
+
+label {
+    display: block;
+}
+
+input,
+label {
+    margin: 0.4rem 0;
+}
+
+input[type="radio"]:focus,
+input[type="radio"]:active,
+input[type="radio"] {
+    outline: none;
+    box-shadow: none;
+    border: none;
+}
+
+.gender-input {
+    gap: 5px;
+    display: flex;
+    align-items: center;
+}
+
+.gender-input label {
+    width:fit-content;
+    margin-right: 36px; /* רווח בין התווית לאלמנטים של הקלט */
+}
+
+.gender-input input {
+    width:fit-content;
+    margin-right: 2px; /* רווח בין הקלטים לבין עצמם */
+}
+
+.image-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 50px;
+}
+
+.form-image {
+    width: 100%; /* Ensure image fits within container */
+    max-width: 250px; /* Maximum width of the image */
+    max-height: 350px; /* Maximum height of the image */
+    object-fit: cover; /* Ensure the image is properly scaled */
+}
+
+.error-message {
+    color: red;
+    font-size: 12px;
+    position: absolute;
+    margin-left: 280px;
+}
+
+.sign-up{
+
+    background-color:var(--gray);
+    margin-right: 30px;
+    color: var(--white);
+    padding: 10px;
+    border-radius: 15px;
+    border: none;
+    width: 120px;
+}
+#password-error {
+    position: absolute;
+    margin-left: 280px;
+    color: #ff4d4d; /* צבע אדום עדין */
+    font-size: 10px; /* גודל טקסט */
+    margin-top: 5px; /* מרווח מעל */
+    display: block; /* הצגה כחסימה */
+    font-weight: bold; /* הדגשה */
+}
+
+#sign-up {
+    background-color: var(--gray); /* צבע רקע רגיל */
+    color: #fff; /* צבע טקסט */
+    padding: 10px 20px; /* ריפוד פנימי */
+    border: none; /* ללא מסגרת */
+    border-radius: 5px; /* פינות מעוגלות */
+    cursor: not-allowed; /* סמן עכבר למצב בלתי פעיל */
+    font-size: 16px; /* גודל טקסט */
+}
+
+#sign-up.active {
+    background-color: var(--blue); /* צבע רקע פעיל */
+    cursor: pointer; /* סמן עכבר למצב פעיל */
+}

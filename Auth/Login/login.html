@@ -2,33 +2,67 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
     <link href="login.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
 </head>
 <body>
-    <form action="action_page.php" method="post">
-        <div class="imgcontainer">
-          <img src="img_avatar2.png" alt="Avatar" class="avatar">
+    <div class="top">
+        <span>
+            If you don't have an account, you can <a href="../Register/register.html" class="register">Register</a> and continue searching for the perfect vacation
+        </span>
+    </div>
+    
+    <div class="mid">
+        <div class="content-wrapper">
+            <div class="data">
+                <span class="new">
+                    LOGIN TO YOUR ACCOUNT<br>
+                </span>
+                <form action="action_page.php" method="post">
+                    <div class="container">
+                      <label for="uname"><b>Email</b></label>
+                      <input type="text" placeholder="Enter Email" name="uname" required>
+                  
+                      <label for="psw"><b>Password</b></label>
+                      <input type="password" placeholder="Enter Password" name="psw" required>
+                  
+                      <button type="submit">Login</button>
+                      <!--<label>
+                        <input type="checkbox" checked="checked" name="remember"> Remember me
+                      </label>-->
+                    </div>
+                  
+                    <div class="container" style="background-color:#f1f1f1">
+                      <button type="button" class="cancelbtn">Cancel</button>
+                      <!--<span class="psw">Forgot <a href="#">password?</a></span>-->
+                    </div>
+                  </form>
+            </div>
+            
+            <div class="customer-care">
+                <span class="care-text-top">
+                    Customer Care
+                </span>
+                <span class="care-mid">
+                    Call us! 1-865-522-3214 <br><br>
+                    <img src="../../assets/home-images/img/logo.jpeg" width="210px"><br>
+                    You can call us any day of the week! Vacation planning assistance is available from 9AM to 12AM EST.
+
+                    For help with your current reservation, contact us Mon - Sun from 9AM to 9PM EST.
+                    <br><br><br>
+                    <img src="../../assets/home-images/img/logo-big.png" width="210px">
+                </span>
+            </div>
         </div>
-      
-        <div class="container">
-          <label for="uname"><b>Email</b></label>
-          <input type="text" placeholder="Enter Email" name="uname" required>
-      
-          <label for="psw"><b>Password</b></label>
-          <input type="password" placeholder="Enter Password" name="psw" required>
-      
-          <button type="submit">Login</button>
-          <!--<label>
-            <input type="checkbox" checked="checked" name="remember"> Remember me
-          </label>-->
-        </div>
-      
-        <div class="container" style="background-color:#f1f1f1">
-          <button type="button" class="cancelbtn">Cancel</button>
-          <!--<span class="psw">Forgot <a href="#">password?</a></span>-->
-        </div>
-      </form>
+    </div>
+
+    <div class="footer">
+        <span class="footer-text">
+            © 2024 VacationHub. All Rights Reserved.
+            Your ultimate travel companion. Discover, plan, and book your perfect getaway with us.
+        </span>
+    </div>
+    <script src="register.js"></script>
 </body>
 </html>
