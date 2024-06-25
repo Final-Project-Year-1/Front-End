@@ -10,7 +10,7 @@
         "image": "../assets/home-images/img/Trip2.png",
         "description": "Relax in Maui's paradise with stunning beaches, lush rainforests, and exciting water activities. Ideal for adventure!",
         "location": "Maui, Hawaii",
-        "rating": 9.7,
+        "rating": 8,
         "reviews": 116
     },
     {
@@ -31,14 +31,14 @@
         "image": "../assets/home-images/img/Trip5.png",
         "description": "Explore the vibrant city life and cultural landmarks of New York. Perfect for an exciting urban adventure!",
         "location": "New York, USA",
-        "rating": 9.1,
+        "rating": 9,
         "reviews": 305
     },
     {
         "image": "../assets/home-images/img/Trip6.png",
         "description": "Experience the magic of the Northern Lights in Reykjavik with breathtaking landscapes and cozy accommodations. Perfect for a winter adventure!",
         "location": "Reykjavik, Iceland",
-        "rating": 9.1,
+        "rating": 9.7,
         "reviews":400
     },
     {

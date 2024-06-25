@@ -116,9 +116,9 @@ body {
 }
 
 .form-group input {
-    font-size: 14px;
+    font-size: 12px;
     flex-grow: 0;
-    width: 88%; /* Ensure inputs take up the remaining space */
+    width: 148%; /* Ensure inputs take up the remaining space */
     padding: 3px; /* Add some padding for better appearance */
     border: 1px solid var(--gray-dark); /* Set the default border color */
     outline: none; /* Remove default outline */
@@ -211,12 +211,12 @@ input[type="radio"] {
 
 .gender-input label {
     width:fit-content;
-    margin-right: 60px; /* רווח בין התווית לאלמנטים של הקלט */
+    margin-right: 36px; /* רווח בין התווית לאלמנטים של הקלט */
 }
 
 .gender-input input {
     width:fit-content;
-    margin-right: 0px; /* רווח בין הקלטים לבין עצמם */
+    margin-right: 2px; /* רווח בין הקלטים לבין עצמם */
 }
 
 .image-container {
@@ -231,6 +231,30 @@ input[type="radio"] {
     max-width: 250px; /* Maximum width of the image */
     max-height: 350px; /* Maximum height of the image */
     object-fit: cover; /* Ensure the image is properly scaled */
+}
+
+
+.toggle-password {
+    position: absolute;
+    margin-left: 245px;
+    background: transparent;
+    color: var(--red);
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    z-index: 100;
+    font-size: 15px;
+}
+
+.toggle-password:focus {
+    outline: none; 
+}
+
+.error-message {
+    color: red;
+    font-size: 12px;
+    position: absolute;
+    margin-left: 280px;
 }
 
 .sign-up{
