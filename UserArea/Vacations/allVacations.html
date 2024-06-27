@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <link href="allVacations.css" rel="stylesheet">
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
@@ -15,12 +17,131 @@
 
        
     </div>
+    
 
     <div class="mid">
-        <img src="../../assets/home-images/img/vacation.png">
+        <img src="../../assets/home-images/img/vacation6.jpeg" class="mid-image">
+        <div class="title-content">
+            <h1><span class="top-title">From Takeoff to Relaxation</span> <br>Complete Coverage for Your Entire Vacation</h1>
+        </div>
+        <div class="header-content">
+            <form class="search-form">
+                <input type="text" id="destination" placeholder="Where do you want to go?" aria-label="Destination">
+
+
+                <div class="input-icon-wrapper">
+                    <input type="text" id="start" placeholder="Arrive">
+                    <i class="icon-custom"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-heart" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4zM1 14V4h14v10a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1m7-6.507c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132"/>
+                      </svg></i> <!-- Example using an emoji as an icon -->
+                </div>
+
+                <div class="input-icon-wrapper">
+                    <input type="text" id="end" placeholder="Depart">
+                    <i class="icon-custom"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-heart" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4zM1 14V4h14v10a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1m7-6.507c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132"/>
+                      </svg></i> <!-- Example using an emoji as an icon -->
+
+                </div>
+                
+
+                
+                <div class="input-icon-wrapper">
+                    <input type="text" id="bedrooms" placeholder="How many persons?">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="icon-custom" viewBox="0 0 16 16">
+                      <path d="M2 1.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5V5h.5A1.5 1.5 0 0 1 8 6.5V7H7v-.5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 .5.5H4v1H2.5v.25a.75.75 0 0 1-1.5 0v-.335A1.5 1.5 0 0 1 0 13.5v-7A1.5 1.5 0 0 1 1.5 5H2zM3 5h2V2H3z"/>
+                      <path d="M2.5 7a.5.5 0 0 1 .5.5v5a.5.5 0 0 1-1 0v-5a.5.5 0 0 1 .5-.5m10 1v-.5A1.5 1.5 0 0 0 11 6h-1a1.5 1.5 0 0 0-1.5 1.5V8H8v8h5V8zM10 7h1a.5.5 0 0 1 .5.5V8h-2v-.5A.5.5 0 0 1 10 7M5 9.5A1.5 1.5 0 0 1 6.5 8H7v8h-.5A1.5 1.5 0 0 1 5 14.5zm9 6.5V8h.5A1.5 1.5 0 0 1 16 9.5v5a1.5 1.5 0 0 1-1.5 1.5z"/>
+                    </svg>
+                </div>
+                
+                <button type="submit">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+                      </svg>
+                      Search</button>
+            </form>
+        </div>
+
+
+       
+    </div>
+    <div class="all-vacations-title">
+
+        1983 vacations found
+    </div>
+<div class="main">
+
+    <div class="filter-column">
+        <!-- הכנס כאן את אלמנטי הסינון -->
+        <h3>Filter Options</h3>
+        <!-- דוגמה לאלמנטי סינון -->
+        <label for="location">Location:</label>
+        <select id="location">
+            <option value="atacama">Atacama</option>
+            <option value="patagonia">Patagonia</option>
+        </select>
+    </div>
+
+
+    <div class="cards-container">
+        <div class="card">
+            <div class="card-header">
+                <div class="image-slider">
+                    <button class="prev-btn">❮</button>
+                    <img src="../../assets/home-images/img/hotel1.png" class="slide-image" alt="Image1">
+                    <img src="../../assets/home-images/img/hotel2.png" class="slide-image" alt="Image 2">
+                    <img src="../../assets/home-images/img/hotel3.png" class="slide-image" alt="Image 3">
+                    <img src="../../assets/home-images/img/hotel4.png" class="slide-image" alt="Image 4">
+
+
+
+                    <button class="next-btn">❯</button>
+                </div>
+            </div>
+            <div class="rating">9.9/10 Exceptional (283 reviews)</div>
+
+
+            
+            <div class="card-body">
+                <div class="title"><br> <a href="#" >OF CHILE FROM ATACAMA TO PATAGONIA</a></div>
+                <div class="info">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="10" height="10" fill="currentColor" class="bi bi-calendar" viewBox="0 0 16 16">
+                    <path d="M3.5 0a.5.5 0 0 1 .5.5V1h8V.5a.5.5 0 0 1 1 0V1h1a2 2 0 0 1 2 2v11a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2h1V.5a.5.5 0 0 1 .5-.5M1 4v10a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V4z"/>
+                  </svg> 11 Days ·
+                  <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" fill="currentColor" class="bi bi-airplane" viewBox="0 0 16 16">
+                    <path d="M6.428 1.151C6.708.591 7.213 0 8 0s1.292.592 1.572 1.151C9.861 1.73 10 2.431 10 3v3.691l5.17 2.585a1.5 1.5 0 0 1 .83 1.342V12a.5.5 0 0 1-.582.493l-5.507-.918-.375 2.253 1.318 1.318A.5.5 0 0 1 10.5 16h-5a.5.5 0 0 1-.354-.854l1.319-1.318-.376-2.253-5.507.918A.5.5 0 0 1 0 12v-1.382a1.5 1.5 0 0 1 .83-1.342L6 6.691V3c0-.568.14-1.271.428-1.849m.894.448C7.111 2.02 7 2.569 7 3v4a.5.5 0 0 1-.276.447l-5.448 2.724a.5.5 0 0 0-.276.447v.792l5.418-.903a.5.5 0 0 1 .575.41l.5 3a.5.5 0 0 1-.14.437L6.708 15h2.586l-.647-.646a.5.5 0 0 1-.14-.436l.5-3a.5.5 0 0 1 .576-.411L15 11.41v-.792a.5.5 0 0 0-.276-.447L9.276 7.447A.5.5 0 0 1 9 7V3c0-.432-.11-.979-.322-1.401C8.458 1.159 8.213 1 8 1s-.458.158-.678.599"/>
+                  </svg> 6 Locations ·
+                   
+                  <svg xmlns="http://www.w3.org/2000/svg" width="11" height="11" fill="currentColor" class="bi bi-globe-asia-australia" viewBox="0 0 16 16">
+                    <path d="m10.495 6.92 1.278-.619a.483.483 0 0 0 .126-.782c-.252-.244-.682-.139-.932.107-.23.226-.513.373-.816.53l-.102.054c-.338.178-.264.626.1.736a.48.48 0 0 0 .346-.027ZM7.741 9.808V9.78a.413.413 0 1 1 .783.183l-.22.443a.6.6 0 0 1-.12.167l-.193.185a.36.36 0 1 1-.5-.516l.112-.108a.45.45 0 0 0 .138-.326M5.672 12.5l.482.233A.386.386 0 1 0 6.32 12h-.416a.7.7 0 0 1-.419-.139l-.277-.206a.302.302 0 1 0-.298.52z"/>
+                    <path d="M8 0a8 8 0 1 0 0 16A8 8 0 0 0 8 0M1.612 10.867l.756-1.288a1 1 0 0 1 1.545-.225l1.074 1.005a.986.986 0 0 0 1.36-.011l.038-.037a.88.88 0 0 0 .26-.755c-.075-.548.37-1.033.92-1.099.728-.086 1.587-.324 1.728-.957.086-.386-.114-.83-.361-1.2-.207-.312 0-.8.374-.8.123 0 .24-.055.318-.15l.393-.474c.196-.237.491-.368.797-.403.554-.064 1.407-.277 1.583-.973.098-.391-.192-.634-.484-.88-.254-.212-.51-.426-.515-.741a7 7 0 0 1 3.425 7.692 1 1 0 0 0-.087-.063l-.316-.204a1 1 0 0 0-.977-.06l-.169.082a1 1 0 0 1-.741.051l-1.021-.329A1 1 0 0 0 11.205 9h-.165a1 1 0 0 0-.945.674l-.172.499a1 1 0 0 1-.404.514l-.802.518a1 1 0 0 0-.458.84v.455a1 1 0 0 0 1 1h.257a1 1 0 0 1 .542.16l.762.49a1 1 0 0 0 .283.126 7 7 0 0 1-9.49-3.409Z"/>
+                  </svg> 1 Country</div>
+                <p class="description">Casablanca Wine Country, Glaciers & Deserts: The Ultimate 11-Day Guided Tour of Chile</p>
+            </div>
+            <div class="card-footer">
+                <div class="price">
+                    
+                    <div class="new-price"><span id="new">$7,257<br>
+                        <div class="per">
+                        per person
+                        </div></dic></span>
+                    </div>
+                </div>
+                
+                
+            </div>
+        </div>
+
+        
 
 
     </div>
+</div>
+
+<div class="footer">
+
+</div>
     
 </body>
+<script src="allVacations.js"></script>
 </html>

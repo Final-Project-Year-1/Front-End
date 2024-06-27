@@ -22,6 +22,7 @@ body {
     background-size: cover;
 }
 
+/* top */
 .top {
     background-color: var(--dark-blue);
     display: flex;
@@ -52,6 +53,23 @@ body {
     cursor: pointer;
 }
 
+#logo-top {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+
+
+
+
+/**********************************/
+
+
+
+
+
+
+/* mid */
 .mid {
     color: var(--red);
     flex-direction: column;
@@ -64,11 +82,6 @@ body {
     position: relative;
 }
 
-#logo-top {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-}
 
 .data {
     z-index: 3;
@@ -84,14 +97,14 @@ body {
 
 .form-container {
     display: flex;
-    justify-content: space-between; /* Add space between form and image */
+    justify-content: space-between; 
 }
 
 .new {
     font-size: 25px;
     font-weight: bold;
     color: var(--gray-dark);
-    margin-bottom: 20px; /* Space below the heading */
+    margin-bottom: 20px; 
     width: fit-content;
 }
 
@@ -102,8 +115,8 @@ body {
 
 .deta-new label {
     display: inline-block;
-    width: 100px; /* Fixed width for labels */
-    margin-right: 8px; /* Space between label and input */
+    width: 100px; 
+    margin-right: 8px; 
 }
 
 .form-group {
@@ -111,28 +124,28 @@ body {
 
     display: flex;
     align-items: center;
-    margin-bottom: 13px; /* Space between each input group */
+    margin-bottom: 13px; 
 }
 
 .form-group label {
-    width: 200px; /* Fixed width for labels */
-    margin-right: 10px; /* Space between label and input */
+    width: 200px;
+    margin-right: 10px; 
 }
 
 .form-group input {
     font-size: 12px;
     flex-grow: 0;
-    width: 148%; /* Ensure inputs take up the remaining space */
-    padding: 3px; /* Add some padding for better appearance */
-    border: 1px solid var(--gray-dark); /* Set the default border color */
-    outline: none; /* Remove default outline */
+    width: 148%; 
+    padding: 3px;
+    border: 1px solid var(--gray-dark); 
+    outline: none; 
     z-index: 3;
     border-radius: 10px;
 }
 
 .form-group input:focus,
 .form-group input:active {
-    box-shadow: 0 0 5px var(--red); /* Optional: Add shadow for better visibility */
+    box-shadow: 0 0 5px var(--red);
 }
 
 .customer-care {
@@ -144,24 +157,24 @@ body {
     flex-direction: column;
     background-color: white;
     height: 400px;
-    margin-left: 20px; /* Added margin to separate from .data */
+    margin-left: 20px;
 }
 
 .deta-new {
     display: flex;
     flex-direction: column;
-    width: 60%; /* Adjust as needed */
+    width: 60%; 
 }
 
 .content-wrapper {
     display: flex;
     justify-content: center;
     align-items: flex-start;
-    margin-top: 100px; /* Adjust as needed for spacing from top */
+    margin-top: 100px;
 }
 
 .care-text-top {
-    margin-bottom: 10px; /* Add some space below */
+    margin-bottom: 10px; 
     height: 30px;
     padding: none;
     border-bottom: 0.5px solid rgb(67, 67, 67);
@@ -174,6 +187,16 @@ body {
 .care-mid img {
     border-radius: 13px;
 }
+
+
+
+/**********************************/
+
+
+
+
+
+/* footer */
 
 .footer {
     background-color: var(--gray-dark);
@@ -217,12 +240,12 @@ input[type="radio"] {
 
 .gender-input label {
     width:fit-content;
-    margin-right: 36px; /* רווח בין התווית לאלמנטים של הקלט */
+    margin-right: 36px; 
 }
 
 .gender-input input {
     width:fit-content;
-    margin-right: 2px; /* רווח בין הקלטים לבין עצמם */
+    margin-right: 2px;
 }
 
 .image-container {
@@ -233,10 +256,10 @@ input[type="radio"] {
 }
 
 .form-image {
-    width: 100%; /* Ensure image fits within container */
-    max-width: 250px; /* Maximum width of the image */
-    max-height: 350px; /* Maximum height of the image */
-    object-fit: cover; /* Ensure the image is properly scaled */
+    width: 100%; 
+    max-width: 250px; 
+    max-height: 350px;
+    object-fit: cover; 
 }
 
 
@@ -276,24 +299,24 @@ input[type="radio"] {
 #password-error {
     position: absolute;
     margin-left: 280px;
-    color: #ff4d4d; /* צבע אדום עדין */
-    font-size: 10px; /* גודל טקסט */
-    margin-top: 5px; /* מרווח מעל */
-    display: block; /* הצגה כחסימה */
-    font-weight: bold; /* הדגשה */
+    color: #ff4d4d; 
+    font-size: 10px;
+    margin-top: 5px; 
+    display: block; 
+    font-weight: bold; 
 }
 
 #sign-up {
-    background-color: var(--gray); /* צבע רקע רגיל */
-    color: #fff; /* צבע טקסט */
-    padding: 10px 20px; /* ריפוד פנימי */
-    border: none; /* ללא מסגרת */
-    border-radius: 5px; /* פינות מעוגלות */
-    cursor: not-allowed; /* סמן עכבר למצב בלתי פעיל */
-    font-size: 16px; /* גודל טקסט */
+    background-color: var(--gray); 
+    color: #fff; 
+    padding: 10px 20px; 
+    border: none;
+    border-radius: 5px; 
+    cursor: not-allowed; 
+    font-size: 16px; 
 }
 
 #sign-up.active {
-    background-color: var(--blue); /* צבע רקע פעיל */
-    cursor: pointer; /* סמן עכבר למצב פעיל */
+    background-color: var(--blue); 
+    cursor: pointer; 
 }

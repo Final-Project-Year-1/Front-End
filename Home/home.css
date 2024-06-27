@@ -279,7 +279,7 @@ body {
 }
 
 .tmp {
-    font-size: 14px; /* ודא שהגודל הגופן מתאים למה שאתה רוצה */
+    font-size: 14px;
     width: 300px;
     margin-left: 9px;
 }
@@ -295,21 +295,21 @@ body {
     font-size: 18px;
 }
 .space.space3 {
-    font-size: 14px; /* ודא שהגודל הגופן מתאים למה שאתה רוצה */
+    font-size: 14px; 
 }
 
 .card-vacations img{
     border-radius: 10px;
     box-shadow: inset;
-    width: 100%; /* וודא שהתמונה מתאימה לרוחב הכרטיס */
-    height: auto; /* שמור על היחס הנכון של התמונה */
+    width: 100%; 
+    height: auto; 
 }
 .cards img{
     border-radius: 8px;
 }
 .position-relative {
-    position: relative; /* מיקום יחסי להורה */
-    display: inline-block; /* כדי להתאים את התמונה והטקסט */
+    position: relative; 
+    display: inline-block; 
 }
 
 .cards {

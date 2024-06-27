@@ -1,112 +1,7 @@
 document.addEventListener("DOMContentLoaded", function() {
-    const form = document.getElementById("register-form");
-
-    form.addEventListener("submit", function(event) {
-        event.preventDefault(); // Prevent default form submission
-        sendFormDataToServer(); // Call your function to send data to server
-    });
-
-    async function sendFormDataToServer() {
-        const firstName = document.getElementById("first-name").value;
-        const lastName = document.getElementById("last-name").value;
-        const email = document.getElementById("email").value;
-        const gender = document.querySelector("input[name='gender']:checked").value;
-        const password = document.getElementById("password").value;
-
-        const data = {
-            firstName: firstName,
-            lastName: lastName,
-            email: email,
-            gender: gender,
-            password: password
-        };
-
-        
-
-    //     try {
-    //         const response = await fetch('http://localhost:8080/api/register', {
-    //             method: 'POST',
-    //             headers: {
-    //                 'Content-Type': 'application/json'
-    //             },
-    //             body: JSON.stringify(data)
-    //         });
-
-    //         if (!response.ok) {
-    //             throw new Error('Network response was not ok');
-    //         }
-
-    //         const responseData = await response.json();
-    //         if (responseData.success) {
-    //             window.location.href = 'http://localhost:8080/UserArea/Vacations/allVacations.html';
-    //         } else {
-    //             console.error('Registration failed:', responseData.message);
-    //         }
-    //     } catch (error) {
-    //         console.error('Error sending data to server:', error);
-    //     }
-    }
-
-
     const password = document.getElementById("password");
     const confirmPassword = document.getElementById("confirm-password");
     const passwordError = document.getElementById("password-error");
-
-    function validatePassword() {
-        if (password.value !== confirmPassword.value) {
-            passwordError.textContent = "Passwords do not match";
-        } else {
-            passwordError.textContent = "";
-        }
-    }
-
-    password.addEventListener("change", validatePassword);
-    confirmPassword.addEventListener("keyup", validatePassword);
-
-    const togglePasswordButton = document.getElementById('toggle-password');
-    const passwordInput = document.getElementById('password');
-    const eyeIcon = togglePasswordButton.querySelector('.bi-eye');
-
-    togglePasswordButton.addEventListener('click', function() {
-        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
-        passwordInput.setAttribute('type', type);
-        eyeIcon.setAttribute('fill', type === 'password' ? 'currentColor' : '#000000');
-    });
-
-    const firstName = document.getElementById("first-name");
-    const lastName = document.getElementById("last-name");
-    const emailInput = document.getElementById("email");
-    const gender = document.querySelectorAll("input[name='gender']");
-    const firstNameError = document.getElementById("first-name-error");
-    const lastNameError = document.getElementById("last-name-error");
-    const passwordLengthError = document.getElementById("password-length-error");
-    const passwordMatchError = document.getElementById("password-match-error");
-    
-    function validateEmail() {
-        const email = emailInput.value;
-        const validEmailPattern = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
-        const isValidEmail = validEmailPattern.test(email);
-        emailError.textContent = email.length > 0 && !isValidEmail ? 'Invalid email address' : '';
-        return isValidEmail;
-    }
-
-    function validateNameInput(inputElement, errorElement, nameType) {
-        const value = inputElement.value;
-        let errorMessage = '';
-
-        if (value.length > 0) {
-            if (!/^[a-zA-Z]+$/.test(value)) {
-                errorMessage = `Invalid input`;
-            } else if (value.length < 2) {
-                errorMessage = `${nameType} too short`;
-            } else if (value.length > 20) {
-                errorMessage = `${nameType} too long`;
-            }
-        }
-
-        errorElement.textContent = errorMessage;
-        return value.length >= 2 && errorMessage === '';
-    }
 
     function validatePassword() {
         const passValue = password.value;
@@ -114,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
         if (passValue.length > 0) {
             if (!/^[a-zA-Z0-9!@#$^₪]+$/.test(passValue)) {
-                passMessage = `Invalid input`;
+                passMessage = `Invalid input .`;
             } else if (passValue.length < 8) {
                 passMessage = 'Password too short';
             } else if (passValue.length > 30) {
@@ -135,7 +30,97 @@ document.addEventListener("DOMContentLoaded", function() {
         if (!passwordsMatch && confirmPassword.value.length > 0) {
             passwordMatchError.textContent = "Passwords do not match";
         } else {
-            passwordMatchError.textContent = "";
+            passwordMatchError.textContent = ""; // Clear the message when passwords match
+        }
+        return passwordsMatch;
+    }
+
+    password.addEventListener("change", validatePassword);
+    confirmPassword.addEventListener("keyup", validatePassword);
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+    const togglePasswordButton = document.getElementById('toggle-password');
+    const passwordInput = document.getElementById('password');
+    const eyeIcon = togglePasswordButton.querySelector('.bi-eye');
+
+    togglePasswordButton.addEventListener('click', function() {
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+
+        // Change the SVG icon
+        eyeIcon.setAttribute('fill', type === 'password' ? 'currentColor' : '#000000'); 
+    });
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+    const firstName = document.getElementById("first-name");
+    const lastName = document.getElementById("last-name");
+    const emailInput = document.getElementById("email");
+    const gender = document.querySelectorAll("input[name='gender']");
+    const password = document.getElementById("password");
+    const confirmPassword = document.getElementById("confirm-password");
+    const firstNameError = document.getElementById("first-name-error");
+    const lastNameError = document.getElementById("last-name-error");
+    const passwordLengthError = document.getElementById("password-length-error");
+    const passwordMatchError = document.getElementById("password-match-error");
+    const emailError = document.getElementById("email-error");
+    const signUpButton = document.getElementById("sign-up");
+
+    function validateEmail() {
+        const email = emailInput.value;
+        const validEmailPattern = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+        const isValidEmail = validEmailPattern.test(email);
+        emailError.textContent = email.length > 0 && !isValidEmail ? 'Invalid email address' : '';
+        return isValidEmail;
+    }
+
+    function validateNameInput(inputElement, errorElement, nameType) {
+        const value = inputElement.value;
+        let errorMessage = '';
+
+        if (value.length > 0) {
+            if (!/^[a-zA-Z]+$/.test(value)) {
+                errorMessage = `Invalid input.`;
+            } else if (value.length < 2) {
+                errorMessage = `${nameType} too short`;
+            } else if (value.length > 20) {
+                errorMessage = `${nameType} too long`;
+            }
+        }
+
+        errorElement.textContent = errorMessage;
+        return value.length >= 2 && errorMessage === '';
+    }
+
+    function validatePassword() {
+        const passValue = password.value;
+        let passMessage = '';
+
+        if (passValue.length > 0) {
+            if (!/^[a-zA-Z0-9!@#$^₪]+$/.test(passValue)) {
+                passMessage = `Invalid input.`;
+            } else if (passValue.length < 8) {
+                passMessage = 'Password too short';
+            } else if (passValue.length > 30) {
+                passMessage = 'Password too long';
+            } else if (!/[a-zA-Z]/.test(passValue)) {
+                passMessage = 'Password must contain letters';
+            } else if (!/[0-9]/.test(passValue)) {
+                passMessage = 'Password must contain numbers';
+            }
+        }
+
+        passwordLengthError.textContent = passMessage;
+        return passValue.length >= 8 && passMessage === '';
+    }
+
+    function validatePasswordsMatch() {
+        const passwordsMatch = password.value === confirmPassword.value;
+        if (!passwordsMatch && confirmPassword.value.length > 0) {
+            passwordMatchError.textContent = "Passwords do not match";
+        } else {
+            passwordMatchError.textContent = ""; // Clear the message when passwords match
         }
         return passwordsMatch;
     }
@@ -178,7 +163,36 @@ document.addEventListener("DOMContentLoaded", function() {
 
     signUpButton.addEventListener("click", function() {
         if (!signUpButton.disabled) {
-            sendFormDataToServer();
+            window.location.href = '../../UserArea/allVacations.html';
         }
     });
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+    const signUpButton = document.getElementById('sign-up');
+
+    signUpButton.addEventListener('click', function() {
+        if (!this.disabled) {
+            window.location.href = '../../UserArea/allVacations.html';
+        }
+    });
+});
+
+document.addEventListener("DOMContentLoaded", function() {
+    const emailInput = document.getElementById('email');
+    const emailError = document.getElementById('email-error');
+
+    function validateEmail() {
+        const email = emailInput.value;
+        const validEmailPattern = /^[^@\s]+@[^@\s]+\.[^@\s]+$/; 
+        const isValidEmail = validEmailPattern.test(email);
+        
+        if (!isValidEmail) {
+            emailError.textContent = 'Invalid email address';
+        } else {
+            emailError.textContent = '';
+        }
+    }
+
+    emailInput.addEventListener('input', validateEmail);
 });

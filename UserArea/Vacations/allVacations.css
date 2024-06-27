@@ -8,7 +8,12 @@
     --blue:#5d9792;
     --dark-blue:#467470;
 }
+a {
+    
+    color: #000;
+    text-decoration: none;
 
+}
 body {
     margin: 0;
     font-family:Arial, Helvetica, sans-serif;
@@ -29,4 +34,356 @@ body {
     border-bottom: 0.6px solid var(--gray); 
     box-shadow: 0 2px 4px -2px rgba(0, 0, 0, 0.2);
     
+}
+.mid {
+    position: relative;
+    text-align: center;
+    color: white;
+}
+
+.main {
+    display: flex; /* הפעלת Flexbox */
+    flex-direction: row; /* סידור האלמנטים בשורה */
+}
+
+/* filter */
+.filter-column {
+    width: 20%; /* או כל רוחב אחר שתבחר */
+    padding: 20px; /* הוספת ריווח פנימי לנוחות */
+    border-right: 2px solid #ccc; /* קו הפרדה בין הסינון לכרטיסים */
+}
+
+
+
+
+/* num of vacations */
+
+.all-vacations-title{
+    margin-top: 30px;
+    padding: 2px;
+    border-bottom: 1px solid var(--gray-dark);
+    margin-bottom: 10px;
+}
+
+
+
+
+/* card */
+
+.image-slider {
+    position: relative;
+    width: 100%;
+    height: 250px; /* קובע גובה קבוע לתמונות */
+}
+
+.image-slider img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    transition: transform 0.5s ease; /* אנימציה חלקה לשינוי */
+}
+
+.image-slider img:hover {
+    transform: scale(1.3); /* מגדיל את התמונה ב-10% */
+}
+
+.prev-btn, .next-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color:transparent;
+    border-radius: 20px;
+    color: white;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    z-index: 10;
+}
+
+.prev-btn {
+    left: 10px;
+}
+
+.next-btn {
+    right: 10px;
+}
+
+
+
+.cards-container {
+    flex-grow: 1; /* הכרטיסים יתפשטו לכל המקום הנותר */
+    padding: 25px; /* ריווח פנימי */
+    display: flex; /* שימוש נוסף ב-Flexbox לסידור הכרטיסים */
+    flex-wrap: wrap; /* אפשרות לכרטיסים לעבור שורה במידת הצורך */
+    gap: 20px; /* מרווח בין כרטיסים */
+}
+
+
+.mid-image {
+    width: 100%;
+    height: auto;
+}
+
+
+.title-content {
+    color: #000;
+    position: absolute;
+    top: 22%;
+    left: 9%;
+    font-size: 20px;
+    transform: translate(0, 0);
+    text-align: left;
+
+}
+.top-title{
+    color: var(--red);
+}
+.header-content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-shadow: 2px 2px 4px #000;
+}
+
+.search-form {
+    display: flex;
+    gap: 10px;
+    background: rgba(111, 99, 88, 0.7);
+    padding: 28px;
+    border-radius: 40px;
+}
+
+.search-form input[type="text"], 
+.search-form input[type="date"],
+.search-form input[type="number"] {
+    padding: 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    width: 230px;
+    outline: none;
+}
+
+.search-form button {
+    padding: 15px 20px;
+    background-color: var(--red);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 17px;
+    width: 160px;
+}
+.icon-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.search-form button.search-button {
+    padding: 15px 20px;
+    background-color: var(--red);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 17px;
+    width: 160px;
+}
+input[type="date"] {
+    
+    padding: none;
+    border-radius: 5px;
+    color: #555;
+    font-size: 20px;
+}
+.flatpickr-calendar{
+    
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+.input-icon-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.input-icon-wrapper input {
+    padding-left: 30px; /* Adjust based on the size of your icon */
+    width: 100%;
+    box-sizing: border-box; /* Includes padding in the width */
+}
+
+.icon-custom {
+    position: absolute;
+    left: 200px; /* Adjust based on desired padding inside the input */
+    color: var(--red); /* Color of the icon if it supports this property */
+    pointer-events: none; /* Makes the icon non-interactive */
+}
+
+
+
+
+
+
+
+.card {
+    width: calc(25% - 20px); /* חישוב רוחב לכל כרטיס, ניתן להתאים לפי מספר הכרטיסים בשורה */
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+
+.card-header {
+    position: relative;
+    height: 200px; /* גובה קבוע לחלק העליון של הכרטיס */
+    background-size: cover; /* מבטיח שהתמונה תכסה את כל האלמנט ללא הפרעה לפרופורציות */
+    background-position: center; /* ממרכז את התמונה בכרטיס */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.save, .quick-view {
+    z-index: 1; /* מבטיח שהטקסט והכפתורים יהיו מעל התמונה */
+}
+
+.save {
+    margin: 10px;
+    background-color: rgba(0, 0, 0, 0.75); /* שקיפות לרקע של הטקסט */
+    padding: 5px 10px;
+    border-radius: 5px;
+    color: white;
+    font-size: 14px;
+}
+
+.quick-view {
+    margin: 10px;
+    background-color: #0066cc;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.card-image img {
+    width: 100%; 
+    height: 200px;  
+    object-fit: cover; 
+    display: block;
+}
+
+
+
+
+.image-slider {
+    position: relative;
+    width: 100%;
+    height: 200px;
+     display: block;
+    overflow: hidden; 
+}
+
+
+.card-body {
+    background-color: rgb(255, 255, 255);
+    padding: 8px;
+   
+}
+.rating{
+    padding: 3px;
+   
+}
+
+.per{
+    font-size: 10px;
+}
+
+.title {
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.info {
+    color: #777;
+    font-size: 12px;
+    padding: 5px 0;
+}
+
+.description {
+    font-size: 12px;
+    color: #555;
+}
+
+.card-footer {
+    margin-top: 7px;
+    display: flex;
+    justify-content: space-between; /* מיישר את התוכן לשני הקצוות */
+    padding: 10px; /* מרווח בפנים הכרטיס */
+    align-items: start; /* מיישר את התוכן לצד העליון */
+   
+    background-color: #fff; /* רקע לבן, אפשר לשנות לפי הצורך */
+}
+
+
+
+.view-tour,.get-quote {
+    background-color: var(--dark-blue);
+    color: white;
+    border: none;
+    padding: 10px;
+    width: 30%;
+    margin-top: 5px;
+    border-radius: 20px;
+    font-size: 12px;
+}
+
+
+.get-quote {
+    background-color: transparent;
+    color: var(--dark-blue);
+    border: 1px solid var(--dark-blue);
+}
+.view-tour:hover,.get-quote:hover{
+    cursor:pointer;
+}
+
+
+
+.new-price {
+    font-weight:bold;
+    font-size: 16px;
+    color: black;
+}
+#new{
+    font-size: 20px;
+}
+
+.rating{
+    height: 20px;
+    border-radius: 20px;
+    font-size: 12px;
+}
+
+.card-btn-footer {
+    display: flex;
+    flex-direction: column; /* סדר את האלמנטים בצורה אנכית */
+    align-items: flex-end; /* יישור הכפתורים לצד ימין */
+    padding: 10px;
+    margin-top: -25px; /* דוחף את הכפתורים יותר למעלה */
+    
+
+}
+
+.view-tour, .get-quote {
+    width: 100%; /* מתאים את רוחב הכפתורים לרוחב האלמנט המכיל */
+    margin-top: 10px; /* מוסיף מרווח בין הכפתורים */
+}
+
+.view-tour:first-child {
+    margin-top: 0; /* מונע מרווח נוסף מעל הכפתור הראשון */
 }
