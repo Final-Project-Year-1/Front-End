@@ -132,14 +132,12 @@ body {
 }
 
 .customer-care {
-    padding: 10px;
     padding-left: 30px;
     border-radius: 3px;
     display: flex;
-    width: 220px;
     flex-direction: column;
     background-color: white;
-    height: 400px;
+    height: 350px;
     margin-left: 20px; /* Added margin to separate from .data */
 }
 
@@ -167,8 +165,13 @@ body {
     font-weight: bold;
 }
 
+#details {
+    margin-left: 75px;
+}
+
 .care-mid img {
     border-radius: 13px;
+    margin-left: 50px;
 }
 
 .footer {
