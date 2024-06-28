@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="register.css">
+</head>
+<body>
+    <div class="top">
+        <span>
+            If you already have an account, you can <a href="../Login/login.html" class="log-in">Log in</a> and continue searching for the perfect vacation
+        </span>
+    </div>
+    
+    <div class="mid">
+        <div class="content-wrapper">
+            <div class="data">
+                <span class="new">
+                    CREATE A NEW ACCOUNT<br>
+                </span>
+                <div class="form-container">
+                    <div class="deta-new">
+                        <form id="register-form" action="/api/register" method="POST">
+                            <div class="form-group">
+                                <label for="first-name">First Name:</label>
+                                <input type="text" id="first-name" name="firstName" autocomplete="given-name" required>
+                                <span id="first-name-error" class="error-message"></span>
+                            </div>
+                            <div class="form-group">
+                                <label for="last-name">Last Name:</label>
+                                <input type="text" id="last-name" name="lastName" autocomplete="family-name" required>
+                                <span id="last-name-error" class="error-message"></span>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="email">Email:</label>
+                                <input type="email" id="email" name="email" autocomplete="email" required>
+                                <span id="email-error" class="error-message"></span>
+                            </div>
+                            
+                            <div class="form-group">
+                                <span class="gender-input">
+                                    <label>Gender:</label>
+                                    <input type="radio" id="male" name="gender" value="male" required> 
+                                    <label for="male">Male</label>
+                                    <input type="radio" id="female" name="gender" value="female" required>
+                                    <label for="female">Female</label>
+                                </span>
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Password:</label>
+                                <input type="password" id="password" name="password" autocomplete="new-password" required>
+                                <span id="password-length-error" class="error-message"></span>
+                                <span id="password-error" class="error-message"></span>
+                                <button type="button" id="toggle-password" class="toggle-password">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye" viewBox="0 0 16 16">
+                                        <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8M1.173 8a13 13 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5s3.879 1.168 5.168 2.457A13 13 0 0 1 14.828 8q-.086.13-.195.288c-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5s-3.879-1.168-5.168-2.457A13 13 0 0 1 1.172 8z"/>
+                                        <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5M4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0"/>
+                                    </svg>
+                                </button>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="confirm-password">Confirm Password:</label>
+                                <input type="password" id="confirm-password" autocomplete="new-password" required>
+                                <span id="password-match-error" class="error-message"></span>
+                            </div>
+                            
+                            <div class="form-group">
+                                <button type="button" id="sign-up" disabled>Register</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="customer-care">
+                <span class="care-text-top">
+                    Customer Care
+                </span>
+                <span class="care-mid">
+                    Call us! 1-865-522-3214 <br><br>
+                    <img src="../../assets/home-images/img/logo.jpeg" width="210px"><br>
+                    You can call us any day of the week! Vacation planning assistance is available from 9AM to 12AM EST.
+
+                    For help with your current reservation, contact us Mon - Sun from 9AM to 9PM EST.
+                    <br><br><br>
+                    <img src="../../assets/home-images/img/logo-big.png" width="210px">
+                </span>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <span class="footer-text">
+            © 2024 VacationHub. All Rights Reserved.
+            Your ultimate travel companion. Discover, plan, and book your perfect getaway with us.
+        </span>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="register.js"></script>
+</body>
+</html>

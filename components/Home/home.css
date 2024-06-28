@@ -1,0 +1,418 @@
+:root {
+    --red: #771011;
+    --gray-transparent: rgba(111, 99, 88, 0.2);
+    --black: #221712;
+    --gray-dark: #6F6358;
+    --white: #fffeea;
+    --gray: #acacac;
+    --blue:#5d9792;
+    --dark-blue:#467470;
+}
+
+body {
+    margin: 0;
+    font-family:Arial, Helvetica, sans-serif;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    min-height: 100vh;
+    
+}
+
+.top {
+    display: flex;
+    font-size: 20px;
+    justify-content: space-between;
+    align-items: center;
+    color: #fff;
+    padding: 10px 30px; 
+    grid-row: 1;
+    border-bottom: 0.6px solid var(--gray); 
+    box-shadow: 0 2px 4px -2px rgba(0, 0, 0, 0.2);
+    
+}
+
+
+.top-button {
+    display: inline-block;
+}
+.top-button a{
+    font-size: 10px;
+}
+
+#login{
+    color: #467470;
+    font-size: 14px;
+    font-weight: bolder;
+    background-color: transparent;
+    position: relative;
+    padding: 5px 15px; 
+    border:none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease; 
+}
+#login:hover{
+    color: var(--red);
+}
+
+
+
+#login img {
+
+    vertical-align: middle;
+    position: relative;
+    top: -5px;
+    margin-left: 5px;
+}
+
+#login span {
+    vertical-align: middle;
+}
+
+#logoin-photo {
+    margin-top: 13px;
+}
+
+.mid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center; /* ממרכז את הטקסט */
+    padding: 20px; /* רווח פנימי מסביב לתוכן */
+}
+.photo-logo{
+    margin-top: 40px;
+    margin-bottom: 35px;
+    width: 90%;
+    height: auto;
+    display: block;
+    border: 5px solid var(--gray-dark); 
+    box-shadow: 5px 5px 15px var(--gray-dark); 
+    transition: transform 0.3s ease; 
+}
+
+.photo-logo:hover {
+    transform: scale(1.05); 
+}
+
+.photo-mid{
+    justify-content: center;
+   
+    width: 90%;
+    margin-top: 5rem;
+    border-radius: 30px;
+}
+
+.save {
+    width:75rem;
+    padding: 20px;
+    background-color: #771011;
+    box-shadow: 1px 1px 1px 1px  #771011;
+    border-radius: 13px;
+    color: var(--white); 
+    margin-bottom: 20px; 
+    font-size: 17px; 
+}
+
+.fa-plane{
+    margin-right: 25px;
+}
+
+
+
+
+.recommendations{
+    margin-top: 1rem;
+    font-size: 40px;
+ 
+}
+.slider-container {
+    position: relative;
+    width: 80%;
+    overflow: hidden;
+}
+
+.slider {
+    display: flex;
+    transition: transform 0.5s ease;
+}
+
+.slide {
+    min-width: 25%; /* 4 תמונות במסך אחד */
+    transition: transform 0.5s ease;
+}
+
+.slide img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.slider-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--white);
+    background:transparent;
+    border: none;
+    cursor: pointer;
+    padding: 10px;
+    z-index: 10;
+}
+
+.slider-button:hover{
+   color: var(--blue);
+}
+
+#prev-slide {
+    left: 0;
+}
+
+
+#next-slide {
+    right: 0;
+}
+
+
+.not-bold {
+    font-weight: 100; 
+    font-size: 35px; 
+    color: #626262; 
+}
+
+.font-20 {
+    font-size: 20px;
+    font-weight: bold;
+    color: #333; /* צבע הטקסט */
+}
+.Find{
+    
+    display: flex;
+    text-align: start;
+    align-items: center;
+    width:73.5rem;
+    padding: 35px;
+    background-color: var(--blue);
+    box-shadow: 1px 1px 1px 1px  var(#6bb6f7);
+    border-radius: 13px;
+    color: var(--white); 
+    margin-bottom: 20px; 
+    font-size: 25px; 
+}
+
+.find-box{
+   
+    margin-left: 30px;
+    text-align: start;
+    width:14rem;
+    padding: 7px;
+    height: 7rem;
+    background-color: var(--dark-blue);
+    box-shadow: 1px 1px 1px 1px  var(#6bb6f7);
+    border-radius: 13px;
+    color: var(--white); 
+    margin-bottom: 20px; 
+    font-size: 23px; 
+}
+
+.vacation-inspired{
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+    background-color:transparent;
+    border: none;
+    transition: transform 0.3s ease; 
+
+}
+.button-text-2 {
+    position: absolute; /* מיקום מוחלט בתוך ההורה */
+    bottom: 2px; /* מרחק מהחלק התחתון של ההורה */
+    left: 6px; /* מרחק מהחלק השמאלי של ההורה */
+    right: 0; /* מרחק מהחלק הימני של ההורה */
+    color: var(--white); /* צבע הטקסט */
+    font-size: 15px; /* גודל הטקסט */
+    
+    width: 92%;
+    pointer-events: none; /* מונע מהטקסט להפריע ללחיצה על הכפתור */
+    background: rgba(0, 0, 0, 0.5); /* רקע חצי שקוף */
+    padding: 5px; /* רווח פנימי */
+    border-radius: 0 0 14px 14px; /* פינות מעוגלות רק בתחתית */
+    text-align: center; /* יישור טקסט למרכז */
+}
+
+
+.vacation-inspired:hover{
+    transform: scale(1.05); 
+    cursor: pointer;
+
+}
+.vacation-inspired img{
+    border-radius: 20px;
+}
+
+
+
+.border-rad{
+    border-radius: 30px;
+}
+
+
+.over-photo {
+    margin-left: 24.3rem;
+    position: absolute; 
+    top: 50%; 
+    left: 20%; 
+    transform: translate(-50%, -50%); 
+    color: var(--white); 
+    width: 96.9%;
+    font-weight: bold;
+    text-align: left;
+    padding: 10px 20px; 
+    border-radius: 5px;
+    font-size: 25px;
+
+   
+}
+.card-vacations1,.card-vacations2,.card-vacations3,.card-vacations4{
+
+    font-weight: lighter;
+    font-size: 15px;
+    margin-bottom: 10px;
+}
+
+.tmp {
+    font-size: 14px;
+    width: 300px;
+    margin-left: 9px;
+}
+.space {
+    justify-content: center;
+    text-align: center;
+    justify-content: space-between;
+}
+.space.space2 {
+    text-decoration: underline;
+    padding-top: 10px;
+    font-weight: bold;
+    font-size: 18px;
+}
+.space.space3 {
+    font-size: 14px; 
+}
+
+.card-vacations img{
+    border-radius: 10px;
+    box-shadow: inset;
+    width: 100%; 
+    height: auto; 
+}
+.cards img{
+    border-radius: 8px;
+}
+.position-relative {
+    position: relative; 
+    display: inline-block; 
+}
+
+.cards {
+    
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+.no-back{
+    background-color: transparent;
+    border: none;
+}
+.no-back:hover{
+    cursor: pointer;
+
+}
+
+
+.all-vacations{
+    margin-top: 13px;
+    background-color: var(--white);
+    color: var(--red);
+    padding: 13px;
+    border-radius: 20px;
+    font-size: 16px;
+}
+.all-vacations:hover{
+    cursor: pointer;
+
+
+}
+
+.cards a{
+    color: var(--white);
+}
+
+
+.footer {
+    background-color: var(--gray-dark);
+    color: #fff;
+    padding: 25px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between; 
+    align-items: center; 
+}
+
+.footer a {
+    color: #fff;
+    text-decoration: none;
+    margin: 0 10px;
+}
+.footer-text
+{
+    font-size: 14px;
+    color: var(--gray);
+}
+.footer a:hover {
+    text-decoration: underline;
+}
+
+
+
+
+@media (min-width: 2560px) {
+    body {
+        font-size: 16px; /* שינוי גודל הגופן לנוחות קריאה */
+    }
+    
+    .container, .slider-container, .position-relative {
+        width: 80%; /* הקטנת רוחב המיכלים ליצירת מראה מרוכז יותר */
+        margin: 0 auto; /* מרכוז המיכלים */
+    }
+}
+
+/* מדיה קווריז למסכים בינוניים - טאבלטים */
+@media (max-width: 1024px) {
+    body {
+        font-size: 14px; /* הקטנת גודל הגופן */
+    }
+
+    .container, .slider-container, .position-relative {
+        width: 95%; /* הרחבת המיכלים כדי לנצל טוב יותר את המקום */
+    }
+
+    .top, .footer {
+        flex-direction: column; /* שינוי כיוון הפריטים לעמודה */
+    }
+}
+
+/* מדיה קווריז למסכים קטנים - טלפונים ניידים */
+@media (max-width: 480px) {
+    body {
+        font-size: 12px; /* הקטנת גודל הגופן עוד יותר */
+    }
+
+    .container, .slider-container, .position-relative {
+        width: 100%; /* המיכלים ייקחו את כל הרוחב */
+    }
+
+    .top, .footer {
+        padding: 5px; /* הקטנת הריווחים בראש ובתחתית */
+    }
+}
+
