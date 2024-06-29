@@ -236,7 +236,7 @@ input[type="radio"] {
     object-fit: cover; /* Ensure the image is properly scaled */
 }
 
-.show-password {
+.toggle-password {
     position: absolute;
     margin-left: 336px;
     background: transparent;
@@ -248,7 +248,7 @@ input[type="radio"] {
     font-size: 15px;
 }
 
-.show-password:focus {
+.toggle-password:focus {
     outline: none; 
 }
 
@@ -259,7 +259,7 @@ input[type="radio"] {
     margin-left: 280px;
 }
 
-.log-in{
+.login-button{
 
     background-color:var(--gray);
     margin-right: 30px;
@@ -279,7 +279,7 @@ input[type="radio"] {
     font-weight: bold; /* הדגשה */
 }
 
-#log-in {
+#login-button {
     background-color: var(--gray); /* צבע רקע רגיל */
     color: #fff; /* צבע טקסט */
     padding: 10px 20px; /* ריפוד פנימי */
@@ -289,7 +289,7 @@ input[type="radio"] {
     font-size: 16px; /* גודל טקסט */
 }
 
-#log-in.active {
+#login-button.active {
     background-color: var(--blue); /* צבע רקע פעיל */
     cursor: pointer; /* סמן עכבר למצב פעיל */
 }
