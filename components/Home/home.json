@@ -3,7 +3,7 @@
         "image": "../assets/home-images/img/Trip1.png",
         "description": "Come explore Santorini's stunning views, unique beaches, and delicious Greek cuisine. Perfect for a memorable getaway!",
         "location": "Santorini, Greece",
-        "rating": 9,
+        "rating": 9.9,
         "reviews": 146
     },
     {
@@ -17,7 +17,7 @@
         "image": "../assets/home-images/img/Trip3.png",
         "description": "Experience Paris's iconic landmarks, charming cafes, and exquisite cuisine. Perfect for a romantic getaway!",
         "location": "Paris, France",
-        "rating": 9.8,
+        "rating": 7,
         "reviews": 198
     },
     {

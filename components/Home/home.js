@@ -1,7 +1,5 @@
-console.log("Script loaded");
 
 document.addEventListener('DOMContentLoaded', () => {
-    console.log("DOM fully loaded and parsed");
 
     const slider = document.querySelector('.slider');
     const slides = document.querySelectorAll('.slide');
@@ -103,3 +101,6 @@ function createVacation(vacation) {
 
     return vacationCard;
 }
+document.querySelector('.all-vacations').addEventListener('click', function() {
+    window.location.href = 'vacations.html';
+});

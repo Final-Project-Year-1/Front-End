@@ -5,18 +5,19 @@
     --gray-dark: #6F6358;
     --white: #fffeea;
     --gray: #acacac;
-    --blue:#5d9792;
-    --dark-blue:#467470;
+    --blue: #5d9792;
+    --dark-blue: #467470;
 }
+
 a {
-    
     color: #000;
     text-decoration: none;
-
 }
+
 body {
+    overflow-x: hidden;
     margin: 0;
-    font-family:Arial, Helvetica, sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
     display: grid;
     grid-template-rows: auto 1fr auto;
     min-height: 100vh;
@@ -28,71 +29,96 @@ body {
     justify-content: space-between;
     align-items: center;
     color: #fff;
-    padding: 10px 30px; 
+    padding: 10px 30px;
     grid-row: 1;
-    border-bottom: 0.6px solid var(--gray); 
+    border-bottom: 0.6px solid var(--gray);
     box-shadow: 0 2px 4px -2px rgba(0, 0, 0, 0.2);
-    
 }
+
+.top-R {
+    color: #000;
+    z-index: 1;
+    right: 40px;
+    align-items: center;
+    display: flex;
+    position: absolute;
+    padding: 10px;
+    top: 0;
+    gap: 10px;
+}
+
+.shop {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px;
+    font-size: 14px;
+    border: none;
+    border-radius: 7px;
+    background-color: rgba(178, 222, 218, 0.3);
+    cursor: pointer;
+}
+
+.shop svg {
+    margin-left: 5px;
+}
+
+.shop:hover {
+    cursor: pointer;
+    background-color: rgba(174, 202, 200, 0.3);
+}
+
 .mid {
     position: relative;
     text-align: center;
     color: white;
-    width: 100%; /* מבטיח כי התמונה מתמלאת בכל הרוחב */
-
+    width: 100%;
 }
 
 .main {
-    display: flex; /* הפעלת Flexbox */
-    flex-direction: row; /* סידור האלמנטים בשורה */
-}
-
-/* filter */
-.filter-column {
-    width: 20%; /* או כל רוחב אחר שתבחר */
-    padding: 20px; /* הוספת ריווח פנימי לנוחות */
-    border-right: 2px solid #ccc; /* קו הפרדה בין הסינון לכרטיסים */
+    display: flex;
+    padding: 42px;
+    
+    flex-direction: row;
 }
 
 
-
-
-/* num of vacations */
-
-.all-vacations-title{
+.all-vacations-title {
     margin-top: 30px;
-    padding: 2px;
-    border-bottom: 1px solid var(--gray-dark);
+    padding: 10px;
     margin-bottom: 10px;
+    position: relative;
+    justify-items: center;
+    
+   
 }
 
 
-
-
-/* card */
 
 .image-slider {
     position: relative;
     width: 100%;
-    height: 250px; /* קובע גובה קבוע לתמונות */
+    height: 250px;
+    overflow: hidden; /* נוסף כדי להסתיר את התמונה שיוצאת מהקופסה */
 }
 
 .image-slider img {
     width: 100%;
-    height: 200px;
+    height: 100%; /* שינוי מ-200px ל-100% */
     object-fit: cover;
-    transition: transform 0.5s ease; /* אנימציה חלקה לשינוי */
+    transition: transform 0.5s ease;
 }
 
 .image-slider img:hover {
-    transform: scale(1.3); /* מגדיל את התמונה ב-10% */
+    transform: scale(1.3);
 }
 
 .prev-btn, .next-btn {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    background-color:transparent;
+    background-color: transparent;
     border-radius: 20px;
     color: white;
     border: none;
@@ -109,97 +135,89 @@ body {
     right: 10px;
 }
 
-
 .cards-container {
     padding: 10px;
     display: flex;
-    flex-wrap: wrap; /* מאפשר לכרטיסים לעבור לשורה הבאה אם לא מצאו מקום */
-    gap: 20px; /* מרווח בין כרטיסים */
-    justify-content: flex-start; /* מיישר את הכרטיסים לצד השמאלי */
+    flex-wrap: wrap;
+    gap: 24px;
+    justify-content: flex-start;
 }
 
 .card {
     background-color: white;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     width: 250px;
     margin-bottom: 20px;
-    border-radius: 20px; /* מעגל את כל הקצוות */
-    overflow: hidden; /* מונע מתוכן הכרטיס לחרוג מעבר לגבולות המעוגלים */
+    border-radius: 20px;
+    overflow: hidden;
 }
-
 
 .mid-image {
     width: 100%;
-    height: auto; /* משמר פרופורציה */
-    object-fit: cover; /* מבטיח שהתמונה תמלא את המקום מבלי להיות מעוותת */
+    height: auto;
+    object-fit: cover;
 }
 
 .title-content {
-    object-fit: cover; /* מבטיח שהתמונה תמלא את המקום מבלי להיות מעוותת */
+    object-fit: cover;
     width: 100%;
-    height: auto; /* משמר פרופורציה */
+    height: auto;
     color: #000;
     position: absolute;
-    top: 22%;
+    top: 30%;
     left: 9%;
     font-size: 20px;
     transform: translate(0, 0);
     text-align: left;
-
 }
 
 @media (max-width: 768px) {
     .title-content {
-        font-size: 8px; /* מקטין את גודל הפונט במסכים קטנים */
+        font-size: 8px;
     }
 }
 
-
 @media (min-width: 769px) and (max-width: 1024px) {
     .title-content {
-        font-size: 10px; /* מגדיל קצת את גודל הפונט לטאבלטים */
+        font-size: 10px;
     }
 }
 
 @media (min-width: 1025px) {
     .title-content {
-        font-size: 20px; /* גודל פונט רגיל למסכים גדולים */
+        font-size: 20px;
     }
 }
 
-
-.top-title{
+.top-title {
     color: var(--red);
 }
-
 
 .search-form {
     position: relative;
     display: flex;
-    width: 87vw; /* אורך כולל של הטופס יהיה 80% מרוחב המסך */
-    gap: 1vw; /* המרווחים בין השדות יהיו קבועים ביחס לרוחב המסך */
+    width: 87vw;
+    gap: 1vw;
     background: rgba(111, 99, 88, 0.7);
-    padding: 1.2vw; /* פדינג בהתאם לרוחב המסך */
+    padding: 1.2vw;
     border-radius: 40px;
-    justify-content: space-around; /* מרווחים אחידים בין האלמנטים */
-    align-items: center; /* מיישר את האלמנטים בצורה אנכית */
+    justify-content: space-around;
+    align-items: center;
 }
 
-
-.search-form input[type="text"], 
+.search-form input[type="text"],
 .search-form input[type="date"],
 .search-form input[type="number"] {
     flex-shrink: 1px;
-    font-size: 16px; /* גודל פונט קבוע */
-    padding: 20px; /* פדינג קבוע */
-    width: 200px; /* רוחב קבוע */
-    margin: 0 5px; /* מרווחים קבועים מצדדים */
+    background-color: rgba(255, 255, 255, 0.8);
+    font-size: 16px;
+    padding: 20px;
+    width: 200px;
+    margin: 0 5px;
     border: none;
     border-radius: 5px;
     outline: none;
 }
-
-
 
 .icon-button {
     font-size: 2vw;
@@ -208,20 +226,19 @@ body {
     cursor: pointer;
 }
 
-
 input[type="date"] {
-    
     padding: none;
     border-radius: 5px;
     color: #555;
     font-size: 20px;
 }
-.flatpickr-calendar{
-    
+
+.flatpickr-calendar {
     background-color: white;
     border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
+
 .input-icon-wrapper {
     position: relative;
     display: flex;
@@ -229,67 +246,53 @@ input[type="date"] {
 }
 
 .search-form input, .search-form button {
-    font-size: 1.2vw; /* גודל פונט באחוזים מרוחב המסך */
-    padding: 1vw; /* פדינג באחוזים */
-    width: 18vw; /* רוחב קבוע באחוזים מרוחב המסך */
+    font-size: 1.2vw;
+    padding: 1vw;
+    width: 18vw;
     border: none;
     border-radius: 0.5vw;
     outline: none;
 }
 
 .search-form input[type="text"], .search-form input[type="date"], .search-form input[type="number"] {
-    flex-grow: 1; /* מאפשר לשדות האינפוט להתרחב ולהתכווץ עם הטופס */
+    flex-grow: 1;
 }
 
 .search-form button {
-    flex-grow: 0; /* מונע מהכפתור להתרחב יותר מדי */
+    flex-grow: 0;
 }
-
 
 .icon-custom {
-
     position: absolute;
-    left: 180vw; /* Adjust based on desired padding inside the input */
-    color: var(--red); /* Color of the icon if it supports this property */
-    pointer-events: none; /* Makes the icon non-interactive */
+    left: 180vw;
+    color: var(--red);
+    pointer-events: none;
 }
-
-
-
 
 @media (max-width: 800px) {
     .cards-container {
-        justify-content: center; /* מרכז את הכרטיסים כאשר המסך צר */
+        justify-content: center;
     }
 }
 
-
-
-
 .card-header {
     position: relative;
-    height: 200px; /* גובה קבוע לחלק העליון של הכרטיס */
-    background-size: cover; /* מבטיח שהתמונה תכסה את כל האלמנט ללא הפרעה לפרופורציות */
-    background-position: center; /* ממרכז את התמונה בכרטיס */
+    height: 200px;
+    background-size: cover;
+    background-position: center;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-
-
-
-    border-radius: 30px 30px 0 0; /* מעגל רק את הקצוות העליונים */
-    
-
-
+    border-radius: 30px 30px 0 0;
 }
 
 .save, .quick-view {
-    z-index: 1; /* מבטיח שהטקסט והכפתורים יהיו מעל התמונה */
+    z-index: 1;
 }
 
 .save {
     margin: 10px;
-    background-color: rgba(0, 0, 0, 0.75); /* שקיפות לרקע של הטקסט */
+    background-color: rgba(0, 0, 0, 0.75);
     padding: 5px 10px;
     border-radius: 5px;
     color: white;
@@ -307,35 +310,22 @@ input[type="date"] {
 }
 
 .card-image img {
-    width: 100%; 
-    height: 200px;  
-    object-fit: cover; 
-    display: block;
-}
-
-
-
-
-.image-slider {
-    position: relative;
     width: 100%;
     height: 200px;
-     display: block;
-    overflow: hidden; 
+    object-fit: cover;
+    display: block;
 }
-
 
 .card-body {
     background-color: rgb(255, 255, 255);
     padding: 8px;
-   
-}
-.rating{
-    padding: 3px;
-   
 }
 
-.per{
+.rating {
+    padding: 3px;
+}
+
+.per {
     font-size: 10px;
 }
 
@@ -358,16 +348,13 @@ input[type="date"] {
 .card-footer {
     margin-top: 7px;
     display: flex;
-    justify-content: space-between; /* מיישר את התוכן לשני הקצוות */
-    padding: 10px; /* מרווח בפנים הכרטיס */
-    align-items: start; /* מיישר את התוכן לצד העליון */
-   
-    background-color: #fff; /* רקע לבן, אפשר לשנות לפי הצורך */
+    justify-content: space-between;
+    padding: 10px;
+    align-items: start;
+    background-color: #fff;
 }
 
-
-
-.view-tour,.get-quote {
+.view-tour, .get-quote {
     background-color: var(--dark-blue);
     color: white;
     border: none;
@@ -378,28 +365,27 @@ input[type="date"] {
     font-size: 12px;
 }
 
-
 .get-quote {
     background-color: transparent;
     color: var(--dark-blue);
     border: 1px solid var(--dark-blue);
 }
-.view-tour:hover,.get-quote:hover{
-    cursor:pointer;
+
+.view-tour:hover, .get-quote:hover {
+    cursor: pointer;
 }
 
-
-
 .new-price {
-    font-weight:bold;
+    font-weight: bold;
     font-size: 16px;
     color: black;
 }
-#new{
+
+#new {
     font-size: 20px;
 }
 
-.rating{
+.rating {
     height: 20px;
     border-radius: 20px;
     font-size: 12px;
@@ -407,68 +393,64 @@ input[type="date"] {
 
 .card-btn-footer {
     display: flex;
-    flex-direction: column; /* סדר את האלמנטים בצורה אנכית */
-    align-items: flex-end; /* יישור הכפתורים לצד ימין */
+    flex-direction: column;
+    align-items: flex-end;
     padding: 10px;
-    margin-top: -25px; /* דוחף את הכפתורים יותר למעלה */
-    
-
+    margin-top: -25px;
 }
 
 .view-tour, .get-quote {
-    width: 100%; /* מתאים את רוחב הכפתורים לרוחב האלמנט המכיל */
-    margin-top: 10px; /* מוסיף מרווח בין הכפתורים */
+    width: 100%;
+    margin-top: 10px;
 }
 
 .view-tour:first-child {
-    margin-top: 0; /* מונע מרווח נוסף מעל הכפתור הראשון */
+    margin-top: 0;
 }
+
 .header-content {
-    position: absolute; /* Make sure this is relative if you are using absolute positioning inside */
-    width: 80vw; /* Responsive width */
-    margin: auto; /* Center the content */
-    padding: 2vw; /* Responsive padding */
-    
+    position: absolute;
+    width: 80vw;
+    margin: auto;
+    padding: 2vw;
     border-radius: 40px;
     display: flex;
-    justify-content: space-around; /* Adjust this to center if items appear off-center */
+    justify-content: space-around;
     align-items: center;
-    flex-wrap: wrap; /* Ensures contents wrap on smaller screens */
+    flex-wrap: wrap;
     top: 45%;
     left: 6%;
 }
 
-/* Responsive input fields and button */
-.header-content input[type="text"], 
+.header-content input[type="text"],
 .header-content input[type="date"],
 .header-content input[type="number"],
 .header-content button {
-    font-size: 1.2vw; /* Responsive font size */
-    padding: 1vw; /* Responsive padding */
-    width: 18vw; /* Ensure width is responsive */
+    font-size: 1.2vw;
+    padding: 1vw;
+    width: 18vw;
     border: none;
     border-radius: 0.5vw;
 }
+
 .search-form button {
     padding: none;
     background-color: transparent;
-    color:white;
+    color: white;
     border: none;
     border-radius: 10px;
     cursor: pointer;
     font-size: 17px;
-
     width: 3vw;
 }
-/* Responsive icon adjustments */
+
 .header-content .icon-custom {
-    position: absolute; /* Make sure positioning is needed */
-    left: calc(100% - 2vw); /* Adjust based on your specific needs */
+    position: absolute;
+    left: calc(100% - 2vw);
     width: 1.5vw;
     height: 1.5vw;
 }
 
-/* Minimum sizes on very small devices */
 @media (max-width: 600px) {
     .header-content input, .header-content button {
         font-size: 12px;
@@ -477,6 +459,91 @@ input[type="date"] {
     .header-content .icon-custom {
         width: 16px;
         height: 16px;
-        left: calc(100% - 20px); /* Adjust left positioning for small devices */
+        left: calc(100% - 20px);
     }
+}
+
+
+
+
+.menu {
+    display: flex;
+    gap: 20px;
+
+    position: relative;
+    left: 30%;
+    flex-wrap: wrap;
+}
+
+.menu-item {
+    position: relative;
+}
+
+.menu-item button {
+    background: #ffffff;
+    border: 1px solid #acacac;
+    border-radius: 25px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: background-color 0.3s ease;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    top: 110%;
+    left: 0;
+    background-color: #ffffff;
+    min-width: 300px; /* Increased width to accommodate two columns */
+
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    border-radius: 15px;
+    padding: 15px;
+    border: 1px solid #acacac;
+}
+
+.dropdown-content label {
+    display: block;
+    padding: 10px 0;
+    font-size: 14px;
+    width: 50%; /* Make each label take up half the width */
+
+}
+
+.dropdown-content label input {
+    margin-right: 10px;
+}
+
+.dropdown-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+
+.clear-btn {
+    background-color: #f0f0f0;
+    color: black;
+}
+
+.menu-item:hover .dropdown-content {
+    display: block;
+}
+
+/* Specific styling for different dropdowns */
+.menu-item:hover .dropdown-content {
+    display: flex;
+    flex-wrap: wrap;
+
+
+}
+
+.nights-content {
+    flex-wrap: wrap;
+    gap: 15px;
 }

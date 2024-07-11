@@ -13,6 +13,7 @@ body {
     margin: 0;
     font-family:Arial, Helvetica, sans-serif;
     display: grid;
+    overflow-x: none;
     grid-template-rows: auto 1fr auto;
     min-height: 100vh;
     
@@ -97,20 +98,20 @@ body {
 .photo-mid{
     justify-content: center;
    
-    width: 90%;
+    width: 1%;
     margin-top: 5rem;
     border-radius: 30px;
 }
 
 .save {
-    width:75rem;
+    width: 94%;
     padding: 20px;
     background-color: #771011;
-    box-shadow: 1px 1px 1px 1px  #771011;
-    border-radius: 13px;
-    color: var(--white); 
-    margin-bottom: 20px; 
-    font-size: 17px; 
+    box-shadow: 1px 1px 1px 1px #771011;
+    color: var(--white);
+    margin-bottom: 20px;
+    font-size: 17px;
+    border-radius: 10px;
 }
 
 .fa-plane{
@@ -189,7 +190,7 @@ body {
     display: flex;
     text-align: start;
     align-items: center;
-    width:73.5rem;
+    width:92%;
     padding: 35px;
     background-color: var(--blue);
     box-shadow: 1px 1px 1px 1px  var(#6bb6f7);
@@ -252,7 +253,8 @@ body {
 
 
 .border-rad{
-    border-radius: 30px;
+    width: 100%; 
+
 }
 
 
@@ -309,8 +311,12 @@ body {
     border-radius: 8px;
 }
 .position-relative {
+    
     position: relative; 
     display: inline-block; 
+}
+.position-relative img{
+    width: 1300px;
 }
 
 .cards {

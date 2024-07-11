@@ -21,7 +21,7 @@ const register = async (user) => {
     const response = await axios.post(userRegisterUrl, user);
     const token = response.data;
     localStorage.setItem("token", token);     
-    //window.location.href = "../../Home/home.html";
+    window.location.href = "../../Home/home.html";
   } catch (error) {
     console.error("Registration error:", error);
     throw error;
