@@ -1,0 +1,127 @@
+:root {
+    --red: #771011;
+    --gray-transparent: rgba(111, 99, 88, 0.2);
+    --black: #221712;
+    --gray-dark: #6F6358;
+    --white: #fffeea;
+    --gray: #acacac;
+    --blue: #5d9792;
+    --dark-blue: #467470;
+    --light-gray: #f4f4f4;
+    --background-light: #f9f9f9;
+}
+
+body {
+    margin: 0;
+    font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    min-height: 100vh;
+    background-color: var(--light-gray);
+    color: var(--black);
+}
+
+.top {
+    display: flex;
+    font-size: 20px;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    padding: 10px 25px;
+    grid-row: 1;
+    border-bottom: 0.6px solid var(--gray);
+    box-shadow: 0 2px 4px -2px rgba(0, 0, 0, 0.2);
+}
+
+.content {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding: 20px;
+}
+
+.mid {
+    display: flex;
+    max-width: 1200px;
+    width: 100%;
+    background-color: white;
+    box-shadow: 0 2px 4px -2px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    overflow: hidden;
+    animation: fadeIn 1s ease-in-out;
+}
+
+.image-container {
+    flex-shrink: 0;
+    animation: slideInFromLeft 1s ease-in-out;
+}
+
+.side-image {
+    width: 400px; 
+    height: auto;
+    border-radius: 8px 0 0 8px;
+}
+
+.text-content {
+    padding: 20px;
+    line-height: 1.8;
+    color: var(--black);
+    background-color: var(--background-light);
+    border-radius: 0 8px 8px 0;
+}
+
+.text-content h1 {
+    color: var(--dark-blue);
+    margin-bottom: 20px;
+    animation: fadeIn 1s ease-in-out;
+}
+
+.text-content p {
+    margin-bottom: 20px;
+    animation: fadeIn 1s ease-in-out;
+}
+
+.top-button a {
+    color: var(--dark-blue);
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+    margin: 0 10px;
+    transition: color 0.3s ease;
+}
+
+.top-button a:hover {
+    color: var(--red);
+}
+
+.footer {
+    background-color: var(--gray-dark);
+    color: var(--white);
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.footer-text {
+    font-size: 14px;
+    color: var(--gray);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes slideInFromLeft {
+    from {
+        transform: translateX(-100%);
+    }
+    to {
+        transform: translateX(0);
+    }
+}
