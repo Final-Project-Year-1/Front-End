@@ -1,4 +1,3 @@
-
 document.addEventListener('DOMContentLoaded', () => {
 
     const slider = document.querySelector('.slider');
@@ -64,7 +63,6 @@ function createVacation(vacation) {
     const vacationCard = document.createElement('div');
     vacationCard.classList.add('card-vacations'); 
     vacationCard.style.fontSize = '15px';
-    vacationCard.style.width = '300px';
 
     const vacationButton = document.createElement('button');
     vacationButton.classList.add('no-back');
@@ -79,28 +77,23 @@ function createVacation(vacation) {
     vacationCard.appendChild(vacationButton);
 
     const descriptionDiv = document.createElement('div');
-    descriptionDiv.classList.add('tmp');
-    descriptionDiv.style.width = '100%';
-    descriptionDiv.style.marginLeft = '0';
-    descriptionDiv.innerHTML = `<span class="space">${vacation.description}<br><br></span>`;
+    descriptionDiv.classList.add('description');
+    descriptionDiv.innerHTML = `<span>${vacation.description}</span>`;
     vacationCard.appendChild(descriptionDiv);
 
     const locationDiv = document.createElement('div');
-    locationDiv.classList.add('tmp');
-    locationDiv.style.width = '100%';
-    locationDiv.style.marginLeft = '0';
-    locationDiv.innerHTML = `<span class="space space2" style="text-decoration: underline; padding-top: 10px; font-weight: bold; font-size: 18px;"><a href="">${vacation.location}</a><br><br></span>`;
+    locationDiv.classList.add('description');
+    locationDiv.innerHTML = `<span><a href="">${vacation.location}</a></span>`;
     vacationCard.appendChild(locationDiv);
 
     const ratingDiv = document.createElement('div');
-    ratingDiv.classList.add('tmp');
-    ratingDiv.style.width = '100%';
-    ratingDiv.style.marginLeft = '0';
-    ratingDiv.innerHTML = `<span class="space space3" style="font-size: 14px;">${vacation.rating}/10 Exceptional (${vacation.reviews} reviews)</span>`;
+    ratingDiv.classList.add('description');
+    ratingDiv.innerHTML = `<span>${vacation.rating}/10 Exceptional (${vacation.reviews} reviews)</span>`;
     vacationCard.appendChild(ratingDiv);
 
     return vacationCard;
 }
+
 document.querySelector('.all-vacations').addEventListener('click', function() {
     window.location.href = 'vacations.html';
 });
