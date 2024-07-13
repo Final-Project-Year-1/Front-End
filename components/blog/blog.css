@@ -61,7 +61,7 @@ h1 {
     overflow: hidden;
     transition: transform 0.3s;
     flex: 1;
-    max-width: 300px; /* Ensure all cards have the same size */
+    max-width: 300px; 
 }
 
 .post img {
@@ -182,7 +182,6 @@ h1 {
     object-fit: cover;
 }
 
-/* Size variations for the collage effect */
 .collage-item-large {
     grid-row: span 2;
     grid-column: span 2;

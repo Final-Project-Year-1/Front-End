@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+
     var faqItems = document.querySelectorAll('.faq-item h2');
     faqItems.forEach(function(item) {
         item.addEventListener('click', function() {
@@ -10,4 +10,4 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         });
     });
-});
+
