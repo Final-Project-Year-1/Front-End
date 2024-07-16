@@ -13,8 +13,12 @@ const login = async (credentials) => {
   try {
     const response = await axios.post(userLoginUrl, credentials);
     const token = response.data;
-    localStorage.setItem("token", token);   
-    window.location.href = "../../Home/home.html";
+    if (typeof token === 'string') {
+      localStorage.setItem("token", token);
+      window.location.href = "../../Home/home.html";
+    } else {
+      console.log('incorrect email or password');
+    }
   } catch (error) {
     console.error("Login error:", error);
     throw error;
