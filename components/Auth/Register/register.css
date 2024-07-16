@@ -18,7 +18,7 @@ body {
     min-height: 100vh;
     overflow-x: hidden;
     overflow-y: hidden;
-    background: url('../../assets/home-images/img/sea.png') no-repeat center center fixed;
+    background: url('../../assets/home-images/img/vacation3.jpg') no-repeat center center fixed;
     background-size: cover;
 }
 
@@ -29,7 +29,7 @@ body {
     font-size: 20px;
     justify-content: space-between;
     align-items: center;
-    color: #fff;
+    color:#acacac;
     padding: 10px 30px; 
     grid-row: 1;
     width: 100%;
@@ -41,7 +41,7 @@ body {
     padding: none;
 }
 
-.log-in {
+.login {
     background-color: transparent;
     border: none;
     color: #771011;
@@ -49,7 +49,7 @@ body {
     font-size: 20px;
 }
 
-.log-in:hover {
+.login:hover {
     cursor: pointer;
 }
 
@@ -71,7 +71,7 @@ body {
 
 /* mid */
 .mid {
-    color: var(--red);
+    color: var(--gray-dark);
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -86,7 +86,7 @@ body {
 .data {
     z-index: 3;
     border-radius: 3px;
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0.8);
     padding: 10px;
     padding-left: 30px;
     display: flex;
@@ -135,17 +135,18 @@ body {
 .form-group input {
     font-size: 12px;
     flex-grow: 0;
-    width: 148%; 
+    width: 150%; 
     padding: 3px;
-    border: 1px solid var(--gray-dark); 
+    border: 0.5px solid var(--gray-dark); 
     outline: none; 
+    background-color: transparent;
     z-index: 3;
-    border-radius: 10px;
+    border-radius: 7px;
 }
 
 .form-group input:focus,
 .form-group input:active {
-    box-shadow: 0 0 5px var(--red);
+    box-shadow: 0 0 2px var(--red);
 }
 
 .customer-care {
@@ -155,7 +156,7 @@ body {
     display: flex;
     width: 220px;
     flex-direction: column;
-    background-color: white;
+    background-color: rgba(255, 255, 255, 0.8);
     height: 400px;
     margin-left: 20px;
 }
@@ -180,7 +181,7 @@ body {
     border-bottom: 0.5px solid rgb(67, 67, 67);
     width: 185px;
     font-size: 20px;
-    color: var(--red);
+    color: var(--gray-dark);
     font-weight: bold;
 }
 
@@ -221,6 +222,7 @@ label {
 
 input,
 label {
+    
     margin: 0.4rem 0;
 }
 
@@ -234,6 +236,7 @@ input[type="radio"] {
 
 .gender-input {
     gap: 5px;
+    
     display: flex;
     align-items: center;
 }
@@ -245,6 +248,8 @@ input[type="radio"] {
 
 .gender-input input {
     width:fit-content;
+    background-color: transparent;
+
     margin-right: 2px;
 }
 
@@ -280,7 +285,7 @@ input[type="radio"] {
 }
 
 .error-message {
-    color: red;
+   color: #221712;
     font-size: 12px;
     position: absolute;
     margin-left: 280px;

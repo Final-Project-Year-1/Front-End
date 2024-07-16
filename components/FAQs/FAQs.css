@@ -1,0 +1,135 @@
+:root {
+    --red: #771011;
+    --gray-transparent: rgba(111, 99, 88, 0.2);
+    --black: #221712;
+    --gray-dark: #6F6358;
+    --white: #fffeea;
+    --gray: #acacac;
+    --blue: #5d9792;
+    --dark-blue: #467470;
+    --light-gray: #f4f4f4;
+    --background-light: #f9f9f9;
+}
+
+body {
+    margin: 0;
+    font-family: 'Open Sans', Arial, Helvetica, sans-serif;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    min-height: 100vh;
+    background-color: var(--light-gray);
+    color: var(--black);
+}
+
+.top {
+    display: flex;
+    font-size: 20px;
+    justify-content: space-between;
+    align-items: center;
+    background-color: white;
+    padding: 10px 25px;
+    grid-row: 1;
+    border-bottom: 0.6px solid var(--gray);
+    box-shadow: 0 2px 4px -2px rgba(0, 0, 0, 0.2);
+}
+
+.main-container {
+    display: flex;
+    max-width: 1200px;
+    margin: 20px auto;
+    gap: 20px;
+}
+
+.side-image {
+    flex: 1;
+}
+
+.side-image img {
+    width: 500px;
+    height: 1000px;
+    object-fit: cover;
+    border-radius: 8px;
+    max-width: 500px;
+    max-height: 100%;
+}
+
+
+.faq-container {
+    flex: 2;
+    background-color: white;
+    box-shadow: 0 2px 4px -2px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.faq-container h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: var(--dark-blue);
+    animation: fadeIn 1s ease-in-out;
+}
+
+.faq-item {
+    border-bottom: 1px solid var(--gray);
+    padding: 20px 0;
+}
+
+.faq-item h2 {
+    cursor: pointer;
+    margin: 0;
+    padding: 10px;
+    background-color: var(--background-light);
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+    animation: fadeIn 1s ease-in-out;
+}
+
+.faq-item h2:hover {
+    background-color: var(--light-gray);
+}
+
+.faq-content {
+    display: none;
+    padding: 10px;
+    animation: fadeIn 1s ease-in-out;
+}
+
+.faq-content p {
+    margin: 10px 0;
+}
+
+.footer {
+    background-color: var(--gray-dark);
+    color: var(--white);
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.footer-text {
+    font-size: 14px;
+    color: var(--gray);
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.top-button a {
+    color: var(--dark-blue);
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+    margin: 0 10px;
+    transition: color 0.3s ease;
+}
+
+.top-button a:hover {
+    color: var(--red);
+}

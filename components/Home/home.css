@@ -14,8 +14,7 @@ body {
     font-family:Arial, Helvetica, sans-serif;
     display: grid;
     grid-template-rows: auto 1fr auto;
-    min-height: 100vh;
-    
+    min-height: 100vh;   
 }
 
 .top {
@@ -31,7 +30,6 @@ body {
     
 }
 
-
 .top-button {
     display: inline-block;
 }
@@ -39,7 +37,8 @@ body {
     font-size: 10px;
 }
 
-#login{
+#login,
+#logout{
     color: #467470;
     font-size: 14px;
     font-weight: bolder;
@@ -47,14 +46,27 @@ body {
     position: relative;
     padding: 5px 15px; 
     border:none;
+    text-decoration: underline;
     cursor: pointer;
     transition: background-color 0.3s ease, box-shadow 0.3s ease; 
 }
-#login:hover{
+
+#login:hover,
+#logout:hover {
     color: var(--red);
 }
 
+#hello-user {
+    color: #467470;
+    font-size: 14px;
+    font-weight: bolder;
+    position: relative;
+    padding: 5px 15px; 
+}
 
+.top-button-logged-in{
+    display: none;
+}
 
 #login img {
 
@@ -76,8 +88,8 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
-    text-align: center; /* ממרכז את הטקסט */
-    padding: 20px; /* רווח פנימי מסביב לתוכן */
+    text-align: center; 
+    padding: 20px;
 }
 .photo-logo{
     margin-top: 40px;
@@ -137,7 +149,7 @@ body {
 }
 
 .slide {
-    min-width: 25%; /* 4 תמונות במסך אחד */
+    min-width: 25%; 
     transition: transform 0.5s ease;
 }
 
@@ -415,4 +427,3 @@ body {
         padding: 5px; /* הקטנת הריווחים בראש ובתחתית */
     }
 }
-

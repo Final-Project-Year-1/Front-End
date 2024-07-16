@@ -3,28 +3,28 @@
         "image": "../assets/home-images/img/Trip1.png",
         "description": "Come explore Santorini's stunning views, unique beaches, and delicious Greek cuisine. Perfect for a memorable getaway!",
         "location": "Santorini, Greece",
-        "rating": 9,
+        "rating": 9.9,
         "reviews": 146
     },
     {
         "image": "../assets/home-images/img/Trip2.png",
         "description": "Relax in Maui's paradise with stunning beaches, lush rainforests, and exciting water activities. Ideal for adventure!",
         "location": "Maui, Hawaii",
-        "rating": 8,
+        "rating": 9.9,
         "reviews": 116
     },
     {
         "image": "../assets/home-images/img/Trip3.png",
         "description": "Experience Paris's iconic landmarks, charming cafes, and exquisite cuisine. Perfect for a romantic getaway!",
         "location": "Paris, France",
-        "rating": 9.8,
+        "rating": 7,
         "reviews": 198
     },
     {
         "image": "../assets/home-images/img/Trip4.png",
         "description": "Discover Kyoto's beautiful temples, serene gardens, and traditional tea houses. Perfect for a cultural escape!",
         "location": "Kyoto, Japan",
-        "rating": 9.9,
+        "rating": 6,
         "reviews": 283
     },
     {

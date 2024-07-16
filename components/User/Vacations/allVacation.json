@@ -1,0 +1,376 @@
+[
+    {
+        "title": "OF CHILE FROM ATACAMA TO PATAGONIA",
+        "rating": "9.9/10 Exceptional (283 reviews)",
+        "info": {
+            "days": "11 Days",
+            "locations": "6 Locations",
+            "country": "1 Country"
+        },
+        "description": "Casablanca Wine Country, Glaciers & Deserts: The Ultimate 11-Day Guided Tour of Chile",
+        "price": "$7,257",
+        "images": [
+            "../assets/home-images/img/Trip2.png",
+            "../assets/home-images/img/Trip1.png",
+            "../assets/home-images/img/Trip3.png",
+            "../assets/home-images/img/Trip4.png"
+        ]
+    },
+    {
+        "title": "EXPLORING THE BEAUTY OF SWITZERLAND",
+        "rating": "9.5/10 Excellent (190 reviews)",
+        "info": {
+            "days": "7 Days",
+            "locations": "5 Locations",
+            "country": "1 Country"
+        },
+        "description": "Swiss Alps, Lucerne & Interlaken: A 7-Day Adventure in Switzerland",
+        "price": "$5,999",
+        "images": [
+           "../assets/home-images/img/hotel1.png",
+            "../assets/home-images/img/hotel2.png",
+            "../assets/home-images/img/hotel3.png",
+           "../assets/home-images/img/hotel3.png"
+        ]
+    },
+    {
+        "title": "MAGICAL JAPAN: TOKYO TO KYOTO",
+        "rating": "9.8/10 Exceptional (210 reviews)",
+        "info": {
+            "days": "10 Days",
+            "locations": "8 Locations",
+            "country": "1 Country"
+        },
+        "description": "Discover the Ancient and Modern Marvels of Japan in a 10-Day Guided Tour",
+        "price": "$6,499",
+        "images": [
+            "../assets/home-images/img/hotel4.png",
+            "../assets/home-images/img/hotel5.png",
+            "../assets/home-images/img/hotel6.png",
+           "../assets/home-images/img/Trip5.png"
+        ]
+    },
+    {
+        "title": "WONDERS OF NEW ZEALAND",
+        "rating": "9.7/10 Excellent (150 reviews)",
+        "info": {
+            "days": "12 Days",
+            "locations": "7 Locations",
+            "country": "1 Country"
+        },
+        "description": "A 12-Day Adventure Across New Zealand's Stunning Landscapes",
+        "price": "$8,200",
+        "images": [
+            "../assets/home-images/img/Trip6.png",
+            "../assets/home-images/img/Trip6.png",
+            "../assets/home-images/img/Vacation.png",
+           "../assets/home-images/img/Vacation2.png"
+        ]
+    },
+    {
+        "title": "EXPLORE THE CANADIAN ROCKIES",
+        "rating": "9.6/10 Excellent (170 reviews)",
+        "info": {
+            "days": "9 Days",
+            "locations": "5 Locations",
+            "country": "1 Country"
+        },
+        "description": "Experience the Majestic Beauty of the Canadian Rockies in a 9-Day Tour",
+        "price": "$7,000",
+        "images": [
+            "../assets/home-images/img/Vacation3.png",
+            "../assets/home-images/img/Vacation4.png",
+            "../assets/home-images/img/Vacation5.png",
+            "../assets/home-images/img/Vacation6.jpeg"
+        ]
+    },
+    {
+        "title": "DISCOVERING EGYPT",
+        "rating": "9.4/10 Excellent (130 reviews)",
+        "info": {
+            "days": "8 Days",
+            "locations": "4 Locations",
+            "country": "1 Country"
+        },
+        "description": "Explore the Ancient Wonders of Egypt in an 8-Day Tour",
+        "price": "$4,800",
+        "images": [
+            "../assets/home-images/img/Trip1.png",
+            "../assets/home-images/img/Trip2.png",
+            "../assets/home-images/img/Trip3.png",
+            "../assets/home-images/img/Trip4.png"
+        ]
+    },
+    {
+        "title": "ITALIAN GRANDEUR",
+        "rating": "9.7/10 Exceptional (220 reviews)",
+        "info": {
+            "days": "10 Days",
+            "locations": "7 Locations",
+            "country": "1 Country"
+        },
+        "description": "An Exquisite 10-Day Journey through Italy's Best Locations",
+        "price": "$6,700",
+        "images": [
+            "../assets/home-images/img/hotel1.png",
+            "../assets/home-images/img/hotel2.png",
+            "../assets/home-images/img/hotel3.png",
+            "../assets/home-images/img/Trip1.png"
+        ]
+    },
+    {
+        "title": "ENCHANTING SPAIN",
+        "rating": "9.6/10 Excellent (175 reviews)",
+        "info": {
+            "days": "9 Days",
+            "locations": "6 Locations",
+            "country": "1 Country"
+        },
+        "description": "Experience the Magic of Spain in a 9-Day Adventure",
+        "price": "$5,800",
+        "images": [
+            "../assets/home-images/img/hotel4.png",
+            "../assets/home-images/img/hotel5.png",
+            "../assets/home-images/img/hotel6.png",
+            "../assets/home-images/img/Trip2.png"
+        ]
+    },
+    {
+        "title": "BEAUTY OF THE NETHERLANDS",
+        "rating": "9.5/10 Excellent (165 reviews)",
+        "info": {
+            "days": "7 Days",
+            "locations": "4 Locations",
+            "country": "1 Country"
+        },
+        "description": "Discover the Charm of the Netherlands in a 7-Day Tour",
+        "price": "$4,500",
+        "images": [
+            "../assets/home-images/img/Trip3.png",
+            "../assets/home-images/img/Trip4.png",
+            "../assets/home-images/img/Trip5.png",
+            "../assets/home-images/img/Trip6.png"
+        ]
+    },
+    {
+        "title": "CHARMS OF FRANCE",
+        "rating": "9.8/10 Exceptional (245 reviews)",
+        "info": {
+            "days": "11 Days",
+            "locations": "7 Locations",
+            "country": "1 Country"
+        },
+        "description": "A 11-Day Romantic Getaway through the Heart of France",
+        "price": "$7,400",
+        "images": [
+            "../assets/home-images/img/Vacation.png",
+            "../assets/home-images/img/Vacation2.png",
+            "../assets/home-images/img/Vacation3.png",
+            "../assets/home-images/img/Vacation4.png"
+        ]
+    },
+    {
+        "title": "AMAZING THAILAND",
+        "rating": "9.6/10 Excellent (185 reviews)",
+        "info": {
+            "days": "8 Days",
+            "locations": "6 Locations",
+            "country": "1 Country"
+        },
+        "description": "Enjoy the Exotic Beauty of Thailand in an 8-Day Tour",
+        "price": "$5,200",
+        "images": [
+            "../assets/home-images/img/Vacation5.png",
+            "../assets/home-images/img/Vacation6.jpeg",
+            "../assets/home-images/img/hotel1.png",
+            "../assets/home-images/img/hotel2.png"
+        ]
+    },
+    {
+        "title": "ADVENTURES IN AUSTRALIA",
+        "rating": "9.7/10 Excellent (210 reviews)",
+        "info": {
+            "days": "10 Days",
+            "locations": "8 Locations",
+            "country": "1 Country"
+        },
+        "description": "Explore the Wild Beauty of Australia in a 10-Day Journey",
+        "price": "$7,800",
+        "images": [
+            "../assets/home-images/img/hotel3.png",
+            "../assets/home-images/img/hotel4.png",
+            "../assets/home-images/img/hotel5.png",
+            "../assets/home-images/img/hotel6.png"
+        ]
+    },
+    {
+        "title": "DISCOVER ICELAND",
+        "rating": "9.8/10 Exceptional (240 reviews)",
+        "info": {
+            "days": "9 Days",
+            "locations": "5 Locations",
+            "country": "1 Country"
+        },
+        "description": "Witness the Natural Wonders of Iceland in a 9-Day Tour",
+        "price": "$6,900",
+        "images": [
+            "../assets/home-images/img/Trip1.png",
+            "../assets/home-images/img/Trip2.png",
+            "../assets/home-images/img/Trip3.png",
+            "../assets/home-images/img/Trip4.png"
+        ]
+    },
+    {
+        "title": "CULTURAL INDIA",
+        "rating": "9.5/10 Excellent (200 reviews)",
+        "info": {
+            "days": "12 Days",
+            "locations": "9 Locations",
+            "country": "1 Country"
+        },
+        "description": "A 12-Day Cultural Expedition through the Heart of India",
+        "price": "$5,300",
+        "images": [
+            "../assets/home-images/img/Trip5.png",
+            "../assets/home-images/img/Trip6.png",
+            "../assets/home-images/img/Vacation.png",
+            "../assets/home-images/img/Vacation2.png"
+        ]
+    },
+    {
+        "title": "PERU: MACHU PICCHU AND BEYOND",
+        "rating": "9.9/10 Exceptional (280 reviews)",
+        "info": {
+            "days": "10 Days",
+            "locations": "6 Locations",
+            "country": "1 Country"
+        },
+        "description": "Experience the Wonders of Peru in a 10-Day Adventure",
+        "price": "$6,800",
+        "images": [
+            "../assets/home-images/img/Vacation3.png",
+            "../assets/home-images/img/Vacation4.png",
+            "../assets/home-images/img/Vacation5.png",
+            "../assets/home-images/img/Vacation6.jpeg"
+        ]
+    },
+    {
+        "title": "NORWAY: LAND OF FJORDS",
+        "rating": "9.7/10 Excellent (195 reviews)",
+        "info": {
+            "days": "8 Days",
+            "locations": "5 Locations",
+            "country": "1 Country"
+        },
+        "description": "Discover the Majestic Fjords of Norway in an 8-Day Tour",
+        "price": "$5,600",
+        "images": [
+            "../assets/home-images/img/hotel1.png",
+            "../assets/home-images/img/hotel2.png",
+            "../assets/home-images/img/hotel3.png",
+            "../assets/home-images/img/hotel4.png"
+        ]
+    },
+    {
+        "title": "EXPLORE GREECE",
+        "rating": "9.6/10 Excellent (185 reviews)",
+        "info": {
+            "days": "9 Days",
+            "locations": "6 Locations",
+            "country": "1 Country"
+        },
+        "description": "A 9-Day Journey through the Historical and Natural Wonders of Greece",
+        "price": "$5,400",
+        "images": [
+            "../assets/home-images/img/hotel5.png",
+            "../assets/home-images/img/hotel6.png",
+            "../assets/home-images/img/Trip1.png",
+            "../assets/home-images/img/Trip2.png"
+        ]
+    },
+    {
+        "title": "PORTUGAL'S BEAUTY",
+        "rating": "9.5/10 Excellent (170 reviews)",
+        "info": {
+            "days": "7 Days",
+            "locations": "4 Locations",
+            "country": "1 Country"
+        },
+        "description": "Experience the Rich Culture and Scenery of Portugal in a 7-Day Tour",
+        "price": "$4,600",
+        "images": [
+            "../assets/home-images/img/Trip3.png",
+            "../assets/home-images/img/Trip4.png",
+            "../assets/home-images/img/Trip5.png",
+            "../assets/home-images/img/Trip6.png"
+        ]
+    },
+    {
+        "title": "THE WONDERS OF TURKEY",
+        "rating": "9.8/10 Exceptional (230 reviews)",
+        "info": {
+            "days": "10 Days",
+            "locations": "7 Locations",
+            "country": "1 Country"
+        },
+        "description": "A 10-Day Journey through the Diverse Landscapes and Cities of Turkey",
+        "price": "$5,900",
+        "images": [
+            "../assets/home-images/img/Vacation.png",
+            "../assets/home-images/img/Vacation2.png",
+            "../assets/home-images/img/Vacation3.png",
+            "../assets/home-images/img/Vacation4.png"
+        ]
+    },
+    {
+        "title": "SOUTH AFRICAN SAFARI",
+        "rating": "9.7/10 Excellent (220 reviews)",
+        "info": {
+            "days": "12 Days",
+            "locations": "8 Locations",
+            "country": "1 Country"
+        },
+        "description": "Experience the Thrill of a 12-Day Safari in South Africa",
+        "price": "$7,900",
+        "images": [
+            "../assets/home-images/img/Vacation5.png",
+            "../assets/home-images/img/Vacation6.jpeg",
+            "../assets/home-images/img/hotel1.png",
+            "../assets/home-images/img/hotel2.png"
+        ]
+    },
+    {
+        "title": "BEST OF ARGENTINA",
+        "rating": "9.6/10 Excellent (190 reviews)",
+        "info": {
+            "days": "11 Days",
+            "locations": "7 Locations",
+            "country": "1 Country"
+        },
+        "description": "A 11-Day Journey through the Vibrant Culture and Scenery of Argentina",
+        "price": "$6,500",
+        "images": [
+            "../assets/home-images/img/hotel3.png",
+            "../assets/home-images/img/hotel4.png",
+            "../assets/home-images/img/hotel5.png",
+            "../assets/home-images/img/hotel6.png"
+        ]
+    },
+    {
+        "title": "WONDERS OF BRAZIL",
+        "rating": "9.8/10 Exceptional (250 reviews)",
+        "info": {
+            "days": "10 Days",
+            "locations": "6 Locations",
+            "country": "1 Country"
+        },
+        "description": "Discover the Diverse Beauty of Brazil in a 10-Day Tour",
+        "price": "$6,700",
+        "images": [
+            "../assets/home-images/img/Trip1.png",
+            "../assets/home-images/img/Trip2.png",
+            "../assets/home-images/img/Trip3.png",
+            "../assets/home-images/img/Trip4.png"
+        ]
+    }
+]
