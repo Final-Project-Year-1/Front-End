@@ -24,7 +24,6 @@ const logoutButton = document.getElementById("logout");
 logoutButton.addEventListener("click", () =>{
     localStorage.setItem("token", "");
     window.location.href = "../Auth/Login/login.html";
-
 });
 
 const slider = document.querySelector(".slider");

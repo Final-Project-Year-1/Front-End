@@ -20,8 +20,12 @@ const register = async (user) => {
   try {
     const response = await axios.post(userRegisterUrl, user);
     const token = response.data;
-    localStorage.setItem("token", token);     
-    window.location.href = "../../Home/home.html";
+    if (typeof token === 'string') {
+      localStorage.setItem("token", token);
+      window.location.href = "../../Home/home.html";
+    } else {
+      console.log('Invalid Data');
+    }
   } catch (error) {
     console.error("Registration error:", error);
     throw error;
