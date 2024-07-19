@@ -1,3 +1,4 @@
+//Auth
 const getUserFromToken = () => {
     let user = null;
     const token = localStorage.getItem("token");
@@ -25,6 +26,82 @@ logoutButton.addEventListener("click", () =>{
     localStorage.setItem("token", "");
     window.location.href = "../Auth/Login/login.html";
 });
+
+// 
+// end of menu
+
+//top rated vacations
+const topRatedVacationsUrl = "http://localhost:3000/api/top-rated-vacations";
+const getVacationImg = "http://localhost:3000/api/vacations/images/";
+
+document.addEventListener("DOMContentLoaded", async function () {
+  try{
+    const response = await axios.get(topRatedVacationsUrl);
+    const vacations = response.data;
+    vacations.slice(0, 4).forEach((vacation) => createVacationCard(vacation));
+  } catch (error) {
+    console.error("Error fetching data:", error);
+  }
+});
+
+const fetchVacationImg = async (vacation) => {
+  try {
+      const response = await axios.get(getVacationImg + vacation?.imageName , { responseType: 'blob' });
+      const imageUrl = URL.createObjectURL(response.data);
+      return imageUrl;
+  } catch (error) {
+      console.error("Error fetching image:", error);
+      return null;
+  }
+}
+
+async function createVacationCard(vacation) {
+  console.log(vacation);
+
+  const vacationCard = document.createElement("div");
+  vacationCard.classList.add("card-vacations");
+
+  const vacationImg = document.createElement("img");
+  vacationImg.classList.add("vacation-image");
+  const imgSrc = await fetchVacationImg(vacation);
+  if (imgSrc) {
+    vacationImg.src = imgSrc; 
+  } else {
+    vacationImg.src = ""; 
+    vacationImg.alt = "Image not available"; 
+  }
+
+  vacationCard.appendChild(vacationImg);
+  
+  const detailsDiv = document.createElement("div");
+  detailsDiv.classList.add("vacation-details");
+
+  const descriptionDiv = document.createElement("span");
+  descriptionDiv.classList.add("description");
+  descriptionDiv.innerHTML = `${vacation.description}`;
+  detailsDiv.appendChild(descriptionDiv);
+
+  const destinationDiv = document.createElement("button");
+  destinationDiv.classList.add("destination");
+  destinationDiv.innerHTML = `${vacation.destination}`;
+  detailsDiv.appendChild(destinationDiv);
+
+  const ratingDiv = document.createElement("span");
+  ratingDiv.classList.add("rating");
+  ratingDiv.innerHTML = `${vacation.rating}/10`;
+  detailsDiv.appendChild(ratingDiv);
+
+  vacationCard.appendChild(detailsDiv);
+  const cardsSection = document.getElementById("cards"); // Correct method
+  if (cardsSection) {
+    cardsSection.appendChild(vacationCard);
+  } else {
+    console.error("Element with id 'cards' not found.");
+  }
+}
+
+//
+// end of fetching vacations
 
 const slider = document.querySelector(".slider");
 const slides = document.querySelectorAll(".slide");
@@ -60,72 +137,29 @@ nextButton.addEventListener("click", () => {
 
 updateSlider();
 
-document.addEventListener("DOMContentLoaded", () => {
-  console.log("Attempting to fetch JSON data");
+// document.addEventListener("DOMContentLoaded", () => {
+//   console.log("Attempting to fetch JSON data");
 
-  fetch("home.json")
-    .then((response) => {
-      console.log("Fetch response received");
-      return response.json();
-    })
-    .then((data) => {
-      console.log("JSON data parsed:", data); // לבדוק את הנתונים המתקבלים
-      const topVacationsContainer = document.querySelector(".cards");
-      topVacationsContainer.innerHTML = "";
+//   fetch("home.json")
+//     .then((response) => {
+//       console.log("Fetch response received");
+//       return response.json();
+//     })
+//     .then((data) => {
+//       console.log("JSON data parsed:", data); 
+//       const topVacationsContainer = document.querySelector(".cards");
+//       topVacationsContainer.innerHTML = "";
 
-      // Sort the data by rating in descending order and take the top 4
-      const topVacations = data.sort((a, b) => b.rating - a.rating).slice(0, 4);
+//       // Sort the data by rating in descending order and take the top 4
+//       const topVacations = data.sort((a, b) => b.rating - a.rating).slice(0, 4);
 
-      console.log("Sorted data:", topVacations); // לבדוק את הנתונים אחרי המיון
-      topVacations.forEach((vacation) => {
-        const vacationCard = createVacation(vacation);
-        topVacationsContainer.appendChild(vacationCard);
-      });
-    })
-    .catch((error) => console.error("Error fetching vacation data:", error));
-});
+//       console.log("Sorted data:", topVacations); 
+//       topVacations.forEach((vacation) => {
+//         const vacationCard = createVacation(vacation);
+//         topVacationsContainer.appendChild(vacationCard);
+//       });
+//     })
+//     .catch((error) => console.error("Error fetching vacation data:", error));
+// });
 
-function createVacation(vacation) {
-  const vacationCard = document.createElement("div");
-  vacationCard.classList.add("card-vacations");
-  vacationCard.style.fontSize = "15px";
-  vacationCard.style.width = "300px";
 
-  const vacationButton = document.createElement("button");
-  vacationButton.classList.add("no-back");
-
-  const vacationImg = document.createElement("img");
-  vacationImg.src = vacation.image;
-  vacationImg.style.width = "100%";
-  vacationImg.style.height = "auto";
-  vacationImg.style.borderRadius = "10px";
-
-  vacationButton.appendChild(vacationImg);
-  vacationCard.appendChild(vacationButton);
-
-  const descriptionDiv = document.createElement("div");
-  descriptionDiv.classList.add("tmp");
-  descriptionDiv.style.width = "100%";
-  descriptionDiv.style.marginLeft = "0";
-  descriptionDiv.innerHTML = `<span class="space">${vacation.description}<br><br></span>`;
-  vacationCard.appendChild(descriptionDiv);
-
-  const locationDiv = document.createElement("div");
-  locationDiv.classList.add("tmp");
-  locationDiv.style.width = "100%";
-  locationDiv.style.marginLeft = "0";
-  locationDiv.innerHTML = `<span class="space space2" style="text-decoration: underline; padding-top: 10px; font-weight: bold; font-size: 18px;"><a href="">${vacation.location}</a><br><br></span>`;
-  vacationCard.appendChild(locationDiv);
-
-  const ratingDiv = document.createElement("div");
-  ratingDiv.classList.add("tmp");
-  ratingDiv.style.width = "100%";
-  ratingDiv.style.marginLeft = "0";
-  ratingDiv.innerHTML = `<span class="space space3" style="font-size: 14px;">${vacation.rating}/10 Exceptional (${vacation.reviews} reviews)</span>`;
-  vacationCard.appendChild(ratingDiv);
-
-  return vacationCard;
-}
-document.querySelector(".all-vacations").addEventListener("click", function () {
-  window.location.href = "vacations.html";
-});
