@@ -22,9 +22,19 @@ logoutButton.addEventListener("click", () =>{
 
 document.addEventListener("DOMContentLoaded", async function () {
   try{
+
+    const tripCategory = localStorage.getItem("tripCategory");
+
     const response = await axios.get(getAllVacationsUrl);
     const vacations = response.data;
-    vacations.forEach((vacation) => createVacationCard(vacation));
+
+    vacations.forEach((vacation) => {
+      if(tripCategory === '')
+        createVacationCard(vacation);
+      else if (tripCategory === vacation?.tripCategory?.category)
+        createVacationCard(vacation);
+    });
+
   } catch (error) {
     console.error("Error fetching data:", error);
   }
@@ -166,7 +176,6 @@ async function createVacationCard(vacation) {
 
 //   showImage(currentImage);
 }
-
 
 
 flatpickr("#start", {

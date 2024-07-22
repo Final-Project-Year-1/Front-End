@@ -56,7 +56,6 @@ const fetchVacationImg = async (vacation) => {
 }
 
 async function createVacationCard(vacation) {
-  console.log(vacation);
 
   const vacationCard = document.createElement("div");
   vacationCard.classList.add("card-vacations");
@@ -92,7 +91,7 @@ async function createVacationCard(vacation) {
   detailsDiv.appendChild(ratingDiv);
 
   vacationCard.appendChild(detailsDiv);
-  const cardsSection = document.getElementById("cards"); // Correct method
+  const cardsSection = document.getElementById("cards");
   if (cardsSection) {
     cardsSection.appendChild(vacationCard);
   } else {
@@ -136,6 +135,20 @@ nextButton.addEventListener("click", () => {
 });
 
 updateSlider();
+
+const tripCategories = document.querySelectorAll(".vacation-inspired");
+
+tripCategories.forEach((category) => {
+  category.addEventListener("click", () => {
+    const span = category.querySelector(".button-text-2");
+    localStorage.setItem("tripCategory", span.innerText)
+    window.location.href = "../User/Vacations/allVacations.html";
+  });
+});
+
+const allVacationsButton = document.querySelector(".all-vacations");
+allVacationsButton.addEventListener("click", () => localStorage.setItem("tripCategory", ''));
+
 
 // document.addEventListener("DOMContentLoaded", () => {
 //   console.log("Attempting to fetch JSON data");
