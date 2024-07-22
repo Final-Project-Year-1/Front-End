@@ -49,13 +49,19 @@
             <form class="search-form">
                 <input type="text" id="destination" placeholder="Where do you want to go?" aria-label="Destination">
                 <div class="input-icon-wrapper">
-                    <input type="text" id="start" placeholder="Pick a month">
+                    <input type="text" id="start" placeholder="Depart">
                     <i class="icon-custom"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-heart" viewBox="0 0 16 16">
                         <path fill-rule="evenodd" d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4zM1 14V4h14v10a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1m7-6.507c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132"/>
                       </svg></i>
                 </div>
                 <div class="input-icon-wrapper">
-                    <input type="text" id="bedrooms" placeholder="How many people?">
+                    <input type="text" id="end" placeholder="Arrival">
+                    <i class="icon-custom"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-heart" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4zM1 14V4h14v10a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1m7-6.507c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132"/>
+                      </svg></i>
+                </div>
+                <div class="input-icon-wrapper">
+                    <input type="number" id="bedrooms" placeholder="How many people?" min=1>
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="icon-custom" viewBox="0 0 16 16">
                       <path d="M2 1.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5V5h.5A1.5 1.5 0 0 1 8 6.5V7H7v-.5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 .5.5H4v1H2.5v.25a.75.75 0 0 1-1.5 0v-.335A1.5 1.5 0 0 1 0 13.5v-7A1.5 1.5 0 0 1 1.5 5H2zM3 5h2V2H3z"/>
                       <path d="M2.5 7a.5.5 0 0 1 .5.5v5a.5.5 0 0 1-1 0v-5a.5.5 0 0 1 .5-.5m10 1v-.5A1.5 1.5 0 0 0 11 6h-1a1.5 1.5 0 0 0-1.5 1.5V8H8v8h5V8zM10 7h1a.5.5 0 0 1 .5.5V8h-2v-.5A.5.5 0 0 1 10 7M5 9.5A1.5 1.5 0 0 1 6.5 8H7v8h-.5A1.5 1.5 0 0 1 5 14.5zm9 6.5V8h.5A1.5 1.5 0 0 1 16 9.5v5a1.5 1.5 0 0 1-1.5 1.5z"/>
@@ -72,18 +78,26 @@
     <div class="all-vacations-title">
         <div class="menu">
             <div class="menu-item">
-                <button>Rating</button>
+                <button class="filter-buttons">Category</button>
                 <div class="dropdown-content">
-                    <label><input type="checkbox"> 10 Stars</label>
-                    <label><input type="checkbox"> 9 Stars</label>
-                    <label><input type="checkbox"> 8 Stars</label>
-                    <label><input type="checkbox"> 7 Stars</label>
-                    <label><input type="checkbox"> 6 Stars</label>
-                    <label><input type="checkbox"> 5 Stars</label>
-                    <label><input type="checkbox"> 4 Stars</label>
-                    <label><input type="checkbox"> 3 Stars</label>
-                    <label><input type="checkbox"> 2 Stars</label>
-                    <label><input type="checkbox"> 1 Star</label>
+                    <button class="number-btn">All</button>
+                    <button class="number-btn">Family</button>
+                    <button class="number-btn">Polar</button>
+                    <button class="number-btn">Food</button>
+                    <button class="number-btn">Cruise</button>
+                    <button class="number-btn">Cities</button>
+                    <button class="number-btn">Beaches</button>
+                    <button class="number-btn">Ski</button>
+                </div>
+            </div>
+            <div class="menu-item">
+                <button class="filter-buttons">Duration</button>
+                <div class="dropdown-content days-content">
+                    <button class="number-btn">less than a week</button>
+                    <button class="number-btn">over a week</button>
+                    <button class="number-btn">over two weeks</button>
+                    <button class="number-btn">over three weeks</button>
+                    <button class="number-btn">over a month</button>
                     <div class="dropdown-actions">
                         <button class="action-btn">Save</button>
                         <button class="action-btn">Clear Selection</button>
@@ -91,30 +105,8 @@
                 </div>
             </div>
             <div class="menu-item">
-                <button>Nights</button>
-                <div class="dropdown-content nights-content">
-                    <button class="number-btn">2</button>
-                    <button class="number-btn">3</button>
-                    <button class="number-btn">4</button>
-                    <button class="number-btn">5</button>
-                    <button class="number-btn">6</button>
-                    <button class="number-btn">7</button>
-                    <button class="number-btn">8</button>
-                    <button class="number-btn">9</button>
-                    <button class="number-btn">10</button>
-                    <button class="number-btn">11</button>
-                    <button class="number-btn">12</button>
-                    <button class="number-btn">13</button>
-                    <button class="number-btn">14</button>
-                    <div class="dropdown-actions">
-                        <button class="action-btn">Save</button>
-                        <button class="action-btn">Clear Selection</button>
-                    </div>
-                </div>
-            </div>
-            <div class="menu-item">
-                <button>Type of Accommodation</button>
-                <div class="dropdown-content">
+                <button class="filter-buttons">Type of Accommodation</button>
+                <div class="dropdown-content accommodationType">
                     <label><input type="checkbox"> Breakfast Included</label>
                     <label><input type="checkbox"> Half Board</label>
                     <label><input type="checkbox"> Full Board</label>
@@ -126,34 +118,13 @@
                 </div>
             </div>
             <div class="menu-item">
-                <button>Stops</button>
-                <div class="dropdown-content">
-                    <label><input type="checkbox"> Non-stop</label>
-                    <label><input type="checkbox"> One Stop</label>
-                    <div class="dropdown-actions">
-                        <button class="action-btn">Save</button>
-                        <button class="action-btn">Clear Selection</button>
-                    </div>
-                </div>
-            </div>
-            <div class="menu-item">
-                <button>Hotel Features</button>
-                <div class="dropdown-content">
-                    <label><input type="checkbox"> Spa</label>
-                    <label><input type="checkbox"> Hairdryer in Room</label>
-                    <label><input type="checkbox"> Kids Club</label>
-                    <label><input type="checkbox"> Private Beach</label>
-                    <label><input type="checkbox"> Casino</label>
-                    <label><input type="checkbox"> Family Friendly</label>
-                    <label><input type="checkbox"> Near Chabad House</label>
-                    <label><input type="checkbox"> Parking</label>
-                    <label><input type="checkbox"> Pool</label>
-                    <label><input type="checkbox"> Pet Friendly</label>
-                    <label><input type="checkbox"> Room with Kitchen</label>
-                    <label><input type="checkbox"> WiFi</label>
-                    <label><input type="checkbox"> Air Conditioning</label>
-                    <label><input type="checkbox"> Restaurant</label>
-                    <label><input type="checkbox"> Room Service</label>
+                <button class="filter-buttons">Price</button>
+                <div class="dropdown-content days-content">
+                    <button class="number-btn">Under 1000$</button>
+                    <button class="number-btn">Under 2000$</button>
+                    <button class="number-btn">Under 300$</button>
+                    <button class="number-btn">Under 4000$</button>
+                    <button class="number-btn">Under 5000$</button>
                     <div class="dropdown-actions">
                         <button class="action-btn">Save</button>
                         <button class="action-btn">Clear Selection</button>

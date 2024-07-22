@@ -7,6 +7,7 @@
     --gray: #acacac;
     --blue: #5d9792;
     --dark-blue: #467470;
+    --light-blue:rgb(201, 244, 240);
 }
 
 a {
@@ -487,7 +488,7 @@ input[type="date"] {
     position: relative;
 }
 
-.menu-item button {
+.filter-buttons {
     background: #ffffff;
     border: 1px solid #acacac;
     border-radius: 25px;
@@ -501,37 +502,23 @@ input[type="date"] {
     margin: 15px;
 }
 
-.dropdown-content {
-    display: none;
-    position: absolute;
-    top: 110%;
-    left: 0;
-    background-color: #ffffff;
-    min-width: 300px; /* Increased width to accommodate two columns */
-
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-    z-index: 1;
-    border-radius: 15px;
-    padding: 15px;
-    border: 1px solid #acacac;
-}
-
 .dropdown-content label {
     display: block;
-    padding: 10px 0;
+    padding: 8px 0;
     font-size: 14px;
-    width: 50%; /* Make each label take up half the width */
+    width: 70%; /* Make each label take up half the width */
 
 }
 
 .dropdown-content label input {
-    margin-right: 10px;
+    margin-left: 20px;
 }
+
 
 .dropdown-actions {
     display: flex;
-    justify-content: space-between;
-    margin-top: 20px;
+    justify-content: space-around;
+    margin-top: 5px;
 }
 
 
@@ -549,10 +536,57 @@ input[type="date"] {
     display: flex;
     flex-wrap: wrap;
 
-
 }
 
-.nights-content {
-    flex-wrap: wrap;
-    gap: 15px;
+.dropdown-content,
+.days-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    width:150px;
+    display: none;
+    position: absolute;
+    background-color: #ffffff;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    border-radius: 15px;
+    border: 1px solid #acacac;
+}
+
+.accommodationType {
+    width:240px;
+}
+
+.number-btn {
+    background: #ffffff;
+    border: 1px solid #acacac;
+    border-radius: 12px;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 14px;
+    align-items: center;
+    transition: background-color 0.3s ease;
+    margin:5px;
+
+}
+.number-btn:hover{
+    background-color: var(--light-blue);
+}
+
+.action-btn {
+    background-color: var(--light-blue);
+    border: 1px solid var(--blue);
+    border-radius: 12px;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    transition: background-color 0.3s ease;
+    margin:5px;
+}
+
+.action-btn:hover {
+    background-color: var(--blue);
+    color: var(--white);
 }
