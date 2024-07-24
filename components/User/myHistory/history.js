@@ -152,7 +152,7 @@ function categorizeBookings(bookings) {
 }
 
 function startSearching() {
-    window.location.href = 'file:///C:/Users/omer3/Desktop/Front-End/components/User/Vacations/allVacations.html';
+    window.location.href = '../Vacations/allVacations.html';
 }
 
 function logout() {
