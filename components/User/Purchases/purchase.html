@@ -10,6 +10,14 @@
 </head>
 
 <body>
+    <div class="header">
+        <img src="../../assets/home-images/img/logo.jpeg" id="logo-top" width="200px"
+            onclick="window.location.href='../../Home/home.html'">
+        <div class="logout-container">
+            <span id="hello-user"></span>
+            <button class="logout-button" id="logout">Log out</button>
+        </div>
+    </div>
     <img src="../../assets/purchaseImages/purchaseImage.jpg" class="mid-image" alt="Background Image">
     <div class="progress-container">
         <div class="progress-bar">
@@ -39,24 +47,20 @@
         <div id="order-summary" class="step-content">
             <div class="vacation-card">
                 <div class="vacation-image">
-                    <img src="https://via.placeholder.com/150" alt="Vacation Image">
+                    <img id="vacation-img" src="https://via.placeholder.com/150" alt="Vacation Image">
                 </div>
                 <div class="vacation-details">
-                    <p><strong>Destination:</strong> Hawaii</p>
-                    <p><strong>Description:</strong> Weed & Alcohol</p>
-                    <p><strong>Start Date:</strong> 21-07-2024</p>
-                    <p><strong>End Date:</strong> 02-08-2024</p>
-                    <p><strong>Price:</strong> 2500$</p>
-                    <p><strong>Number Of Passengers:</strong> 25</p>
-                    <p><strong>Vacation-Type:</strong> All-Inclusive</p>
-                    <p><strong>Company-Name:</strong> Wanderlust Journeys</p>
-                    <p><strong>Trip-Category:</strong> Ski</p>
-                    <p><strong>Rating:</strong> 10</p>
+                    <p><strong>Destination:</strong> <span id="destination"></span></p>
+                    <p><strong>Description:</strong> <span id="description"></span></p>
+                    <p><strong>Start Date:</strong> <span id="start-date"></span></p>
+                    <p><strong>End Date:</strong> <span id="end-date"></span></p>
+                    <p><strong>Price:</strong> <span id="price"></span></p>
+                    <p><strong>Number Of Passengers:</strong> <span id="num-passengers"></span></p>
+                    <p><strong>Vacation-Type:</strong> <span id="vacation-type"></span></p>
+                    <p><strong>Company-Name:</strong> <span id="company-name"></span></p>
+                    <p><strong>Trip-Category:</strong> <span id="trip-category"></span></p>
+                    <p><strong>Rating:</strong> <span id="rating"></span></p>
                 </div>
-            </div>
-            <div id="num-passengers-container">
-                <label for="num-passengers">Number of Passengers:</label>
-                <input type="number" id="num-passengers" min="1" value="1" required>
             </div>
             <div id="passenger-fields"></div>
             <div class="contact-card" id="contact-card">
@@ -113,19 +117,19 @@
             <p class="finish-header">Your booking number is: <strong>#<span id="booking-number"></span></strong></p>
             <div class="vacation-card">
                 <div class="vacation-image">
-                    <img src="https://via.placeholder.com/150" alt="Vacation Image">
+                    <img id="finish-vacation-img" src="https://via.placeholder.com/150" alt="Vacation Image">
                 </div>
                 <div class="vacation-details">
-                    <p><strong>Destination:</strong> Hawaii</p>
-                    <p><strong>Description:</strong> Weed & Alcohol</p>
-                    <p><strong>Start Date:</strong> 21-07-2024</p>
-                    <p><strong>End Date:</strong> 02-08-2024</p>
-                    <p><strong>Price:</strong> 2500$</p>
-                    <p><strong>Number Of Passengers:</strong> 25</p>
-                    <p><strong>Vacation-Type:</strong> All-Inclusive</p>
-                    <p><strong>Company-Name:</strong> Wanderlust Journeys</p>
-                    <p><strong>Trip-Category:</strong> Ski</p>
-                    <p><strong>Rating:</strong> 10</p>
+                    <p><strong>Destination:</strong> <span id="finish-destination"></span></p>
+                    <p><strong>Description:</strong> <span id="finish-description"></span></p>
+                    <p><strong>Start Date:</strong> <span id="finish-start-date"></span></p>
+                    <p><strong>End Date:</strong> <span id="finish-end-date"></span></p>
+                    <p><strong>Price:</strong> <span id="finish-price"></span></p>
+                    <p><strong>Number Of Passengers:</strong> <span id="finish-num-passengers"></span></p>
+                    <p><strong>Vacation-Type:</strong> <span id="finish-vacation-type"></span></p>
+                    <p><strong>Company-Name:</strong> <span id="finish-company-name"></span></p>
+                    <p><strong>Trip-Category:</strong> <span id="finish-trip-category"></span></p>
+                    <p><strong>Rating:</strong> <span id="finish-rating"></span></p>
                 </div>
             </div>
             <div id="passenger-summary">
@@ -142,6 +146,8 @@
         <p>© 2024 VacationHub. All Rights Reserved. Your ultimate travel companion. Discover, plan, and book your
             perfect getaway with us.</p>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jwt-decode/build/jwt-decode.min.js"></script>
     <script src="purchase.js"></script>
 </body>
 
