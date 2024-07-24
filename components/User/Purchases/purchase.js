@@ -1,71 +1,95 @@
-document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', async function () {
+    const getVacationImg = "http://localhost:3000/api/vacations/images/";
+
+    const fetchVacationImg = async (imageName) => {
+        try {
+            const response = await axios.get(getVacationImg + imageName, { responseType: 'blob' });
+            const imageUrl = URL.createObjectURL(response.data);
+            return imageUrl;
+        } catch (error) {
+            console.error("Error fetching image:", error);
+            return null;
+        }
+    };
+
     const steps = document.querySelectorAll('.step');
     const backButton = document.getElementById('back-button');
     const nextButton = document.getElementById('next-button');
     const contentContainer = document.getElementById('content-container');
     let currentStep = 0;
 
-    function updateSteps() {
-        steps.forEach((step, index) => {
-            step.classList.toggle('active', index === currentStep);
-            const underline = step.querySelector('.underline');
-            underline.style.width = index === currentStep ? '100%' : '0';
+    const getUserFromToken = () => {
+        let user = null;
+        const token = localStorage.getItem("token");
+
+        if (token) {
+            const encodedObject = jwt_decode(token);
+            user = encodedObject.user;
+        }
+        return {
+            user: user,
+            token: token
+        };
+    };
+
+    if (!localStorage.getItem("token") || localStorage.getItem("token") === "") {
+        window.location.href = "../../Auth/login/login.html";
+    } else {
+        const userObj = getUserFromToken();
+        document.querySelector(".logout-container").style.display = "flex";
+        document.getElementById("hello-user").textContent = `Hello ${userObj.user.firstName} ${userObj.user.lastName}`;
+
+        const logoutButton = document.getElementById("logout");
+        logoutButton.addEventListener("click", () => {
+            localStorage.setItem("token", "");
+            window.location.href = "../../Auth/login/login.html";
         });
-        loadStepContent();
-        if (currentStep !== 1) {
-            clearPaymentFields();
-        }
-        toggleNextButton(); // Update next button state
-        updateNextButtonText(); // Update next button text
-        toggleBackButton(); // Update back button state
     }
 
-    function loadStepContent() {
-        const stepContents = document.querySelectorAll('.step-content');
-        stepContents.forEach((content, index) => {
-            content.style.display = index === currentStep ? 'block' : 'none';
+    const updateVacationCard = (vacation) => {
+        document.getElementById('destination').textContent = vacation.destination;
+        document.getElementById('description').textContent = vacation.description;
+        document.getElementById('start-date').textContent = formatDate(vacation.startDate);
+        document.getElementById('end-date').textContent = formatDate(vacation.endDate);
+        document.getElementById('price').textContent = vacation.price;
+        document.getElementById('vacation-type').textContent = vacation.vacationType;
+        document.getElementById('company-name').textContent = vacation.companyName?.company || '';
+        document.getElementById('trip-category').textContent = vacation.tripCategory?.category || '';
+        document.getElementById('rating').textContent = vacation.rating;
+
+        fetchVacationImg(vacation.imageName).then((imageUrl) => {
+            document.getElementById('vacation-img').src = imageUrl || 'https://via.placeholder.com/150';
         });
+    };
 
-        switch (currentStep) {
-            case 0:
-                document.getElementById('num-passengers').addEventListener('input', generatePassengerFields);
-                generatePassengerFields(); // Initial call to generate fields based on default value
-                break;
-            case 1:
-                const paymentForm = document.getElementById('payment-form');
-                paymentForm.removeEventListener('submit', handlePaymentSubmit); // Remove previous event listener
-                paymentForm.addEventListener('submit', handlePaymentSubmit); // Add new event listener
-                addInputValidation(); // Add validation to the payment form inputs
-                toggleSubmitButton(); // Update submit button state
-                break;
-            case 2:
-                displayPassengerSummary();
-                document.getElementById('booking-number').textContent = Math.floor(Math.random() * 10000);
-                backButton.disabled = true; // Disable the back button
-                backButton.style.backgroundColor = 'gray'; // Change the color to gray
-                break;
+    const fetchBookingsForUser = async (userId) => {
+        try {
+            const response = await axios.get(`http://localhost:3000/api/bookings/bookings-by-user/${userId}?populate=true`);
+            return response.data;
+        } catch (error) {
+            console.error("Error fetching bookings:", error);
+            return [];
         }
-    }
+    };
 
-    function handlePaymentSubmit(event) {
-        event.preventDefault();
-        if (validateStep(currentStep)) {
-            alert('Payment processed.');
-            currentStep++;
-            updateSteps();
-            window.scrollTo(0, 0); // Scroll to the top of the page
-        } else {
-            alert('Please fill out all required fields correctly.');
+    const initializePage = async () => {
+        const userObj = getUserFromToken();
+        const bookings = await fetchBookingsForUser(userObj.user._id);
+
+        if (bookings.length > 0) {
+            const booking = bookings[0];
+            const vacation = booking.vacationId;
+
+            updateVacationCard(vacation);
+            document.getElementById('num-passengers').textContent = booking.Passengers;
+
+            generatePassengerFields(booking.Passengers);
+
+            sessionStorage.setItem('booking', JSON.stringify(booking));
         }
-    }
+    };
 
-    function generatePassengerFields() {
-        const numPassengers = parseInt(document.getElementById('num-passengers').value, 10);
-        if (numPassengers < 1) {
-            document.getElementById('num-passengers').value = 1;
-            return;
-        }
-
+    function generatePassengerFields(numPassengers) {
         const passengerFields = document.getElementById('passenger-fields');
         passengerFields.innerHTML = '';
         for (let i = 1; i <= numPassengers; i++) {
@@ -109,7 +133,7 @@ document.addEventListener('DOMContentLoaded', function () {
         inputs.forEach(input => {
             input.addEventListener('input', function () {
                 validateInput(input);
-                toggleSubmitButton(); // Update submit button state
+                toggleSubmitButton();
             });
         });
     }
@@ -167,13 +191,12 @@ document.addEventListener('DOMContentLoaded', function () {
         let isValid = true;
         let inputs;
 
-        // Validate only the inputs in the current step
         if (step === 0) {
-            inputs = document.querySelectorAll('#order-summary input[required], #contact-info input[required]');
+            inputs = document.querySelectorAll('#order-summary input[required], #contact-card input[required]');
         } else if (step === 1) {
             inputs = document.querySelectorAll('#make-payment input[required]');
         } else {
-            return true; // No validation needed for step 2
+            return true;
         }
 
         inputs.forEach(input => {
@@ -181,18 +204,19 @@ document.addEventListener('DOMContentLoaded', function () {
                 isValid = false;
                 input.classList.add('invalid');
                 validateInput(input);
-                console.log(`Invalid input: ${input.id}`);
             } else {
                 input.classList.remove('invalid');
             }
         });
 
-        console.log(`Step ${step} is ${isValid ? 'valid' : 'invalid'}`);
         return isValid;
     }
 
     function formatDate(dateString) {
-        const [year, month, day] = dateString.split('-');
+        const date = new Date(dateString);
+        const day = String(date.getDate()).padStart(2, '0');
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const year = date.getFullYear();
         return `${day}-${month}-${year}`;
     }
 
@@ -230,7 +254,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
             }
         });
-        toggleSubmitButton(); // Update submit button state
+        toggleSubmitButton();
     }
 
     function toggleNextButton() {
@@ -266,14 +290,14 @@ document.addEventListener('DOMContentLoaded', function () {
     function updateNextButtonText() {
         if (currentStep === 2) {
             nextButton.textContent = 'Back To Homepage';
-            nextButton.removeEventListener('click', handleNextClick); // Remove previous click handler
+            nextButton.removeEventListener('click', handleNextClick);
             nextButton.addEventListener('click', function () {
-                window.location.href = 'file:///C:/Users/omer3/Desktop/Front-End/components/Home/home.html'; // Redirect to homepage
+                window.location.href = '../../Home/home.html';
             });
         } else {
             nextButton.textContent = 'Continue';
-            nextButton.removeEventListener('click', handleNextClick); // Remove previous click handler
-            nextButton.addEventListener('click', handleNextClick); // Add new click handler
+            nextButton.removeEventListener('click', handleNextClick);
+            nextButton.addEventListener('click', handleNextClick);
         }
     }
 
@@ -285,7 +309,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 }
                 currentStep++;
                 updateSteps();
-                window.scrollTo(0, 0); // Scroll to the top of the page
+                window.scrollTo(0, 0);
             }
         } else {
             alert('Please fill out all required fields correctly.');
@@ -311,14 +335,14 @@ document.addEventListener('DOMContentLoaded', function () {
         if (currentStep > 0) {
             currentStep--;
             updateSteps();
-            window.scrollTo(0, 0); // Scroll to the top of the page
+            window.scrollTo(0, 0);
         }
     });
 
     nextButton.addEventListener('click', handleNextClick);
 
     function storePassengerData() {
-        const numPassengers = parseInt(document.getElementById('num-passengers').value, 10);
+        const numPassengers = parseInt(document.getElementById('num-passengers').textContent, 10);
         const passengers = [];
 
         for (let i = 1; i <= numPassengers; i++) {
@@ -343,5 +367,82 @@ document.addEventListener('DOMContentLoaded', function () {
         sessionStorage.setItem('contactDetails', JSON.stringify(contactDetails));
     }
 
+    function updateFinishSection(vacation) {
+        document.getElementById('finish-destination').textContent = vacation.destination;
+        document.getElementById('finish-description').textContent = vacation.description;
+        document.getElementById('finish-start-date').textContent = formatDate(vacation.startDate);
+        document.getElementById('finish-end-date').textContent = formatDate(vacation.endDate);
+        document.getElementById('finish-price').textContent = vacation.price;
+        document.getElementById('finish-num-passengers').textContent = document.getElementById('num-passengers').textContent;
+        document.getElementById('finish-vacation-type').textContent = vacation.vacationType;
+        document.getElementById('finish-company-name').textContent = vacation.companyName?.company || '';
+        document.getElementById('finish-trip-category').textContent = vacation.tripCategory?.category || '';
+        document.getElementById('finish-rating').textContent = vacation.rating;
+
+        fetchVacationImg(vacation.imageName).then((imageUrl) => {
+            document.getElementById('finish-vacation-img').src = imageUrl || 'https://via.placeholder.com/150';
+        });
+    }
+
+    function updateSteps() {
+        steps.forEach((step, index) => {
+            step.classList.toggle('active', index === currentStep);
+            const underline = step.querySelector('.underline');
+            underline.style.width = index === currentStep ? '100%' : '0';
+        });
+        loadStepContent();
+        if (currentStep !== 1) {
+            clearPaymentFields();
+        }
+        toggleNextButton();
+        updateNextButtonText();
+        toggleBackButton();
+    }
+
+    function loadStepContent() {
+        const stepContents = document.querySelectorAll('.step-content');
+        stepContents.forEach((content, index) => {
+            content.style.display = index === currentStep ? 'block' : 'none';
+        });
+
+        switch (currentStep) {
+            case 0:
+                const booking = JSON.parse(sessionStorage.getItem('booking'));
+                if (booking) {
+                    generatePassengerFields(booking.Passengers);
+                }
+                break;
+            case 1:
+                const paymentForm = document.getElementById('payment-form');
+                paymentForm.removeEventListener('submit', handlePaymentSubmit);
+                paymentForm.addEventListener('submit', handlePaymentSubmit);
+                addInputValidation();
+                toggleSubmitButton();
+                break;
+            case 2:
+                const storedBooking = JSON.parse(sessionStorage.getItem('booking'));
+                const vacation = storedBooking.vacationId;
+                updateFinishSection(vacation);
+                displayPassengerSummary();
+                document.getElementById('booking-number').textContent = storedBooking.OrderNumber;
+                backButton.disabled = true;
+                backButton.style.backgroundColor = 'gray';
+                break;
+        }
+    }
+
+    function handlePaymentSubmit(event) {
+        event.preventDefault();
+        if (validateStep(currentStep)) {
+            alert('Payment processed.');
+            currentStep++;
+            updateSteps();
+            window.scrollTo(0, 0);
+        } else {
+            alert('Please fill out all required fields correctly.');
+        }
+    }
+
+    await initializePage();
     updateSteps();
 });
