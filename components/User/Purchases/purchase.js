@@ -159,7 +159,7 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function validateEmail(email) {
-        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        const re = /^[^\s@]+@[^\s@]+.[^\s@]+$/;
         return re.test(String(email).toLowerCase());
     }
 
@@ -293,12 +293,17 @@ document.addEventListener('DOMContentLoaded', function () {
     }
 
     function toggleBackButton() {
-        if (currentStep === 2) {
+        if (currentStep === 0) {
             backButton.disabled = true;
             backButton.style.backgroundColor = 'gray';
         } else {
             backButton.disabled = false;
             backButton.style.backgroundColor = '';
+        }
+
+        if (currentStep === 2) {
+            backButton.disabled = true;
+            backButton.style.backgroundColor = 'gray';
         }
     }
 
