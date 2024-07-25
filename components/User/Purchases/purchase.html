@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Booking Payment</title>
+    <link rel="stylesheet" href="purchase.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+</head>
+
+<body>
+    <div class="header">
+        <img src="../../assets/home-images/img/logo.jpeg" id="logo-top" width="200px"
+            onclick="window.location.href='../../Home/home.html'">
+        <div class="logout-container">
+            <span id="hello-user"></span>
+            <button class="logout-button" id="logout">Log out</button>
+        </div>
+    </div>
+    <img src="../../assets/purchaseImages/purchaseImage.jpg" class="mid-image" alt="Background Image">
+    <div class="progress-container">
+        <div class="progress-bar">
+            <div class="step">
+                <div class="step-circle">1</div>
+                <span class="text">Order Summary</span>
+                <span class="icon">✔</span>
+                <div class="underline"></div>
+            </div>
+            <div class="arrow">&gt;</div>
+            <div class="step">
+                <div class="step-circle">2</div>
+                <span class="text">Make Payment</span>
+                <span class="icon">✎</span>
+                <div class="underline"></div>
+            </div>
+            <div class="arrow">&gt;</div>
+            <div class="step">
+                <div class="step-circle">3</div>
+                <span class="text">Finish</span>
+                <span class="icon">📝</span>
+                <div class="underline"></div>
+            </div>
+        </div>
+    </div>
+    <div id="content-container">
+        <div id="order-summary" class="step-content">
+            <div class="vacation-card">
+                <div class="vacation-image">
+                    <img id="vacation-img" src="https://via.placeholder.com/150" alt="Vacation Image">
+                </div>
+                <div class="vacation-details">
+                    <p><strong>Destination:</strong> <span id="destination"></span></p>
+                    <p><strong>Description:</strong> <span id="description"></span></p>
+                    <p><strong>Start Date:</strong> <span id="start-date"></span></p>
+                    <p><strong>End Date:</strong> <span id="end-date"></span></p>
+                    <p><strong>Price:</strong> <span id="price"></span></p>
+                    <p><strong>Number Of Passengers:</strong> <span id="num-passengers"></span></p>
+                    <p><strong>Vacation-Type:</strong> <span id="vacation-type"></span></p>
+                    <p><strong>Company-Name:</strong> <span id="company-name"></span></p>
+                    <p><strong>Trip-Category:</strong> <span id="trip-category"></span></p>
+                    <p><strong>Rating:</strong> <span id="rating"></span></p>
+                </div>
+            </div>
+            <div id="passenger-fields"></div>
+            <div class="contact-card" id="contact-card">
+                <h4>Contact Information</h4>
+                <label for="contact-email">Email:</label>
+                <input type="email" id="contact-email" placeholder="example@example.com" required><br>
+                <span class="error-message" id="error-contact-email"></span>
+                <br>
+                <label for="contact-first-name">First Name:</label>
+                <input type="text" id="contact-first-name" pattern="[A-Za-z]{2,}" maxlength="30" required><br>
+                <span class="error-message" id="error-contact-first-name"></span>
+                <br>
+                <label for="contact-last-name">Last Name:</label>
+                <input type="text" id="contact-last-name" pattern="[A-Za-z]{2,}" maxlength="30" required><br>
+                <span class="error-message" id="error-contact-last-name"></span>
+                <br>
+            </div>
+            <br>
+            <span class="error-message" id="error-contact"></span>
+        </div>
+
+        <div id="make-payment" class="step-content" style="display:none;">
+            <div class="payment-card">
+                <form id="payment-form">
+                    <h2>Make Payment</h2>
+                    <label for="card-number">Card Number:</label>
+                    <input type="text" id="card-number" required placeholder="1234 5678 9123 4567" maxlength="16"
+                        pattern="\d{16}"><br>
+                    <span class="error-message" id="error-card-number"></span>
+                    <br>
+                    <label for="expiry-date">Expiry Date:</label>
+                    <input type="date" id="expiry-date" required><br>
+                    <span class="error-message" id="error-expiry-date"></span>
+                    <br>
+                    <label for="cvv">CVV:</label>
+                    <input type="text" id="cvv" required placeholder="123" maxlength="3" pattern="\d{3}"><br>
+                    <span class="error-message" id="error-cvv"></span>
+                    <br>
+                    <label for="payment-name">Name:</label>
+                    <input type="text" id="payment-name" required pattern="[A-Za-z]{2,}" maxlength="30"><br>
+                    <span class="error-message" id="error-payment-name"></span>
+                    <br>
+                    <label for="payment-surname">Surname:</label>
+                    <input type="text" id="payment-surname" required pattern="[A-Za-z]{2,}" maxlength="30"><br>
+                    <span class="error-message" id="error-payment-surname"></span>
+                    <br>
+                    <button type="submit" id="submit-payment">Submit Payment</button>
+                </form>
+            </div>
+        </div>
+
+        <div id="finish" class="step-content" style="display:none;">
+            <p class="finish-header">Thank you for your order!</p>
+            <p class="finish-header">Your booking number is: <strong>#<span id="booking-number"></span></strong></p>
+            <div class="vacation-card">
+                <div class="vacation-image">
+                    <img id="finish-vacation-img" src="https://via.placeholder.com/150" alt="Vacation Image">
+                </div>
+                <div class="vacation-details">
+                    <p><strong>Destination:</strong> <span id="finish-destination"></span></p>
+                    <p><strong>Description:</strong> <span id="finish-description"></span></p>
+                    <p><strong>Start Date:</strong> <span id="finish-start-date"></span></p>
+                    <p><strong>End Date:</strong> <span id="finish-end-date"></span></p>
+                    <p><strong>Price:</strong> <span id="finish-price"></span></p>
+                    <p><strong>Number Of Passengers:</strong> <span id="finish-num-passengers"></span></p>
+                    <p><strong>Vacation-Type:</strong> <span id="finish-vacation-type"></span></p>
+                    <p><strong>Company-Name:</strong> <span id="finish-company-name"></span></p>
+                    <p><strong>Trip-Category:</strong> <span id="finish-trip-category"></span></p>
+                    <p><strong>Rating:</strong> <span id="finish-rating"></span></p>
+                </div>
+            </div>
+            <div id="passenger-summary">
+                <h3 class="passenger-details-title">Passengers Details</h3>
+            </div>
+        </div>
+    </div>
+    <div class="buttons-container">
+        <button class="btn" id="back-button">Back</button>
+        <button class="btn" id="next-button">Continue</button>
+    </div>
+    <div class="footer-separator"></div>
+    <div class="footer-text">
+        <p>© 2024 VacationHub. All Rights Reserved. Your ultimate travel companion. Discover, plan, and book your
+            perfect getaway with us.</p>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jwt-decode/build/jwt-decode.min.js"></script>
+    <script src="purchase.js"></script>
+</body>
+
+</html>

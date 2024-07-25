@@ -2,84 +2,71 @@
     --red: #771011;
     --gray-transparent: rgba(111, 99, 88, 0.2);
     --black: #221712;
-    --gray-dark: #6F6358;
+    --gray-dark: #4d443d;
     --white: #fffeea;
     --gray: #acacac;
-    --blue:#5d9792;
-    --dark-blue:#467470;
+    --blue:#5f9da7;
+    --dark-blue:#305754;
 }
 
-body {
+body, html {
     margin: 0;
+    padding: 0;
+    height: 100vh;   
     font-family:Arial, Helvetica, sans-serif;
-    display: grid;
-    overflow-x: none;
-    grid-template-rows: auto 1fr auto;
-    min-height: 100vh;
-    
 }
 
-.top {
+.top-section {
     display: flex;
-    font-size: 20px;
+    flex-direction: row;
     justify-content: space-between;
     align-items: center;
     color: #fff;
-    padding: 10px 30px; 
-    grid-row: 1;
     border-bottom: 0.6px solid var(--gray); 
-    box-shadow: 0 2px 4px -2px rgba(0, 0, 0, 0.2);
-    
+    box-shadow: 0 2px 4px -2px rgba(0, 0, 0, 0.2);  
 }
 
-
-.top-button {
-    display: inline-block;
-}
-.top-button a{
-    font-size: 10px;
+#logo-top {
+    padding: 10px;
 }
 
-#login{
-    color: #467470;
+#login,
+#logout{
+    color: var(--dark-blue);
     font-size: 14px;
     font-weight: bolder;
     background-color: transparent;
-    position: relative;
-    padding: 5px 15px; 
+    padding: 10px; 
     border:none;
+    text-decoration: underline;
     cursor: pointer;
     transition: background-color 0.3s ease, box-shadow 0.3s ease; 
 }
-#login:hover{
+
+#login:hover,
+#logout:hover {
     color: var(--red);
 }
 
-
-
-#login img {
-
-    vertical-align: middle;
-    position: relative;
-    top: -5px;
-    margin-left: 5px;
+#hello-user {
+    color: #467470;
+    font-size: 14px;
+    font-weight: bolder;
+    padding: 5px 15px; 
 }
 
-#login span {
-    vertical-align: middle;
-}
-
-#logoin-photo {
-    margin-top: 13px;
+.top-button-logged-in{
+    display: none;
 }
 
 .mid {
     display: flex;
     flex-direction: column;
     align-items: center;
-    text-align: center; /* ממרכז את הטקסט */
-    padding: 20px; /* רווח פנימי מסביב לתוכן */
+    text-align: center; 
 }
+
+
 .photo-logo{
     margin-top: 40px;
     margin-bottom: 35px;
@@ -98,40 +85,24 @@ body {
 .photo-mid{
     justify-content: center;
    
-    width: 1%;
+    width: 90%;
     margin-top: 5rem;
     border-radius: 30px;
 }
 
 .save {
-    width: 94%;
-    padding: 20px;
+    width:97%;
     background-color: #771011;
-    box-shadow: 1px 1px 1px 1px #771011;
-    color: var(--white);
-    margin-bottom: 20px;
-    font-size: 17px;
-    border-radius: 10px;
+    box-shadow: 1px 1px 1px 1px  #771011;
+    border-radius: 6px;
+    color: var(--white); 
+    margin-top: 5px;
+    font-size: 13px; 
 }
 
 .fa-plane{
     margin-right: 25px;
 }
-
-.top-button a {
-    color: var(--dark-blue);
-    font-size: 14px;
-    font-weight: bold;
-    text-decoration: none;
-    margin: 0 10px;
-    transition: color 0.3s ease;
-}
-
-.top-button a:hover {
-    color: var(--red);
-}
-
-
 
 .recommendations{
     margin-top: 1rem;
@@ -150,7 +121,7 @@ body {
 }
 
 .slide {
-    min-width: 25%; /* 4 תמונות במסך אחד */
+    min-width: 25%; 
     transition: transform 0.5s ease;
 }
 
@@ -192,39 +163,51 @@ body {
     color: #626262; 
 }
 
-.font-20 {
+.by-category {
     font-size: 20px;
+    margin-bottom: 10px;
     font-weight: bold;
     color: #333; /* צבע הטקסט */
 }
-.Find{
-    
+
+.Find{   
     display: flex;
-    text-align: start;
     align-items: center;
-    width:92%;
-    padding: 35px;
+    flex-direction: column;
+    width: 100%;
     background-color: var(--blue);
     box-shadow: 1px 1px 1px 1px  var(#6bb6f7);
-    border-radius: 13px;
     color: var(--white); 
-    margin-bottom: 20px; 
-    font-size: 25px; 
+    font-size: 15px; 
+    margin-top: 15px;
+    margin-bottom: 2px;
+}
+
+p {
+    margin-top: 20px;
+    margin-bottom: -5px;
+    padding: 0;
+}
+
+.find-boxes {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
 }
 
 .find-box{
    
-    margin-left: 30px;
-    text-align: start;
-    width:14rem;
+    margin: 22px;
+    text-align: center;
+    align-items: center;
+    width: 14rem;
     padding: 7px;
-    height: 7rem;
     background-color: var(--dark-blue);
-    box-shadow: 1px 1px 1px 1px  var(#6bb6f7);
+    box-shadow: 1px 1px 1px 1px var(#6bb6f7);
     border-radius: 13px;
-    color: var(--white); 
-    margin-bottom: 20px; 
-    font-size: 23px; 
+    color: var(--white);
+    font-size: 17px;
 }
 
 .vacation-inspired{
@@ -252,116 +235,111 @@ body {
     text-align: center; /* יישור טקסט למרכז */
 }
 
+.slider-container {
+    margin-top: 14px;
+}
 
 .vacation-inspired:hover{
     transform: scale(1.05); 
     cursor: pointer;
 
 }
+
 .vacation-inspired img{
     border-radius: 20px;
 }
 
-
-
 .border-rad{
-    width: 100%; 
-
+    border-radius: 30px;
 }
 
+.position-relative {
+    position: relative; 
+    width: 100%;
+    margin-top: 45px;
+}
+
+.top-rated-vacation-background {
+    width: 97%; 
+    border-radius: 8px;
+}
 
 .over-photo {
-    margin-left: 24.3rem;
-    position: absolute; 
-    top: 50%; 
-    left: 20%; 
-    transform: translate(-50%, -50%); 
-    color: var(--white); 
-    width: 96.9%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: var(--white);
+    width: 94%; 
     font-weight: bold;
-    text-align: left;
-    padding: 10px 20px; 
-    border-radius: 5px;
-    font-size: 25px;
-
-   
-}
-.card-vacations1,.card-vacations2,.card-vacations3,.card-vacations4{
-
-    font-weight: lighter;
-    font-size: 15px;
-    margin-bottom: 10px;
+    font-size: 2vw;
+    display: flex; 
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-items: center; 
 }
 
-.tmp {
-    font-size: 14px;
-    width: 300px;
+#cards {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap; 
+    justify-content: space-around; 
+}
+
+#cards img {
+    width: 90%;
+    height: 70%;
+    border-radius: 8px;
+}
+
+.card-vacations {
+    width: 25%;
+}
+
+.vacation-details{
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    text-align: start;
     margin-left: 9px;
 }
-.space {
-    justify-content: center;
-    text-align: center;
-    justify-content: space-between;
-}
-.space.space2 {
+
+.description {
     text-decoration: underline;
     padding-top: 10px;
     font-weight: bold;
-    font-size: 18px;
-}
-.space.space3 {
-    font-size: 14px; 
+    font-size: 17px;
 }
 
-.card-vacations img{
-    border-radius: 10px;
-    box-shadow: inset;
-    width: 100%; 
-    height: auto; 
-}
-.cards img{
-    border-radius: 8px;
-}
-.position-relative {
-    
-    position: relative; 
-    display: inline-block; 
-}
-.position-relative img{
-    width: 1300px;
-}
-
-.cards {
-    
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
-}
-.no-back{
+.destination {
     background-color: transparent;
     border: none;
-}
-.no-back:hover{
+    padding: 0;
+    color: var(--white);
+    text-align: start;
+    margin-top: 10px;
     cursor: pointer;
-
+    font-size: 17px;
+    font-weight: bold;
 }
 
+.rating {
+    font-size: 13px;
+    padding: 0;
+    margin-top: 3px;
+}
 
-.all-vacations{
-    margin-top: 13px;
+.all-vacations {
+    margin-top: 38px;
     background-color: var(--white);
     color: var(--red);
     padding: 13px;
     border-radius: 20px;
     font-size: 16px;
-}
-.all-vacations:hover{
-    cursor: pointer;
-
-
+    text-decoration: none;
 }
 
-.cards a{
+#cards a{
     color: var(--white);
 }
 
@@ -370,7 +348,6 @@ body {
     background-color: var(--gray-dark);
     color: #fff;
     padding: 25px;
-    width: 100%;
     display: flex;
     justify-content: space-between; 
     align-items: center; 
@@ -390,74 +367,41 @@ body {
     text-decoration: underline;
 }
 
-
-
-
 @media (min-width: 2560px) {
     body {
-        font-size: 16px; /* שינוי גודל הגופן לנוחות קריאה */
+        font-size: 16px; 
     }
     
     .container, .slider-container, .position-relative {
-        width: 80%; /* הקטנת רוחב המיכלים ליצירת מראה מרוכז יותר */
-        margin: 0 auto; /* מרכוז המיכלים */
+        width: 80%; 
+        margin: 0 auto; 
     }
 }
 
-/* מדיה קווריז למסכים בינוניים - טאבלטים */
 @media (max-width: 1024px) {
     body {
-        font-size: 14px; /* הקטנת גודל הגופן */
+        font-size: 14px; 
     }
 
     .container, .slider-container, .position-relative {
-        width: 95%; /* הרחבת המיכלים כדי לנצל טוב יותר את המקום */
+        width: 95%; 
     }
 
-    .top, .footer {
-        flex-direction: column; /* שינוי כיוון הפריטים לעמודה */
+    .top-section, .footer {
+        flex-direction: column; 
     }
 }
 
-/* מדיה קווריז למסכים קטנים - טלפונים ניידים */
 @media (max-width: 480px) {
     body {
-        font-size: 12px; /* הקטנת גודל הגופן עוד יותר */
+        font-size: 12px; 
     }
 
     .container, .slider-container, .position-relative {
-        width: 100%; /* המיכלים ייקחו את כל הרוחב */
+        width: 100%; 
     }
 
-    .top, .footer {
-        padding: 5px; /* הקטנת הריווחים בראש ובתחתית */
+    .footer {
+        padding: 5px; 
     }
-}
-
-.card-vacations{
-    padding: 10px;
-    background-color: var(--gray-transparent);
-    border-radius: 0 0 8px 8px;
-    bottom: 0;
-    left: 0;
-    transition: transform 0.3s ease;
-
-    right: 0;
-    transition: background-color 0.1s ease;
-}
-
-.card-vacations:hover{
-    transform: scale(1.01);
-}
-.card-vacations:hover .details {
-    
-    background-color: var(--dark-blue);
-    color: var(--white);
-}
-
-
-.card-vacations .description {
-    padding: 15px;
-    font-size: 14px;
-   
 }

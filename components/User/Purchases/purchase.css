@@ -1,0 +1,672 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #f4f4f4;
+    position: relative;
+    overflow-y: auto;
+    /* Allows vertical scrolling if needed */
+    overflow-x: hidden;
+    /* Disables horizontal scrolling */
+}
+
+.mid-image {
+    position: fixed;
+    /* Changed to fixed to prevent zooming effect */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+    opacity: 0.5;
+}
+
+.breadcrumb-container {
+    display: flex;
+    justify-content: flex-start;
+    width: 100%;
+    max-width: 1200px;
+    margin: 10px 0;
+    overflow: hidden;
+    /* Prevent horizontal scroll */
+}
+
+.breadcrumb {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    position: relative;
+    top: 5px;
+    overflow: hidden;
+    /* Prevent horizontal scroll */
+}
+
+.breadcrumb a {
+    color: #305754;
+    text-decoration: none;
+    margin: 0 5px;
+    white-space: nowrap;
+    /* Prevent horizontal scroll */
+}
+
+.breadcrumb span {
+    margin: 0 5px;
+    white-space: nowrap;
+    /* Prevent horizontal scroll */
+}
+
+.progress-container {
+    width: 80%;
+    max-width: 1200px;
+    text-align: center;
+    margin-top: 30px;
+    overflow: hidden;
+    /* Prevent horizontal scroll */
+}
+
+.progress-bar {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    background-color: #fff;
+    padding: 10px;
+    border-radius: 10px;
+    /* Rounded corners */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+    /* Prevent horizontal scroll */
+    box-sizing: border-box;
+    /* Ensure padding and border are included in the width */
+}
+
+.step {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px 20px;
+    border-radius: 50px;
+    background-color: #eee;
+    margin: 0 10px;
+    font-weight: bold;
+    position: relative;
+    color: #333;
+    font-size: 20px;
+    flex: 1;
+    white-space: nowrap;
+    /* Prevent horizontal scroll */
+    overflow: hidden;
+    /* Prevent horizontal scroll */
+    transition: background-color 0.3s, border-bottom 0.3s;
+    /* Add transition for smooth effect */
+    box-sizing: border-box;
+    /* Ensure padding and border are included in the width */
+}
+
+.step.active {
+    background-color: #ccc;
+    /* Darker grey for active step */
+    border-bottom: 3px solid #305754;
+    /* Underline current step */
+}
+
+/*you know this is the pass metahat lashlavim ze aya 007*/
+.step .icon {
+    margin-top: 5px;
+    font-size: 24px;
+}
+
+.arrow {
+    font-size: 32px;
+    font-weight: bold;
+    color: #333;
+    margin: 0 10px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+    /* Prevent horizontal scroll */
+}
+
+.step-circle {
+    background-color: #305754;
+    color: #fff;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 5px;
+    font-size: 16px;
+}
+
+.underline {
+    width: 0;
+    height: 4px;
+    background-color: #00f;
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    transition: width 0.3s;
+}
+
+.step.active .underline {
+    width: 100%;
+}
+
+/* Form and Buttons */
+#content-container {
+    width: 80%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding-bottom: 160px;
+    /* Extra space for buttons and footer text */
+    overflow-y: auto;
+    /* Allow vertical scroll */
+    overflow-x: hidden;
+    /* Prevent horizontal scroll */
+    position: relative;
+    /* For underline positioning */
+    box-sizing: border-box;
+    /* Ensure padding and border are included in the width */
+}
+
+.step-content {
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.step-content.active .underline {
+    display: block;
+    width: 100%;
+}
+
+/* Button Container */
+.buttons-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* Align items vertically centered */
+    width: 100%;
+    padding: 10px 20px;
+    background: #f8f9fa;
+    /* Match background color for visibility */
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+    /* Shadow for better visibility */
+    z-index: 10;
+    overflow: hidden;
+    /* Prevent horizontal scroll */
+    position: fixed;
+    /* Fixed position to stay visible while scrolling */
+    bottom: 50px;
+    /* Adjusted to leave space for footer text */
+}
+
+.footer-separator {
+    width: 100%;
+    height: 1px;
+    background-color: #ddd;
+    margin: 0;
+    /* Adjust margin to zero for seamless connection */
+    position: fixed;
+    bottom: 49px;
+    /* Positioned just above footer text */
+    z-index: 9;
+    /* Lower z-index than buttons container */
+}
+
+.footer-text {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* Align items vertically centered */
+    width: 100%;
+    height: 49px;
+    /* Set height to match buttons container */
+    background: #f8f9fa;
+    /* Same background color as buttons container */
+    z-index: 8;
+    /* Slightly lower z-index than separator */
+    position: fixed;
+    bottom: 0;
+}
+
+.footer-text p {
+    font-size: 12px;
+    /* Smaller font size */
+    color: #333;
+    margin: 0;
+    padding: 10px 20px;
+    /* Add padding to match buttons container */
+}
+
+.btn {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #305754;
+    color: white;
+    cursor: pointer;
+    font-size: 16px;
+    white-space: nowrap;
+    /* Prevent horizontal scroll */
+    margin: 0 10px;
+    /* Add margin to move buttons away from the edges */
+}
+
+#next-button {
+    margin-right: 20px;
+}
+
+#back-button {
+    margin-left: 20px;
+}
+
+.btn:hover {
+    background-color: #305754;
+}
+
+/* Form Fields */
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 100%;
+}
+
+label {
+    margin: 5px 0;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="date"],
+input[type="number"] {
+    width: calc(100% - 16px);
+    /* Adjust for padding */
+    padding: 8px;
+    margin: 5px 0;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+    /* Ensure padding and border are included in the width */
+}
+
+/* Remove border from fieldset */
+fieldset {
+    border: none;
+    padding: 20px;
+    margin: 10px 0;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+legend {
+    font-weight: bold;
+    padding: 0 10px;
+}
+
+/* Invalid field styling */
+input.invalid {
+    border-color: red;
+}
+
+/* Error message styling */
+.error-message {
+    color: red;
+    font-size: 12px;
+    margin-top: -5px;
+    margin-bottom: 10px;
+    display: block;
+    /* Ensure error message takes a new line */
+}
+
+/* Submit Button Styling */
+form #submit-payment {
+    display: block;
+    margin: 20px auto 0;
+    padding: 10px 30px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+form #submit-payment:hover {
+    background-color: #218838;
+}
+
+/* Passenger Card Styling */
+.passenger-card {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    margin-bottom: 15px;
+    flex: 1;
+    min-width: 250px;
+    max-width: 300px;
+    margin-right: 10px;
+    box-sizing: border-box;
+    /* Ensure padding and border are included in the width */
+}
+
+.passenger-card h3 {
+    margin-top: 0;
+    font-size: 18px;
+    color: #305754;
+}
+
+/* Passenger Fields Container */
+#passenger-fields {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    /* Center when there is only one card */
+}
+
+#num-passengers-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px 0;
+}
+
+#num-passengers {
+    width: 60px;
+    text-align: center;
+}
+
+/* Payment Card Styling */
+.payment-card {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    margin: 20px auto;
+    width: 100%;
+    max-width: 400px;
+    box-sizing: border-box;
+    /* Ensure padding and border are included in the width */
+}
+
+#passenger-summary {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    /* Center the passenger cards */
+    text-align: center;
+    /* Center the text in passenger cards */
+}
+
+#passenger-summary h3 {
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+}
+
+/* Contact Summary Card Styling */
+.contact-summary-card {
+    background-color: #fff;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin-top: 20px;
+    width: 100%;
+    max-width: 500px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
+    /* Ensure padding and border are included in the width */
+}
+
+.contact-summary-card h4 {
+    margin-top: 0;
+    color: #305754;
+}
+
+.contact-summary-card p {
+    margin: 5px 0;
+    font-size: 16px;
+}
+
+.contact-summary-card strong {
+    font-weight: bold;
+}
+
+.contact-card {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    margin-top: 20px;
+    width: 100%;
+    max-width: 400px;
+    /* Smaller width for the contact card */
+    box-sizing: border-box;
+    /* Ensure padding and border are included in the width */
+    margin-left: auto;
+    /* Center the card horizontally */
+    margin-right: auto;
+    /* Center the card horizontally */
+    text-align: center;
+    /* Center the text */
+}
+
+.contact-card h4 {
+    margin-top: 0;
+    color: #305754;
+}
+
+.underline {
+    height: 2px;
+    background: #305754;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    transition: width 0.3s;
+}
+
+/* Styles for the contact and passenger cards */
+.contact-card,
+.passenger-card,
+.payment-card,
+.vacation-card {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 15px;
+    margin-bottom: 20px;
+    background-color: #f9f9f9;
+    box-sizing: border-box;
+    /* Ensure padding and border are included in the width */
+}
+
+.contact-card {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    margin-top: 20px;
+    width: 100%;
+    max-width: 400px;
+    /* Smaller width for the contact card */
+    box-sizing: border-box;
+    /* Ensure padding and border are included in the width */
+    margin-left: auto;
+    /* Center the card horizontally */
+    margin-right: auto;
+    /* Center the card horizontally */
+    text-align: center;
+    /* Center the text */
+}
+
+.contact-card h4,
+.passenger-card h3,
+.vacation-card h4 {
+    margin-top: 0;
+}
+
+.error-message {
+    color: red;
+    font-size: 0.9em;
+}
+
+.invalid {
+    border: 1px solid red;
+}
+
+input {
+    margin-bottom: 10px;
+    padding: 8px;
+    width: calc(100% - 20px);
+    box-sizing: border-box;
+}
+
+button {
+    padding: 10px 15px;
+    border: none;
+    background-color: #305754;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #305754;
+}
+
+/* Vacation Information Card Styling */
+.vacation-card {
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+    margin-top: 20px;
+    /* Add top margin */
+    width: 100%;
+    max-width: 400px;
+    /* Smaller width for the vacation card */
+    box-sizing: border-box;
+    /* Ensure padding and border are included in the width */
+    margin-left: auto;
+    /* Center the card horizontally */
+    margin-right: auto;
+    /* Center the card horizontally */
+    text-align: center;
+    /* Center the text */
+}
+
+.vacation-card img {
+    width: 100%;
+    height: 25%;
+    /* Use 25% of the card for the image */
+    object-fit: cover;
+    border-radius: 10px 10px 0 0;
+    /* Round top corners of the image */
+}
+
+.vacation-card h4 {
+    font-size: 18px;
+    /* Same font size as passenger card title */
+    color: #305754;
+    margin-top: 15px;
+    /* Margin for separation from image */
+}
+
+.vacation-card p {
+    font-size: 14px;
+    color: #333;
+    margin: 5px 0;
+}
+
+/* Footer Styles */
+.footer {
+    width: 100%;
+    background-color: #f8f9fa;
+    /* צבע רקע של הרגל */
+    padding: 20px;
+    text-align: center;
+    border-top: 1px solid #ddd;
+    /* גבול עליון דק */
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+    /* צל קטן מעל הרגל */
+    position: relative;
+    /* מתחת לכפתורים */
+    font-size: 14px;
+    /* גובה גופן קטן יותר */
+    color: #333;
+    /* צבע טקסט כהה */
+    margin-top: 20px;
+    /* מרווח מעל הרגל */
+}
+
+.finish-header {
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+#passenger-summary h3 {
+    text-align: center;
+    font-weight: bold;
+    width: 100%;
+}
+
+.passenger-details-title {
+    text-align: center;
+    font-weight: bold;
+    color: #305754;
+}
+
+.centered-passengers {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 2px solid #ccc;
+    background-color: #fff;
+    width: 100%;
+}
+
+.logout-container {
+    display: flex;
+    align-items: center;
+}
+
+#hello-user {
+    margin-right: 15px;
+    font-size: 1.2em;
+    color: #305754;
+    font-weight: bold;
+}
+
+.logout-button {
+    background-color: #305754;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+.logout-button:hover {
+    background-color: #0056b3;
+}
