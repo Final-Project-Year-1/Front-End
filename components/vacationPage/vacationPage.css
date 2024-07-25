@@ -68,30 +68,77 @@ body, html {
     text-align: center;
 }
 
+.hotel-info {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    text-align: left;
+    gap: 20px;
+}
+
+.image-gallery {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.image-gallery img {
+    width: 200px;
+    height: auto;
+    object-fit: cover;
+}
+
+.main-image {
+    width: 400px;
+    height: auto;
+    object-fit: cover;
+}
+
+.hotel-details {
+    max-width: 800px;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.hotel-details h2 {
+    margin-top: 0;
+}
+
+.hotel-details ul {
+    list-style: none;
+    padding: 0;
+}
+
+.hotel-details ul li {
+    margin-bottom: 8px;
+}
+
+.reviews {
+    font-weight: bold;
+    color: var(--red);
+}
+
 .footer {
     background-color: var(--gray-dark);
     color: #fff;
     padding: 40px 20px;
+    display: flex;
     flex-direction: column;
-
+    align-items: center;
 }
 
 .footer-sections {
     width: 100%;
     display: flex;
     align-items: center;
-   
     justify-content: space-between;
-
 }
 
 .footer-section {
     flex: 3;
     text-align: center;
     width: fit-content;
-
-
-  
 }
 
 .footer-section h3 {
@@ -101,7 +148,6 @@ body, html {
 }
 
 .footer-section ul {
-
     list-style: none;
     padding: 0;
 }
@@ -122,24 +168,8 @@ body, html {
 }
 
 .footer-bottom {
-
-    position: relative;
-    top: 15%;
+    margin-top: 20px;
     font-size: 10px;
     color: var(--gray);
-}
-
-
-header {
-    background-color: #333;
-    color: #fff;
-    padding: 10px;
     text-align: center;
-}
-.vacation-details {
-    max-width: 800px;
-    margin: 20px auto;
-    padding: 20px;
-    background-color: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
