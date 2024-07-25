@@ -627,7 +627,10 @@ button:hover {
     font-weight: bold;
     color: #305754;
 }
-
+.logo{
+    cursor: pointer;
+    width: 200px;
+}
 .centered-passengers {
     display: flex;
     flex-wrap: wrap;
