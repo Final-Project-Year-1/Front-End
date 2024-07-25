@@ -47,7 +47,12 @@
         </div>
         <div class="header-content">
             <form class="search-form">
-                <input type="text" id="destination" placeholder="Where do you want to go?" aria-label="Destination">
+                <div class="menu-item">
+                    <input type="text" id="destination" placeholder="Where do you want to go?" aria-label="Destination">
+                    <div class="dropdown-content" id="destination-dropdown" style="display: none;">
+                      <!-- Options will be added dynamically here -->
+                    </div>
+                </div>
                 <div class="input-icon-wrapper">
                     <input type="text" id="start" placeholder="Depart">
                     <i class="icon-custom"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-calendar-heart" viewBox="0 0 16 16">
@@ -80,39 +85,35 @@
             <div class="menu-item">
                 <button class="filter-buttons">Category</button>
                 <div class="dropdown-content">
-                    <button class="number-btn">All</button>
-                    <button class="number-btn">Family</button>
-                    <button class="number-btn">Polar</button>
-                    <button class="number-btn">Food</button>
-                    <button class="number-btn">Cruise</button>
-                    <button class="number-btn">Cities</button>
-                    <button class="number-btn">Beaches</button>
-                    <button class="number-btn">Ski</button>
+                    <button class="number-btn-category" data-category="All">All</button>
+                    <button class="number-btn-category" data-category="Family">Family</button>
+                    <button class="number-btn-category" data-category="Polar">Polar</button>
+                    <button class="number-btn-category" data-category="Food">Food</button>
+                    <button class="number-btn-category" data-category="Cruise">Cruise</button>
+                    <button class="number-btn-category" data-category="Cities">Cities</button>
+                    <button class="number-btn-category" data-category="Beaches">Beaches</button>
+                    <button class="number-btn-category" data-category="Ski">Ski</button>
                 </div>
             </div>
             <div class="menu-item">
                 <button class="filter-buttons">Duration</button>
                 <div class="dropdown-content days-content">
-                    <button class="number-btn">less than a week</button>
-                    <button class="number-btn">over a week</button>
-                    <button class="number-btn">over two weeks</button>
-                    <button class="number-btn">over three weeks</button>
-                    <button class="number-btn">over a month</button>
-                    <div class="dropdown-actions">
-                        <button class="action-btn">Save</button>
-                        <button class="action-btn">Clear Selection</button>
-                    </div>
+                    <button class="number-btn-duration" data-duration="All">All</button>
+                    <button class="number-btn-duration" data-duration="less-than-week">less than a week</button>
+                    <button class="number-btn-duration" data-duration="over-week">over a week</button>
+                    <button class="number-btn-duration" data-duration="over-two-weeks">over two weeks</button>
+                    <button class="number-btn-duration" data-duration="over-three-weeks">over three weeks</button>
+                    <button class="number-btn-duration" data-duration="over-month">over a month</button>
                 </div>
             </div>
             <div class="menu-item">
                 <button class="filter-buttons">Type of Accommodation</button>
                 <div class="dropdown-content accommodationType">
-                    <label><input type="checkbox"> Breakfast Included</label>
-                    <label><input type="checkbox"> Half Board</label>
-                    <label><input type="checkbox"> Full Board</label>
-                    <label><input type="checkbox"> All Inclusive</label>
+                    <label><input type="checkbox" data-type="Bed and Breakfast"> Breakfast Included</label>
+                    <label><input type="checkbox" data-type="Half Board"> Half Board</label>
+                    <label><input type="checkbox" data-type="Full Board"> Full Board</label>
+                    <label><input type="checkbox" data-type="All-Inclusive"> All Inclusive</label>
                     <div class="dropdown-actions">
-                        <button class="action-btn">Save</button>
                         <button class="action-btn">Clear Selection</button>
                     </div>
                 </div>
@@ -120,15 +121,12 @@
             <div class="menu-item">
                 <button class="filter-buttons">Price</button>
                 <div class="dropdown-content days-content">
-                    <button class="number-btn">Under 1000$</button>
-                    <button class="number-btn">Under 2000$</button>
-                    <button class="number-btn">Under 300$</button>
-                    <button class="number-btn">Under 4000$</button>
-                    <button class="number-btn">Under 5000$</button>
-                    <div class="dropdown-actions">
-                        <button class="action-btn">Save</button>
-                        <button class="action-btn">Clear Selection</button>
-                    </div>
+                    <button class="number-btn-price" data-price="All">All</button>
+                    <button class="number-btn-price" data-price="under-1000">Under 1000$</button>
+                    <button class="number-btn-price" data-price="under-2000">Under 2000$</button>
+                    <button class="number-btn-price" data-price="under-3000">Under 3000$</button>
+                    <button class="number-btn-price" data-price="under-4000">Under 4000$</button>
+                    <button class="number-btn-price" data-price="under-5000">Under 5000$</button>
                 </div>
             </div>
         </div>
