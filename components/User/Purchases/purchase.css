@@ -637,10 +637,6 @@ button:hover {
     justify-content: center;
     text-align: center;
 }
-.logo{
-    cursor: pointer;
-    width:200px;
-}
 .header {
     display: flex;
     justify-content: space-between;
