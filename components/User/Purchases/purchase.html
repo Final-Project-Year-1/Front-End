@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,12 +8,14 @@
     <link rel="stylesheet" href="purchase.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 </head>
+
 <body>
     <div class="header">
-        <img src="../../assets/home-images/img/logo.jpeg" id="logo-top" class="logo" onclick="window.location.href='../../Home/home.html'">
+        <img src="../../assets/home-images/img/logo.jpeg" id="logo-top" class="logo"
+            onclick="window.location.href='../../Home/home.html'">
         <div class="logout-container">
             <span id="hello-user"></span>
-            
+
             <button class="logout-button" id="logout">Log out</button>
         </div>
     </div>
@@ -85,7 +88,8 @@
                 <form id="payment-form">
                     <h2>Make Payment</h2>
                     <label for="card-number">Card Number:</label>
-                    <input type="text" id="card-number" required placeholder="1234 5678 9123 4567" maxlength="16" pattern="\d{16}"><br>
+                    <input type="text" id="card-number" required placeholder="1234 5678 9123 4567" maxlength="16"
+                        pattern="\d{16}"><br>
                     <span class="error-message" id="error-card-number"></span>
                     <br>
                     <label for="expiry-date">Expiry Date:</label>
@@ -116,7 +120,8 @@
         <div id="finish" class="step-content" style="display:none;">
             <p class="finish-header">Thank you for your order!</p>
             <p class="finish-header">Your booking number is: <strong>#<span id="booking-number"></span></strong></p>
-            <p class="finish-header">All the information + receipt has been sent to: <strong><span id="finish-contact-email"></span></strong></p>
+            <p class="finish-header">All the information + receipt has been sent to: <strong><span
+                        id="finish-contact-email"></span></strong></p>
             <div class="vacation-card">
                 <div class="vacation-image">
                     <img id="finish-vacation-img" src="https://via.placeholder.com/150" alt="Vacation Image">
@@ -137,7 +142,6 @@
             <div id="passenger-summary">
                 <h3 class="passenger-details-title">Passengers Details</h3>
             </div>
-            <p class="finish-header">All the information + receipt has been sent to: <strong><span id="finish-contact-email"></span></strong></p>
         </div>
     </div>
     <div class="buttons-container">
@@ -146,10 +150,12 @@
     </div>
     <div class="footer-separator"></div>
     <div class="footer-text">
-        <p>© 2024 VacationHub. All Rights Reserved. Your ultimate travel companion. Discover, plan, and book your perfect getaway with us.</p>
+        <p>© 2024 VacationHub. All Rights Reserved. Your ultimate travel companion. Discover, plan, and book your
+            perfect getaway with us.</p>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jwt-decode/build/jwt-decode.min.js"></script>
     <script src="purchase.js"></script>
 </body>
+
 </html>
