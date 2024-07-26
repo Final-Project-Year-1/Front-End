@@ -183,7 +183,7 @@ document.addEventListener('DOMContentLoaded', async function () {
     }
 
     function validateEmail(email) {
-        const re = /^[^\s@]+@[^\s@]+.[^\s@]+$/;
+        const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return re.test(String(email).toLowerCase());
     }
 
@@ -220,229 +220,232 @@ document.addEventListener('DOMContentLoaded', async function () {
         return `${day}-${month}-${year}`;
     }
 
-    function displayPassengerSummary() {
-        const passengers = JSON.parse(sessionStorage.getItem('passengers'));
-        const passengerSummary = document.getElementById('passenger-summary');
-        passengerSummary.innerHTML = '<h3 class="passenger-details-title">Passengers Details</h3>';
-        if (passengers) {
-            passengers.forEach((passenger, index) => {
-                passengerSummary.innerHTML += `
-                    <div class="passenger-card">
-                        <h4>Passenger ${index + 1}</h4>
-                        <p><strong>First Name:</strong> ${passenger.firstName}</p>
-                        <p><strong>Last Name:</strong> ${passenger.lastName}</p>
-                        <p><strong>Email:</strong> ${passenger.email}</p>
-                        <p><strong>Date of Birth:</strong> ${formatDate(passenger.dob)}</p>
-                        <p><strong>Passport Number:</strong> ${passenger.passportNumber}</p>
-                        <p><strong>Passport Expiry Date:</strong> ${formatDate(passenger.passportExpiry)}</p>
-                    </div>
-                `;
-            });
-        }
-    }
 
-    function clearPaymentFields() {
-        const paymentFields = ['card-number', 'expiry-date', 'cvv', 'payment-name', 'payment-surname', 'payment-email'];
-        paymentFields.forEach(fieldId => {
-            const field = document.getElementById(fieldId);
-            if (field) {
-                field.value = '';
-                field.classList.remove('invalid');
-                const errorMessage = document.getElementById(`error-${fieldId}`);
-                if (errorMessage) {
-                    errorMessage.textContent = '';
-                }
-            }
+function displayPassengerSummary() {
+    const passengers = JSON.parse(sessionStorage.getItem('passengers'));
+    const passengerSummary = document.getElementById('passenger-summary');
+    passengerSummary.innerHTML = '<h3 class="passenger-details-title">Passengers Details</h3>';
+    if (passengers) {
+        passengers.forEach((passenger, index) => {
+            passengerSummary.innerHTML += `
+                <div class="passenger-card">
+                    <h4>Passenger ${index + 1}</h4>
+                    <p><strong>First Name:</strong> ${passenger.firstName}</p>
+                    <p><strong>Last Name:</strong> ${passenger.lastName}</p>
+                    <p><strong>Email:</strong> ${passenger.email}</p>
+                    <p><strong>Date of Birth:</strong> ${formatDate(passenger.dob)}</p>
+                    <p><strong>Passport Number:</strong> ${passenger.passportNumber}</p>
+                    <p><strong>Passport Expiry Date:</strong> ${formatDate(passenger.passportExpiry)}</p>
+                </div>
+            `;
         });
-        toggleSubmitButton();
     }
+}
 
-    function toggleNextButton() {
-        if (currentStep === 1) {
-            nextButton.disabled = true;
-            nextButton.style.backgroundColor = 'gray';
-        } else {
-            nextButton.disabled = false;
-            nextButton.style.backgroundColor = '';
-        }
-    }
-
-    function toggleSubmitButton() {
-        const submitButton = document.getElementById('submit-payment');
-        const inputs = document.querySelectorAll('#make-payment input[required]');
-        let allValid = true;
-
-        inputs.forEach(input => {
-            if (input.value.trim() === '' || input.classList.contains('invalid')) {
-                allValid = false;
+function clearPaymentFields() {
+    const paymentFields = ['card-number', 'expiry-date', 'cvv', 'payment-name', 'payment-surname', 'payment-email'];
+    paymentFields.forEach(fieldId => {
+        const field = document.getElementById(fieldId);
+        if (field) {
+            field.value = '';
+            field.classList.remove('invalid');
+            const errorMessage = document.getElementById(`error-${fieldId}`);
+            if (errorMessage) {
+                errorMessage.textContent = '';
             }
-        });
-
-        if (allValid) {
-            submitButton.disabled = false;
-            submitButton.style.backgroundColor = 'green';
-        } else {
-            submitButton.disabled = true;
-            submitButton.style.backgroundColor = 'gray';
         }
+    });
+    toggleSubmitButton();
+}
+
+function toggleNextButton() {
+    if (currentStep === 1) {
+        nextButton.disabled = true;
+        nextButton.style.backgroundColor = 'gray';
+    } else {
+        nextButton.disabled = false;
+        nextButton.style.backgroundColor = '';
     }
+}
 
-    function updateNextButtonText() {
-        if (currentStep === 2) {
-            nextButton.textContent = 'Back To Homepage';
-            nextButton.removeEventListener('click', handleNextClick);
-            nextButton.addEventListener('click', function () {
-                window.location.href = '../../Home/home.html';
-            });
-        } else {
-            nextButton.textContent = 'Continue';
-            nextButton.removeEventListener('click', handleNextClick);
-            nextButton.addEventListener('click', handleNextClick);
-        }
-    }
+function toggleSubmitButton() {
+    const submitButton = document.getElementById('submit-payment');
+    const inputs = document.querySelectorAll('#make-payment input[required]');
+    let allValid = true;
 
-    function handleNextClick() {
-        if (validateStep(currentStep)) {
-            if (currentStep < steps.length - 1) {
-                if (currentStep === 0) {
-                    storePassengerData();
-                }
-                currentStep++;
-                updateSteps();
-                window.scrollTo(0, 0);
-            }
-        } else {
-            alert('Please fill out all required fields correctly.');
-        }
-    }
-
-    function toggleBackButton() {
-        if (currentStep === 0) {
-            backButton.disabled = true;
-            backButton.style.backgroundColor = 'gray';
-        } else {
-            backButton.disabled = false;
-            backButton.style.backgroundColor = '';
-        }
-
-        if (currentStep === 2) {
-            backButton.disabled = true;
-            backButton.style.backgroundColor = 'gray';
-        }
-    }
-
-    backButton.addEventListener('click', function () {
-        if (currentStep > 0) {
-            currentStep--;
-            updateSteps();
-            window.scrollTo(0, 0);
+    inputs.forEach(input => {
+        if (input.value.trim() === '' || input.classList.contains('invalid')) {
+            allValid = false;
         }
     });
 
-    nextButton.addEventListener('click', handleNextClick);
-
-    function storePassengerData() {
-        const numPassengers = parseInt(document.getElementById('num-passengers').textContent, 10);
-        const passengers = [];
-
-        for (let i = 1; i <= numPassengers; i++) {
-            const passenger = {
-                firstName: document.getElementById(`first-name-${i}`).value,
-                lastName: document.getElementById(`last-name-${i}`).value,
-                email: document.getElementById(`email-${i}`).value,
-                dob: document.getElementById(`dob-${i}`).value,
-                passportNumber: document.getElementById(`passport-number-${i}`).value,
-                passportExpiry: document.getElementById(`passport-expiry-${i}`).value,
-            };
-            passengers.push(passenger);
-        }
-
-        const contactDetails = {
-            email: document.getElementById('contact-email').value,
-            firstName: document.getElementById('contact-first-name').value,
-            lastName: document.getElementById('contact-last-name').value,
-        };
-
-        sessionStorage.setItem('passengers', JSON.stringify(passengers));
-        sessionStorage.setItem('contactDetails', JSON.stringify(contactDetails));
+    if (allValid) {
+        submitButton.disabled = false;
+        submitButton.style.backgroundColor = 'green';
+    } else {
+        submitButton.disabled = true;
+        submitButton.style.backgroundColor = 'gray';
     }
+}
 
-    function updateFinishSection(vacation) {
-        document.getElementById('finish-destination').textContent = vacation.destination;
-        document.getElementById('finish-description').textContent = vacation.description;
-        document.getElementById('finish-start-date').textContent = formatDate(vacation.startDate);
-        document.getElementById('finish-end-date').textContent = formatDate(vacation.endDate);
-        document.getElementById('finish-price').textContent = vacation.price;
-        document.getElementById('finish-num-passengers').textContent = document.getElementById('num-passengers').textContent;
-        document.getElementById('finish-vacation-type').textContent = vacation.vacationType;
-        document.getElementById('finish-company-name').textContent = vacation.companyName?.company || '';
-        document.getElementById('finish-trip-category').textContent = vacation.tripCategory?.category || '';
-        document.getElementById('finish-rating').textContent = vacation.rating;
-
-        fetchVacationImg(vacation.imageName).then((imageUrl) => {
-            document.getElementById('finish-vacation-img').src = imageUrl || 'https://via.placeholder.com/150';
+function updateNextButtonText() {
+    if (currentStep === 2) {
+        nextButton.textContent = 'Back To Homepage';
+        nextButton.removeEventListener('click', handleNextClick);
+        nextButton.addEventListener('click', function () {
+            window.location.href = '../../Home/home.html';
         });
+    } else {
+        nextButton.textContent = 'Continue';
+        nextButton.removeEventListener('click', handleNextClick);
+        nextButton.addEventListener('click', handleNextClick);
     }
+}
 
-    function updateSteps() {
-        steps.forEach((step, index) => {
-            step.classList.toggle('active', index === currentStep);
-            const underline = step.querySelector('.underline');
-            underline.style.width = index === currentStep ? '100%' : '0';
-        });
-        loadStepContent();
-        if (currentStep !== 1) {
-            clearPaymentFields();
-        }
-        toggleNextButton();
-        updateNextButtonText();
-        toggleBackButton();
-    }
-
-    function loadStepContent() {
-        const stepContents = document.querySelectorAll('.step-content');
-        stepContents.forEach((content, index) => {
-            content.style.display = index === currentStep ? 'block' : 'none';
-        });
-
-        switch (currentStep) {
-            case 0:
-                const booking = JSON.parse(sessionStorage.getItem('booking'));
-                if (booking) {
-                    generatePassengerFields(booking.Passengers);
-                }
-                break;
-            case 1:
-                const paymentForm = document.getElementById('payment-form');
-                paymentForm.removeEventListener('submit', handlePaymentSubmit);
-                paymentForm.addEventListener('submit', handlePaymentSubmit);
-                addInputValidation();
-                toggleSubmitButton();
-                break;
-            case 2:
-                const storedBooking = JSON.parse(sessionStorage.getItem('booking'));
-                const vacation = storedBooking.vacationId;
-                updateFinishSection(vacation);
-                displayPassengerSummary();
-                document.getElementById('booking-number').textContent = storedBooking.OrderNumber;
-                backButton.disabled = true;
-                backButton.style.backgroundColor = 'gray';
-                break;
-        }
-    }
-
-    function handlePaymentSubmit(event) {
-        event.preventDefault();
-        if (validateStep(currentStep)) {
-            alert('Payment processed.');
+function handleNextClick() {
+    if (validateStep(currentStep)) {
+        if (currentStep < steps.length - 1) {
+            if (currentStep === 0) {
+                storePassengerData();
+            }
             currentStep++;
             updateSteps();
             window.scrollTo(0, 0);
-        } else {
-            alert('Please fill out all required fields correctly.');
         }
+    } else {
+        alert('Please fill out all required fields correctly.');
+    }
+}
+
+function toggleBackButton() {
+    if (currentStep === 0) {
+        backButton.disabled = true;
+        backButton.style.backgroundColor = 'gray';
+    } else {
+        backButton.disabled = false;
+        backButton.style.backgroundColor = '';
     }
 
-    await initializePage();
-    updateSteps();
+    if (currentStep === 2) {
+        backButton.disabled = true;
+        backButton.style.backgroundColor = 'gray';
+    }
+}
+
+backButton.addEventListener('click', function () {
+    if (currentStep > 0) {
+        currentStep--;
+        updateSteps();
+        window.scrollTo(0, 0);
+    }
+});
+
+nextButton.addEventListener('click', handleNextClick);
+
+function storePassengerData() {
+    const numPassengers = parseInt(document.getElementById('num-passengers').textContent, 10);
+    const passengers = [];
+
+    for (let i = 1; i <= numPassengers; i++) {
+        const passenger = {
+            firstName: document.getElementById(`first-name-${i}`).value,
+            lastName: document.getElementById(`last-name-${i}`).value,
+            email: document.getElementById(`email-${i}`).value,
+            dob: document.getElementById(`dob-${i}`).value,
+            passportNumber: document.getElementById(`passport-number-${i}`).value,
+            passportExpiry: document.getElementById(`passport-expiry-${i}`).value,
+        };
+        passengers.push(passenger);
+    }
+
+    const contactDetails = {
+        email: document.getElementById('contact-email').value,
+        firstName: document.getElementById('contact-first-name').value,
+        lastName: document.getElementById('contact-last-name').value,
+    };
+
+    sessionStorage.setItem('passengers', JSON.stringify(passengers));
+    sessionStorage.setItem('contactDetails', JSON.stringify(contactDetails));
+}
+
+function updateFinishSection(vacation) {
+    const contactDetails = JSON.parse(sessionStorage.getItem('contactDetails'));
+    document.getElementById('finish-destination').textContent = vacation.destination;
+    document.getElementById('finish-description').textContent = vacation.description;
+    document.getElementById('finish-start-date').textContent = formatDate(vacation.startDate);
+    document.getElementById('finish-end-date').textContent = formatDate(vacation.endDate);
+    document.getElementById('finish-price').textContent = vacation.price;
+    document.getElementById('finish-num-passengers').textContent = document.getElementById('num-passengers').textContent;
+    document.getElementById('finish-vacation-type').textContent = vacation.vacationType;
+    document.getElementById('finish-company-name').textContent = vacation.companyName?.company || '';
+    document.getElementById('finish-trip-category').textContent = vacation.tripCategory?.category || '';
+    document.getElementById('finish-rating').textContent = vacation.rating;
+    document.getElementById('finish-contact-email').textContent = contactDetails.email;
+
+    fetchVacationImg(vacation.imageName).then((imageUrl) => {
+        document.getElementById('finish-vacation-img').src = imageUrl || 'https://via.placeholder.com/150';
+    });
+}
+
+function updateSteps() {
+    steps.forEach((step, index) => {
+        step.classList.toggle('active', index === currentStep);
+        const underline = step.querySelector('.underline');
+        underline.style.width = index === currentStep ? '100%' : '0';
+    });
+    loadStepContent();
+    if (currentStep !== 1) {
+        clearPaymentFields();
+    }
+    toggleNextButton();
+    updateNextButtonText();
+    toggleBackButton();
+}
+
+function loadStepContent() {
+    const stepContents = document.querySelectorAll('.step-content');
+    stepContents.forEach((content, index) => {
+        content.style.display = index === currentStep ? 'block' : 'none';
+    });
+
+    switch (currentStep) {
+        case 0:
+            const booking = JSON.parse(sessionStorage.getItem('booking'));
+            if (booking) {
+                generatePassengerFields(booking.Passengers);
+            }
+            break;
+        case 1:
+            const paymentForm = document.getElementById('payment-form');
+            paymentForm.removeEventListener('submit', handlePaymentSubmit);
+            paymentForm.addEventListener('submit', handlePaymentSubmit);
+            addInputValidation();
+            toggleSubmitButton();
+            break;
+        case 2:
+            const storedBooking = JSON.parse(sessionStorage.getItem('booking'));
+            const vacation = storedBooking.vacationId;
+            updateFinishSection(vacation);
+            displayPassengerSummary();
+            document.getElementById('booking-number').textContent = storedBooking.OrderNumber;
+            backButton.disabled = true;
+            backButton.style.backgroundColor = 'gray';
+            break;
+    }
+}
+
+function handlePaymentSubmit(event) {
+    event.preventDefault();
+    if (validateStep(currentStep)) {
+        alert('Payment processed.');
+        currentStep++;
+        updateSteps();
+        window.scrollTo(0, 0);
+    } else {
+        alert('Please fill out all required fields correctly.');
+    }
+}
+
+await initializePage();
+updateSteps();
 });
