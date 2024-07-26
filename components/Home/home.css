@@ -38,7 +38,6 @@ body, html {
     background-color: transparent;
     padding: 10px; 
     border:none;
-    text-decoration: underline;
     cursor: pointer;
     transition: background-color 0.3s ease, box-shadow 0.3s ease; 
 }
