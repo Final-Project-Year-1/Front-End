@@ -56,8 +56,10 @@
             <div class="vacation-details">
                 <h3>What's Included?</h3>
                 <ul>
-                    <li>Breakfast included</li>
+                    <li>Flights included</li>
                     <li>Trolly included</li>
+                    <li>Breakfast included</li>
+                    <li>Activities included</li>
                 </ul>
             </div>
             <div class="vacation-price">
@@ -72,9 +74,15 @@
         <div class="mid">
             <div class="hotel-info">
                 <div class="image-gallery-container">
+                    <div class="thumbnail-images">
+                        <img class="thumbnail active" src="../assets/home-images/img/091af2c122f80e1086eae2291fde113a.jpg" alt="Hotel Image 1" onclick="currentSlide(1)">
+                        <img class="thumbnail" src="../assets/home-images/img/1dc9d756931942aceebed363d96cf3a1.jpg" alt="Hotel Image 2" onclick="currentSlide(2)">
+                        <img class="thumbnail" src="../assets/home-images/img/1cf2b1d3e7e55fff81e1274bbfe90326.jpg" alt="Hotel Image 3" onclick="currentSlide(3)">
+                        <img class="thumbnail" src="../assets/home-images/img/1aeabd7154042aa3697776557af2b725.jpg" alt="Hotel Image 4" onclick="currentSlide(4)">
+                    </div>
                     <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
-                    <div class="image-gallery">
-                        <img class="slides" src="../assets/home-images/img/091af2c122f80e1086eae2291fde113a.jpg" alt="Hotel Image 1">
+                    <div class="main-image">
+                        <img class="slides active" src="../assets/home-images/img/091af2c122f80e1086eae2291fde113a.jpg" alt="Hotel Image 1">
                         <img class="slides" src="../assets/home-images/img/1dc9d756931942aceebed363d96cf3a1.jpg" alt="Hotel Image 2">
                         <img class="slides" src="../assets/home-images/img/1cf2b1d3e7e55fff81e1274bbfe90326.jpg" alt="Hotel Image 3">
                         <img class="slides" src="../assets/home-images/img/1aeabd7154042aa3697776557af2b725.jpg" alt="Hotel Image 4">
@@ -155,25 +163,33 @@
                     <div class="booking-info">
                         <div class="option">
                             <input type="radio" id="option1" name="luggage" value="Trolly">
-                            <label for="option1">Trolly</label>
-                            <span>$80+ (for all passangers) </span> 
+                            <label for="option1">
+                                <b>Trolly</b>
+                                <span>$80+ (for all passengers)</span>
+                            </label>
                         </div>
                         <div class="option">
                             <input type="radio" id="option2" name="luggage" value="Luggage">
-                            <label for="option2">Luggage</label>
-                            <span>$316+ (for all passangers) </span>
+                            <label for="option2">
+                                <b>Luggage</b>
+                                <span>$316+ (for all passengers)</span>
+                            </label>
                         </div>
-                        <div class="option black-border">
+                        <div class="option">
                             <input type="radio" id="option3" name="cancellation" value="Non-Refundable">
-                            <label for="option3"><b>$5,639</b></label>
-                            <span>Non-Refundable</span>
+                            <label for="option3">
+                                <b>$5,639</b>
+                                <span>Non-Refundable</span>
+                            </label>
                         </div>
                         <div class="option black-border">
                             <input type="radio" id="option4" name="cancellation" value="vacationhub® Flex">
-                            <label for="option4">vacationhub® Flex <b>$6,182</b></label>
-                            <span>Free Cancellation</span>
-                            <p>You can cancel for any reason up to 24 hours before departure and receive a full refund of your order</p>
-                        </div>
+                            <label for="option4">
+                                <b>$6,182</b>
+                                <span class="main-text">Free Cancellation</span>
+                                <p class="sub-text">You can cancel for any reason up to 24 hours before departure and receive a full refund of your order</p>
+                            </label>
+                        </div>                        
                     </div>
                     <div class="calendar">
                         <h3>Departure dates</h3>

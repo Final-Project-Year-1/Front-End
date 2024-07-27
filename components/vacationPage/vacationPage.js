@@ -5,15 +5,24 @@ function plusSlides(n) {
     showSlides(slideIndex += n);
 }
 
+function currentSlide(n) {
+    showSlides(slideIndex = n);
+}
+
 function showSlides(n) {
     let i;
     let slides = document.getElementsByClassName("slides");
+    let thumbnails = document.getElementsByClassName("thumbnail");
     if (n > slides.length) {slideIndex = 1}
     if (n < 1) {slideIndex = slides.length}
     for (i = 0; i < slides.length; i++) {
-        slides[i].style.display = "none";
+        slides[i].classList.remove("active");
     }
-    slides[slideIndex-1].style.display = "block";
+    for (i = 0; i < thumbnails.length; i++) {
+        thumbnails[i].classList.remove("active");
+    }
+    slides[slideIndex-1].classList.add("active");
+    thumbnails[slideIndex-1].classList.add("active");
 }
 
 document.querySelector('.prev-month').addEventListener('click', function() {
@@ -98,4 +107,3 @@ function toggleReadMore() {
         moreText.style.display = "inline";
     }
 }
-
