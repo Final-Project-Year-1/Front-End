@@ -518,10 +518,41 @@ p {
     margin-top: 20px;
     font-size: 1.1em;
     color: var(--black);
+    
     line-height: 1.6em;
 }
 
 #weather-info p {
     margin: 0;
     padding: 5px 0;
+
+}
+.news-article {
+    border: 1px solid #ddd;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    width: 95%;
+    background-color: #fff;
+}
+
+.news-article h3 {
+    margin-top: 0;
+}
+
+.news-article p {
+    margin-bottom: 10px;
+    display: none;
+}
+
+.news-article a {
+    color: var(--highlight-color);
+    text-decoration: none;
+}
+
+.news-article a:hover {
+    text-decoration: underline;
+}
+#news-container{
+    width: 95%;
 }

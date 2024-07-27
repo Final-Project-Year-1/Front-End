@@ -195,3 +195,47 @@ function displayWeather(data) {
   `;
   document.getElementById('weather-info').innerHTML = weatherInfo;
 }
+document.addEventListener("DOMContentLoaded", async function () {
+  async function fetchNews() {
+      const apiKey = 'f426634050554b5cbd014eff25f76a2d';
+      const url = `https://api.allorigins.win/get?url=${encodeURIComponent(`https://newsapi.org/v2/top-headlines?country=us&apiKey=${apiKey}`)}`;
+
+      try {
+          const response = await fetch(url);
+
+          if (!response.ok) {
+              throw new Error(`Failed to fetch news: ${response.status}`);
+          }
+
+          const data = await response.json();
+          const newsData = JSON.parse(data.contents);
+          displayNews(newsData.articles.slice(0, 3)); // הצגת 3 כתבות בלבד
+      } catch (error) {
+          console.error('Error fetching news:', error);
+          document.getElementById('news-container').innerHTML = `<p>Failed to load news: ${error.message}</p>`;
+      }
+  }
+
+  function displayNews(articles) {
+      const newsContainer = document.getElementById('news-container');
+      newsContainer.innerHTML = ''; // Clear any existing content
+
+      if (articles.length === 0) {
+          newsContainer.innerHTML = '<p>No news available.</p>';
+          return;
+      }
+
+      articles.forEach(article => {
+          const articleElement = document.createElement('div');
+          articleElement.classList.add('news-article');
+          articleElement.innerHTML = `
+              <h3>${article.title}</h3>
+              <p>${article.description}</p>
+              <a href="${article.url}" target="_blank">Read more</a>
+          `;
+          newsContainer.appendChild(articleElement);
+      });
+  }
+
+  await fetchNews();
+});
