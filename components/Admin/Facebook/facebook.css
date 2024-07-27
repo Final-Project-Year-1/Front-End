@@ -330,8 +330,8 @@ input[type="file"] {
     position: relative;
     top: 20px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    max-height: 200px; /* Adjust as needed */
-    overflow-y: auto; /* Add scroll if results are too many */
+    max-height: 200px;
+    overflow-y: auto; 
 }
 
 .post-result {
