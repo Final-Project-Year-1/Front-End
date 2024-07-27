@@ -57,3 +57,35 @@ document.addEventListener("DOMContentLoaded", function() {
     const randomTip = tips[Math.floor(Math.random() * tips.length)];
     tipElement.textContent = randomTip;
 });
+
+// Weather forecast
+async function getWeather() {
+    const city = document.getElementById('city').value.trim();
+    const apiKey = '852035eefd087a5e214c33deadcb451b';
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+
+    try {
+        const response = await fetch(url);
+        if (!response.ok) {
+            if (response.status === 401) {
+                throw new Error('Unauthorized: Invalid API key');
+            }
+            throw new Error('City not found');
+        }
+        const data = await response.json();
+        displayWeather(data);
+    } catch (error) {
+        document.getElementById('weather-info').innerHTML = `<p>${error.message}</p>`;
+    }
+}
+
+function displayWeather(data) {
+    const weatherInfo = `
+        <p><strong>City:</strong> ${data.name}</p>
+        <p><strong>Temperature:</strong> ${data.main.temp} °C</p>
+        <p><strong>Weather:</strong> ${data.weather[0].description}</p>
+        <p><strong>Humidity:</strong> ${data.main.humidity} %</p>
+        <p><strong>Wind Speed:</strong> ${data.wind.speed} m/s</p>
+    `;
+    document.getElementById('weather-info').innerHTML = weatherInfo;
+}

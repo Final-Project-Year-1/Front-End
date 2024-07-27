@@ -385,3 +385,59 @@ h1 {
     font-size: 10px;
     color: var(--gray);
 }
+/* אזור תחזית מזג האוויר */
+.weather {
+    background-color: var(--background-light);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.weather h2 {
+    color: var(--highlight-color);
+    margin-bottom: 15px;
+    font-size: 1.5em;
+}
+
+.weather label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 1.1em;
+    color: var(--dark-blue);
+}
+
+.weather input {
+    width: calc(100% - 22px);
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid var(--gray);
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.weather button {
+    background-color: var(--highlight-color);
+    color: var(--white);
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.weather button:hover {
+    background-color: var(--dark-blue);
+}
+
+#weather-info {
+    margin-top: 20px;
+    font-size: 1.1em;
+    color: var(--black);
+    line-height: 1.6em;
+}
+
+#weather-info p {
+    margin: 0;
+    padding: 5px 0;
+}
