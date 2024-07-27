@@ -2,30 +2,63 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link href="facebook.css" rel="stylesheet">
+    <link href="tmp.css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VacationHub</title>
 </head>
 <body>
     <div class="top-section">
         <div>
-            <img src="../assets/home-images/img/logo.jpeg" id="logo-top" width="200px">
-        </div>
+            <img src="../assets/home-images/img/logo-vacationHub.png" id="logo-top" width="200px">        </div>
+
         <div>
             <span class="top-button-logged-in">
-                <span id="hello-user"></span>
-                <button id="logout">Logout</button>
+                <span id="hello-user">
+                    Hello
+                </span>
+                <button id="logout" class="button">Logout</button>
             </span>
+
             <span class="top-button">
-                <a href="../Auth/Register/register.html" id="register">Register</a>
-                <a href="../Auth/Login/login.html" id="login">Login</a>
+                <a href="../Auth/Login/login.html" id="login" class="button">Login</a>
             </span>
         </div>
     </div>
-    <div class="mid">
-        <div id="status"></div>
-        <button onclick="loginAndPost()">Login and Post</button>
+
+    <div class="mid container">
+        <div class="main-content">
+            <span class="facebook-title">Facebook Page </span>
+
+            <div class="container-input">
+                <div class="create">Create Post</div>
+                <textarea id="userInput"></textarea>
+                <button id="submitButton" class="button-post">Post</button>
+                <div id="response" class="block-element"></div>
+            </div>
+        </div>
+
+        <div class="sidebar">
+            <div class="menu-item" id="checkVisitorsButton">
+                <span>Page Likes Stats</span>
+                <div class="submenu" id="visitorsCount"></div>
+            </div>
+            <div class="menu-item" id="checkFollowersButton">
+                <span>Page Followers Stats</span>
+                <div class="submenu" id="followersCount"></div>
+            </div>
+            <div class="menu-item" id="totalPostsButton">
+                <span>Total Posts</span>
+                <div class="submenu" id="totalPostsCount"></div>
+            </div>
+            <div class="menu-item" id="newMessagesButton">
+                <span>New Messages</span>
+                <div class="submenu" id="newMessagesCount">
+                </div>
+            </div>
+           
+        </div>
     </div>
+
     <div class="footer">
         <div class="footer-sections">
             <div class="footer-section">
@@ -58,7 +91,7 @@
             <span>Your ultimate travel companion. Discover, plan, and book your perfect getaway with us.</span>
         </div>
     </div>
-    <script src="https://cdn.jsdelivr.net/npm/jwt-decode/build/jwt-decode.min.js"></script>
-    <script src="facebook.js"></script>
+
+    <script src="tmp.js"></script>
 </body>
 </html>
