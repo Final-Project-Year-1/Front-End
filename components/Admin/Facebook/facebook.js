@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', function() {
       });
     });
   
-    const accessToken = 'EAAZAbZCZAgww4UBO97ZCK5FGQAet1tSjpgYkVY2dScsm6yuAiZAGBDF8ndbKfbOq5vZCBhR0IfJz3g3OBFngRRlHK7ey7NRhPQUQMnOUkwDsff9I8dBn6W8wM5gnuw2wwzZCG9diFDiCdJZBR9tkuPZBzbxhkNsZBGlHWNWC0biPffDD0MXpDgogDwGrrE98lN00Mek34g2bVxQXOiMmqn79CN1CMplD9nX9Kg'; // Your Page Access Token
+    const accessToken = 'EAAZAbZCZAgww4UBOzSqZAlNzGV7XtXRxaXkRISQJcZA5pr67cMcceJEo82ceiql7ZAZAq1O94ZAVBY9CdWlSi8gtrsZC57SNIeIiT4ayEHcaV5BiZA4eF8aEGd5GNNnalydCazhIsu9TUTyqkR2yc0PRYDMZAqTZCzqSJHekxjWOfRWYlnp6GGkeS1GMjLZBINI5JxsVxlFLvLWBVzxx02I1IBrJEVDaloZAuyW0AONwZDZD'; // Your Page Access Token
     const page_id = '403609402826152'; 
   
     function postToFacebook(message) {
@@ -205,7 +205,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
   document.addEventListener('DOMContentLoaded', function() {
     const page_id = '403609402826152'; 
-    const accessToken = 'EAAZAbZCZAgww4UBO97ZCK5FGQAet1tSjpgYkVY2dScsm6yuAiZAGBDF8ndbKfbOq5vZCBhR0IfJz3g3OBFngRRlHK7ey7NRhPQUQMnOUkwDsff9I8dBn6W8wM5gnuw2wwzZCG9diFDiCdJZBR9tkuPZBzbxhkNsZBGlHWNWC0biPffDD0MXpDgogDwGrrE98lN00Mek34g2bVxQXOiMmqn79CN1CMplD9nX9Kg'; // Your Page Access Token
+    const accessToken = 'EAAZAbZCZAgww4UBOzSqZAlNzGV7XtXRxaXkRISQJcZA5pr67cMcceJEo82ceiql7ZAZAq1O94ZAVBY9CdWlSi8gtrsZC57SNIeIiT4ayEHcaV5BiZA4eF8aEGd5GNNnalydCazhIsu9TUTyqkR2yc0PRYDMZAqTZCzqSJHekxjWOfRWYlnp6GGkeS1GMjLZBINI5JxsVxlFLvLWBVzxx02I1IBrJEVDaloZAuyW0AONwZDZD'; // Your Page Access Token
 
     // קריאה לפונקציה לקבלת כל הפוסטים
     fetchAllPosts(page_id, accessToken);

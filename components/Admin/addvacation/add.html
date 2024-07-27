@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="add.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" href="../../assets/home-images/img/logo-small.jpeg">
+    <title>VacationHub</title>
+</head>
+<body>
+    <div class="top-section">
+        <div>
+            <img src="../../assets/home-images/img/logo-vacationHub.png" id="logo-top" width="200px">
+        </div>
+        <div>
+            <span class="top-button-logged-in">
+                <span id="hello-user">
+                    Hello
+                </span>
+                <button id="logout" class="button">Logout</button>
+            </span>
+            <span class="top-button">
+                <a href="../Auth/Login/login.html" id="login" class="button">Login</a>
+            </span>
+        </div>
+    </div>
+    <div class="mid">
+        <form id="vacation-form">
+            <h2>Add a New Vacation</h2>
+            <label for="destination">Destination:</label>
+            <input type="text" id="destination" name="destination" required>
+            
+            <label for="description">Description:</label>
+            <textarea id="description" name="description" required></textarea>
+            
+            <label for="start-date">Start Date:</label>
+            <input type="date" id="start-date" name="startDate" required>
+            
+            <label for="end-date">End Date:</label>
+            <input type="date" id="end-date" name="endDate" required>
+            
+            <label for="price">Price (in USD):</label>
+            <input type="number" id="price" name="price" required>
+            
+            <label for="group-of">Group Size:</label>
+            <input type="number" id="group-of" name="groupOf" required>
+            
+            <label for="vacation-type">Vacation Type:</label>
+            <div class="custom-select">
+                <select id="vacation-type" name="vacationType" required>
+                    <option value="All-Inclusive">All-Inclusive</option>
+                    <option value="Nature">Nature</option>
+                    <option value="Adventure">Adventure</option>
+                    <option value="Relaxation">Relaxation</option>
+                    <option value="Cultural">Cultural</option>
+                    <!-- הוסיפי כאן סוגי חופשות נוספים -->
+                </select>
+            </div>
+            
+            <label for="company-name">Company Name:</label>
+            <div class="custom-select">
+                <select id="company-name" name="companyName" required>
+                    <option value="Company1">Company1</option>
+                    <option value="Company2">Company2</option>
+                    <option value="Company3">Company3</option>
+                    <!-- הוסיפי כאן שמות חברות נוספים -->
+                </select>
+            </div>
+            
+            <label for="images">Upload Images (4):</label>
+            <input type="file" id="images" name="images" accept="image/*" multiple required>
+            
+            <button type="submit">Add Vacation</button>
+        </form>
+    </div>
+    <div class="footer">
+        <div class="footer-sections">
+            <div class="footer-section">
+                <h3>User Access</h3>
+                <ul>
+                    <li><a href="../Auth/Register/register.html">Register</a></li>
+                    <li><a href="../Auth/Login/login.html">Login</a></li>
+                    <li><a href="../Home/home.html">Home</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Company</h3>
+                <ul>
+                    <li><a href="../aboutUs/about.html">About Us</a></li>
+                    <li><a href="../viewport/reviews.html">Reviews</a></li>
+                    <li><a href="../blog/blog.html">Blog</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Support</h3>
+                <ul>
+                    <li><a href="../FAQs/FAQs.html">FAQ</a></li>
+                    <li><a href="../PrivacyPolicy/PrivacyPolicy.html">Privacy Policy</a></li>
+                    <li><a href="../terms/terms.html">Terms of Service</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>© 2024 VacationHub. All Rights Reserved.</span>
+            <span>Your ultimate travel companion. Discover, plan, and book your perfect getaway with us.</span>
+        </div>
+    </div>
+    <script src="add.js"></script>
+</body>
+</html>
