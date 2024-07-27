@@ -24,17 +24,18 @@ document.getElementById('newMessagesButton').addEventListener('click', function(
     checkNewMessages();
 });
 
+document.getElementById('uploadProfilePictureButton').addEventListener('click', function() {
+    uploadProfilePicture();
+});
+
 document.querySelectorAll('.menu-item').forEach(item => {
     item.addEventListener('click', function() {
         this.classList.toggle('active');
     });
 });
-const accessToken = 'EAAZAbZCZAgww4UBO8RRRK3EY5OiF6cnXtXan2ZA1uNcctD1k34V8Dittt5ZBaWXTmoakLLdNXw0gdMptE4QVL0DoiBNZAfZBpLwjkIT3ZA9tbzCvlIUeaPboCU77MaNZBLnPEZCm7MZBJlbIolxeFkeq7M5ddPzX9d6ZAPOvPUsAfdnhpTp8b4C8MPnm47LBBZC2ZCuEq2B8ZAkPHbZAVuwCb6aKNp6QZB0HTnAEhN2zA'; // Your Page Access Token
-
-
+const accessToken = 'EAAZAbZCZAgww4UBOxCHevJ1HYMlxw9DtZBHA47ZBpTeqHL13fH3WcZA7VVndiJZCprRtzWgCPCYMQKc6NLomB9HEJ4ecC7XUBN0T7YYuDJXPFnqnnbHtQTkiYzwzIQdsTdluna0zaCeFrmraQGtuTPqbNgxW5xvaYdW97UHHGrdnPPrEcEQZBjGZBs1R15fchrejLX3LM9lqhDfvPsM2lkEdx3mZA1MTVoZAGlc'; // Your Page Access Token
+const page_id = '403609402826152'; 
   function postToFacebook(message) {
-      const page_id = '403609402826152'; // Your Page ID
-
       fetch(`https://graph.facebook.com/v20.0/${page_id}/feed`, {
           method: 'POST',
           headers: {
@@ -59,7 +60,7 @@ const accessToken = 'EAAZAbZCZAgww4UBO8RRRK3EY5OiF6cnXtXan2ZA1uNcctD1k34V8Dittt5
   }
 
   function checkVisitorsCount() {
-      const page_id = '403609402826152'; // Your Page ID
+     
 
       fetch(`https://graph.facebook.com/v20.0/${page_id}?fields=fan_count&access_token=${accessToken}`, {
           method: 'GET',
@@ -81,7 +82,7 @@ const accessToken = 'EAAZAbZCZAgww4UBO8RRRK3EY5OiF6cnXtXan2ZA1uNcctD1k34V8Dittt5
   }
 
   function checkFollowersCount() {
-      const page_id = '403609402826152'; // Your Page ID
+      
 
       fetch(`https://graph.facebook.com/v20.0/${page_id}?fields=followers_count&access_token=${accessToken}`, {
           method: 'GET',
@@ -105,7 +106,7 @@ const accessToken = 'EAAZAbZCZAgww4UBO8RRRK3EY5OiF6cnXtXan2ZA1uNcctD1k34V8Dittt5
 
   
   function checkTotalPosts() {
-    const page_id = '403609402826152'; // Your Page ID
+   
 
     fetch(`https://graph.facebook.com/v20.0/${page_id}/posts?access_token=${accessToken}`, {
         method: 'GET',
@@ -130,7 +131,7 @@ const accessToken = 'EAAZAbZCZAgww4UBO8RRRK3EY5OiF6cnXtXan2ZA1uNcctD1k34V8Dittt5
 
 
 function checkNewMessages() {
-  const page_id = '403609402826152'; // Your Page ID
+ 
 
   fetch(`https://graph.facebook.com/v20.0/${page_id}/conversations?access_token=${accessToken}`, {
       method: 'GET',
@@ -150,6 +151,40 @@ function checkNewMessages() {
   .catch(error => {
       document.getElementById('newMessagesCount').innerText = 'Error: ' + error;
   });
+}
+
+
+
+
+function uploadProfilePicture() {
+   
+    const profilePictureInput = document.getElementById('profilePictureInput');
+    const file = profilePictureInput.files[0];
+
+    if (!file) {
+        document.getElementById('uploadResponse').innerText = 'Please select a file.';
+        return;
+    }
+
+    const formData = new FormData();
+    formData.append('source', file);
+    formData.append('access_token', accessToken);
+
+    fetch(`https://graph.facebook.com/v20.0/${page_id}/picture`, {
+        method: 'POST',
+        body: formData
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.error) {
+            document.getElementById('uploadResponse').innerText = 'Error: ' + data.error.message;
+        } else {
+            document.getElementById('uploadResponse').innerText = 'Profile picture updated successfully!';
+        }
+    })
+    .catch(error => {
+        document.getElementById('uploadResponse').innerText = 'Error: ' + error;
+    });
 }
 
 

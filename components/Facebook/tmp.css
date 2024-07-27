@@ -13,6 +13,7 @@ body, html {
     margin: 0;
     padding: 0;
     height: 100vh;
+    overflow-y: auto;
     display: grid;
     grid-template-rows: auto 1fr auto;
     font-family: Arial, Helvetica, sans-serif;
@@ -120,6 +121,7 @@ body, html {
     color: #fff;
     padding: 40px 20px;
     flex-direction: column;
+    margin-top: 20px;
 }
 
 .footer-sections {
@@ -219,9 +221,69 @@ textarea:focus {
     width: 30%;
     height: 60%;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin-bottom: 30px;
 }
 
 .create {
     padding: 10px;
     border-bottom: 0.5px solid var(--gray);
+}
+.change-profile-picture{
+    border: 0.5px solid var(--gray);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 30%;
+  margin-top: 5px;
+    z-index: 1;
+    position: relative;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.form-container {
+   padding: 10px;
+height: 440px;
+   
+}
+input[type="file"] {
+    display: none;
+}
+
+.custom-file-upload :hover{
+    background-color:var(--gray-dark);
+
+}
+.custom-file-upload {
+    cursor: pointer;
+    background-color:var(--gray);
+    color: white;
+    border: none;
+
+    cursor: pointer;
+    align-self: center;
+    text-align: center;
+    align-content: center;
+    font-size: 10px;
+
+   width: 100%;
+   height: 20px;
+    transition: background-color 0.3s ease;
+
+}
+
+.button-post2{
+    color: var(--secondary-color);
+    padding: 8px;
+
+    transition: background-color 0.3s ease;
+    font-weight: bold;
+    width: 100%;
+    border: none;
+    background-color: var(--blue);
+    color: white;
+    cursor: pointer;
+    align-self: center;
+    text-align: center;
+    align-content: center;
+ 
 }

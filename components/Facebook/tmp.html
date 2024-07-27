@@ -9,7 +9,8 @@
 <body>
     <div class="top-section">
         <div>
-            <img src="../assets/home-images/img/logo-vacationHub.png" id="logo-top" width="200px">        </div>
+            <img src="../assets/home-images/img/logo-vacationHub.png" id="logo-top" width="200px">        
+        </div>
 
         <div>
             <span class="top-button-logged-in">
@@ -29,14 +30,24 @@
         <div class="main-content">
             <span class="facebook-title">Facebook Page </span>
 
-            <div class="container-input">
-                <div class="create">Create Post</div>
-                <textarea id="userInput"></textarea>
-                <button id="submitButton" class="button-post">Post</button>
-                <div id="response" class="block-element"></div>
+            <div class="form-container">
+                <div class="container-input">
+                    <div class="create">Create Post</div>
+                    <textarea id="userInput"></textarea>
+                    <button id="submitButton" class="button-post">Post</button>
+                    <div id="response" class="block-element"></div>
+                </div>
+
+                <div class="change-profile-picture">
+                    <div class="create">Change Profile Picture</div>
+                    <label for="profilePictureInput" class="custom-file-upload">Choose File</label>
+                    <input type="file" id="profilePictureInput">
+                    <button id="uploadProfilePictureButton" class="button-post2">Upload</button>
+                    <div id="uploadResponse" class="block-element"></div>
+                </div>
             </div>
         </div>
-
+        
         <div class="sidebar">
             <div class="menu-item" id="checkVisitorsButton">
                 <span>Page Likes Stats</span>
@@ -52,10 +63,8 @@
             </div>
             <div class="menu-item" id="newMessagesButton">
                 <span>New Messages</span>
-                <div class="submenu" id="newMessagesCount">
-                </div>
+                <div class="submenu" id="newMessagesCount"></div>
             </div>
-           
         </div>
     </div>
 
