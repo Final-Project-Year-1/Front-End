@@ -67,25 +67,44 @@ body, html {
     display: flex;
     flex-direction: row;
     padding-left: 10px;
-   
     text-align: center;
- 
 
+    flex: 1;
 }
 
 .facebook-title{
     color: #305754;
     font-size: 2.5vw;
-
     position: relative;
-    left: 100px;
-
+    left: 40%;
     font-weight: bold;
+    height: fit-content;
+    margin-bottom: 20px;
 }
+
 .main-content {
     flex: 1;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    margin-top: 50px;
+
+
 }
 
+.main-r, .main-l {
+    width: 100%;
+}
+
+.main-r{
+    position: relative;
+    right: 20%;
+}
+.main-l{
+    position: relative;
+    right: 30%;
+
+}
 .sidebar {
     font-size: 1.2vw;
     width: 15%;
@@ -93,13 +112,11 @@ body, html {
     display: flex;
     flex-direction: column;
     height: 100%;
-   
 }
 
 .menu-item {
     padding: 10px;
     cursor: pointer;
-
     border-bottom: 0.5px solid var(--gray);
 }
 
@@ -155,7 +172,6 @@ body, html {
 .footer-section ul li a {
     color: var(--gray);
     text-decoration: none;
-    font-size: 14px;
     transition: color 0.3s ease;
 }
 
@@ -218,8 +234,7 @@ textarea:focus {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    width: 30%;
-    height: 60%;
+    width: 100%;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     margin-bottom: 30px;
 }
@@ -228,53 +243,65 @@ textarea:focus {
     padding: 10px;
     border-bottom: 0.5px solid var(--gray);
 }
-.change-profile-picture{
+
+.change-profile-picture {
     border: 0.5px solid var(--gray);
     display: flex;
     flex-direction: column;
     justify-content: center;
-    width: 30%;
-  margin-top: 5px;
+    width: 100%;
+    margin-top: 5px;
     z-index: 1;
     position: relative;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .form-container {
-   padding: 10px;
-height: 440px;
-   
+    padding: 10px;
+    min-height: 100px;
 }
+
 input[type="file"] {
     display: none;
 }
 
-.custom-file-upload :hover{
-    background-color:var(--gray-dark);
-
+.custom-file-upload:hover {
+    background-color: var(--gray-dark);
 }
+
 .custom-file-upload {
     cursor: pointer;
-    background-color:var(--gray);
+    background-color: var(--gray);
     color: white;
     border: none;
-
-    cursor: pointer;
     align-self: center;
     text-align: center;
     align-content: center;
     font-size: 10px;
-
-   width: 100%;
-   height: 20px;
+    width: 100%;
+    height: 20px;
     transition: background-color 0.3s ease;
-
 }
 
-.button-post2{
+.custom-file-upload2 {
+    cursor: pointer;
+    background-color: var(--gray);
+    color: white;
+    border: none;
+    align-self: center;
+    text-align: center;
+    align-content: center;
+    font-size: 10px;
+    width: 97%;
+    border-radius: 3px;
+    height: 20px;
+    margin-bottom: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.button-post2 {
     color: var(--secondary-color);
     padding: 8px;
-
     transition: background-color 0.3s ease;
     font-weight: bold;
     width: 100%;
@@ -285,5 +312,49 @@ input[type="file"] {
     align-self: center;
     text-align: center;
     align-content: center;
- 
+}
+
+.search-container {
+    margin-bottom: 20px;
+    border: 0.1px solid black;
+    padding: 10px;
+    border-radius: 20px;
+    position: relative;
+    top: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+
+}
+
+.search-results {
+    width: 138%;
+    position: relative;
+    top: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    max-height: 200px; /* Adjust as needed */
+    overflow-y: auto; /* Add scroll if results are too many */
+}
+
+.post-result {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid var(--gray);
+    border-radius: 2px;
+}
+
+.post-image {
+    max-width: 70%;
+
+    margin-top: 10px;
+}
+
+#searchInput {
+    outline: none;
+    border: none;
+    width: calc(100% - 40px); /* Adjust to fit button next to input */
+}
+
+.button-post3 {
+    outline: none;
+    border: none;
+    background-color: transparent;
 }
