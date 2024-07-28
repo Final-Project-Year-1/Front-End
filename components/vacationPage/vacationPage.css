@@ -62,7 +62,7 @@ body, html {
     display: none;
 }
 
-/* החלק האפור העליון */
+/* vacation summary */
 .sticky-info {
     position: sticky;
     top: 0;
@@ -73,7 +73,6 @@ body, html {
     z-index: 1000;
     border-top: 0.6px solid var(--gray);
 }
-
 .vacation-summary {
     display: flex;
     justify-content: space-between;
@@ -81,12 +80,32 @@ body, html {
     padding: 10px 20px;
     max-width: 1200px;
     margin: 0 auto;
+    background-color: #c0c0c3; 
+    border-radius: 10px;
 }
 
 .vacation-details,
-.flight-details {
+.flight-details,
+.vacation-price {
     display: flex;
     flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 10px;
+    flex: 1; 
+    position: relative;
+}
+
+.vacation-details:not(:last-child)::after,
+.flight-details:not(:last-child)::after,
+.vacation-price:not(:last-child)::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 1px;
+    height: 100%;
+    background-color: #fff; 
 }
 
 .vacation-details h3,
@@ -163,8 +182,8 @@ body, html {
 
 .image-gallery-container {
     display: flex;
-    width: 50%; /* Half the page width */
-    height: 500px; /* Main image height */
+    width: 50%; 
+    height: 500px; 
     overflow: hidden;
     position: relative;
 }
@@ -173,37 +192,37 @@ body, html {
     display: flex;
     flex-direction: column;
     gap: 10px;
-    margin-right: 10px; /* Space between thumbnails and main image */
+    margin-right: 10px; 
 }
 
 .thumbnail {
-    width: 60px; /* Thumbnail width */
-    height: 60px; /* Thumbnail height */
+    width: 60px; 
+    height: 60px; 
     cursor: pointer;
     opacity: 0.6;
     transition: opacity 0.3s ease;
-    border-radius: 10px; /* Rounded corners */
+    border-radius: 10px; 
 }
 
 .thumbnail:hover, .thumbnail.active {
     opacity: 1;
     border: 2px solid #fff;
-    border-radius: 10px; /* Rounded corners */
+    border-radius: 10px; 
 }
 
 .main-image {
     flex: 1;
-    height: 100%; /* Match container height */
+    height: 100%; 
     overflow: hidden;
-    border-radius: 10px; /* Rounded corners */
+    border-radius: 10px; 
 }
 
 .main-image img {
     width: 100%;
     height: 100%;
     display: none;
-    object-fit: cover; /* Maintain aspect ratio */
-    border-radius: 10px; /* Rounded corners */
+    object-fit: cover; 
+    border-radius: 10px; 
 }
 
 .main-image img.active {
@@ -221,17 +240,17 @@ body, html {
     transition: 0.6s ease;
     user-select: none;
     background-color: rgba(0, 0, 0, 0.5);
-    border-radius: 50%; /* Rounded corners */
+    border-radius: 50%; 
 }
 
 .next {
-    right: 10px; /* Adjust for thumbnail container width */
-    border-radius: 50%; /* Rounded corners */
+    right: 10px; 
+    border-radius: 50%; 
 }
 
 .prev {
-    left: 10px; /* Adjust for thumbnail container width */
-    border-radius: 50%; /* Rounded corners */
+    left: 10px; 
+    border-radius: 50%; 
 }
 
 .prev:hover, .next:hover {
@@ -291,31 +310,31 @@ body, html {
     background-color: var(--dark-blue);
 }
 
-.reviews {
+.top-reviews {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     margin: 10px 0;
 }
 
-.review-title {
+.top-review-title {
     font-size: 20px;
     font-weight: bold;
     color: var(--red);
 }
 
-.review-count {
+.top-review-count {
     font-size: 14px;
     color: #888;
 }
 
-.review-slides {
+.top-review-slides {
     position: relative;
     width: 100%;
     height: auto;
 }
 
-.review {
+.top-review {
     display: none;
     font-size: 14px;
     color: #555;
@@ -324,7 +343,7 @@ body, html {
     margin: 10px 0;
 }
 
-.review.active {
+.top-review.active {
     display: block;
 }
 
@@ -495,6 +514,7 @@ body, html {
     margin: 5px 0 0;
 }
 
+/* calendar */
 .calendar {
     flex: 1;
     padding: 15px; 
@@ -548,6 +568,124 @@ body, html {
     border: 2px solid var(--dark-blue);
 }
 
+/* customer reviews*/
+.reviews-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 40px 20px;
+    background-color: var(--light-gray);
+    border-top: 1px solid var(--gray);
+}
+
+.reviews-section, .add-review-section {
+    flex: 1;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 0 10px;
+}
+
+.reviews-section h2, .add-review-section h2 {
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--black);
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.reviews-wrapper {
+    display: flex;
+    flex-direction: column-reverse;
+    max-height: 400px;
+    overflow-y: auto;
+    gap: 10px;
+    padding-bottom: 10px;
+    padding-right: 10px; 
+}
+
+.review {
+    background-color: #f9f9f9;
+    padding: 10px;
+    border-radius: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.review h3 {
+    margin: 0 0 10px 0;
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--black);
+}
+
+.review p {
+    margin: 0;
+    font-size: 14px;
+    color: var(--gray-dark);
+}
+
+.review p:first-of-type {
+    font-size: 16px;
+    color: var(--red);
+    margin-bottom: 10px;
+}
+
+.add-review-section .form-group {
+    margin-bottom: 20px;
+}
+
+.add-review-section label {
+    display: block;
+    font-size: 14px;
+    color: var(--black);
+    margin-bottom: 5px;
+}
+
+.add-review-section input[type="text"],
+.add-review-section select,
+.add-review-section textarea {
+    width: 100%; 
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid var(--gray);
+    border-radius: 5px;
+    background-color: #f9f9f9;
+    box-sizing: border-box; 
+}
+
+.add-review-section button {
+    padding: 10px 20px;
+    font-size: 14px;
+    color: #fff;
+    background-color: var(--blue);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.add-review-section button:hover {
+    background-color: var(--dark-blue);
+}
+
+/* vertical scroll bar */
+.reviews-wrapper::-webkit-scrollbar {
+    width: 12px; 
+}
+
+.reviews-wrapper::-webkit-scrollbar-thumb {
+    background-color: var(--blue); 
+    border-radius: 6px; 
+    border: 3px solid #f9f9f9; 
+}
+
+.reviews-wrapper::-webkit-scrollbar-track {
+    background-color: #e0e0e0; 
+    border-radius: 6px;
+}
+
+/* footer */
 .footer {
     background-color: var(--gray-dark);
     color: #fff;

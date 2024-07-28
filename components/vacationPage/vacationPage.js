@@ -107,3 +107,24 @@ function toggleReadMore() {
         moreText.style.display = "inline";
     }
 }
+// Reviews Section 
+document.getElementById('add-review-form').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const name = document.getElementById('review-name').value;
+    const rating = document.getElementById('review-rating').value;
+    const reviewText = document.getElementById('review-text').value;
+
+    const reviewWrapper = document.querySelector('.reviews-wrapper');
+    const newReview = document.createElement('div');
+    newReview.classList.add('review');
+    newReview.innerHTML = `
+        <h3>${name}</h3>
+        <p>${'★'.repeat(rating)}${'☆'.repeat(5 - rating)}</p>
+        <p>${reviewText}</p>
+    `;
+
+    reviewWrapper.prepend(newReview); // מוסיף את הביקורת החדשה למעלה
+
+    document.getElementById('add-review-form').reset();
+});
