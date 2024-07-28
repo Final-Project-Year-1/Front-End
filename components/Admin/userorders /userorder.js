@@ -14,7 +14,9 @@ const mockBookings = [
         Passengers: 1,
         status: 'pending',
         firstName: 'John',
-        lastName: 'Doe'
+        lastName: 'Doe',
+        email: 'john.doe@example.com',
+        companyName: 'TravelCorp'
     },
     {
         OrderNumber: '67890',
@@ -24,7 +26,9 @@ const mockBookings = [
         Passengers: 2,
         status: 'confirmed',
         firstName: 'Jane',
-        lastName: 'Smith'
+        lastName: 'Smith',
+        email: 'jane.smith@example.com',
+        companyName: 'HolidayInc'
     },
     {
         OrderNumber: '11223',
@@ -34,7 +38,9 @@ const mockBookings = [
         Passengers: 3,
         status: 'cancelled',
         firstName: 'Alice',
-        lastName: 'Johnson'
+        lastName: 'Johnson',
+        email: 'alice.johnson@example.com',
+        companyName: 'GetawayLtd'
     }
 ];
 
@@ -67,7 +73,7 @@ function searchBooking() {
     let bookings = [];
 
     // הסרת ההערה כדי להשתמש בנתונים סטטיים
-   
+  
     if (searchCriteria === 'OrderNumber') {
         bookings = mockBookings.filter(b => b.OrderNumber.includes(searchId));
     } else if (searchCriteria === 'vacationId') {
@@ -76,9 +82,11 @@ function searchBooking() {
         bookings = mockBookings.filter(b => b.status.toLowerCase().includes(searchId.toLowerCase()));
     } else if (searchCriteria === 'userId') {
         bookings = mockBookings.filter(b => b.userId.includes(searchId));
+    } else if (searchCriteria === 'companyName') {
+        bookings = mockBookings.filter(b => b.companyName.toLowerCase().includes(searchId.toLowerCase()));
     }
     displayBookings(bookings);
-  
+   
 
     // נתונים דינאמיים
     // fetchBookings().then(bookings => {
@@ -90,6 +98,8 @@ function searchBooking() {
     //         bookings = bookings.filter(b => b.status.toLowerCase().includes(searchId.toLowerCase()));
     //     } else if (searchCriteria === 'userId') {
     //         bookings = bookings.filter(b => b.userId.includes(searchId));
+    //     } else if (searchCriteria === 'companyName') {
+    //         bookings = bookings.filter(b => b.companyName.toLowerCase().includes(searchId.toLowerCase()));
     //     }
     //     displayBookings(bookings);
     // });
@@ -111,6 +121,8 @@ function displayBookings(bookings) {
                     <p><strong>Vacation ID:</strong> ${booking.vacationId}</p>
                     <p><strong>User ID:</strong> ${booking.userId}</p>
                     <p><strong>User Name:</strong> ${booking.firstName} ${booking.lastName}</p>
+                    <p><strong>Email:</strong> ${booking.email}</p>
+                    <p><strong>Company Name:</strong> ${booking.companyName}</p>
                     <p><strong>Booking Date:</strong> ${new Date(booking.bookingDate).toLocaleDateString()}</p>
                     <p><strong>Passengers:</strong> ${booking.Passengers}</p>
                     <p><strong>Status:</strong> ${booking.status}</p>
