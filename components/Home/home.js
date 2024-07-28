@@ -176,3 +176,79 @@ allVacationsButton.addEventListener("click", () => localStorage.setItem("tripCat
 // });
 
 
+
+// Weather forecast
+async function getWeather() {
+  const city = document.getElementById('city').value.trim();
+  const apiKey = '852035eefd087a5e214c33deadcb451b';
+  const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+
+  try {
+      const response = await fetch(url);
+      if (!response.ok) {
+          if (response.status === 401) {
+              throw new Error('Unauthorized: Invalid API key');
+          }
+          throw new Error('City not found');
+      }
+      const data = await response.json();
+      displayWeather(data);
+  } catch (error) {
+      document.getElementById('weather-info').innerHTML = `<p>${error.message}</p>`;
+  }
+}
+
+function displayWeather(data) {
+  const weatherInfo = `
+      <p><strong>City:</strong> ${data.name}</p>
+      <p><strong>Temperature:</strong> ${data.main.temp} °C</p>
+      <p><strong>Weather:</strong> ${data.weather[0].description}</p>
+      <p><strong>Humidity:</strong> ${data.main.humidity} %</p>
+      <p><strong>Wind Speed:</strong> ${data.wind.speed} m/s</p>
+  `;
+  document.getElementById('weather-info').innerHTML = weatherInfo;
+}
+document.addEventListener("DOMContentLoaded", async function () {
+  async function fetchNews() {
+      const apiKey = 'f426634050554b5cbd014eff25f76a2d';
+      const url = `https://api.allorigins.win/get?url=${encodeURIComponent(`https://newsapi.org/v2/top-headlines?country=us&apiKey=${apiKey}`)}`;
+
+      try {
+          const response = await fetch(url);
+
+          if (!response.ok) {
+              throw new Error(`Failed to fetch news: ${response.status}`);
+          }
+
+          const data = await response.json();
+          const newsData = JSON.parse(data.contents);
+          displayNews(newsData.articles.slice(0, 3)); // הצגת 3 כתבות בלבד
+      } catch (error) {
+          console.error('Error fetching news:', error);
+          document.getElementById('news-container').innerHTML = `<p>Failed to load news: ${error.message}</p>`;
+      }
+  }
+
+  function displayNews(articles) {
+      const newsContainer = document.getElementById('news-container');
+      newsContainer.innerHTML = ''; // Clear any existing content
+
+      if (articles.length === 0) {
+          newsContainer.innerHTML = '<p>No news available.</p>';
+          return;
+      }
+
+      articles.forEach(article => {
+          const articleElement = document.createElement('div');
+          articleElement.classList.add('news-article');
+          articleElement.innerHTML = `
+              <h3>${article.title}</h3>
+              <p>${article.description}</p>
+              <a href="${article.url}" target="_blank">Read more</a>
+          `;
+          newsContainer.appendChild(articleElement);
+      });
+  }
+
+  await fetchNews();
+});

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link href="facebook.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VacationHub</title>
+    <link rel="icon" type="image/png" href="../../assets/home-images/img/logo-small.jpeg">
+
+</head>
+</head>
+<body>
+    <div class="top-section">
+        <div>
+            <img src="../../assets/home-images/img/logo-vacationHub.png" id="logo-top" width="200px">        
+        </div>
+
+        <div>
+            <span class="top-button-logged-in">
+                <span id="hello-user">
+                    Hello
+                </span>
+                <button id="logout" class="button">Logout</button>
+            </span>
+
+            <span class="top-button">
+                <a href="../../Auth/Login/login.html" id="login" class="button">Login</a>
+            </span>
+        </div>
+    </div>
+
+    <div class="mid container">
+        <span class="facebook-title">Facebook Page</span>
+
+        <div class="main-content">
+            <div class="main-l">
+                <div class="form-container">
+                    <div class="form-container">
+                        <div class="container-input">
+                            <div class="create">Create Post</div>
+                            <textarea id="userInput"></textarea>
+                            <label for="postImageInput" class="custom-file-upload2">Choose Image</label>
+                            <input type="file" id="postImageInput" accept="image/*">
+                            <button id="submitButton" class="button-post">Post</button>
+                            <div id="response" class="block-element"></div>
+                        </div>
+                    </div>
+                    <div class="change-profile-picture">
+                        <div class="create">Change Profile Picture</div>
+                        <label for="profilePictureInput" class="custom-file-upload">Choose File</label>
+                        <input type="file" id="profilePictureInput">
+                        <button id="uploadProfilePictureButton" class="button-post2">Upload</button>
+                        <div id="uploadResponse" class="block-element"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="main-r">
+                <div class="search-post">
+                    <div class="search-container">
+                        <input type="text" id="searchInput" placeholder="Search posts...">
+                        <button id="searchButton" class="button-post3">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                                <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+                <div id="searchResults" class="search-results"></div>
+            </div>
+        </div>
+        <div class="sidebar">
+            <div class="menu-item" id="checkVisitorsButton">
+                <span>Page Likes Stats</span>
+                <div class="submenu" id="visitorsCount"></div>
+            </div>
+            <div class="menu-item" id="checkFollowersButton">
+                <span>Page Followers Stats</span>
+                <div class="submenu" id="followersCount"></div>
+            </div>
+            <div class="menu-item" id="totalPostsButton">
+                <span>Total Posts</span>
+                <div class="submenu" id="totalPostsCount"></div>
+            </div>
+            <div class="menu-item" id="newMessagesButton">
+                <span>New Messages</span>
+                <div class="submenu" id="newMessagesCount"></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="footer-sections">
+            <div class="footer-section">
+                <h3>User Access</h3>
+                <ul>
+                    <li><a href="../../Auth/Register/register.html">Register</a></li>
+                    <li><a href="../../Auth/Login/login.html">Login</a></li>
+                    <li><a href="../../Home/home.html">Home</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Company</h3>
+                <ul>
+                    <li><a href="../../aboutUs/about.html">About Us</a></li>
+                    <li><a href="../../viewport/reviews.html">Reviews</a></li>
+                    <li><a href="../../blog/blog.html">Blog</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Support</h3>
+                <ul>
+                    <li><a href="../../FAQs/FAQs.html">FAQ</a></li>
+                    <li><a href="../../PrivacyPolicy/PrivacyPolicy.html">Privacy Policy</a></li>
+                    <li><a href="../../terms/terms.html">Terms of Service</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>© 2024 VacationHub. All Rights Reserved.</span>
+            <span>Your ultimate travel companion. Discover, plan, and book your perfect getaway with us.</span>
+        </div>
+    </div>
+
+    <script src="facebook.js"></script>
+</body>
+</html>

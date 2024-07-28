@@ -6,12 +6,14 @@
     <link href="home.css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VacationHub</title>
+    <link rel="icon" type="image/png" href="../assets/home-images/img/logo-small.jpeg">
+
 </head>
 
 <body>
     <div class="top-section">
         <div>
-            <img src="../assets/home-images/img/logo.jpeg" id="logo-top" width="200px">
+            <img src="../assets/home-images/img/logo-vacationHub.png" id="logo-top" width="200px">  
         </div>
 
         <div>
@@ -36,6 +38,8 @@
     </div>
 
     <div class="mid">
+
+        <div class="mid-contant">
         <div class="save">
             <i class="fa fa-plane" style="font-size:24px"></i>
             Save 10% or more with Member Prices – savings get better as you climb through the tiers
@@ -110,7 +114,19 @@
                         d="M8 0a8 8 0 1 1 0 16A8 8 0 0 1 8 0M4.5 7.5a.5.5 0 0 0 0 1h5.793l-2.147 2.146a.5.5 0 0 0 .708.708l3-3a.5.5 0 0 0 0-.708l-3-3a.5.5 0 1 0-.708.708L10.293 7.5z" />
                 </svg></button>
         </div>
+        <h2>Travel News</h2>
+        <div id="news-container"></div>
 
+    
+
+
+        <div class="weather">
+        <h2>Weather Forecast</h2>
+        <label for="city">Enter City:</label>
+        <input type="text" id="city" placeholder="City name">
+        <button onclick="getWeather()">Get Weather</button>
+        <div id="weather-info"></div>
+    </div>
         <div class="position-relative">
             <img class="top-rated-vacation-background" src="../assets/home-images/img/vacation3.png" width="1300px"
                 class="border-rad">
@@ -167,12 +183,43 @@
         </div>
 
     </div>
-
     <div class="footer">
-        <span class="footer-text">
-            © 2024 VacationHub. All Rights Reserved.
-            Your ultimate travel companion. Discover, plan, and book your perfect getaway with us.
-        </span>
+        <div class="footer-sections">
+            <div class="footer-section">
+                <h3>User Access</h3>
+                <ul>
+                    <li><a href="../Auth/Register/register.html">Register</a></li>
+                    <li><a href="../Auth/Login/login.html">  Login</a></li>
+                    <li><a href="../Home/home.html">Home</a></li>
+        
+                
+    
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Company</h3>
+                <ul>
+                    <li><a href="../aboutUs/about.html">About Us</a></li>
+                    <li><a href="../viewport/reviews.html">Reviews</a></li>
+                    <li><a href="../blog/blog.html">Blog</a></li>
+                </ul>
+            </div>
+             <div class="footer-section">
+                <h3>Support</h3>
+                <ul>
+                    <li><a href="../FAQs/FAQs.html">FAQ</a></li>
+                    <li><a href="../PrivacyPolicy/PrivacyPolicy.html">Privacy Policy</a></li>
+                    <li><a href="../terms/terms.html">Terms of Service</a></li>
+                </ul>
+            </div>
+            
+        </div>
+
+    </div>
+        <div class="footer-bottom">
+            <span>© 2024 VacationHub. All Rights Reserved.</span>
+            <span>Your ultimate travel companion. Discover, plan, and book your perfect getaway with us.</span>
+        </div>
     </div>
 
 

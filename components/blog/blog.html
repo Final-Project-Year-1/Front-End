@@ -6,6 +6,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/css/lightbox.min.css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VacationHub - Blog</title>
+    <link rel="icon" type="image/png" href="../assets/home-images/img/logo-small.jpeg">
 </head>
 <body>
     <div class="top">
@@ -15,6 +16,10 @@
         <span class="top-button">
             <a href="../Auth/Register/register.html" id="register">Register</a>
             <a href="../Auth/Login/login.html" id="login">Log in</a>
+        </span>
+        <span class="top-button-logged-in" style="display: none;">
+            <span id="hello-user" class="user-info"></span>
+            <a href="../Auth/Login/login.html" id="logout" class="user-info">Logout</a>
         </span>
     </div>
     
@@ -45,9 +50,16 @@
             </div>
         </div>
         <div class="blog-content">
-           
+            <div class="weather">
+                <h2>Weather Forecast</h2>
+                <label for="city">Enter City:</label>
+                <input type="text" id="city" placeholder="City name">
+                <button onclick="getWeather()">Get Weather</button>
+                <div id="weather-info"></div>
+            </div>
             <div class="blog-post">
                 <div class="blog-image" style="background-image: url('../assets/home-images/img/review3.jpg');"></div>
+                
                 <div class="blog-text">
                     <h2 class="dropdown">10 Tips for a Perfect Family Vacation</h2>
                     <div class="dropdown-content">
@@ -188,10 +200,39 @@
     </div>
     
     <div class="footer">
-        <span class="footer-text">© 2024 VacationHub. All Rights Reserved. Your ultimate travel companion. Discover, plan, and book your perfect getaway with us.</span>
+        <div class="footer-sections">
+            <div class="footer-section">
+                <h3>User Access</h3>
+                <ul>
+                    <li><a href="../Auth/Register/register.html">Register</a></li>
+                    <li><a href="../Auth/Login/login.html">Login</a></li>
+                    <li><a href="../Home/home.html">Home</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Company</h3>
+                <ul>
+                    <li><a href="../aboutUs/about.html">About Us</a></li>
+                    <li><a href="../viewport/reviews.html">Reviews</a></li>
+                    <li><a href="../blog/blog.html">Blog</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Support</h3>
+                <ul>
+                    <li><a href="../FAQs/FAQs.html">FAQ</a></li>
+                    <li><a href="../PrivacyPolicy/PrivacyPolicy.html">Privacy Policy</a></li>
+                    <li><a href="../terms/terms.html">Terms of Service</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>© 2024 VacationHub. All Rights Reserved.</span>
+            <span>Your ultimate travel companion. Discover, plan, and book your perfect getaway with us.</span>
+        </div>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jwt-decode/build/jwt-decode.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.11.3/js/lightbox-plus-jquery.min.js"></script>
     <script src="blog.js"></script>
-    
 </body>
 </html>

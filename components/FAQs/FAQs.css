@@ -9,7 +9,9 @@
     --dark-blue: #467470;
     --light-gray: #f4f4f4;
     --background-light: #f9f9f9;
+    --highlight-color: #305754;
 }
+
 
 body {
     margin: 0;
@@ -41,18 +43,16 @@ body {
 }
 
 .side-image {
+    margin-left: 10px;
     flex: 1;
 }
 
 .side-image img {
-    width: 500px;
+    width: 100%;
     height: 1000px;
     object-fit: cover;
     border-radius: 8px;
-    max-width: 500px;
-    max-height: 100%;
 }
-
 
 .faq-container {
     flex: 2;
@@ -100,15 +100,56 @@ body {
 
 .footer {
     background-color: var(--gray-dark);
-    color: var(--white);
-    padding: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    color: #fff;
+    padding: 40px 20px;
+    flex-direction: column;
+
 }
 
-.footer-text {
+.footer-sections {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+}
+
+.footer-section {
+    flex: 3;
+    text-align: center;
+    width: fit-content;
+}
+
+.footer-section h3 {
+    font-size: 16px;
+    margin-bottom: 12px;
+    color: #fff;
+}
+
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-section ul li {
+    margin-bottom: 8px;
+}
+
+.footer-section ul li a {
+    color: var(--gray);
+    text-decoration: none;
     font-size: 14px;
+    transition: color 0.3s ease;
+}
+
+.footer-section ul li a:hover {
+    color: var(--red);
+}
+
+.footer-bottom {
+    position: relative;
+    top: 15%;
+    font-size: 10px;
     color: var(--gray);
 }
 
@@ -131,5 +172,18 @@ body {
 }
 
 .top-button a:hover {
+    color: var(--red);
+}
+
+.user-info {
+    color: var(--highlight-color);
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+    margin: 0 10px;
+    transition: color 0.3s ease;
+}
+
+.user-info:hover {
     color: var(--red);
 }

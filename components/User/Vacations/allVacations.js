@@ -1,4 +1,4 @@
-const getAllVacationsUrl = "http://localhost:3000/api/vacations";
+const getAllVacationsUrl = "http://localhost:3000/api/allVacations";
 const getVacationImg = "http://localhost:3000/api/vacations/images/";
 
 //static delete later

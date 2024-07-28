@@ -9,12 +9,15 @@ body {
     min-height: 100vh;
     background-color: #f4f4f4;
     position: relative;
-    overflow-y: auto; /* Allows vertical scrolling if needed */
-    overflow-x: hidden; /* Disables horizontal scrolling */
+    overflow-y: auto;
+    /* Allows vertical scrolling if needed */
+    overflow-x: hidden;
+    /* Disables horizontal scrolling */
 }
 
 .mid-image {
-    position: fixed; /* Changed to fixed to prevent zooming effect */
+    position: fixed;
+    /* Changed to fixed to prevent zooming effect */
     top: 0;
     left: 0;
     width: 100%;
@@ -30,7 +33,8 @@ body {
     width: 100%;
     max-width: 1200px;
     margin: 10px 0;
-    overflow: hidden; /* Prevent horizontal scroll */
+    overflow: hidden;
+    /* Prevent horizontal scroll */
 }
 
 .breadcrumb {
@@ -39,19 +43,22 @@ body {
     font-size: 14px;
     position: relative;
     top: 5px;
-    overflow: hidden; /* Prevent horizontal scroll */
+    overflow: hidden;
+    /* Prevent horizontal scroll */
 }
 
 .breadcrumb a {
-    color: #007bff;
+    color: #305754;
     text-decoration: none;
     margin: 0 5px;
-    white-space: nowrap; /* Prevent horizontal scroll */
+    white-space: nowrap;
+    /* Prevent horizontal scroll */
 }
 
 .breadcrumb span {
     margin: 0 5px;
-    white-space: nowrap; /* Prevent horizontal scroll */
+    white-space: nowrap;
+    /* Prevent horizontal scroll */
 }
 
 .progress-container {
@@ -59,7 +66,8 @@ body {
     max-width: 1200px;
     text-align: center;
     margin-top: 30px;
-    overflow: hidden; /* Prevent horizontal scroll */
+    overflow: hidden;
+    /* Prevent horizontal scroll */
 }
 
 .progress-bar {
@@ -68,12 +76,15 @@ body {
     width: 100%;
     background-color: #fff;
     padding: 10px;
-    border-radius: 10px; /* Rounded corners */
+    border-radius: 10px;
+    /* Rounded corners */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     justify-content: space-between;
     position: relative;
-    overflow: hidden; /* Prevent horizontal scroll */
-    box-sizing: border-box; /* Ensure padding and border are included in the width */
+    overflow: hidden;
+    /* Prevent horizontal scroll */
+    box-sizing: border-box;
+    /* Ensure padding and border are included in the width */
 }
 
 .step {
@@ -89,17 +100,24 @@ body {
     color: #333;
     font-size: 20px;
     flex: 1;
-    white-space: nowrap; /* Prevent horizontal scroll */
-    overflow: hidden; /* Prevent horizontal scroll */
-    transition: background-color 0.3s, border-bottom 0.3s; /* Add transition for smooth effect */
-    box-sizing: border-box; /* Ensure padding and border are included in the width */
+    white-space: nowrap;
+    /* Prevent horizontal scroll */
+    overflow: hidden;
+    /* Prevent horizontal scroll */
+    transition: background-color 0.3s, border-bottom 0.3s;
+    /* Add transition for smooth effect */
+    box-sizing: border-box;
+    /* Ensure padding and border are included in the width */
 }
 
 .step.active {
-    background-color: #ccc; /* Darker grey for active step */
-    border-bottom: 3px solid #00f; /* Underline current step */
+    background-color: #ccc;
+    /* Darker grey for active step */
+    border-bottom: 3px solid #305754;
+    /* Underline current step */
 }
 
+/*you know this is the pass metahat lashlavim ze aya 007*/
 .step .icon {
     margin-top: 5px;
     font-size: 24px;
@@ -112,11 +130,12 @@ body {
     margin: 0 10px;
     display: flex;
     align-items: center;
-    overflow: hidden; /* Prevent horizontal scroll */
+    overflow: hidden;
+    /* Prevent horizontal scroll */
 }
 
 .step-circle {
-    background-color: #007bff;
+    background-color: #305754;
     color: #fff;
     width: 30px;
     height: 30px;
@@ -147,11 +166,16 @@ body {
     width: 80%;
     max-width: 1200px;
     margin: 0 auto;
-    padding-bottom: 160px; /* Extra space for buttons and footer text */
-    overflow-y: auto; /* Allow vertical scroll */
-    overflow-x: hidden; /* Prevent horizontal scroll */
-    position: relative; /* For underline positioning */
-    box-sizing: border-box; /* Ensure padding and border are included in the width */
+    padding-bottom: 160px;
+    /* Extra space for buttons and footer text */
+    overflow-y: auto;
+    /* Allow vertical scroll */
+    overflow-x: hidden;
+    /* Prevent horizontal scroll */
+    position: relative;
+    /* For underline positioning */
+    box-sizing: border-box;
+    /* Ensure padding and border are included in the width */
 }
 
 .step-content {
@@ -168,56 +192,73 @@ body {
 .buttons-container {
     display: flex;
     justify-content: space-between;
-    align-items: center; /* Align items vertically centered */
+    align-items: center;
+    /* Align items vertically centered */
     width: 100%;
     padding: 10px 20px;
-    background: #f8f9fa; /* Match background color for visibility */
-    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); /* Shadow for better visibility */
+    background: #f8f9fa;
+    /* Match background color for visibility */
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+    /* Shadow for better visibility */
     z-index: 10;
-    overflow: hidden; /* Prevent horizontal scroll */
-    position: fixed; /* Fixed position to stay visible while scrolling */
-    bottom: 50px; /* Adjusted to leave space for footer text */
+    overflow: hidden;
+    /* Prevent horizontal scroll */
+    position: fixed;
+    /* Fixed position to stay visible while scrolling */
+    bottom: 50px;
+    /* Adjusted to leave space for footer text */
 }
 
 .footer-separator {
     width: 100%;
     height: 1px;
     background-color: #ddd;
-    margin: 0; /* Adjust margin to zero for seamless connection */
+    margin: 0;
+    /* Adjust margin to zero for seamless connection */
     position: fixed;
-    bottom: 49px; /* Positioned just above footer text */
-    z-index: 9; /* Lower z-index than buttons container */
+    bottom: 49px;
+    /* Positioned just above footer text */
+    z-index: 9;
+    /* Lower z-index than buttons container */
 }
 
 .footer-text {
     display: flex;
     justify-content: center;
-    align-items: center; /* Align items vertically centered */
+    align-items: center;
+    /* Align items vertically centered */
     width: 100%;
-    height: 49px; /* Set height to match buttons container */
-    background: #f8f9fa; /* Same background color as buttons container */
-    z-index: 8; /* Slightly lower z-index than separator */
+    height: 49px;
+    /* Set height to match buttons container */
+    background: #f8f9fa;
+    /* Same background color as buttons container */
+    z-index: 8;
+    /* Slightly lower z-index than separator */
     position: fixed;
     bottom: 0;
 }
 
 .footer-text p {
-    font-size: 12px; /* Smaller font size */
+    font-size: 12px;
+    /* Smaller font size */
     color: #333;
     margin: 0;
-    padding: 10px 20px; /* Add padding to match buttons container */
+    padding: 10px 20px;
+    /* Add padding to match buttons container */
 }
 
 .btn {
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
-    background-color: #007bff;
+    background-color: #305754;
     color: white;
     cursor: pointer;
     font-size: 16px;
-    white-space: nowrap; /* Prevent horizontal scroll */
-    margin: 0 10px; /* Add margin to move buttons away from the edges */
+    white-space: nowrap;
+    /* Prevent horizontal scroll */
+    margin: 0 10px;
+    /* Add margin to move buttons away from the edges */
 }
 
 #next-button {
@@ -229,7 +270,7 @@ body {
 }
 
 .btn:hover {
-    background-color: #0056b3;
+    background-color: #305754;
 }
 
 /* Form Fields */
@@ -248,12 +289,14 @@ input[type="text"],
 input[type="email"],
 input[type="date"],
 input[type="number"] {
-    width: calc(100% - 16px); /* Adjust for padding */
+    width: calc(100% - 16px);
+    /* Adjust for padding */
     padding: 8px;
     margin: 5px 0;
     border: 1px solid #ddd;
     border-radius: 5px;
-    box-sizing: border-box; /* Ensure padding and border are included in the width */
+    box-sizing: border-box;
+    /* Ensure padding and border are included in the width */
 }
 
 /* Remove border from fieldset */
@@ -283,7 +326,8 @@ input.invalid {
     font-size: 12px;
     margin-top: -5px;
     margin-bottom: 10px;
-    display: block; /* Ensure error message takes a new line */
+    display: block;
+    /* Ensure error message takes a new line */
 }
 
 /* Submit Button Styling */
@@ -314,20 +358,22 @@ form #submit-payment:hover {
     min-width: 250px;
     max-width: 300px;
     margin-right: 10px;
-    box-sizing: border-box; /* Ensure padding and border are included in the width */
+    box-sizing: border-box;
+    /* Ensure padding and border are included in the width */
 }
 
 .passenger-card h3 {
     margin-top: 0;
     font-size: 18px;
-    color: #007bff;
+    color: #305754;
 }
 
 /* Passenger Fields Container */
 #passenger-fields {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center; /* Center when there is only one card */
+    justify-content: center;
+    /* Center when there is only one card */
 }
 
 #num-passengers-container {
@@ -351,14 +397,17 @@ form #submit-payment:hover {
     margin: 20px auto;
     width: 100%;
     max-width: 400px;
-    box-sizing: border-box; /* Ensure padding and border are included in the width */
+    box-sizing: border-box;
+    /* Ensure padding and border are included in the width */
 }
 
 #passenger-summary {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center; /* Center the passenger cards */
-    text-align: center; /* Center the text in passenger cards */
+    justify-content: center;
+    /* Center the passenger cards */
+    text-align: center;
+    /* Center the text in passenger cards */
 }
 
 #passenger-summary h3 {
@@ -377,12 +426,13 @@ form #submit-payment:hover {
     width: 100%;
     max-width: 500px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    box-sizing: border-box; /* Ensure padding and border are included in the width */
+    box-sizing: border-box;
+    /* Ensure padding and border are included in the width */
 }
 
 .contact-summary-card h4 {
     margin-top: 0;
-    color: #007bff;
+    color: #305754;
 }
 
 .contact-summary-card p {
@@ -401,21 +451,26 @@ form #submit-payment:hover {
     padding: 15px;
     margin-top: 20px;
     width: 100%;
-    max-width: 400px; /* Smaller width for the contact card */
-    box-sizing: border-box; /* Ensure padding and border are included in the width */
-    margin-left: auto; /* Center the card horizontally */
-    margin-right: auto; /* Center the card horizontally */
-    text-align: center; /* Center the text */
+    max-width: 400px;
+    /* Smaller width for the contact card */
+    box-sizing: border-box;
+    /* Ensure padding and border are included in the width */
+    margin-left: auto;
+    /* Center the card horizontally */
+    margin-right: auto;
+    /* Center the card horizontally */
+    text-align: center;
+    /* Center the text */
 }
 
 .contact-card h4 {
     margin-top: 0;
-    color: #007bff;
+    color: #305754;
 }
 
 .underline {
     height: 2px;
-    background: #007bff;
+    background: #305754;
     position: absolute;
     bottom: 0;
     left: 0;
@@ -423,13 +478,17 @@ form #submit-payment:hover {
 }
 
 /* Styles for the contact and passenger cards */
-.contact-card, .passenger-card, .payment-card, .vacation-card {
+.contact-card,
+.passenger-card,
+.payment-card,
+.vacation-card {
     border: 1px solid #ddd;
     border-radius: 5px;
     padding: 15px;
     margin-bottom: 20px;
     background-color: #f9f9f9;
-    box-sizing: border-box; /* Ensure padding and border are included in the width */
+    box-sizing: border-box;
+    /* Ensure padding and border are included in the width */
 }
 
 .contact-card {
@@ -439,14 +498,21 @@ form #submit-payment:hover {
     padding: 15px;
     margin-top: 20px;
     width: 100%;
-    max-width: 400px; /* Smaller width for the contact card */
-    box-sizing: border-box; /* Ensure padding and border are included in the width */
-    margin-left: auto; /* Center the card horizontally */
-    margin-right: auto; /* Center the card horizontally */
-    text-align: center; /* Center the text */
+    max-width: 400px;
+    /* Smaller width for the contact card */
+    box-sizing: border-box;
+    /* Ensure padding and border are included in the width */
+    margin-left: auto;
+    /* Center the card horizontally */
+    margin-right: auto;
+    /* Center the card horizontally */
+    text-align: center;
+    /* Center the text */
 }
 
-.contact-card h4, .passenger-card h3, .vacation-card h4 {
+.contact-card h4,
+.passenger-card h3,
+.vacation-card h4 {
     margin-top: 0;
 }
 
@@ -469,14 +535,14 @@ input {
 button {
     padding: 10px 15px;
     border: none;
-    background-color: #007bff;
+    background-color: #305754;
     color: white;
     border-radius: 5px;
     cursor: pointer;
 }
 
 button:hover {
-    background-color: #0056b3;
+    background-color: #305754;
 }
 
 /* Vacation Information Card Styling */
@@ -485,26 +551,36 @@ button:hover {
     border-radius: 10px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     padding: 15px;
-    margin-top: 20px; /* Add top margin */
+    margin-top: 20px;
+    /* Add top margin */
     width: 100%;
-    max-width: 400px; /* Smaller width for the vacation card */
-    box-sizing: border-box; /* Ensure padding and border are included in the width */
-    margin-left: auto; /* Center the card horizontally */
-    margin-right: auto; /* Center the card horizontally */
-    text-align: center; /* Center the text */
+    max-width: 400px;
+    /* Smaller width for the vacation card */
+    box-sizing: border-box;
+    /* Ensure padding and border are included in the width */
+    margin-left: auto;
+    /* Center the card horizontally */
+    margin-right: auto;
+    /* Center the card horizontally */
+    text-align: center;
+    /* Center the text */
 }
 
 .vacation-card img {
     width: 100%;
-    height: 25%; /* Use 25% of the card for the image */
+    height: 25%;
+    /* Use 25% of the card for the image */
     object-fit: cover;
-    border-radius: 10px 10px 0 0; /* Round top corners of the image */
+    border-radius: 10px 10px 0 0;
+    /* Round top corners of the image */
 }
 
 .vacation-card h4 {
-    font-size: 18px; /* Same font size as passenger card title */
-    color: #007bff;
-    margin-top: 15px; /* Margin for separation from image */
+    font-size: 18px;
+    /* Same font size as passenger card title */
+    color: #305754;
+    margin-top: 15px;
+    /* Margin for separation from image */
 }
 
 .vacation-card p {
@@ -516,15 +592,22 @@ button:hover {
 /* Footer Styles */
 .footer {
     width: 100%;
-    background-color: #f8f9fa; /* צבע רקע של הרגל */
+    background-color: #f8f9fa;
+    /* צבע רקע של הרגל */
     padding: 20px;
     text-align: center;
-    border-top: 1px solid #ddd; /* גבול עליון דק */
-    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1); /* צל קטן מעל הרגל */
-    position: relative; /* מתחת לכפתורים */
-    font-size: 14px; /* גובה גופן קטן יותר */
-    color: #333; /* צבע טקסט כהה */
-    margin-top: 20px; /* מרווח מעל הרגל */
+    border-top: 1px solid #ddd;
+    /* גבול עליון דק */
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+    /* צל קטן מעל הרגל */
+    position: relative;
+    /* מתחת לכפתורים */
+    font-size: 14px;
+    /* גובה גופן קטן יותר */
+    color: #333;
+    /* צבע טקסט כהה */
+    margin-top: 20px;
+    /* מרווח מעל הרגל */
 }
 
 .finish-header {
@@ -542,12 +625,50 @@ button:hover {
 .passenger-details-title {
     text-align: center;
     font-weight: bold;
-    color: #007bff;
+    color: #305754;
 }
-
+.logo{
+    cursor: pointer;
+    width: 200px;
+}
 .centered-passengers {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     text-align: center;
+}
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 2px solid #ccc;
+    background-color: #fff;
+    width: 100%;
+}
+
+.logout-container {
+    display: flex;
+    align-items: center;
+}
+
+#hello-user {
+    margin-right: 15px;
+    font-size: 1.2em;
+    color: #305754;
+    font-weight: bold;
+}
+
+.logout-button {
+    background-color: #305754;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+.logout-button:hover {
+    background-color: #305754;
 }

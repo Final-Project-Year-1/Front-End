@@ -1,0 +1,360 @@
+:root {
+    --red: #771011;
+    --gray-transparent: rgba(111, 99, 88, 0.2);
+    --black: #221712;
+    --gray-dark: #6F6358;
+    --white: #fffeea;
+    --gray: #acacac;
+    --blue: #5f9da7;
+    --dark-blue: #305754;
+}
+
+body, html {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    overflow-y: auto;
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.top-section {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    color: #fff;
+    border-bottom: 0.6px solid var(--gray);
+    box-shadow: 0 2px 4px -2px rgba(0, 0, 0, 0.2);
+}
+
+#logo-top {
+    padding: 10px;
+}
+
+#login,
+#logout {
+    color: var(--dark-blue);
+    font-size: 14px;
+    font-weight: bolder;
+    background-color: transparent;
+    padding: 10px;
+    border: none;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+#login:hover,
+#logout:hover {
+    color: var(--red);
+}
+
+#hello-user {
+    color: #467470;
+    font-size: 14px;
+    font-weight: bolder;
+    padding: 5px 15px;
+}
+
+.top-button-logged-in {
+    display: none;
+}
+
+.mid {
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    padding-left: 10px;
+    text-align: center;
+
+    flex: 1;
+}
+
+.facebook-title{
+    color: #305754;
+    font-size: 2.5vw;
+    position: relative;
+    left: 40%;
+    font-weight: bold;
+    height: fit-content;
+    margin-bottom: 20px;
+}
+
+.main-content {
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+    margin-top: 50px;
+
+
+}
+
+.main-r, .main-l {
+    width: 100%;
+}
+
+.main-r{
+    position: relative;
+    right: 20%;
+}
+.main-l{
+    position: relative;
+    right: 30%;
+
+}
+.sidebar {
+    font-size: 1.2vw;
+    width: 15%;
+    border-left: 0.5px solid var(--gray);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.menu-item {
+    padding: 10px;
+    cursor: pointer;
+    border-bottom: 0.5px solid var(--gray);
+}
+
+.menu-item:hover {
+    background-color: rgba(95, 157, 167, 0.5);
+}
+
+.submenu {
+    display: none;
+    padding: 10px;
+}
+
+.menu-item.active .submenu {
+    display: block;
+}
+
+.footer {
+    background-color: var(--gray-dark);
+    color: #fff;
+    padding: 40px 20px;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+.footer-sections {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.footer-section {
+    flex: 3;
+    text-align: center;
+    width: fit-content;
+}
+
+.footer-section h3 {
+    font-size: 16px;
+    margin-bottom: 12px;
+    color: #fff;
+}
+
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-section ul li {
+    margin-bottom: 8px;
+}
+
+.footer-section ul li a {
+    color: var(--gray);
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-section ul li a:hover {
+    color: var(--red);
+}
+
+.footer-bottom {
+    position: relative;
+    top: 15%;
+    font-size: 10px;
+    color: var(--gray);
+}
+
+textarea {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid var(--primary-color);
+    width: 96%;
+    height: 80%;
+    box-sizing: border-box;
+    text-align: left;
+    vertical-align: top;
+    display: inline-block;
+    overflow-y: none;
+    resize: none;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+textarea:hover,
+textarea:active,
+textarea:focus {
+    outline: none;
+    border: none;
+}
+
+.button-post {
+    color: var(--secondary-color);
+    padding: 8px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    font-weight: bold;
+    width: 97%;
+    border: none;
+    background-color: var(--blue);
+    color: white;
+    cursor: pointer;
+    align-self: center;
+    text-align: center;
+    align-content: center;
+    margin-bottom: 10px;
+}
+
+.button-post:hover {
+    background-color: var(--dark-blue);
+}
+
+.container-input {
+    border: 0.5px solid var(--gray);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin-bottom: 30px;
+}
+
+.create {
+    padding: 10px;
+    border-bottom: 0.5px solid var(--gray);
+}
+
+.change-profile-picture {
+    border: 0.5px solid var(--gray);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    margin-top: 5px;
+    z-index: 1;
+    position: relative;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.form-container {
+    padding: 10px;
+    min-height: 100px;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.custom-file-upload:hover {
+    background-color: var(--gray-dark);
+}
+
+.custom-file-upload {
+    cursor: pointer;
+    background-color: var(--gray);
+    color: white;
+    border: none;
+    align-self: center;
+    text-align: center;
+    align-content: center;
+    font-size: 10px;
+    width: 100%;
+    height: 20px;
+    transition: background-color 0.3s ease;
+}
+
+.custom-file-upload2 {
+    cursor: pointer;
+    background-color: var(--gray);
+    color: white;
+    border: none;
+    align-self: center;
+    text-align: center;
+    align-content: center;
+    font-size: 10px;
+    width: 97%;
+    border-radius: 3px;
+    height: 20px;
+    margin-bottom: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.button-post2 {
+    color: var(--secondary-color);
+    padding: 8px;
+    transition: background-color 0.3s ease;
+    font-weight: bold;
+    width: 100%;
+    border: none;
+    background-color: var(--blue);
+    color: white;
+    cursor: pointer;
+    align-self: center;
+    text-align: center;
+    align-content: center;
+}
+
+.search-container {
+    margin-bottom: 20px;
+    border: 0.1px solid black;
+    padding: 10px;
+    border-radius: 20px;
+    position: relative;
+    top: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+
+}
+
+.search-results {
+    width: 100%;
+    position: relative;
+    top: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    max-height: 200px;
+    overflow-y: auto; 
+}
+
+.post-result {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid var(--gray);
+    border-radius: 2px;
+}
+
+.post-image {
+    max-width: 70%;
+
+    margin-top: 10px;
+}
+
+#searchInput {
+    outline: none;
+    border: none;
+    width: calc(100% - 40px); /* Adjust to fit button next to input */
+}
+
+.button-post3 {
+    outline: none;
+    border: none;
+    background-color: transparent;
+}

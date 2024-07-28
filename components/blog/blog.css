@@ -5,10 +5,11 @@
     --gray-dark: #6F6358;
     --white: #ffffff;
     --gray: #acacac;
-    --blue:#5d9792;
-    --dark-blue:#467470;
+    --blue: #5d9792;
+    --dark-blue: #467470;
     --light-gray: #f4f4f4;
     --background-light: #f9f9f9;
+    --highlight-color: #305754; /* New color */
 }
 
 body {
@@ -61,7 +62,7 @@ h1 {
     overflow: hidden;
     transition: transform 0.3s;
     flex: 1;
-    max-width: 300px; 
+    max-width: 300px;
 }
 
 .post img {
@@ -77,7 +78,6 @@ h1 {
     color: #221712;
 }
 
-
 .post-text h3 {
     margin: 10px 0;
     font-size: 1.2em;
@@ -90,8 +90,7 @@ h1 {
 }
 
 .post-text a {
-
-    color: black
+    color: black;
 }
 
 .post:hover {
@@ -175,7 +174,6 @@ h1 {
     transition: transform 0.3s;
 }
 
-
 .collage-item img {
     width: 100%;
     height: 100%;
@@ -202,13 +200,13 @@ h1 {
 .gallery-title h3 {
     margin: 0;
     font-size: 1.5em;
-    color: var(--dark-blue);
+    color: var (--dark-blue);
 }
 
 .gallery-title p {
     margin: 5px 0 0;
     font-size: 1em;
-    color: var(--gray-dark);
+    color: var (--gray-dark);
 }
 
 .video-section {
@@ -300,20 +298,6 @@ h1 {
     background-color: var(--blue);
 }
 
-.footer {
-    background-color: var(--gray-dark);
-    color: var(--white);
-    padding: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.footer-text {
-    font-size: 14px;
-    color: var(--gray);
-}
-
 .top-button a {
     color: var(--dark-blue);
     font-size: 14px;
@@ -327,6 +311,19 @@ h1 {
     color: var(--red);
 }
 
+.user-info {
+    color: var(--highlight-color);
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+    margin: 0 10px;
+    transition: color 0.3s ease;
+}
+
+.user-info:hover {
+    color: var(--red);
+}
+
 @keyframes fadeIn {
     from {
         opacity: 0;
@@ -334,4 +331,113 @@ h1 {
     to {
         opacity: 1;
     }
+}
+
+.footer {
+    background-color: var(--gray-dark);
+    color: #fff;
+    padding: 40px 20px;
+    flex-direction: column;
+}
+
+.footer-sections {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.footer-section {
+    flex: 3;
+    text-align: center;
+    width: fit-content;
+}
+
+.footer-section h3 {
+    font-size: 16px;
+    margin-bottom: 12px;
+    color: #fff;
+}
+
+.footer-section ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-section ul li {
+    margin-bottom: 8px;
+}
+
+.footer-section ul li a {
+    color: var(--gray);
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.3s ease;
+}
+
+.footer-section ul li a:hover {
+    color: var(--red);
+}
+
+.footer-bottom {
+    position: relative;
+    top: 15%;
+    font-size: 10px;
+    color: var(--gray);
+}
+/* אזור תחזית מזג האוויר */
+.weather {
+    background-color: var(--background-light);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+}
+
+.weather h2 {
+    color: var(--highlight-color);
+    margin-bottom: 15px;
+    font-size: 1.5em;
+}
+
+.weather label {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 1.1em;
+    color: var(--dark-blue);
+}
+
+.weather input {
+    width: calc(100% - 22px);
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid var(--gray);
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.weather button {
+    background-color: var(--highlight-color);
+    color: var(--white);
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.weather button:hover {
+    background-color: var(--dark-blue);
+}
+
+#weather-info {
+    margin-top: 20px;
+    font-size: 1.1em;
+    color: var(--black);
+    line-height: 1.6em;
+}
+
+#weather-info p {
+    margin: 0;
+    padding: 5px 0;
 }

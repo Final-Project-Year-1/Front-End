@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link href="history.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My History</title>
+    <link rel="icon" type="image/png" href="../../assets/home-images/img/logo-small.jpeg">
+
+</head>
+
+<body>
+    <div class="header">
+        <img src="../../assets/home-images/img/logo-vacationHub.png" id="logo-top" width="200px"
+            onclick="window.location.href='../../Home/home.html'">
+        <div class="logout-container">
+            <span id="hello-user"></span>
+            <button class="logout-button" onclick="logout()" id="logout">Log out</button>
+        </div>
+    </div>
+
+    <div class="container">
+        <section id="future-trips" style="display: none;">
+            <h2>Future trips</h2>
+            <div id="future-trips-container" class="trips-container"></div>
+        </section>
+
+        <section id="trips">
+            <div id="no-trips" class="no-trips-container">
+                <p>
+                    <span class="no-trips-title">No trips booked ... yet!</span><br>
+                    <span class="no-trips-subtitle">Time to dust off your bags and start planning your next
+                        adventure.</span><br>
+                    <button class="search-button" onclick="startSearching()">Start searching</button>
+                </p>
+                <img src="../../assets/historyImages/historyPhoto.webp" alt="No trips" class="no-trips-image">
+            </div>
+            <div id="additional-trips" class="no-trips-container" style="display: none;">
+                <p>
+                    <span class="no-trips-title">Looking for more trips?</span><br>
+                    <span class="no-trips-subtitle">Check out our latest destinations and find your next
+                        adventure.</span><br>
+                    <button class="search-button" onclick="startSearching()">Explore More</button>
+                </p>
+                <img src="../../assets/historyImages/historyPhoto.webp" alt="Explore trips" class="no-trips-image">
+            </div>
+
+            <div id="past-trips" style="display: none;">
+                <h2>Where you've been</h2>
+                <div id="history-container" class="trips-container"></div>
+            </div>
+        </section>
+
+        <section id="cancelled-trips" style="display: none;">
+            <h2>Cancelled trips</h2>
+            <div id="cancelled-trips-container" class="trips-container"></div>
+        </section>
+    </div>
+
+    <div id="booking-details-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Booking Details</h2>
+                <span id="order-number" class="order-number">Order Number: #000026</span>
+                <span class="close-button">&times;</span>
+            </div>
+            <div class="modal-body" id="booking-details">
+                <div><strong>Booking Date:</strong> <span id="modal-booking-date"></span></div>
+                <div><strong>Destination:</strong> <span id="modal-destination"></span></div>
+                <div><strong>Description:</strong> <span id="modal-description"></span></div>
+                <div><strong>Start Date:</strong> <span id="modal-start-date"></span></div>
+                <div><strong>End Date:</strong> <span id="modal-end-date"></span></div>
+                <div><strong>Group Size:</strong> <span id="modal-group"></span></div>
+                <div><strong>Vacation Type:</strong> <span id="modal-type"></span></div>
+                <div><strong>Company:</strong> <span id="modal-company"></span></div>
+                <div><strong>Category:</strong> <span id="modal-category"></span></div>
+                <div><strong>Vacation Rate: </strong> <span id="modal-rating"></span></div>
+                <div><strong>Passengers:</strong> <span id="modal-passengers"></span></div>
+                <div><strong>Total Price:</strong> <span id="modal-price"></span></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <div class="footer-sections">
+            <div class="footer-section">
+                <h3>User Access</h3>
+                <ul>
+                    <li><a href="../../Auth/Register/register.html">Register</a></li>
+                    <li><a href="../../Auth/Login/login.html">Login</a></li>
+                    <li><a href="../../Home/home.html">Home</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Company</h3>
+                <ul>
+                    <li><a href="../../aboutUs/about.html">About Us</a></li>
+                    <li><a href="../../viewport/reviews.html">Reviews</a></li>
+                    <li><a href="../../blog/blog.html">Blog</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Support</h3>
+                <ul>
+                    <li><a href="../../FAQs/FAQs.html">FAQ</a></li>
+                    <li><a href="../../PrivacyPolicy/PrivacyPolicy.html">Privacy Policy</a></li>
+                    <li><a href="../../terms/terms.html">Terms of Service</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>© 2024 VacationHub. All Rights Reserved.</span>
+            <span>Your ultimate travel companion. Discover, plan, and book your perfect getaway with us.</span>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/jwt-decode/build/jwt-decode.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="history.js"></script>
+</body>
+
+</html>
