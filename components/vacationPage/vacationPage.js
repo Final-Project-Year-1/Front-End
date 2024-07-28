@@ -25,17 +25,22 @@ function showSlides(n) {
     thumbnails[slideIndex-1].classList.add("active");
 }
 
+// Calendar Functionality
+let currentDate = new Date();
+let startDate = null;
+let endDate = null;
+
 document.querySelector('.prev-month').addEventListener('click', function() {
-    // Handle previous month click
+    currentDate.setMonth(currentDate.getMonth() - 1);
+    renderCalendar();
 });
 
 document.querySelector('.next-month').addEventListener('click', function() {
-    // Handle next month click
+    currentDate.setMonth(currentDate.getMonth() + 1);
+    renderCalendar();
 });
 
 const daysContainer = document.querySelector('.days');
-let startDate = null;
-let endDate = null;
 daysContainer.addEventListener('click', (event) => {
     if (event.target.classList.contains('day')) {
         const selectedDate = new Date(event.target.getAttribute('data-date'));
@@ -74,23 +79,42 @@ function updateSelection() {
     });
 }
 
-// Generate calendar days
-function generateCalendarDays(month, year) {
-    const daysInMonth = new Date(year, month + 1, 0).getDate();
-    daysContainer.innerHTML = '';
-    for (let day = 1; day <= daysInMonth; day++) {
-        const dayElement = document.createElement('div');
-        dayElement.classList.add('day');
-        dayElement.textContent = day;
-        dayElement.setAttribute('data-date', `${year}-${month + 1}-${day}`);
-        daysContainer.appendChild(dayElement);
+function renderCalendar() {
+    const month = currentDate.getMonth();
+    const year = currentDate.getFullYear();
+    const firstDayOfMonth = new Date(year, month, 1).getDay();
+    const lastDateOfMonth = new Date(year, month + 1, 0).getDate();
+    const lastDayOfLastMonth = month === 0 ? new Date(year - 1, 11, 0).getDate() : new Date(year, month, 0).getDate();
+    
+    document.getElementById('month-year').innerText = `${currentDate.toLocaleString('default', { month: 'long' })}, ${year}`;
+    
+    let days = '';
+    
+    for (let i = firstDayOfMonth; i > 0; i--) {
+        days += `<div class="day prev-month">${lastDayOfLastMonth - i + 1}</div>`;
     }
+    
+    for (let i = 1; i <= lastDateOfMonth; i++) {
+        const dateString = `${year}-${month + 1}-${i}`;
+        days += `<div class="day current-month" data-date="${dateString}" data-price="$${(Math.random() * 1000 + 3000).toFixed(0)}">${i}</div>`;
+    }
+    
+    daysContainer.innerHTML = days;
+    addDayClickEvent();
 }
 
-// Initialize calendar
-const currentMonth = new Date().getMonth();
-const currentYear = new Date().getFullYear();
-generateCalendarDays(currentMonth, currentYear);
+function addDayClickEvent() {
+    const days = document.querySelectorAll('.day.current-month');
+    days.forEach(day => {
+        day.addEventListener('click', function() {
+            document.querySelectorAll('.day').forEach(d => d.classList.remove('selected'));
+            this.classList.add('selected');
+        });
+    });
+}
+
+// Initial render of the calendar
+renderCalendar();
 
 function toggleReadMore() {
     var dots = document.getElementById("dots");
@@ -107,6 +131,7 @@ function toggleReadMore() {
         moreText.style.display = "inline";
     }
 }
+
 // Reviews Section 
 document.getElementById('add-review-form').addEventListener('submit', function(event) {
     event.preventDefault();

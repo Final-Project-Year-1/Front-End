@@ -36,40 +36,40 @@
     </div>
 
     <!--Vacation Summary on the top-->
-    <div class="sticky-info">
-        <div class="vacation-summary">
-            <div class="vacation-details">
-                <h3>Vacation in Kos</h3>
-                <ul>
-                    <li>Grecotel Kos Imperial</li>
-                    <li>2 Adults + 2 kids</li>
-                    <li>06/08/2024 - 11/08/2024 :5 Nights</li>
-                    <li>Family Room Garden View</li>
-                </ul>
-            </div>
-            <div class="flight-details">
-                <h3>Departure from TLV Airport</h3>
-                <ul>
-                    <li>Tel Aviv - Kos: Direct flight | 13:10, 06/08/2024</li>
-                    <li>Kos - Tel Aviv: Direct Flight | 17:05, 11/08/2024</li>
-                </ul>
-            </div>
-            <div class="vacation-details">
-                <h3>What's Included?</h3>
-                <ul>
-                    <li>Flights included</li>
-                    <li>Trolly included</li>
-                    <li>Breakfast included</li>
-                    <li>Activities included</li>
-                </ul>
-            </div>
-            <div class="vacation-price">
-                <p>$5,719</p>
-                <span>$1,430 per person</span>
-                <button class="order-button">Book Now</button>
-            </div>
+<div class="sticky-info">
+    <div class="vacation-summary">
+        <div class="vacation-details">
+            <h3>Vacation in Kos</h3>
+            <ul>
+                <li><img src="../assets/home-images/img/location.png" alt="icon"> Grecotel Kos Imperial</li>
+                <li><img src="../assets/home-images/img/persons.png" alt="icon"> 4 persons</li>
+                <li><img src="../assets/home-images/img/bed.png" alt="icon"> Family Room Garden View</li>
+            </ul>
+        </div>
+        <div class="flight-details">
+            <h3>Vacation Dates</h3>
+            <ul>
+                <li>Check in : 15:00, 12/08/2024 </li>
+                <li>Check out : 12:00, 18/08/2024</li>
+            </ul>
+        </div>
+        <div class="vacation-details">
+            <h3>What's Included?</h3>
+            <ul>
+                <li><img src="../assets/home-images/img/flight.png" alt="icon"> Flights included</li>
+                <li><img src="../assets/home-images/img/luggage.png" alt="icon"> Trolly included</li>
+                <li><img src="../assets/home-images/img/breakfast.png" alt="icon"> Breakfast included</li>
+                <li><img src="../assets/home-images/img/beach.png" alt="icon"> Activities included</li>
+            </ul>
+        </div>
+        <div class="vacation-price">
+            <p>$5,719</p>
+            <span>$1,430 per person</span>
+            <button class="order-button">Book Now</button>
         </div>
     </div>
+</div>
+
 
     <div class="content-wrapper">
         <div class="mid">
@@ -192,17 +192,18 @@
                             </label>
                         </div>                        
                     </div>
+                    <!-- Calendar -->
                     <div class="calendar">
                         <h3>Departure dates</h3>
                         <div class="calendar-box">
                             <div class="month">
-                                <button class="prev-month">«</button>
-                                <span>August 2024</span>
-                                <button class="next-month">»</button>
+                                <button class="prev-month" onclick="prevMonth()">«</button>
+                                <span id="month-year"></span>
+                                <button class="next-month" onclick="nextMonth()">»</button>
                             </div>
-                            <div class="days"> </div>
+                            <div class="days" id="calendar-days"></div>
                         </div>
-                    </div>
+                    </div>                    
                 </div>
                 
             </div>
