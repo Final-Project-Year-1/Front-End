@@ -44,6 +44,22 @@ const mockBookings = [
     }
 ];
 
+// Add more mock bookings
+for (let i = 4; i <= 40; i++) {
+    mockBookings.push({
+        OrderNumber: `${10000 + i}`,
+        vacationId: `5f8d0d55b54764421b7156d${i}`,
+        userId: `5f8d0d55b54764421b7156e${i}`,
+        bookingDate: '2024-10-15T00:00:00.000Z',
+        Passengers: i % 5,
+        status: i % 2 === 0 ? 'confirmed' : 'pending',
+        firstName: `First${i}`,
+        lastName: `Last${i}`,
+        email: `user${i}@example.com`,
+        companyName: `Company${i}`
+    });
+}
+
 // נתונים דינאמיים מה-backend
 // async function fetchBookings() {
 //     try {
@@ -72,8 +88,6 @@ function searchBooking() {
     // נתונים סטטיים
     let bookings = [];
 
-    // הסרת ההערה כדי להשתמש בנתונים סטטיים
-  
     if (searchCriteria === 'OrderNumber') {
         bookings = mockBookings.filter(b => b.OrderNumber.includes(searchId));
     } else if (searchCriteria === 'vacationId') {
@@ -85,31 +99,30 @@ function searchBooking() {
     } else if (searchCriteria === 'companyName') {
         bookings = mockBookings.filter(b => b.companyName.toLowerCase().includes(searchId.toLowerCase()));
     }
+    currentIndex = 0; // לאתחל את האינדקס לחיפוש חדש
     displayBookings(bookings);
-   
+}
 
-    // נתונים דינאמיים
-    // fetchBookings().then(bookings => {
-    //     if (searchCriteria === 'OrderNumber') {
-    //         bookings = bookings.filter(b => b.OrderNumber.includes(searchId));
-    //     } else if (searchCriteria === 'vacationId') {
-    //         bookings = bookings.filter(b => b.vacationId.includes(searchId));
-    //     } else if (searchCriteria === 'status') {
-    //         bookings = bookings.filter(b => b.status.toLowerCase().includes(searchId.toLowerCase()));
-    //     } else if (searchCriteria === 'userId') {
-    //         bookings = bookings.filter(b => b.userId.includes(searchId));
-    //     } else if (searchCriteria === 'companyName') {
-    //         bookings = bookings.filter(b => b.companyName.toLowerCase().includes(searchId.toLowerCase()));
-    //     }
-    //     displayBookings(bookings);
-    // });
+// ניקוי חיפוש
+function clearSearch() {
+    document.getElementById('search-id').value = '';
+    document.querySelector('.dropbtn').textContent = 'Select Search Criteria';
+    displayBookings(mockBookings);
+    currentIndex = 0; // לאתחל את האינדקס לחיפוש חדש
+
 }
 
 // הצגת כרטיסי הזמנות
+let currentIndex = 0;
+const ITEMS_PER_PAGE = 9;
+let currentBookings = [];
+
 function displayBookings(bookings) {
+    currentBookings = bookings;
     const cardsContainer = document.getElementById('cards-container');
     cardsContainer.innerHTML = '';
-    bookings.forEach(booking => {
+    const displayBookings = bookings.slice(0, currentIndex + ITEMS_PER_PAGE);
+    displayBookings.forEach(booking => {
         const card = document.createElement('div');
         card.classList.add('card');
         card.innerHTML = `
@@ -131,6 +144,19 @@ function displayBookings(bookings) {
         `;
         cardsContainer.appendChild(card);
     });
+
+    // Add "Show More" button if there are more items to show
+    const showMoreContainer = document.querySelector('.show-more-container');
+    if (bookings.length > currentIndex + ITEMS_PER_PAGE) {
+        showMoreContainer.style.display = 'flex';
+    } else {
+        showMoreContainer.style.display = 'none';
+    }
+}
+
+function showMoreBookings() {
+    currentIndex += ITEMS_PER_PAGE;
+    displayBookings(currentBookings);
 }
 
 // הצגת כל ההזמנות (סטטי)
