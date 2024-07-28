@@ -334,3 +334,12 @@ h1 {
 .clear-button:hover {
     background-color: var(--dark-blue);
 }
+/* Add this to your existing CSS file */
+
+.no-results {
+    font-size: 30px;
+    color: var(--red);
+    text-align: center;
+    font-weight: bold;
+    margin: 20px 0;
+}

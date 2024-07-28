@@ -1,3 +1,32 @@
+//Auth
+const getUserFromToken = () => {
+    let user = null;
+    const token = localStorage.getItem("token");
+
+    if (token) {
+        const encodedObject = jwt_decode(token);
+        user = encodedObject.user;
+    }
+
+    return {
+        user: user,
+        token: token
+    };
+}
+
+if (localStorage.getItem("token") && localStorage.getItem("token") !== "") {
+    const userObj = getUserFromToken();
+    document.querySelector(".top-button-logged-in").style.display = "block";
+    document.querySelector(".top-button").style.display = "none";
+    document.getElementById("hello-user").textContent = `Hello ${userObj.user.firstName} ${userObj.user.lastName}`
+}
+
+const logoutButton = document.getElementById("logout");
+logoutButton.addEventListener("click", () =>{
+    localStorage.setItem("token", "");
+    window.location.href = "../Auth/Login/login.html";
+});
+
 document.getElementById('search-id').addEventListener('keypress', function (e) {
     if (e.key === 'Enter') {
         searchBooking();
@@ -44,7 +73,7 @@ const mockBookings = [
     }
 ];
 
-// Add more mock bookings
+// הוספת עוד הזמנות לדוגמה
 for (let i = 4; i <= 40; i++) {
     mockBookings.push({
         OrderNumber: `${10000 + i}`,
@@ -59,18 +88,6 @@ for (let i = 4; i <= 40; i++) {
         companyName: `Company${i}`
     });
 }
-
-// נתונים דינאמיים מה-backend
-// async function fetchBookings() {
-//     try {
-//         const response = await fetch('http://localhost:8080/api/bookings'); // עדכן את ה-URL לפי הצורך
-//         const bookings = await response.json();
-//         return bookings;
-//     } catch (error) {
-//         console.error('Error fetching bookings:', error);
-//         return [];
-//     }
-// }
 
 document.querySelectorAll('.dropdown-content a').forEach(item => {
     item.addEventListener('click', function (e) {
@@ -100,16 +117,15 @@ function searchBooking() {
         bookings = mockBookings.filter(b => b.companyName.toLowerCase().includes(searchId.toLowerCase()));
     }
     currentIndex = 0; // לאתחל את האינדקס לחיפוש חדש
-    displayBookings(bookings);
+    displayBookings(bookings, searchCriteria, searchId);
 }
 
 // ניקוי חיפוש
 function clearSearch() {
     document.getElementById('search-id').value = '';
     document.querySelector('.dropbtn').textContent = 'Select Search Criteria';
+    currentIndex = 0; // לאתחל את האינדקס לניקוי חיפוש
     displayBookings(mockBookings);
-    currentIndex = 0; // לאתחל את האינדקס לחיפוש חדש
-
 }
 
 // הצגת כרטיסי הזמנות
@@ -117,10 +133,18 @@ let currentIndex = 0;
 const ITEMS_PER_PAGE = 9;
 let currentBookings = [];
 
-function displayBookings(bookings) {
+function displayBookings(bookings, searchCriteria = '', searchId = '') {
     currentBookings = bookings;
     const cardsContainer = document.getElementById('cards-container');
     cardsContainer.innerHTML = '';
+
+    if (bookings.length === 0) {
+        cardsContainer.innerHTML = `<p class="no-results">Oops!<br>No orders with this ${searchCriteria}: ${searchId}</p>`;
+        const showMoreContainer = document.querySelector('.show-more-container');
+        showMoreContainer.style.display = 'none';
+        return;
+    }
+
     const displayBookings = bookings.slice(0, currentIndex + ITEMS_PER_PAGE);
     displayBookings.forEach(booking => {
         const card = document.createElement('div');
