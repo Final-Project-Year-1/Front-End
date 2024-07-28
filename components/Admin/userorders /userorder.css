@@ -76,8 +76,6 @@ body, html {
     align-items: center;
 }
 
-
-
 form button:hover {
     background-color: var(--dark-blue);
 }
@@ -139,7 +137,6 @@ form button:hover {
     width: 80%;
     margin: 0 auto;
     text-align: center;
-    
     padding: 20px;
 }
 
@@ -154,26 +151,22 @@ h1 {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-wrap: wrap; /* Add this line */
 }
-
-
 
 .search-form .dropbtn {
     background-color: white;
     color: rgb(83, 83, 83);
     padding: 10px;
     font-size: 16px;
-   font-size: 13px;
+    font-size: 13px;
     top: 5px;
     cursor: pointer;
     width: 90%;
     text-align: left;
     position: relative;
-    border-right:0.2px solid #bfbfbf;
-
+    border-right: 0.2px solid #bfbfbf;
 }
-
-
 
 .search-form .dropdown-content {
     display: none;
@@ -216,12 +209,9 @@ h1 {
 }
 
 .search-form button {
-
     cursor: pointer;
-    
+    margin-left: 10px;
 }
-
-
 
 .cards-container {
     display: flex;
@@ -265,20 +255,18 @@ h1 {
     color: #333;
 }
 
-
-
-
 .search-form .dropdown {
     position: relative;
     display: inline-block;
     width: 180px;
 }
+
 .search-con-wrapper {
     display: flex;
-    justify-content: center;
-    align-items: center;
     height: 100%;
     width: 100%;
+    flex-direction: column;
+    justify-content: space-evenly;
 }
 
 .search-con {
@@ -286,15 +274,14 @@ h1 {
     border: 0.4px solid black;
     border-radius: 10px;
     z-index: 12;
-    width: 40%;
-    min-width: 250px;
+    width: 100%;
+    max-width: 600px;
     background-color: white;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     display: flex;
     align-items: center;
     position: relative;
     left: 25%;
-
 }
 
 .search-con input {
@@ -308,4 +295,46 @@ h1 {
     border: none;
     outline: none;
     background-color: transparent;
+}
+
+.show-more-container {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.show-more {
+    background-color: var(--highlight-color);
+    color: var(--white);
+    border: none;
+    cursor: pointer;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.show-more:hover {
+    background-color: var(--dark-blue);
+}
+
+.clear-button {
+
+    border: none;
+    cursor: pointer;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #bbbbbb;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    margin-left: 10px; /* Adjust this to fit your layout */
+}
+
+
+.no-results {
+    font-size: 30px;
+    color: var(--red);
+    text-align: center;
+    font-weight: bold;
+    margin: 20px 0;
 }
