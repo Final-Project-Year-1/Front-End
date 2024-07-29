@@ -48,6 +48,8 @@ document.getElementById('searchInput').addEventListener('keydown', function(even
 });
 
 async function fetchAllPosts(page_id, accessToken) {
+    document.getElementById('loadingSpinner').style.display = 'block'; // הצגת הספינר
+
     try {
         const response = await fetch(`https://graph.facebook.com/v20.0/${page_id}/posts?fields=message,attachments,likes.summary(true)&access_token=${accessToken}`, {
             method: 'GET',
@@ -67,8 +69,11 @@ async function fetchAllPosts(page_id, accessToken) {
         }
         window.allPosts = posts;
         console.log('Fetched posts with comments:', window.allPosts);
+        displaySearchResults(posts); // Initial display
     } catch (error) {
         console.error('Error: ' + error);
+    } finally {
+        document.getElementById('loadingSpinner').style.display = 'none'; // הסתרת הספינר לאחר הטעינה
     }
 }
 
@@ -96,7 +101,6 @@ function searchPosts(query) {
     console.log('Search results:', results);
     displaySearchResults(results);
 }
-// Update in the displaySearchResults function
 
 function displaySearchResults(results) {
     const searchResultsContainer = document.getElementById('searchResults');
@@ -112,26 +116,26 @@ function displaySearchResults(results) {
         postElement.className = 'post-result';
 
         const messageElement = document.createElement('p');
-        messageElement.innerText = result.message;
+        messageElement.innerText = result.message || 'No message available';
         postElement.appendChild(messageElement);
 
-        if (result.attachments) {
+        if (result.attachments && result.attachments.data) {
             result.attachments.data.forEach(attachment => {
                 if (attachment.type === 'photo') {
                     const imgElement = document.createElement('img');
                     imgElement.src = attachment.media.image.src;
                     imgElement.className = 'post-image';
                     postElement.appendChild(imgElement);
-
-                    const likesElement = document.createElement('p');
-                    likesElement.className = 'likes-count';
-                    likesElement.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="1vw" height="1vw" fill="currentColor" class="bi bi-hand-thumbs-up-fill" viewBox="0 0 16 16">
-                        <path d="M6.956 1.745C7.021.81 7.908.087 8.864.325l.261.066c.463.116.874.456 1.012.965.22.816.533 2.511.062 4.51a10 10 0 0 1 .443-.051c.713-.065 1.669-.072 2.516.21.518.173.994.681 1.2 1.273.184.532.16 1.162-.234 1.733q.086.18.138.363c.077.27.113.567.113.856s-.036.586-.113.856c-.039.135-.09.273-.16.404.169.387.107.819-.003 1.148a3.2 3.2 0 0 1-.488.901c.054.152.076.312.076.465 0 .305-.089.625-.253.912C13.1 15.522 12.437 16 11.5 16H8c-.605 0-1.07-.081-1.466-.218a4.8 4.8 0 0 1-.97-.484l-.048-.03c-.504-.307-.999-.609-2.068-.722C2.682 14.464 2 13.846 2 13V9c0-.85.685-1.432 1.357-1.615.849-.232 1.574-.787 2.132-1.41.56-.627.914-1.28 1.039-1.639.199-.575.356-1.539.428-2.59z"/>
-                    </svg> ${result.likes.summary.total_count}`;
-                    postElement.appendChild(likesElement);
                 }
             });
         }
+
+        const likesElement = document.createElement('p');
+        likesElement.className = 'likes-count';
+        likesElement.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="1vw" height="1vw" fill="currentColor" class="bi bi-hand-thumbs-up-fill" viewBox="0 0 16 16">
+            <path d="M6.956 1.745C7.021.81 7.908.087 8.864.325l.261.066c.463.116.874.456 1.012.965.22.816.533 2.511.062 4.51a10 10 0 0 1 .443-.051c.713-.065 1.669-.072 2.516.21.518.173.994.681 1.2 1.273.184.532.16 1.162-.234 1.733q.086.18.138.363c.077.27.113.567.113.856s-.036.586-.113.856c-.039.135-.09.273-.16.404.169.387.107.819-.003 1.148a3.2 3.2 0 0 1-.488.901c.054.152.076.312.076.465 0 .305-.089.625-.253.912C13.1 15.522 12.437 16 11.5 16H8c-.605 0-1.07-.081-1.466-.218a4.8 4.8 0 0 1-.97-.484l-.048-.03c-.504-.307-.999-.609-2.068-.722C2.682 14.464 2 13.846 2 13V9c0-.85.685-1.432 1.357-1.615.849-.232 1.574-.787 2.132-1.41.56-.627.914-1.28 1.039-1.639.199-.575.356-1.539.428-2.59z"/>
+        </svg> ${result.likes && result.likes.summary ? result.likes.summary.total_count : 0}`;
+        postElement.appendChild(likesElement);
 
         if (result.comments && result.comments.length > 0) {
             const commentsElement = document.createElement('div');
@@ -141,9 +145,16 @@ function displaySearchResults(results) {
             commentsElement.appendChild(commentsTitle);
 
             result.comments.forEach(comment => {
-                const commentElement = document.createElement('p');
-                commentElement.innerHTML = `<strong>${comment.from.name}:</strong> ${comment.message}`;
-                commentsElement.appendChild(commentElement);
+                if (comment.from && comment.from.name) {
+                    const commentElement = document.createElement('p');
+                    commentElement.innerHTML = `<strong>${comment.from.name}:</strong> ${comment.message}`;
+                    commentsElement.appendChild(commentElement);
+                } else {
+                    const commentElement = document.createElement('p');
+                    commentElement.innerText = 'Anonymous: ' + comment.message;
+                    commentsElement.appendChild(commentElement);
+                    console.warn('Comment without name:', comment);
+                }
             });
 
             postElement.appendChild(commentsElement);
@@ -152,7 +163,6 @@ function displaySearchResults(results) {
         searchResultsContainer.appendChild(postElement);
     });
 }
-
 
 function postToFacebook(message) {
     fetch(`https://graph.facebook.com/v20.0/${page_id}/feed`, {
@@ -171,6 +181,7 @@ function postToFacebook(message) {
             document.getElementById('response').innerText = 'Error: ' + data.error.message;
         } else {
             document.getElementById('response').innerText = 'Post was successful!';
+            fetchAllPosts(page_id, accessToken); // Refresh posts
         }
     })
     .catch(error => {
@@ -194,6 +205,7 @@ function uploadPostWithImage(message, file) {
             document.getElementById('response').innerText = 'Error: ' + data.error.message;
         } else {
             document.getElementById('response').innerText = 'Post with image was successful!';
+            fetchAllPosts(page_id, accessToken); // Refresh posts
         }
     })
     .catch(error => {
@@ -262,7 +274,7 @@ function checkTotalPosts() {
 }
 
 function checkNewMessages() {
-    fetch(`https://graph.facebook.com/v20.0/${page_id}/conversations?access_token=${accessToken}`, {
+    fetch(`https://graph.facebook.com/v20.0/${page_id}/conversations?fields=unread_count&access_token=${accessToken}`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json'
@@ -273,8 +285,8 @@ function checkNewMessages() {
         if (data.error) {
             document.getElementById('newMessagesCount').innerText = 'Error: ' + data.error.message;
         } else {
-            const unreadMessages = data.data.filter(conversation => conversation.unread_count > 0);
-            document.getElementById('newMessagesCount').innerText = `${unreadMessages.length}`;
+            const unreadMessagesCount = data.data.reduce((sum, conversation) => sum + (conversation.unread_count || 0), 0);
+            document.getElementById('newMessagesCount').innerText = `${unreadMessagesCount}`;
         }
     })
     .catch(error => {
