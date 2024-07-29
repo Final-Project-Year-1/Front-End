@@ -5,7 +5,7 @@
     <link href="addComp.css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="../../assets/home-images/img/logo-small.jpeg">
-    <title>Add Company</title>
+    <title>Manage Companies and Categories</title>
 </head>
 <body>
     <div class="top-section">
@@ -14,10 +14,10 @@
         </div>
         <div>
             <span class="top-button-logged-in">
-                <span id="hello-user">
-                    Hello
-                </span>
-                <button id="logout" class="button">Logout</button>
+                <span id="hello-user">Hello</span>
+                <a href="../../Auth/Login/login.html">
+                    <button id="logout" class="button">Logout</button>
+                </a>
             </span>
             <span class="top-button">
                 <a href="../../Auth/Login/login.html" id="login" class="button">Login</a>
@@ -25,14 +25,117 @@
         </div>
     </div>
     <div class="mid">
-        <form id="company-form">
-            <h2>Add a New Company</h2>
-            <label for="company">Company Name:</label>
-            <input type="text" id="company" name="company" required>
-            <button type="submit">Add Company</button>
-        </form>
+        <h2>Select an option from the options below:</h2>
+        <div class="tabs">
+            <button class="tab-button" data-tab="add-company">Add Company</button>
+            <button class="tab-button" data-tab="update-company">Update Company</button>
+            <button class="tab-button" data-tab="delete-company">Delete Company</button>
+            <button class="tab-button" data-tab="find-company">Find Company</button>
+            <button class="tab-button" data-tab="all-companies">All Companies</button>
+            <button class="tab-button" data-tab="add-category">Add Category</button>
+            <button class="tab-button" data-tab="update-category">Update Category</button>
+            <button class="tab-button" data-tab="delete-category">Delete Category</button>
+            <button class="tab-button" data-tab="find-category">Find Category</button>
+            <button class="tab-button" data-tab="all-categories">All Categories</button>
+        </div>
+
+        <!-- Content for companies -->
+        <div class="tab-content" id="add-company">
+            <form id="company-form">
+                <h2>Add a New Company</h2>
+                <label for="company">Company Name:</label>
+                <input type="text" id="company" name="company" required>
+                <button type="submit">Add Company</button>
+                <div id="add-company-result"></div>
+            </form>
+        </div>
+
+        <div class="tab-content" id="update-company">
+            <form id="update-company-form">
+                <h2>Update Company Name</h2>
+                <label for="company-id">Company ID:</label>
+                <input type="text" id="company-id" name="company-id" required>
+                <label for="new-company-name">New Company Name:</label>
+                <input type="text" id="new-company-name" name="new-company-name" required>
+                <button type="submit">Update Company</button>
+                <div id="update-company-result"></div>
+            </form>
+        </div>
+
+        <div class="tab-content" id="delete-company">
+            <form id="delete-company-form">
+                <h2>Delete Company</h2>
+                <label for="company-id-delete">Company ID:</label>
+                <input type="text" id="company-id-delete" name="company-id-delete" required>
+                <button type="submit">Delete Company</button>
+                <div id="delete-company-result"></div>
+            </form>
+        </div>
+
+        <div class="tab-content" id="find-company">
+            <form id="find-company-form">
+                <h2>Find Company</h2>
+                <label for="company-id-find">Company ID:</label>
+                <input type="text" id="company-id-find" name="company-id-find" required>
+                <button type="submit">Find Company</button>
+                <div id="find-company-result"></div>
+            </form>
+        </div>
+
+        <div class="tab-content" id="all-companies">
+            <h2>Total Companies: <span id="total-companies-result"></span></h2>
+            <div id="all-companies-result"></div>
+        </div>
+
+        <!-- Content for categories -->
+        <div class="tab-content" id="add-category">
+            <form id="category-form">
+                <h2>Add a New Category</h2>
+                <label for="category">Category Name:</label>
+                <input type="text" id="category" name="category" required>
+                <button type="submit">Add Category</button>
+                <div id="add-category-result"></div>
+            </form>
+        </div>
+
+        <div class="tab-content" id="update-category">
+            <form id="update-category-form">
+                <h2>Update Category Name</h2>
+                <label for="category-id">Category ID:</label>
+                <input type="text" id="category-id" name="category-id" required>
+                <label for="new-category-name">New Category Name:</label>
+                <input type="text" id="new-category-name" name="new-category-name" required>
+                <button type="submit">Update Category</button>
+                <div id="update-category-result"></div>
+            </form>
+        </div>
+
+        <div class="tab-content" id="delete-category">
+            <form id="delete-category-form">
+                <h2>Delete Category</h2>
+                <label for="category-id-delete">Category ID:</label>
+                <input type="text" id="category-id-delete" name="category-id-delete" required>
+                <button type="submit">Delete Category</button>
+                <div id="delete-category-result"></div>
+            </form>
+        </div>
+
+        <div class="tab-content" id="find-category">
+            <form id="find-category-form">
+                <h2>Find Category</h2>
+                <label for="category-id-find">Category ID:</label>
+                <input type="text" id="category-id-find" name="category-id-find" required>
+                <button type="submit">Find Category</button>
+                <div id="find-category-result"></div>
+            </form>
+        </div>
+
+        <div class="tab-content" id="all-categories">
+            <h2>Total Categories: <span id="total-categories-result"></span></h2>
+            <div id="all-categories-result"></div>
+        </div>
     </div>
-    
+
     <div class="footer">
         <div class="footer-sections">
             <div class="footer-section">
@@ -65,6 +168,7 @@
             <span>Your ultimate travel companion. Discover, plan, and book your perfect getaway with us.</span>
         </div>
     </div>
-
+    <script src="https://cdn.jsdelivr.net/npm/jwt-decode/build/jwt-decode.min.js"></script>
+    <script src="addComp.js"></script>
 </body>
 </html>
