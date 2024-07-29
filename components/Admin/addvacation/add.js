@@ -63,11 +63,17 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     async function showForm(formId) {
+        clearAllForms(); // clear all forms before showing the new one
         document.querySelectorAll('.form-section').forEach(form => form.style.display = 'none');
         document.getElementById(formId).style.display = 'block';
         if (formId !== 'view-all-vacations') {
             document.getElementById('total-vacations-result').style.display = 'none';
         }
+    }
+
+    function clearAllForms() {
+        document.querySelectorAll('form').forEach(form => form.reset());
+        clearErrorMessages();
     }
 
     document.getElementById('vacation-form').addEventListener('submit', async function (event) {
