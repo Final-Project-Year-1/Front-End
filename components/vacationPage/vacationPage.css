@@ -164,8 +164,6 @@ body, html {
     cursor: pointer;
 }
 
-
-
 /* middle part */
 .content-wrapper {
     display: flex;
@@ -186,7 +184,6 @@ body, html {
     width: 100%;
     margin: 20px auto;
 }
-
 
 .hotel-info {
     display: flex;
@@ -246,35 +243,6 @@ body, html {
 .main-image img.active {
     display: block;
 }
-
-.prev, .next {
-    cursor: pointer;
-    position: absolute;
-    top: 50%;
-    padding: 16px;
-    color: white;
-    font-weight: bold;
-    font-size: 18px;
-    transition: 0.6s ease;
-    user-select: none;
-    background-color: rgba(0, 0, 0, 0.5);
-    border-radius: 50%; 
-}
-
-.next {
-    right: 10px; 
-    border-radius: 50%; 
-}
-
-.prev {
-    left: 10px; 
-    border-radius: 50%; 
-}
-
-.prev:hover, .next:hover {
-    background-color: rgba(0, 0, 0, 0.8);
-}
-
 
 .hotel-header {
     display: flex;
@@ -478,67 +446,56 @@ body, html {
     gap: 20px; 
 }
 
-.booking-info {
-    flex: 1;
-    padding: 15px;
-    background-color: #f9f9f9;
-    border-radius: 10px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+.vacation-info-container {
     display: flex;
-    flex-direction: column;
-    gap: 10px; 
+    justify-content: space-between;
+    align-items: stretch;
+    gap: 20px;
+    margin-top: 20px;
 }
 
-.option {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 5px; 
-    padding: 10px;
-    background-color: #fff;
-    border-radius: 10px;
-    width: 95%; 
-}
-
-.option input[type="radio"] {
-    display: none;
-}
-
-.option input[type="radio"] + label {
-    display: flex;
-    flex-direction: column;
-    cursor: pointer;
-    padding: 10px;
-    border-radius: 10px;
-    width: 100%; 
-}
-
-.option input[type="radio"]:checked + label {
-    background-color: #f0f0f0;
-}
-
-.option-black-border label {
-    border: 2px solid #000;
-}
-
-.option span {
-    font-size: 14px;
-    color: #666;
-}
-
-.option p {
-    font-size: 12px;
-    color: #999;
-    margin: 5px 0 0;
-}
-
-/* calendar */
-.calendar {
-    flex: 1;
+.vacation-amenities, .calendar {
     padding: 20px;
     background-color: #fff;
     border-radius: 10px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+}
+
+.vacation-amenities {
+    flex: 4;
+}
+
+.calendar {
+    flex: 2;
+}
+
+.amenities-list {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    flex: 1;
+}
+
+.amenities-list li {
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    color: var(--gray-dark);
+}
+
+.amenities-list img {
+    width: 24px;
+    height: 24px;
+    margin-right: 10px;
+}
+
+.calendar {
+    display: flex;
+    flex-direction: column;
 }
 
 .calendar h3 {
@@ -549,11 +506,14 @@ body, html {
 
 .calendar-box {
     margin-top: 20px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
 }
 
 .month {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     font-size: 18px;
     font-weight: bold;
@@ -561,28 +521,12 @@ body, html {
     color: #333;
 }
 
-.prev-month, .next-month {
-    background-color: transparent;
-    color: #333;
-    border: none;
-    font-size: 24px;
-    cursor: pointer;
-    transition: color 0.3s ease, transform 0.3s ease;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.prev-month:hover, .next-month:hover {
-    color: #0056b3;
-    transform: scale(1.2);
-}
-
 .days {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
     gap: 5px;
     text-align: center;
+    flex: 1;
 }
 
 .days .day {
@@ -590,32 +534,17 @@ body, html {
     background-color: #f9f9f9;
     border: 1px solid #ddd;
     border-radius: 8px;
-    cursor: pointer;
-    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
     font-size: 14px;
     position: relative;
 }
 
-.days .day:hover {
-    background-color: #d3d3d5;
-    color: #fff;
-    transform: scale(1.1);
-}
-
-.days .day.selected {
+.days .day.vacation-day {
     background-color: var(--blue);
     color: #fff;
     font-weight: bold;
     border: 2px solid var(--blue);
 }
 
-.days .day[data-price]::after {
-    content: attr(data-price);
-    display: block;
-    font-size: 12px;
-    color: #555;
-    margin-top: 5px;
-}
 
 /* customer reviews*/
 .reviews-container {
@@ -701,6 +630,11 @@ body, html {
     border-radius: 5px;
     background-color: #f9f9f9;
     box-sizing: border-box; 
+}
+
+.add-review-section textarea {
+    resize: none;
+    overflow-y: none;
 }
 
 .add-review-section button {

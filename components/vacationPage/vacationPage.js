@@ -25,96 +25,39 @@ function showSlides(n) {
     thumbnails[slideIndex-1].classList.add("active");
 }
 
-// Calendar Functionality
-let currentDate = new Date();
-let startDate = null;
-let endDate = null;
+// Static Calendar for August 2024
+const vacationStartDate = new Date(2024, 7, 12); // August 12, 2024
+const vacationEndDate = new Date(2024, 7, 16); // August 16, 2024
 
-document.querySelector('.prev-month').addEventListener('click', function() {
-    currentDate.setMonth(currentDate.getMonth() - 1);
-    renderCalendar();
-});
-
-document.querySelector('.next-month').addEventListener('click', function() {
-    currentDate.setMonth(currentDate.getMonth() + 1);
-    renderCalendar();
-});
-
-const daysContainer = document.querySelector('.days');
-daysContainer.addEventListener('click', (event) => {
-    if (event.target.classList.contains('day')) {
-        const selectedDate = new Date(event.target.getAttribute('data-date'));
-        if (!startDate || (startDate && endDate)) {
-            startDate = selectedDate;
-            endDate = null;
-            clearSelection();
-            event.target.classList.add('selected');
-        } else if (selectedDate < startDate) {
-            endDate = startDate;
-            startDate = selectedDate;
-            updateSelection();
-        } else {
-            endDate = selectedDate;
-            updateSelection();
-        }
-    }
-});
-
-function clearSelection() {
-    const days = daysContainer.querySelectorAll('.day');
-    days.forEach(day => day.classList.remove('selected'));
-}
-
-function updateSelection() {
-    const days = daysContainer.querySelectorAll('.day');
-    const startDateTime = startDate.getTime();
-    const endDateTime = endDate ? endDate.getTime() : startDateTime;
-    days.forEach(day => {
-        const dayDate = new Date(day.getAttribute('data-date')).getTime();
-        if (dayDate >= startDateTime && dayDate <= endDateTime) {
-            day.classList.add('selected');
-        } else {
-            day.classList.remove('selected');
-        }
-    });
-}
-
-function renderCalendar() {
+function renderStaticCalendar() {
+    const currentDate = new Date(2024, 7, 1); // August 2024
     const month = currentDate.getMonth();
     const year = currentDate.getFullYear();
     const firstDayOfMonth = new Date(year, month, 1).getDay();
     const lastDateOfMonth = new Date(year, month + 1, 0).getDate();
-    const lastDayOfLastMonth = month === 0 ? new Date(year - 1, 11, 0).getDate() : new Date(year, month, 0).getDate();
     
     document.getElementById('month-year').innerText = `${currentDate.toLocaleString('default', { month: 'long' })}, ${year}`;
     
     let days = '';
     
-    for (let i = firstDayOfMonth; i > 0; i--) {
-        days += `<div class="day prev-month">${lastDayOfLastMonth - i + 1}</div>`;
-    }
-    
     for (let i = 1; i <= lastDateOfMonth; i++) {
         const dateString = `${year}-${month + 1}-${i}`;
-        days += `<div class="day current-month" data-date="${dateString}" data-price="$${(Math.random() * 1000 + 3000).toFixed(0)}">${i}</div>`;
+        const date = new Date(year, month, i);
+        let dayClass = 'day current-month';
+        
+        if (date >= vacationStartDate && date <= vacationEndDate) {
+            dayClass += ' vacation-day';
+        }
+        
+        days += `<div class="${dayClass}" data-date="${dateString}">${i}</div>`;
     }
     
+    const daysContainer = document.getElementById('calendar-days');
     daysContainer.innerHTML = days;
-    addDayClickEvent();
 }
 
-function addDayClickEvent() {
-    const days = document.querySelectorAll('.day.current-month');
-    days.forEach(day => {
-        day.addEventListener('click', function() {
-            document.querySelectorAll('.day').forEach(d => d.classList.remove('selected'));
-            this.classList.add('selected');
-        });
-    });
-}
-
-// Initial render of the calendar
-renderCalendar();
+// Initial render of the static calendar
+renderStaticCalendar();
 
 function toggleReadMore() {
     var dots = document.getElementById("dots");
@@ -133,23 +76,82 @@ function toggleReadMore() {
 }
 
 // Reviews Section 
-document.getElementById('add-review-form').addEventListener('submit', function(event) {
+document.getElementById('add-review-form').addEventListener('submit', async function(event) {
     event.preventDefault();
 
     const name = document.getElementById('review-name').value;
     const rating = document.getElementById('review-rating').value;
     const reviewText = document.getElementById('review-text').value;
 
-    const reviewWrapper = document.querySelector('.reviews-wrapper');
-    const newReview = document.createElement('div');
-    newReview.classList.add('review');
-    newReview.innerHTML = `
-        <h3>${name}</h3>
-        <p>${'★'.repeat(rating)}${'☆'.repeat(5 - rating)}</p>
-        <p>${reviewText}</p>
-    `;
+    const newReview = {
+        name: name,
+        rating: parseInt(rating),
+        text: reviewText
+    };
 
-    reviewWrapper.prepend(newReview); // מוסיף את הביקורת החדשה למעלה
+    try {
+        const response = await fetch('http://localhost:3000/api/reviews', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(newReview)
+        });
 
-    document.getElementById('add-review-form').reset();
+        if (!response.ok) {
+            throw new Error('Failed to submit review');
+        }
+
+        const reviewWrapper = document.querySelector('.reviews-wrapper');
+        const reviewElement = document.createElement("div");
+        reviewElement.classList.add("review");
+        reviewElement.innerHTML = `
+            <h3>${newReview.name}</h3>
+            <p>${'★'.repeat(newReview.rating)}${'☆'.repeat(5 - newReview.rating)}</p>
+            <p>${newReview.text}</p>
+        `;
+        reviewWrapper.prepend(reviewElement); // Add the new review to the top
+
+        document.getElementById('add-review-form').reset();
+    } catch (error) {
+        console.error("Error submitting review:", error);
+    }
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    const mockReviews = [
+        {
+            name: "Alice Smith",
+            rating: 5,
+            text: "This was a fantastic vacation! The hotel was superb, and the service was top-notch. Highly recommend it!"
+        },
+        {
+            name: "Bob Johnson",
+            rating: 4,
+            text: "Great vacation spot with beautiful scenery and friendly staff. Would definitely visit again."
+        },
+        {
+            name: "Catherine Brown",
+            rating: 5,
+            text: "Absolutely loved it! The amenities were excellent, and the location was perfect. A wonderful getaway."
+        },
+        {
+            name: "David Wilson",
+            rating: 3,
+            text: "Good value for money, but the rooms could have been cleaner. Overall, a decent experience."
+        },
+    ];
+
+    const reviewsWrapper = document.getElementById("reviews-wrapper");
+
+    mockReviews.forEach((review) => {
+        const reviewElement = document.createElement("div");
+        reviewElement.classList.add("review");
+        reviewElement.innerHTML = `
+            <h3>${review.name}</h3>
+            <p>${'★'.repeat(review.rating)}${'☆'.repeat(5 - review.rating)}</p>
+            <p>${review.text}</p>
+        `;
+        reviewsWrapper.appendChild(reviewElement);
+    });
 });
