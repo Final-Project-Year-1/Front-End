@@ -38,8 +38,7 @@ body, html {
     padding: 10px;
 }
 
-#login,
-#logout {
+#login, #logout {
     color: var(--dark-blue);
     font-size: 14px;
     font-weight: bolder;
@@ -51,8 +50,7 @@ body, html {
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-#login:hover,
-#logout:hover {
+#login:hover, #logout:hover {
     color: var(--red);
 }
 
@@ -71,8 +69,38 @@ body, html {
     padding: 40px 20px;
     background-color: var(--background-light);
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
+}
+
+.tabs {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.tab-button {
+    background-color: var(--highlight-color);
+    color: var(--white);
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin: 0 5px;
+}
+
+.tab-button:hover {
+    background-color: var(--dark-blue);
+}
+
+.tab-content {
+    display: none;
+    width: 100%;
+    max-width: 600px;
+}
+
+.tab-content.active {
+    display: block;
 }
 
 form {
@@ -80,7 +108,6 @@ form {
     background-color: white;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    max-width: 600px;
     width: 100%;
 }
 
@@ -97,7 +124,7 @@ form label {
     font-weight: bold;
 }
 
-form input{
+form input {
     width: 100%;
     padding: 10px;
     margin-bottom: 20px;
@@ -106,56 +133,13 @@ form input{
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-form input:hover,
-form input:active,
-form input:focus{
+form input:hover, form input:active, form input:focus {
     outline: none;
 }
 
-
-form input:focus
-
-{
+form input:focus {
     border-color: var(--input-focus);
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
-}
-
-.custom-date {
-    position: relative;
-}
-
-.custom-date input[type="date"] {
-    appearance: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    position: relative;
-    z-index: 1;
-    background-color: transparent;
-    color: transparent;
-    cursor: pointer;
-}
-
-.custom-date input[type="date"]::-webkit-calendar-picker-indicator {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    width: 100%;
-    height: 100%;
-    color: transparent;
-    background: transparent;
-    cursor: pointer;
-}
-
-.custom-date .styled-date {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    color: var(--black);
-    font-weight: bold;
-    font-size: 16px;
-    pointer-events: none;
 }
 
 form button {
@@ -172,8 +156,6 @@ form button {
 form button:hover {
     background-color: var(--dark-blue);
 }
-
-
 
 .footer {
     background-color: var(--gray-dark);
@@ -226,4 +208,18 @@ form button:hover {
     top: 15%;
     font-size: 10px;
     color: var(--gray);
+}
+
+#find-company-result.success, #add-company-result.success, #update-company-result.success, #delete-company-result.success,
+#find-category-result.success, #add-category-result.success, #update-category-result.success, #delete-category-result.success {
+    color: green;
+}
+
+#find-company-result.error, #add-company-result.error, #update-company-result.error, #delete-company-result.error,
+#find-category-result.error, #add-category-result.error, #update-category-result.error, #delete-category-result.error {
+    color: red;
+}
+
+#all-companies-result p, #total-companies-result, #all-categories-result p, #total-categories-result {
+    margin: 10px 0;
 }
