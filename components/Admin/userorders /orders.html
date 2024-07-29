@@ -2,10 +2,12 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <link href="userorder.css" rel="stylesheet">
+    <link href="orders.css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="../../assets/home-images/img/logo-small.jpeg">
     <title>Order Management</title>
+    <script src="https://cdn.jsdelivr.net/npm/jwt-decode/build/jwt-decode.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 <body>
     <div class="top-section">
@@ -33,14 +35,17 @@
                             <a href="#" data-value="OrderNumber">Order Number</a>
                             <a href="#" data-value="vacationId">Vacation ID</a>
                             <a href="#" data-value="status">Status</a>
-                            <a href="#" data-value="userId">User ID</a>
+                            <a href="#" data-value="email">Email</a>
+                            <a href="#" data-value="userName">User Name</a>
                             <a href="#" data-value="companyName">Company Name</a>
                         </div>
                     </div>
                     <input type="text" id="search-id" placeholder="Enter search value">
-                    <button class="search-button" onclick="searchBooking()"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
-                        <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
-                    </svg></button>
+                    <button class="search-button" onclick="searchBooking()"> 
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+                        </svg>
+                    </button>
                     <button class="clear-button" onclick="clearSearch()">Clear Search</button>
                 </div>
             </div>
@@ -57,25 +62,36 @@
             <div class="footer-section">
                 <h3>User Access</h3>
                 <ul>
-                    <li><a href="../../Auth/Register/register.html">Register</a></li>
-                    <li><a href="../../Auth/Login/login.html">Login</a></li>
-                    <li><a href="../../Home/home.html">Home</a></li>
+                    <li><a href="../Auth/Register/register.html">Register</a></li>
+                    <li><a href="../Auth/Login/login.html">Login</a></li>
+                    <li><a href="../Home/home.html">Home</a></li>
                 </ul>
             </div>
             <div class="footer-section">
                 <h3>Company</h3>
                 <ul>
-                    <li><a href="../../aboutUs/about.html">About Us</a></li>
-                    <li><a href="../../viewport/reviews.html">Reviews</a></li>
-                    <li><a href="../../blog/blog.html">Blog</a></li>
+                    <li><a href="../aboutUs/about.html">About Us</a></li>
+                    <li><a href="../viewport/reviews.html">Reviews</a></li>
+                    <li><a href="../blog/blog.html">Blog</a></li>
                 </ul>
             </div>
             <div class="footer-section">
                 <h3>Support</h3>
                 <ul>
-                    <li><a href="../../FAQs/FAQs.html">FAQ</a></li>
-                    <li><a href="../../PrivacyPolicy/PrivacyPolicy.html">Privacy Policy</a></li>
-                    <li><a href="../../terms/terms.html">Terms of Service</a></li>
+                    <li><a href="../FAQs/FAQs.html">FAQ</a></li>
+                    <li><a href="../PrivacyPolicy/PrivacyPolicy.html">Privacy Policy</a></li>
+                    <li><a href="../terms/terms.html">Terms of Service</a></li>
+                    
+                </ul>
+            </div>
+            <div class="footer-section" id="admin-section">
+                <h3>Admin</h3>
+                <ul>
+                    <li><a href="../Admin/Facebook/facebook.html" id="admin-link">Facebook Page</a></li>
+                    <li><a href="../Admin/userorders /userorder.html" id="admin-link">Orders Management</a></li>
+                    <li><a href="../Admin/addvacation/add.html" id="admin-link">Vacation Management</a></li>
+                    <li><a href="../Admin/add/addComp.html" id="admin-link">Company Management</a></li>
+
                 </ul>
             </div>
         </div>
@@ -84,6 +100,6 @@
             <span>Your ultimate travel companion. Discover, plan, and book your perfect getaway with us.</span>
         </div>
     </div>
-    <script src="userorder.js"></script>
+    <script src="orders.js"></script>
 </body>
 </html>
