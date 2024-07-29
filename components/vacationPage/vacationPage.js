@@ -90,15 +90,13 @@ document.getElementById('add-review-form').addEventListener('submit', async func
     };
 
     try {
-        const response = await fetch('http://localhost:3000/api/reviews', {
-            method: 'POST',
+        const response = await axios.post('http://localhost:3000/api/vacation/reviews/:66a11cb11eb3f43395f7ae79', newReview, {
             headers: {
                 'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(newReview)
+            }
         });
 
-        if (!response.ok) {
+        if (response.status !== 200) {
             throw new Error('Failed to submit review');
         }
 
@@ -118,40 +116,47 @@ document.getElementById('add-review-form').addEventListener('submit', async func
     }
 });
 
-document.addEventListener("DOMContentLoaded", function () {
-    const mockReviews = [
-        {
-            name: "Alice Smith",
-            rating: 5,
-            text: "This was a fantastic vacation! The hotel was superb, and the service was top-notch. Highly recommend it!"
-        },
-        {
-            name: "Bob Johnson",
-            rating: 4,
-            text: "Great vacation spot with beautiful scenery and friendly staff. Would definitely visit again."
-        },
-        {
-            name: "Catherine Brown",
-            rating: 5,
-            text: "Absolutely loved it! The amenities were excellent, and the location was perfect. A wonderful getaway."
-        },
-        {
-            name: "David Wilson",
-            rating: 3,
-            text: "Good value for money, but the rooms could have been cleaner. Overall, a decent experience."
-        },
-    ];
+const reviewsWrapper = document.getElementById("reviews-wrapper");
 
-    const reviewsWrapper = document.getElementById("reviews-wrapper");
+const mockReviews = [
+    {
+        name: "Alice Smith",
+        rating: 5,
+        text: "This was a fantastic vacation! The hotel was superb, and the service was top-notch. Highly recommend it!"
+    },
+    {
+        name: "Bob Johnson",
+        rating: 4,
+        text: "Great vacation spot with beautiful scenery and friendly staff. Would definitely visit again."
+    },
+    {
+        name: "Catherine Brown",
+        rating: 5,
+        text: "Absolutely loved it! The amenities were excellent, and the location was perfect. A wonderful getaway."
+    },
+    {
+        name: "David Wilson",
+        rating: 3,
+        text: "Good value for money, but the rooms could have been cleaner. Overall, a decent experience."
+    },
+];
 
-    mockReviews.forEach((review) => {
-        const reviewElement = document.createElement("div");
-        reviewElement.classList.add("review");
-        reviewElement.innerHTML = `
-            <h3>${review.name}</h3>
-            <p>${'★'.repeat(review.rating)}${'☆'.repeat(5 - review.rating)}</p>
-            <p>${review.text}</p>
-        `;
-        reviewsWrapper.appendChild(reviewElement);
-    });
+mockReviews.forEach((review) => {
+    const reviewElement = document.createElement("div");
+    reviewElement.classList.add("review");
+
+    const reviewName = document.createElement("h3");
+    reviewName.textContent = review.name;
+
+    const reviewRating = document.createElement("p");
+    reviewRating.textContent = '★'.repeat(review.rating) + '☆'.repeat(5-review.rating);
+
+    const reviewText = document.createElement("p");
+    reviewText.textContent = review.text;
+
+    reviewElement.appendChild(reviewName);
+    reviewElement.appendChild(reviewRating);
+    reviewElement.appendChild(reviewText);
+
+    reviewsWrapper.appendChild(reviewElement);
 });
