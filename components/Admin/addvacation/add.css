@@ -17,7 +17,8 @@
     --input-focus: #efefef;
 }
 
-body, html {
+body,
+html {
     margin: 0;
     padding: 0;
     height: 100vh;
@@ -210,7 +211,8 @@ form button:hover {
 }
 
 .custom-select select {
-    display: none; /* Hide the original SELECT element */
+    display: none;
+    /* Hide the original SELECT element */
 }
 
 .select-selected {
@@ -336,11 +338,13 @@ form button:hover {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin: 10px;
     padding: 20px;
-    max-width: 300px;
+    max-width: 250px;
     text-align: center;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    display: inline-block; /* This makes the cards align horizontally */
-    vertical-align: top; /* Align the cards at the top */
+    display: inline-block;
+    /* This makes the cards align horizontally */
+    vertical-align: top;
+    /* Align the cards at the top */
 }
 
 
@@ -379,11 +383,12 @@ form button:hover {
     color: var (--black);
 }
 
-.images-list {
+#image-list.image-list {
     display: flex;
-    flex-wrap: wrap;
     justify-content: center;
+    flex-wrap: wrap;
 }
+
 
 .image-card {
     background-color: white;
@@ -423,7 +428,7 @@ form button:hover {
 .error-message {
     color: red;
     font-size: 12px;
-    position:relative;
+    position: relative;
     bottom: 20px;
 }
 
@@ -431,12 +436,14 @@ form button:hover {
     color: green;
 }
 
-.total-vacations, .total-images {
+.total-vacations,
+.total-images {
     margin-bottom: 20px;
     font-weight: bold;
 }
 
-.vacation-list, .images-list {
+.vacation-list,
+.images-list {
     display: flex;
     flex-wrap: wrap;
 }
@@ -445,9 +452,10 @@ form button:hover {
     border: 1px solid #ccc;
     padding: 10px;
     margin: 10px;
-    width: calc(25% - 40px); /* Adjust the width as needed */
+    width: calc(25% - 40px);
     box-sizing: border-box;
 }
+
 .image-card img {
     max-width: 100%;
     height: auto;
@@ -456,7 +464,9 @@ form button:hover {
 .image-card p {
     margin: 5px 0;
 }
-#vacation-card-container{
+
+
+#vacation-card-container {
     display: flex;
     justify-content: center;
 }

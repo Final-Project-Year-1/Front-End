@@ -74,6 +74,11 @@ document.addEventListener("DOMContentLoaded", function() {
     function clearAllForms() {
         document.querySelectorAll('form').forEach(form => form.reset());
         clearErrorMessages();
+        clearMessages();
+    }
+
+    function clearMessages() {
+        document.querySelectorAll('.success, .error').forEach(el => el.textContent = '');
     }
 
     document.getElementById('vacation-form').addEventListener('submit', async function (event) {
@@ -195,6 +200,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     function populateUpdateForm(vacation) {
         document.getElementById('vacation-id-update-hidden').value = vacation._id;
+        document.getElementById('vacation-id-update-hidden').dataset.spotsTaken = vacation.spotsTaken; // Save spotsTaken to data attribute
         document.getElementById('destination-update').value = vacation.destination;
         document.getElementById('description-update').value = vacation.description;
         document.getElementById('start-date-update').value = vacation.startDate.split('T')[0];
@@ -210,7 +216,7 @@ document.addEventListener("DOMContentLoaded", function() {
     function displayVacationCard(vacation) {
         const vacationCardContainer = document.getElementById('vacation-card-container');
         vacationCardContainer.innerHTML = '';
-        
+
         const listItem = document.createElement('div');
         listItem.classList.add('vacation-card');
         listItem.id = vacation._id;
@@ -241,13 +247,14 @@ document.addEventListener("DOMContentLoaded", function() {
         const vacationId = document.getElementById('vacation-id-update-hidden').value;
         const formData = new FormData(event.target);
         const images = formData.getAll('images');
+        const spotsTaken = document.getElementById('vacation-id-update-hidden').dataset.spotsTaken;
 
         if (images.length < 1) {
             document.getElementById('images-update-error').textContent = 'You must upload at least 1 image.';
             return;
         }
 
-        if (!await validateFormData(formData, true)) {
+        if (!await validateFormData(formData, true, spotsTaken)) {
             return;
         }
 
@@ -305,10 +312,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
     async function submitFormData(url, method, data, resultElementId) {
         console.log('Submitting form data:', data); // log for debugging
-    
+
         const isValid = await validateCompanyAndCategory(data, resultElementId);
         if (!isValid) return;
-    
+
         try {
             const response = await fetch(url, {
                 method: method,
@@ -416,7 +423,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-    async function validateFormData(formData, isUpdate = false) {
+    async function validateFormData(formData, isUpdate = false, spotsTaken = 0) {
         let isValid = true;
 
         // Validate destination (only letters and at least 2 characters)
@@ -440,10 +447,13 @@ document.addEventListener("DOMContentLoaded", function() {
             isValid = false;
         }
 
-        // Validate group size (1 to 100)
+        // Validate group size (1 to 100) and spotsTaken constraint
         const groupOf = formData.get('groupOf');
         if (groupOf < 1 || groupOf > 100) {
             document.getElementById(isUpdate ? 'group-of-update-error' : 'group-of-error').textContent = 'Group size must be between 1 and 100.';
+            isValid = false;
+        } else if (groupOf < spotsTaken) {
+            document.getElementById(isUpdate ? 'group-of-update-error' : 'group-of-error').textContent = `Group size must be at least ${spotsTaken}.`;
             isValid = false;
         }
 
