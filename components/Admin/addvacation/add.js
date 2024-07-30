@@ -33,6 +33,15 @@ document.addEventListener("DOMContentLoaded", function() {
         document.querySelector(".top-button-logged-in").style.display = "block";
         document.querySelector(".top-button").style.display = "none";
         document.getElementById("hello-user").textContent = `Hello ${userObj.user.firstName} ${userObj.user.lastName}`;
+
+        if (userObj.token) {
+            const decodedToken = jwt_decode(userObj.token);
+            const userRole = decodedToken.role || userObj.user.role;
+
+            if (userRole && userRole === 'admin') {
+                document.getElementById('admin-section').style.display = 'block';
+            }
+        }
     }
 
     const logoutButton = document.getElementById("logout");
@@ -52,6 +61,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
     document.getElementById('find-button').addEventListener('click', () => {
         showForm('find-vacation-form');
+        populateSelectOptions(false, true);
     });
     document.getElementById('total-images-button').addEventListener('click', () => {
         showForm('view-all-images');
@@ -59,7 +69,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     async function showForm(formId) {
-        clearAllForms(); // clear all forms before showing the new one
+        clearAllForms();
         document.querySelectorAll('.form-section').forEach(form => form.style.display = 'none');
         document.getElementById(formId).style.display = 'block';
         if (formId !== 'view-all-vacations') {
@@ -85,7 +95,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const images = formData.getAll('images');
 
         if (images.length < 1) {
-            document.getElementById('images-error').textContent = 'You must upload an image.';
+            document.getElementById('images-error').textContent = 'You must upload at least 1 image.';
             return;
         }
 
@@ -178,7 +188,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const reader = new FileReader();
         reader.onload = function (event) {
             data.images.push(event.target.result);
-            data.imageName = image.name; // עדכון שם התמונה לשם החדש של הקובץ
+            data.imageName = image.name;
             submitFormData(`${updateVacationURL}${vacationId}`, 'PUT', data, 'update-vacation-result');
         };
         reader.readAsDataURL(image);
@@ -329,8 +339,8 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-    async function populateSelectOptions(isUpdate = false) {
-        const companySelect = isUpdate ? document.getElementById('company-name-update') : document.getElementById('company-name');
+    async function populateSelectOptions(isUpdate = false, isFind = false) {
+        const companySelect = isUpdate ? document.getElementById('company-name-update') : (isFind ? document.getElementById('company-name-find') : document.getElementById('company-name'));
         const categorySelect = isUpdate ? document.getElementById('trip-category-update') : document.getElementById('trip-category');
         
         try {
@@ -338,9 +348,11 @@ document.addEventListener("DOMContentLoaded", function() {
             const companies = await companyResponse.json();
             companySelect.innerHTML = companies.map(company => `<option value="${company._id}">${company.company}</option>`).join('');
     
-            const categoryResponse = await fetch(allCategoriesURL);
-            const categories = await categoryResponse.json();
-            categorySelect.innerHTML = categories.map(category => `<option value="${category._id}">${category.category}</option>`).join('');
+            if (!isFind) {
+                const categoryResponse = await fetch(allCategoriesURL);
+                const categories = await categoryResponse.json();
+                categorySelect.innerHTML = categories.map(category => `<option value="${category._id}">${category.category}</option>`).join('');
+            }
         } catch (error) {
             console.error('Error fetching companies or categories:', error);
         }
@@ -360,7 +372,6 @@ document.addEventListener("DOMContentLoaded", function() {
         document.getElementById('trip-category-update').value = vacation.tripCategory._id; // Ensure this matches the select option value
         document.getElementById('vacation-image-update').value = vacation.imageName;
     
-        // Fill in company name and trip category fields
         const companySelect = document.getElementById('company-name-update');
         const categorySelect = document.getElementById('trip-category-update');
     
@@ -396,11 +407,11 @@ document.addEventListener("DOMContentLoaded", function() {
 
 
     async function submitFormData(url, method, data, resultElementId) {
-        console.log('Submitting form data:', data); // log for debugging
-    
+        console.log('Submitting form data:', data);
+
         const isValid = await validateCompanyAndCategory(data, resultElementId);
         if (!isValid) return;
-    
+
         try {
             const response = await fetch(url, {
                 method: method,
