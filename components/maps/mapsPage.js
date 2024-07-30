@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', initializeGoogleMaps);
 
 async function fetchVacations() {
     try {
-        const response = await fetch('http://localhost:3000/api/vacations');
+        const response = await fetch('http://localhost:3000/api/Allvacations');
         const vacations = await response.json();
         return vacations;
     } catch (error) {

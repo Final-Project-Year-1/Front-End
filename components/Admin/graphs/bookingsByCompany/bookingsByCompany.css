@@ -8,7 +8,9 @@
     --blue: #5d9792;
     --dark-blue: #467470;
 }
-
+/* *{
+    border: 1px solid red;
+} */
 body {
     margin: 0;
     padding: 0;
@@ -20,7 +22,15 @@ body {
     background-size: cover;
     font-family: Arial, Helvetica, sans-serif;
 }
-
+#monthSelector {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    z-index: 10;
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 5px;
+}
 #my_dataviz {
     background-color: rgba(255, 255, 255, 0.8); /* רקע חצי שקוף לגרף */
     padding: 20px;
@@ -29,6 +39,8 @@ body {
     max-width: 1100px; /* הגדרת רוחב מקסימלי */
     height: 90vh; /* הגדל את גובה המיכל */
     overflow: hidden; /* לוודא שאין גלילה פנימית */
+    margin-left: 200px;
+    margin-right: 10px;
 }
 
 @media (max-width: 768px) {

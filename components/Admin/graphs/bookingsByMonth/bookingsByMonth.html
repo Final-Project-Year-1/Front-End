@@ -8,10 +8,11 @@
 </head>
 <body>
     <select id="companySelector">
-        <option value="">Select a company</option>
-        <!-- Add company options here dynamically -->
+        <option value="">All Companies</option>
     </select>
-    <div id="my_dataviz"></div>
+    <p id="no-data-message" style="display: none;">No data available</p>
+    <div id="my_dataviz">
+    </div>
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://d3js.org/d3.v4.js"></script>

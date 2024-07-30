@@ -3,25 +3,47 @@ const bookingsByCompanyUrl = "http://localhost:3000/api/bookings-by-company-by-m
 
 // פונקציה לעדכון הגרף עם הנתונים
 function updateGraph(data) {
-    if (!data || data.length === 0) {
-        console.error('No data to display');
-        return;
+    // Example data structure assuming months 1 to 12
+    const allMonths = [...Array(12).keys()].map(i => ({ month: i + 1, totalBookings: 0 }));
+
+    if (data && Array.isArray(data)) {
+        // Sum bookings for each month
+        data.forEach(d => {
+            const monthData = allMonths.find(month => month.month === d.month);
+            if (monthData) {
+                monthData.totalBookings += d.totalBookings;
+            }
+        });
     }
-    renderGraph(data);
+
+    renderGraph(allMonths);
 }
 
 // פונקציה לרנדר את הגרף
 function renderGraph(data) {
+    const noDataMessage = d3.select("#no-data-message");
+    const svgContainer = d3.select("#my_dataviz");
+
+    // Check if data is empty
+    if (data.length === 0 || data.every(d => d.totalBookings === 0)) {
+        svgContainer.html(""); // Clear any existing SVG
+        noDataMessage.style("display", "block");
+        return;
+    }
+
+    // Hide the no-data message if there's data
+    noDataMessage.style("display", "none");
+
     // Remove existing SVG
-    d3.select("#my_dataviz").html("");
+    svgContainer.html("");
 
     // Set dimensions and margins
     var margin = { top: 30, right: 30, bottom: 70, left: 60 },
-        width = document.getElementById('my_dataviz').clientWidth - margin.left - margin.right,
-        height = document.getElementById('my_dataviz').clientHeight - margin.top - margin.bottom;
+        width = svgContainer.node().clientWidth - margin.left - margin.right,
+        height = svgContainer.node().clientHeight - margin.top - margin.bottom;
 
     // Append SVG object to the page
-    var svg = d3.select("#my_dataviz")
+    var svg = svgContainer
         .append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
@@ -31,7 +53,7 @@ function renderGraph(data) {
     // X axis
     var x = d3.scaleBand()
         .range([0, width])
-        .domain(data.map(function (d) { return d.month; }))
+        .domain(data.map(d => d.month))
         .padding(0.2);
     svg.append("g")
         .attr("transform", "translate(0," + height + ")")
@@ -42,7 +64,7 @@ function renderGraph(data) {
 
     // Y axis
     var y = d3.scaleLinear()
-        .domain([0, d3.max(data, function (d) { return d.totalBookings; })])
+        .domain([0, d3.max(data, d => d.totalBookings)])
         .range([height, 0]);
     svg.append("g")
         .call(d3.axisLeft(y));
@@ -52,10 +74,10 @@ function renderGraph(data) {
         .data(data)
         .enter()
         .append("rect")
-        .attr("x", function (d) { return x(d.month); })
-        .attr("y", function (d) { return y(d.totalBookings); })
+        .attr("x", d => x(d.month))
+        .attr("y", d => y(d.totalBookings))
         .attr("width", x.bandwidth())
-        .attr("height", function (d) { return height - y(d.totalBookings); })
+        .attr("height", d => height - y(d.totalBookings))
         .attr("fill", "#69b3a2");
 
     // Add labels to bars
@@ -63,10 +85,10 @@ function renderGraph(data) {
         .data(data)
         .enter()
         .append("text")
-        .attr("x", function (d) { return x(d.month) + x.bandwidth() / 2; })
-        .attr("y", function (d) { return y(d.totalBookings) - 5; })
+        .attr("x", d => x(d.month) + x.bandwidth() / 2)
+        .attr("y", d => y(d.totalBookings) - 5)
         .attr("text-anchor", "middle")
-        .text(function (d) { return d.totalBookings; });
+        .text(d => d.totalBookings);
 
     // X axis label
     svg.append("text")
@@ -104,8 +126,8 @@ document.getElementById('companySelector').addEventListener('change', async (eve
 async function loadCompanies() {
     const fetchCompaniesListUrl = "http://localhost:3000/api/all-companies";
     try {
-        const response = await fetch(fetchCompaniesListUrl);
-        const companies = await response.json();
+        const response = await axios.get(fetchCompaniesListUrl);
+        const companies = response.data;
         console.log('Companies:', companies); // בדוק שהנתונים נשלפים נכון
         const companySelector = document.getElementById('companySelector');
         companies.forEach(company => {
@@ -123,8 +145,8 @@ loadCompanies();
 
 async function getDefaultData() {
     try {
-        const response = await fetch(bookingsUrl);
-        const data = await response.json();
+        const response = await axios.get(bookingsUrl);
+        const data = response.data;
         console.log('Default data:', data); // בדוק שהנתונים נשלפים נכון
         return data;
     } catch (error) {
@@ -134,10 +156,20 @@ async function getDefaultData() {
 }
 
 async function getData(companyId) {
-    const url = `${bookingsByCompanyUrl}/${companyId}`;
-    const response = await fetch(url);
-    const data = await response.json();
-    return data;
+    try {
+        const url = `${bookingsByCompanyUrl}/${companyId}`;
+        const response = await axios.get(url, {
+            headers: {
+                'Authorization': 'Bearer YOUR_ACCESS_TOKEN' // הכנס את ה-token המתאים אם נדרש
+            }
+        });
+        const data = response.data;
+        console.log('Company data:', data); // בדוק שהנתונים נשלפים נכון
+        return data.bookings; // החזרת רק את הנתונים הנדרשים לגרף
+    } catch (error) {
+        console.error('Error fetching company data:', error);
+        return [];
+    }
 }
 
 // Initialize with default data
