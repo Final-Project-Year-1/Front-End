@@ -42,21 +42,21 @@ body {
     z-index: 1;
     right: 10px;
     align-items: center;
-    display: flex;
     position: absolute;
     padding: 10px;
     top: 0;
-    gap: 23px;
     margin-top: 17px;
-
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
 }
 
 .shop {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
-    padding: 10px;
+    padding: 19px;
+    margin-right: 10px;
     font-size: 14px;
     border: none;
     border-radius: 7px;
@@ -208,15 +208,19 @@ h3{
 
 .search-form {
     position: relative;
-    display: flex;
-    justify-content: space-around;
     align-items: center;
-    width: 87vw;
-    gap: 1vw;
     background: rgba(111, 99, 88, 0.7);
-    padding: 10px;
-    border-radius: 40px;
+    padding: 6px;
+    border-radius: 9px;
     margin-top: 27px;
+}
+
+.search-form-div{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    align-items: center;
 }
 
 .search-form input[type="text"],
@@ -227,7 +231,7 @@ h3{
     font-size: 16px;
     padding: 20px;
     width: 200px;
-    margin: 0 5px;
+    margin: 10px;
     border: none;
     border-radius: 5px;
     outline: none;
@@ -424,14 +428,8 @@ input[type="date"] {
 
 .header-content {
     position: absolute;
-    width: 80vw;
-    margin: auto;
     padding: 2vw;
     border-radius: 40px;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    flex-wrap: wrap;
     top: 42%;
     left: 6%;
 }
@@ -440,11 +438,11 @@ input[type="date"] {
 .header-content input[type="date"],
 .header-content input[type="number"],
 .header-content button {
-    font-size: 1.2vw;
-    padding: 1vw;
-    width: 18vw;
+    font-size: 13px;
+    padding: 10px;
+    width: 200px;
     border: none;
-    border-radius: 0.5vw;
+    border-radius: 8px;
 }
 
 .search-form button {
@@ -460,7 +458,7 @@ input[type="date"] {
 
 .header-content .icon-custom {
     position: absolute;
-    left: calc(100% - 2vw);
+    left: 208px;
     width: 1.5vw;
     height: 1.5vw;
 }
@@ -623,8 +621,26 @@ input[type="date"] {
     background-color: rgba(178, 222, 218, 0.3);
     border-radius: 6px;
 }
+
+.top-menu-buttons {
+    display: flex;
+    flex-direction: row;
+}
+
+
+#logo-top {
+    margin-left: 50px;
+    width: 159px;
+    height: 63px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.previous-orders {
+    display: none;
+}
+
 .footer {
-    margin-top:50px;
     background-color: var(--gray-dark);
     color: #fff;
     padding: 40px 20px;
@@ -643,6 +659,7 @@ input[type="date"] {
     text-align: center;
     width: fit-content;
 }
+
 .footer-section h3 {
     font-size: 16px;
     margin-bottom: 12px;

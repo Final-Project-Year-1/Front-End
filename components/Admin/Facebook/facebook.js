@@ -1,6 +1,9 @@
 const accessToken = 'EAAZAbZCZAgww4UBO0I3BFaPzZAUJqyOstdhTAlsrgPhAm2UlyOOufowQiqWVkWPrgttt9ggT591GSrOZCYSBjuu3pC4ANBZCwmUclanSICzqXrNz1T4JpMFlA87ZATIcEiSSJY2hpZCcbQBtpvzqDvMGmsAbk7U53TsnwWaQF2kxfiKorWBUePv1bJvf0x2cCLBIODl7qzof'; // Your Page Access Token
 const page_id = '403609402826152';
 
+
+
+
 document.getElementById('submitButton').addEventListener('click', function() {
     const userInput = document.getElementById('userInput').value;
     const postImageInput = document.getElementById('postImageInput');
@@ -16,6 +19,8 @@ document.getElementById('submitButton').addEventListener('click', function() {
         document.getElementById('response').innerText = 'Please enter some text.';
     }
 });
+
+
 
 document.getElementById('checkVisitorsButton').addEventListener('click', checkVisitorsCount);
 document.getElementById('checkFollowersButton').addEventListener('click', checkFollowersCount);
@@ -137,6 +142,16 @@ function displaySearchResults(results) {
         </svg> ${result.likes && result.likes.summary ? result.likes.summary.total_count : 0}`;
         postElement.appendChild(likesElement);
 
+        const editButton = document.createElement('button');
+        editButton.innerText = 'Edit';
+        editButton.addEventListener('click', () => enableEdit(postElement, result.id, result.message));
+        postElement.appendChild(editButton);
+
+        const deleteButton = document.createElement('button');
+        deleteButton.innerText = 'Delete';
+        deleteButton.addEventListener('click', () => deletePost(result.id));
+        postElement.appendChild(deleteButton);
+
         if (result.comments && result.comments.length > 0) {
             const commentsElement = document.createElement('div');
             commentsElement.className = 'comments';
@@ -161,6 +176,68 @@ function displaySearchResults(results) {
         }
 
         searchResultsContainer.appendChild(postElement);
+    });
+}
+
+function enableEdit(postElement, postId, message) {
+    const messageElement = postElement.querySelector('p');
+    const textarea = document.createElement('textarea');
+    textarea.value = message;
+    postElement.insertBefore(textarea, messageElement);
+    postElement.removeChild(messageElement);
+
+    const saveButton = document.createElement('button');
+    saveButton.innerText = 'Save';
+    saveButton.addEventListener('click', () => updatePost(postId, textarea.value));
+    postElement.appendChild(saveButton);
+}
+
+function updatePost(postId, updatedMessage) {
+    fetch(`https://graph.facebook.com/v20.0/${postId}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            message: updatedMessage,
+            access_token: accessToken
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.error) {
+            alert('Error: ' + data.error.message);
+        } else {
+            alert('Post updated successfully!');
+            fetchAllPosts(page_id, accessToken); // Refresh posts
+        }
+    })
+    .catch(error => {
+        alert('Error: ' + error);
+    });
+}
+
+function deletePost(postId) {
+    fetch(`https://graph.facebook.com/v20.0/${postId}`, {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            access_token: accessToken
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.error) {
+            alert('Error: ' + data.error.message);
+        } else {
+            alert('Post deleted successfully!');
+            fetchAllPosts(page_id, accessToken); // Refresh posts
+        }
+    })
+    .catch(error => {
+        alert('Error: ' + error);
     });
 }
 
@@ -326,3 +403,41 @@ function uploadProfilePicture() {
 
 // Initial fetch of posts
 fetchAllPosts(page_id, accessToken);
+
+const getUserFromToken = () => {
+    let user = null;
+    const token = localStorage.getItem("token");
+
+    if (token) {
+        const encodedObject = jwt_decode(token);
+        user = encodedObject.user;
+    }
+
+    return {
+        user: user,
+        token: token
+    };
+}
+
+if (localStorage.getItem('token') !== '') {
+  const userObj = getUserFromToken();
+  document.querySelector('.top-button-logged-in').style.display = 'block';
+  document.querySelector('.top-button').style.display = 'none';
+  document.getElementById('hello-user').textContent = `Hello ${userObj.user.firstName} ${userObj.user.lastName}`;
+
+  if (userObj.token) {
+      const decodedToken = jwt_decode(userObj.token);
+      // Extract role from the decoded token if present
+      const userRole = decodedToken.role || userObj.user.role;
+
+      // Check if the user role is admin
+      if (userRole && userRole === 'admin') {
+          document.getElementById('admin-section').style.display = 'block';
+      }
+  }
+}
+const logoutButton = document.getElementById("logout");
+logoutButton.addEventListener("click", () =>{
+    localStorage.setItem("token", "");
+    window.location.href = "../../Auth/Login/login.html";
+});
