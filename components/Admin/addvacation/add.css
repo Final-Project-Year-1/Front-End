@@ -17,6 +17,11 @@
     --input-focus: #efefef;
 }
 
+.edit-icon,
+.delete-icon {
+    cursor: pointer;
+}
+
 body,
 html {
     margin: 0;
@@ -155,6 +160,7 @@ form textarea {
     position: relative;
 }
 
+
 .custom-date input[type="date"] {
     appearance: none;
     -webkit-appearance: none;
@@ -191,7 +197,7 @@ form textarea {
 
 form button {
     background-color: var(--highlight-color);
-    color: var(--white);
+    color: var (--white);
     padding: 15px 20px;
     border: none;
     border-radius: 4px;
@@ -230,7 +236,7 @@ form button:hover {
     position: absolute;
     top: 14px;
     right: 10px;
-    border: solid var(--gray);
+    border: solid var (--gray);
     border-width: 0 3px 3px 0;
     padding: 3px;
     transform: rotate(45deg);
@@ -331,20 +337,21 @@ form button:hover {
     flex-wrap: wrap;
     justify-content: center;
 }
+.results-count {
+    font-weight: bold;
+    margin-bottom: 20px; /* מרווח למעלה לפני הכרטיסיות */
+}
 
-.vacation-card {
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    margin: 10px;
-    padding: 20px;
-    max-width: 250px;
-    text-align: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    display: inline-block;
-    /* This makes the cards align horizontally */
-    vertical-align: top;
-    /* Align the cards at the top */
+.vacation-card, .image-card {
+    display: block; /* ensures cards are block-level elements */
+    text-align: center; /* centers the text inside the card */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* soft shadow for depth */
+    margin: 10px; /* space between cards */
+    background-color: white; /* background color for the card */
+    border-radius: 10px; /* rounded corners */
+    overflow: hidden; /* prevents content from spilling out */
+    padding-bottom:10px;
+    
 }
 
 
@@ -354,8 +361,9 @@ form button:hover {
 }
 
 .vacation-card img {
-    width: 100%;
-    height: auto;
+    width: 300px;
+    height: 200px;
+    object-fit: cover;
     border-radius: 10px;
 }
 
@@ -390,17 +398,7 @@ form button:hover {
 }
 
 
-.image-card {
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(252, 252, 252, 0.1);
-    margin: 10px;
-    padding: 10px;
-    max-width: 150px;
-    text-align: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    display: inline-block;
-}
+
 
 .image-card:hover {
     transform: translateY(-10px);
@@ -408,8 +406,9 @@ form button:hover {
 }
 
 .image-card img {
-    width: 100%;
-    height: auto;
+    width: 160px;
+    height: 90px;
+    object-fit: cover;
     border-radius: 10px;
 }
 
@@ -448,18 +447,8 @@ form button:hover {
     flex-wrap: wrap;
 }
 
-.image-card {
-    border: 1px solid #ccc;
-    padding: 10px;
-    margin: 10px;
-    width: calc(25% - 40px);
-    box-sizing: border-box;
-}
 
-.image-card img {
-    max-width: 100%;
-    height: auto;
-}
+
 
 .image-card p {
     margin: 5px 0;
