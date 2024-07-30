@@ -38,8 +38,8 @@
             <div class="flight-details">
                 <h3>Vacation Dates</h3>
                 <ul>
-                    <li>Check in : 15:00, 12/08/2024 </li>
-                    <li>Check out : 12:00, 18/08/2024</li>
+                    <li>Starting Date: 12/08/2024 </li>
+                    <li>Ending Date: 18/08/2024</li>
                 </ul>
             </div>
             <div class="vacation-details">
@@ -161,6 +161,15 @@
                         <div class="days" id="calendar-days"></div>
                     </div>
                 </div>
+                <div class="person-selection">
+                <h3>Select Number of Persons</h3>
+                <form id="person-selection-form">
+                    <label for="number-of-persons">Number of Persons:</label>
+                    <input type="number" id="number-of-persons" name="number-of-persons" min="1" required>
+                    <button type="submit">Check Availability</button>
+                </form>
+                <div id="availability-message"></div>
+                </div>
             </div>
         </div>
     </div>
@@ -184,11 +193,16 @@
                 <div class="form-group">
                     <label for="review-rating">Rating:</label>
                     <select id="review-rating" name="review-rating" required>
-                        <option value="5">★★★★★</option>
-                        <option value="4">★★★★☆</option>
-                        <option value="3">★★★☆☆</option>
-                        <option value="2">★★☆☆☆</option>
-                        <option value="1">★☆☆☆☆</option>
+                        <option value="10">★★★★★★★★★★</option>
+                        <option value="9">★★★★★★★★★☆</option>
+                        <option value="8">★★★★★★★★☆☆</option>
+                        <option value="7">★★★★★★★☆☆☆</option>
+                        <option value="6">★★★★★★☆☆☆☆</option>
+                        <option value="5">★★★★★☆☆☆☆☆</option>
+                        <option value="4">★★★★☆☆☆☆☆☆</option>
+                        <option value="3">★★★☆☆☆☆☆☆☆</option>
+                        <option value="2">★★☆☆☆☆☆☆☆☆</option>
+                        <option value="1">★☆☆☆☆☆☆☆☆☆</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -199,7 +213,6 @@
             </form>
         </div>
     </div>
-
     <!-- Footer -->
     <div class="footer">
         <div class="footer-sections">
@@ -224,6 +237,16 @@
                 <ul>
                     <li><a href="../FAQs/FAQs.html">FAQ</a></li>
                     <li><a href="../PrivacyPolicy/PrivacyPolicy.html">Privacy Policy</a></li>
+                    <li><a href="../terms/terms.html">Terms of Service</a></li>
+                </ul>
+            </div>
+            <div class="footer-section" id="admin-section" style="display: none;">
+                <h3>Admin</h3>
+                <ul>
+                    <li><a href="../Admin/Facebook/facebook.html" id="admin-link">Facebook Page</a></li>
+                    <li><a href="../Admin/userOrders/orders.html" id="admin-link">Orders Management</a></li>
+                    <li><a href="../Admin/addvacation/add.html" id="admin-link">Vacation Management</a></li>
+                    <li><a href="../Admin/add/addComp.html" id="admin-link">Company Management</a></li>
                 </ul>
             </div>
         </div>
@@ -231,7 +254,7 @@
             <span>© 2024 VacationHub. All Rights Reserved.</span>
             <span>Your ultimate travel companion. Discover, plan, and book your perfect getaway with us.</span>
         </div>
-    </div>
+        </div>
 
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="vacationPage.js"></script>

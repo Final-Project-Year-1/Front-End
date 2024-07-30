@@ -26,11 +26,11 @@ function showSlides(n) {
 }
 
 // Static Calendar for August 2024
-const vacationStartDate = new Date(2024, 7, 12); // August 12, 2024
-const vacationEndDate = new Date(2024, 7, 16); // August 16, 2024
+const vacationStartDate = new Date(2024, 7, 12); 
+const vacationEndDate = new Date(2024, 7, 16); 
 
 function renderStaticCalendar() {
-    const currentDate = new Date(2024, 7, 1); // August 2024
+    const currentDate = new Date(2024, 7, 1); 
     const month = currentDate.getMonth();
     const year = currentDate.getFullYear();
     const firstDayOfMonth = new Date(year, month, 1).getDay();
@@ -103,11 +103,22 @@ document.getElementById('add-review-form').addEventListener('submit', async func
         const reviewWrapper = document.querySelector('.reviews-wrapper');
         const reviewElement = document.createElement("div");
         reviewElement.classList.add("review");
-        reviewElement.innerHTML = `
-            <h3>${newReview.name}</h3>
-            <p>${'★'.repeat(newReview.rating)}${'☆'.repeat(5 - newReview.rating)}</p>
-            <p>${newReview.text}</p>
-        `;
+
+        const reviewName = document.createElement("h3");
+        reviewName.textContent = newReview.name;
+
+        const reviewRating = document.createElement("p");
+        const filledStars = '★'.repeat(newReview.rating);
+        const emptyStars = '☆'.repeat(10 - newReview.rating);
+        reviewRating.textContent = filledStars + emptyStars;
+
+        const reviewTextElement = document.createElement("p");
+        reviewTextElement.textContent = newReview.text;
+
+        reviewElement.appendChild(reviewName);
+        reviewElement.appendChild(reviewRating);
+        reviewElement.appendChild(reviewTextElement);
+
         reviewWrapper.prepend(reviewElement); // Add the new review to the top
 
         document.getElementById('add-review-form').reset();
@@ -121,22 +132,22 @@ const reviewsWrapper = document.getElementById("reviews-wrapper");
 const mockReviews = [
     {
         name: "Alice Smith",
-        rating: 5,
+        rating: 9,
         text: "This was a fantastic vacation! The hotel was superb, and the service was top-notch. Highly recommend it!"
     },
     {
         name: "Bob Johnson",
-        rating: 4,
+        rating: 8,
         text: "Great vacation spot with beautiful scenery and friendly staff. Would definitely visit again."
     },
     {
         name: "Catherine Brown",
-        rating: 5,
+        rating: 10,
         text: "Absolutely loved it! The amenities were excellent, and the location was perfect. A wonderful getaway."
     },
     {
         name: "David Wilson",
-        rating: 3,
+        rating: 7,
         text: "Good value for money, but the rooms could have been cleaner. Overall, a decent experience."
     },
 ];
@@ -149,14 +160,68 @@ mockReviews.forEach((review) => {
     reviewName.textContent = review.name;
 
     const reviewRating = document.createElement("p");
-    reviewRating.textContent = '★'.repeat(review.rating) + '☆'.repeat(5-review.rating);
+    const filledStars = '★'.repeat(review.rating);
+    const emptyStars = '☆'.repeat(10 - review.rating);
+    reviewRating.textContent = filledStars + emptyStars;
 
-    const reviewText = document.createElement("p");
-    reviewText.textContent = review.text;
+    const reviewTextElement = document.createElement("p");
+    reviewTextElement.textContent = review.text;
 
     reviewElement.appendChild(reviewName);
     reviewElement.appendChild(reviewRating);
-    reviewElement.appendChild(reviewText);
+    reviewElement.appendChild(reviewTextElement);
 
     reviewsWrapper.appendChild(reviewElement);
 });
+
+document.getElementById('person-selection-form').addEventListener('submit', async function(event) {
+    event.preventDefault();
+    
+    const numberOfPersons = document.getElementById('number-of-persons').value;
+    const vacationId = '66a11e251eb3f43395f7aeaf'; // Replace with the actual vacation ID
+    
+    try {
+        const response = await axios.get('http://localhost:3000/api/vacation/spots-left', {
+            vacationId: vacationId,
+            passengers: parseInt(numberOfPersons)
+        }, {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        });
+        
+        const messageElement = document.getElementById('availability-message');
+        
+        if (response.status === 200) {
+            messageElement.textContent = 'Spots are available!';
+            messageElement.style.color = 'green';
+        } else {
+            messageElement.textContent = 'Not enough spots available!';
+            messageElement.style.color = 'red';
+        }
+    } catch (error) {
+        console.error("Error checking spots:", error);
+        const messageElement = document.getElementById('availability-message');
+        messageElement.textContent = 'Error checking availability. Please try again.';
+        messageElement.style.color = 'red';
+    }
+});
+
+
+// Footer
+if (localStorage.getItem('token') !== '') {
+    const userObj = getUserFromToken();
+    document.querySelector('.top-button-logged-in').style.display = 'block';
+    document.querySelector('.top-button').style.display = 'none';
+    document.getElementById('hello-user').textContent = 'Hello ${userObj.user.firstName} ${userObj.user.lastName}';
+
+    if (userObj.token) {
+        const decodedToken = jwt_decode(userObj.token);
+        // Extract role from the decoded token if present
+        const userRole = decodedToken.role || userObj.user.role;
+
+        // Check if the user role is admin
+        if (userRole && userRole === 'admin') {
+            document.getElementById('admin-section').style.display = 'block';
+        }
+}}
