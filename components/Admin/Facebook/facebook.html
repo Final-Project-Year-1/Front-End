@@ -6,20 +6,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>VacationHub</title>
     <link rel="icon" type="image/png" href="../../assets/home-images/img/logo-small.jpeg">
+    <script src="https://cdn.jsdelivr.net/npm/jwt-decode/build/jwt-decode.min.js"></script>
 </head>
 <body>
     <div class="top-section">
         <div>
-            <img src="../../assets/home-images/img/logo-vacationHub.png" id="logo-top" width="200px">        
+            <img src="../../assets/home-images/img/logo-vacationHub.png" id="logo-top" width="200px">  
         </div>
 
         <div>
             <span class="top-button-logged-in">
-                <span id="hello-user">Hello</span>
-                <button id="logout" class="button">Logout</button>
+                <span id="hello-user">
+                    Hello
+                </span>
+                <button id="logout">
+                    Logout
+                </button>
             </span>
+
             <span class="top-button">
-                <a href="../../Auth/Login/login.html" id="login" class="button">Login</a>
+                <a href="../../Auth/Login/login.html" id="login">
+                    Login
+                </a>
             </span>
         </div>
     </div>
@@ -47,7 +55,6 @@
                     <div class="spinner" id="loadingSpinner"></div>
                 </div>
                 <div id="searchResults" class="search-results"></div>
-                
 
                 <div class="form-container">
                     <div class="container-input">
@@ -106,6 +113,7 @@
                 </div>
             </div>
         </div>
+        
     </div>
 
     <div class="footer">
@@ -113,31 +121,31 @@
             <div class="footer-section">
                 <h3>User Access</h3>
                 <ul>
-                    <li><a href="../Auth/Register/register.html">Register</a></li>
-                    <li><a href="../Auth/Login/login.html">Login</a></li>
-                    <li><a href="../Home/home.html">Home</a></li>
+                    <li><a href="../../Auth/Register/register.html">Register</a></li>
+                    <li><a href="../../Auth/Login/login.html">Login</a></li>
+                    <li><a href="../../Home/home.html">Home</a></li>
                 </ul>
             </div>
             <div class="footer-section">
                 <h3>Company</h3>
                 <ul>
-                    <li><a href="../aboutUs/about.html">About Us</a></li>
-                    <li><a href="../viewport/reviews.html">Reviews</a></li>
-                    <li><a href="../blog/blog.html">Blog</a></li>
+                    <li><a href="../../aboutUs/about.html">About Us</a></li>
+                    <li><a href="../../viewport/reviews.html">Reviews</a></li>
+                    <li><a href="../../blog/blog.html">Blog</a></li>
                 </ul>
             </div>
             <div class="footer-section">
                 <h3>Support</h3>
                 <ul>
-                    <li><a href="../FAQs/FAQs.html">FAQ</a></li>
-                    <li><a href="../PrivacyPolicy/PrivacyPolicy.html">Privacy Policy</a></li>
-                    <li><a href="../terms/terms.html">Terms of Service</a></li>
+                    <li><a href="../../FAQs/FAQs.html">FAQ</a></li>
+                    <li><a href="../../PrivacyPolicy/PrivacyPolicy.html">Privacy Policy</a></li>
+                    <li><a href="../../terms/terms.html">Terms of Service</a></li>
                 </ul>
             </div>
             <div class="footer-section" id="admin-section">
                 <h3>Admin</h3>
                 <ul>
-                    <li><a href="../userorders /userorder.html" id="admin-link">Orders Management</a></li>
+                    <li><a href="../userOrders/orders.html" id="admin-link">Orders Management</a></li>
                     <li><a href="../addvacation/add.html" id="admin-link">Vacation Management</a></li>
                     <li><a href="../add/addComp.html" id="admin-link">Company Management</a></li>
                 </ul>

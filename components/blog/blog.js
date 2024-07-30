@@ -49,6 +49,7 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
+
     const tips = [
         'Pack light to make your travel experience easier.',
         'Always carry a reusable water bottle.',
