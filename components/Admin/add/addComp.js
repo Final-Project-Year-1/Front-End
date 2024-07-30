@@ -3,13 +3,11 @@ const deleteCompanyURL = "http://localhost:3000/api/deleteCompany/"; // here com
 const updateCompanyURL = "http://localhost:3000/api/updateCompany/"; // here comes the _id
 const findCompanyURL = "http://localhost:3000/api/findCompany/"; // here comes the _id
 const allCompaniesURL = "http://localhost:3000/api/all-companies";
-// const totalCompaniesURL = "http://localhost:3000/api/total-companies";
 const addCategoryURL = "http://localhost:3000/api/addCategory";
 const deleteCategoryURL = "http://localhost:3000/api/deleteCategory/"; // here comes the _id
 const updateCategoryURL = "http://localhost:3000/api/updateCategory/"; // here comes the _id
 const findCategoryURL = "http://localhost:3000/api/find-category/"; // here comes the _id
 const allCategoriesURL = "http://localhost:3000/api/allCategories";
-// const totalCategoriesURL = "http://localhost:3000/api/total-categories";
 
 document.addEventListener("DOMContentLoaded", function() {
     const getUserFromToken = () => {
@@ -25,13 +23,22 @@ document.addEventListener("DOMContentLoaded", function() {
             user: user,
             token: token
         };
-    }
+    };
 
     if (localStorage.getItem("token") && localStorage.getItem("token") !== "") {
         const userObj = getUserFromToken();
         document.querySelector(".top-button-logged-in").style.display = "block";
         document.querySelector(".top-button").style.display = "none";
         document.getElementById("hello-user").textContent = `Hello ${userObj.user.firstName} ${userObj.user.lastName}`;
+
+        if (userObj.token) {
+            const decodedToken = jwt_decode(userObj.token);
+            const userRole = decodedToken.role || userObj.user.role;
+
+            if (userRole && userRole === 'admin') {
+                document.getElementById('admin-section').style.display = 'block';
+            }
+        }
     }
 
     const logoutButton = document.getElementById("logout");
@@ -40,7 +47,6 @@ document.addEventListener("DOMContentLoaded", function() {
         window.location.href = "../Auth/Login/login.html";
     });
 
-    // Handle tab switching
     document.querySelectorAll('.tab-button').forEach(button => {
         button.addEventListener('click', () => {
             document.querySelectorAll('.tab-content').forEach(tab => {
