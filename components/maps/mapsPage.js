@@ -1,8 +1,6 @@
-
 let map;
 let geocoder;
 let apiKeyWeather;
-
 
 function loadGoogleMapsApi(apiKey) {
     const existingScript = document.getElementById('google-maps-script');
@@ -14,6 +12,7 @@ function loadGoogleMapsApi(apiKey) {
         document.head.appendChild(script);
     }
 }
+
 async function initializeGoogleMaps() {
     const response = await fetch('http://localhost:3000/api/api-key/maps')
     const data = await response.json()
@@ -21,6 +20,16 @@ async function initializeGoogleMaps() {
 }
 
 document.addEventListener('DOMContentLoaded', initializeGoogleMaps);
+
+async function fetchVacations() {
+    try {
+        const response = await fetch('http://localhost:3000/api/vacations');
+        const vacations = await response.json();
+        return vacations;
+    } catch (error) {
+        console.error('Error fetching vacations:', error);
+    }
+}
 
 function initMap() {
     const options = {
@@ -34,16 +43,15 @@ function initMap() {
     )
 
     geocoder = new google.maps.Geocoder();
-    const countries = getCountries();
-    for (let i = 0; i < countries.length; i++) {
-        geocodeLocation(countries[i]);
-    }
-    function getCountries() {
-        return ['United States', 'Canada', 'Mexico', 'Germany', 'France'];  // דוגמה למערך שמות מדינות
-    }
-
+    loadVacations();
 }
 
+async function loadVacations() {
+    const vacations = await fetchVacations();
+    vacations.forEach(vacation => {
+        geocodeLocation(vacation.destination, vacation);
+    });
+}
 
 function addMarker(prop) {
     let marker = new google.maps.Marker({
@@ -66,24 +74,19 @@ function addMarker(prop) {
     }
 }
 
-
-function geocodeLocation(location) {
+function geocodeLocation(location, vacation) {
     geocoder.geocode({ 'address': location }, function (results, status) {
         if (status === 'OK') {
             const lat = results[0].geometry.location.lat();
             const lng = results[0].geometry.location.lng();
-            // const prop = {
-            //     coordinates: { lat, lng },
-            //     content: `<h4>${location}</h4>`//להוסיף מי
-            getWeatherData(lat, lng, location);
-            // };
-            // addMarker(prop);
+            getWeatherData(lat, lng, vacation);
         } else {
             console.error('Geocode was not successful for the following reason: ' + status);
         }
     });
 }
-function getWeatherData(lat, lng, location) {
+
+function getWeatherData(lat, lng, vacation) {
     const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&appid=${apiKeyWeather}&units=metric`;
 
     fetch(url)
@@ -92,7 +95,13 @@ function getWeatherData(lat, lng, location) {
             const weatherDescription = data.weather[0].description;
             const temperature = data.main.temp;
 
-            const content = `<h4>${location}</h4><p>Weather: ${weatherDescription}</p><p>Temperature: ${temperature}°C</p>`;
+            const content = `
+                <h4>${vacation.destination}</h4>
+                <p>${vacation.description}</p>
+                <p>Price: $${vacation.price}</p>
+                <p>Weather: ${weatherDescription}</p>
+                <p>Temperature: ${temperature}°C</p>
+            `;
 
             const prop = {
                 coordinates: { lat, lng },
