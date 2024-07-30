@@ -1,4 +1,4 @@
-const getAllVacationsUrl = "http://localhost:3000/api/allVacations";
+const getAllVacationsUrl = "http://localhost:3000/api/Allvacations";
 const getVacationImg = "http://localhost:3000/api/vacations/images/";
 
 //static delete later
@@ -12,17 +12,17 @@ const getVacationImg = "http://localhost:3000/api/vacations/images/";
 if (localStorage.getItem("token") && localStorage.getItem("token") !== "") {
   document.querySelector(".logout").style.display = "block";
   document.querySelector(".login").style.display = "none";
+  document.querySelector(".previous-orders").style.display = "block";
 }
 
 const logoutButton = document.getElementById("logout");
 logoutButton.addEventListener("click", () =>{
   localStorage.setItem("token", "");
-  window.location.href = "../Auth/Login/login.html";
 });
 
 let vacations = [];
 
-document.addEventListener("DOMContentLoaded", async function () {
+const fetchCountries = async () => {
   try{
 
     const tripCategory = localStorage.getItem("tripCategory");
@@ -39,8 +39,9 @@ document.addEventListener("DOMContentLoaded", async function () {
 
   } catch (error) {
     console.error("Error fetching data:", error);
-  }
-});
+  } 
+}
+fetchCountries();
 
 const fetchVacationImg = async (vacation) => {
   try {
@@ -189,14 +190,17 @@ async function createVacationCard(vacation) {
 //   showImage(currentImage);
 }
 
+const startInput = document.getElementById("start");
+const endInput = document.getElementById("end");
 
-flatpickr("#start", {
-  // Configuration options
+const startPicker = flatpickr(startInput, {
+  dateFormat: "Y-m-d",
+  onChange: function(selectedDates, dateStr, instance) {
+    endPicker.set('minDate', dateStr);
+  }
 });
 
-flatpickr("#end", {
-  // Configuration options
-});
+const endPicker = flatpickr(endInput);
 
 const getDate = (dateString) => {
     const date = new Date(dateString);
@@ -219,27 +223,30 @@ const calculateDaysDifference = (startDateString, endDateString) => {
     return Math.round(daysDifference);
 };
 
-//Vacation Search Query
+//Vacation Search Query ---------------------------------------------------------------------------------------------------
+//get countries list
 const countriesListUrl = "http://localhost:3000/api/vacations/destinations/countries/";
 
 const fetchCountriesList = async () => {
   try {
     const response = await axios.get(countriesListUrl);
-    const destinations = response.data.destinations;
-    return destinations;
+    return response.data.destinations;
   }
   catch(error) {
     console.error("Error fetching countries list:", error);
     return [];
   }
 }
-fetchCountriesList();
 
-const input = document.getElementById("destination");
-const dropdown = document.getElementById("destination-dropdown");
+const inputDestination = document.getElementById("destination");
+const dropdownDestination = document.getElementById("destination-dropdown");
 
-function populateDropdown(dropdown, destinations, query) {
-  dropdown.innerHTML = ""; // Clear previous options
+let vacationSearchQueryDestination;
+let vacationSearchQueryMonth;
+let vacationSearchQueryNumOfPeople;
+
+function populateDropdown(dropdownDestination, destinations, query) {
+  dropdownDestination.innerHTML = ""; 
   const filteredDestinations = destinations.filter(destination =>
     destination.toLowerCase().includes(query.toLowerCase())
   );
@@ -248,48 +255,105 @@ function populateDropdown(dropdown, destinations, query) {
     option.className = "dropdown-item";
     option.textContent = destination;
     option.addEventListener("click", () => {
-      document.getElementById("destination").value = destination;
-      dropdown.style.display = "none"; // Hide dropdown after selection
+      inputDestination.value = destination;
+      vacationSearchQueryDestination = inputDestination.value;
+      dropdownDestination.style.display = "none"; 
+      validateForm();
     });
-    dropdown.appendChild(option);
+    dropdownDestination.appendChild(option);
   });
 }
 
-function setupInputListener(input, dropdown, destinations) {
-  input.addEventListener("input", () => {
-    const query = input.value;
+function setupInputListener(inputDestination, destinations) {
+  inputDestination.addEventListener("input", () => {
+    const query = inputDestination.value;
     if (query) {
-      dropdown.style.display = "block"; // Show dropdown
-      populateDropdown(dropdown, destinations, query);
+      dropdownDestination.style.display = "block";
+      populateDropdown(dropdownDestination, destinations, query);
     } else {
-      dropdown.style.display = "none"; // Hide dropdown if input is empty
+      dropdownDestination.style.display = "none"; 
     }
   });
 }
 
-function setupClickOutsideListener(dropdown) {
+function setupClickOutsideListener(dropdownDestination) {
   document.addEventListener("click", (event) => {
     if (!event.target.closest(".menu-item")) {
-      dropdown.style.display = "none"; // Hide dropdown if clicked outside
+      dropdownDestination.style.display = "none"; 
     }
   });
 }
 
 async function initialize() {
-  const getAllDestinationsUrl = "your-api-url"; // Replace with your actual URL
-  const destinations = await fetchCountriesList(getAllDestinationsUrl);
+  const destinations = await fetchCountriesList();
+  const inputDestination = document.getElementById("destination");
+  const dropdownDestination = document.getElementById("destination-dropdown");
+  setupInputListener(inputDestination, destinations);
+  setupClickOutsideListener(dropdownDestination);
+}
+initialize();
+// end of drop down countries list
 
-  const input = document.getElementById("destination");
-  const dropdown = document.getElementById("destination-dropdown");
-
-  setupInputListener(input, dropdown, destinations);
-  setupClickOutsideListener(dropdown);
+// get month
+function extractMonth(inputElement) {
+  const date = new Date(inputElement.value);
+  if (!isNaN(date)) {
+    return date.getMonth() + 1;
+  }
+  return null;
 }
 
-// Initialize the script when the document is ready
-initialize();
+startInput.addEventListener("change", () => {
+  vacationSearchQueryMonth = extractMonth(startInput);
+  validateForm()
+});
 
+//get number of people
+const numOfPeople = document.getElementById("num-of-people");
 
+numOfPeople.addEventListener("change", () => {
+  vacationSearchQueryNumOfPeople = numOfPeople.value;
+  validateForm()
+});
+
+const searchForm = document.getElementById("searchFormButton");
+
+const validateForm = () => {
+  if (vacationSearchQueryDestination && vacationSearchQueryMonth && vacationSearchQueryNumOfPeople) {
+    searchFormButton.disabled = false;
+  } else {
+    searchFormButton.disabled = true;
+  }
+}
+
+searchFormButton.disabled = true;
+
+searchForm.addEventListener("click", async (event) => {
+  event.preventDefault();
+
+  const searchVacationData = {
+    "numOfPassengers": String(vacationSearchQueryNumOfPeople),
+    "departureMonth": String(vacationSearchQueryMonth),
+    "destination": vacationSearchQueryDestination
+  };
+
+  console.log(searchVacationData)
+
+  const searchQueryUrl = "http://localhost:3000/api/search-vacations";
+  
+  try {
+    const response = await axios.post(searchQueryUrl, searchVacationData);
+    displayVacations(response.data);
+
+  } catch (error) {
+    if (error.response && error.response.status === 404) {
+      displayVacations([]); // Handle 404 Not Found
+    } else {
+      console.error("Error searching vacations:", error);
+    }
+  }
+});
+//-------------------------------------------------------------------------------------------------------------------------
 
 //filtering section
 let currentCategory = "All";
