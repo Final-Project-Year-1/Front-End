@@ -22,6 +22,7 @@ const register = async (user) => {
     const token = response.data;
     if (typeof token === 'string') {
       localStorage.setItem("token", token);
+      window.interceptorsService.setToken(token);
       window.location.href = "../../Home/home.html";
     } else {
       console.log('Invalid Data');

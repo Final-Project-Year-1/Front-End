@@ -41,7 +41,15 @@ const fetchCountries = async () => {
     console.error("Error fetching data:", error);
   } 
 }
-fetchCountries();
+
+//this is the function to add if the user needs to be logged in or admin
+window.addEventListener("load", () => {
+  const token = localStorage.getItem("token");
+  if (token) {
+      window.interceptorsService.setToken(token);
+  }
+  fetchCountries(); 
+});
 
 const fetchVacationImg = async (vacation) => {
   try {
