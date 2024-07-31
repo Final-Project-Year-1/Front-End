@@ -11,4 +11,16 @@ const fetchVacationImg = async (vacation) => {
     }
 }
 
+const fetchVacationImgWithName = async (imageName) => {
+    try {
+        const response = await axios.get(getVacationImg + imageName, { responseType: 'blob' });
+        const imageUrl = URL.createObjectURL(response.data);
+        return imageUrl;
+    } catch (error) {
+        console.error("Error fetching image:", error);
+        return null;
+    }
+}
+
 window.fetchVacationImg = fetchVacationImg;
+window.fetchVacationImgWithName = fetchVacationImgWithName;

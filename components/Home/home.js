@@ -1,54 +1,15 @@
-//Auth
-const getUserFromToken = () => {
-    let user = null;
-    const token = localStorage.getItem("token");
+const userObj = window.getUserFromToken();
+window.authVerificationAdjustments();
 
-    if (token) {
-        const encodedObject = jwt_decode(token);
-        user = encodedObject.user;
-    }
-
-    return {
-        user: user,
-        token: token
-    };
-}
-
-if (localStorage.getItem('token') !== '') {
-  const userObj = getUserFromToken();
-  document.querySelector('.top-button-logged-in').style.display = 'block';
-  document.querySelector('.top-button').style.display = 'none';
-  document.getElementById('hello-user').textContent = `Hello ${userObj.user.firstName} ${userObj.user.lastName}`;
-
-  if (userObj.token) {
-      const decodedToken = jwt_decode(userObj.token);
-      // Extract role from the decoded token if present
-      const userRole = decodedToken.role || userObj.user.role;
-
-      // Check if the user role is admin
-      if (userRole && userRole === 'admin') {
-          document.getElementById('admin-section').style.display = 'block';
-      }
-  }
-}
-const logoutButton = document.getElementById("logout");
-logoutButton.addEventListener("click", () =>{
-    localStorage.setItem("token", "");
-    window.location.href = "../Auth/Login/login.html";
-});
-
-// 
-// end of menu
-
-//top rated vacations
+// Top rated vacations
 const topRatedVacationsUrl = "http://localhost:3000/api/top-rated-vacations";
 const getVacationImg = "http://localhost:3000/api/vacations/images/";
 
-document.addEventListener("DOMContentLoaded", async function () {
-  try{
+$(document).ready(async function () {
+  try {
     const response = await axios.get(topRatedVacationsUrl);
     const vacations = response.data;
-    vacations.slice(0, 4).forEach((vacation) => createVacationCard(vacation));
+    vacations.slice(0, 4).forEach(async (vacation) => await createVacationCard(vacation));
   } catch (error) {
     console.error("Error fetching data:", error);
   }
@@ -56,91 +17,77 @@ document.addEventListener("DOMContentLoaded", async function () {
 
 const fetchVacationImg = async (vacation) => {
   try {
-      const response = await axios.get(getVacationImg + vacation?.imageName , { responseType: 'blob' });
-      const imageUrl = URL.createObjectURL(response.data);
-      return imageUrl;
+    const response = await axios.get(getVacationImg + vacation?.imageName, { responseType: 'blob' });
+    const imageUrl = URL.createObjectURL(response.data);
+    return imageUrl;
   } catch (error) {
-      console.error("Error fetching image:", error);
-      return null;
+    console.error("Error fetching image:", error);
+    return null;
   }
 }
 
 async function createVacationCard(vacation) {
+  const $vacationCard = $("<div>").addClass("card-vacations");
 
-  const vacationCard = document.createElement("div");
-  vacationCard.classList.add("card-vacations");
-
-  const vacationImg = document.createElement("img");
-  vacationImg.classList.add("vacation-image");
+  const $vacationImg = $("<img>").addClass("vacation-image");
   const imgSrc = await fetchVacationImg(vacation);
   if (imgSrc) {
-    vacationImg.src = imgSrc; 
-    vacationImg.style.cursor = 'pointer';
-    const link = document.createElement("a");
-    link.href = `vacationPage.html?id=${vacation._id}`;
-    link.appendChild(vacationImg); 
-    vacationCard.appendChild(link);
+    $vacationImg.attr("src", imgSrc);
+    $vacationImg.css("cursor", "pointer");
+    const $link = $("<a>").attr("href", `vacationPage.html?id=${vacation._id}`).append($vacationImg);
+    $vacationCard.append($link);
   } else {
-    vacationImg.alt = "Image not available"; 
-    vacationCard.appendChild(vacationImg); 
+    $vacationImg.attr("alt", "Image not available");
+    $vacationCard.append($vacationImg);
   }
 
-  const detailsDiv = document.createElement("div");
-  detailsDiv.classList.add("vacation-details");
+  const $detailsDiv = $("<div>").addClass("vacation-details");
 
-  const descriptionDiv = document.createElement("span");
-  descriptionDiv.classList.add("description");
-  descriptionDiv.innerHTML = `${vacation.description}`;
-  detailsDiv.appendChild(descriptionDiv);
+  const $descriptionDiv = $("<span>").addClass("description").html(vacation.description);
+  $detailsDiv.append($descriptionDiv);
 
-  const destinationDiv = document.createElement("button");
-  destinationDiv.classList.add("destination");
-  destinationDiv.innerHTML = `${vacation.destination}`;
-  detailsDiv.appendChild(destinationDiv);
+  const $destinationDiv = $("<button>").addClass("destination").html(vacation.destination);
+  $detailsDiv.append($destinationDiv);
 
-  const ratingDiv = document.createElement("span");
-  ratingDiv.classList.add("rating");
-  ratingDiv.innerHTML = `${vacation.rating}/10`;
-  detailsDiv.appendChild(ratingDiv);
+  const $ratingDiv = $("<span>").addClass("rating").html(`${vacation.rating}/10`);
+  $detailsDiv.append($ratingDiv);
 
-  vacationCard.appendChild(detailsDiv);
-  const cardsSection = document.getElementById("cards");
-  if (cardsSection) {
-    cardsSection.appendChild(vacationCard);
+  $vacationCard.append($detailsDiv);
+  const $cardsSection = $("#cards");
+  if ($cardsSection.length) {
+    $cardsSection.append($vacationCard);
   } else {
     console.error("Element with id 'cards' not found.");
   }
 }
 
-//
-// end of fetching vacations
+// End of fetching vacations
 
-const slider = document.querySelector(".slider");
-const slides = document.querySelectorAll(".slide");
-const prevButton = document.getElementById("prev-slide");
-const nextButton = document.getElementById("next-slide");
+const $slider = $(".slider");
+const $slides = $(".slide");
+const $prevButton = $("#prev-slide");
+const $nextButton = $("#next-slide");
 
 let currentIndex = 0;
 const slidesToShow = 4;
-const totalSlides = slides.length;
-const slideWidth = slides[0].getBoundingClientRect().width;
+const totalSlides = $slides.length;
+const slideWidth = $slides.first().outerWidth();
 
 function updateSlider() {
   const offset = -currentIndex * slideWidth;
-  slider.style.transform = `translateX(${offset}px)`;
-  prevButton.style.display = currentIndex > 0 ? "block" : "none";
-  nextButton.style.display =
-    currentIndex < totalSlides - slidesToShow ? "block" : "none";
+  $slider.css("transform", `translateX(${offset}px)`);
+  $prevButton.css("display", currentIndex > 0 ? "block" : "none");
+  $nextButton.css("display", currentIndex < totalSlides - slidesToShow ? "block" : "none");
 }
 
-prevButton.addEventListener("click", () => {
+$prevButton.on("click", () => {
   if (currentIndex > 0) {
     currentIndex--;
     updateSlider();
   }
 });
 
-nextButton.addEventListener("click", () => {
+$nextButton.on("click", () => {
   if (currentIndex < totalSlides - slidesToShow) {
     currentIndex++;
     updateSlider();
@@ -149,118 +96,50 @@ nextButton.addEventListener("click", () => {
 
 updateSlider();
 
-const tripCategories = document.querySelectorAll(".vacation-inspired");
-
-tripCategories.forEach((category) => {
-  category.addEventListener("click", () => {
-    const span = category.querySelector(".button-text-2");
-    localStorage.setItem("tripCategory", span.innerText)
-    window.location.href = "../User/Vacations/allVacations.html";
-  });
+$(".vacation-inspired").on("click", function () {
+  const span = $(this).find(".button-text-2").text();
+  localStorage.setItem("tripCategory", span);
+  window.location.href = "../User/Vacations/allVacations.html";
 });
 
-const allVacationsButton = document.querySelector(".all-vacations");
-allVacationsButton.addEventListener("click", () => localStorage.setItem("tripCategory", ''));
+$(".all-vacations").on("click", () => localStorage.setItem("tripCategory", ''));
 
-
-// document.addEventListener("DOMContentLoaded", () => {
-//   console.log("Attempting to fetch JSON data");
-
-//   fetch("home.json")
-//     .then((response) => {
-//       console.log("Fetch response received");
-//       return response.json();
-//     })
-//     .then((data) => {
-//       console.log("JSON data parsed:", data); 
-//       const topVacationsContainer = document.querySelector(".cards");
-//       topVacationsContainer.innerHTML = "";
-
-//       // Sort the data by rating in descending order and take the top 4
-//       const topVacations = data.sort((a, b) => b.rating - a.rating).slice(0, 4);
-
-//       console.log("Sorted data:", topVacations); 
-//       topVacations.forEach((vacation) => {
-//         const vacationCard = createVacation(vacation);
-//         topVacationsContainer.appendChild(vacationCard);
-//       });
-//     })
-//     .catch((error) => console.error("Error fetching vacation data:", error));
-// });
-
-
-
-// Weather forecast
-// async function getWeather() {
-//   const city = document.getElementById('city').value.trim();
-//   const apiKey = '852035eefd087a5e214c33deadcb451b';
-//   const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
-
-//   try {
-//       const response = await fetch(url);
-//       if (!response.ok) {
-//           if (response.status === 401) {
-//               throw new Error('Unauthorized: Invalid API key');
-//           }
-//           throw new Error('City not found');
-//       }
-//       const data = await response.json();
-//       displayWeather(data);
-//   } catch (error) {
-//       document.getElementById('weather-info').innerHTML = `<p>${error.message}</p>`;
-//   }
-// }
-
-// function displayWeather(data) {
-//   const weatherInfo = `
-//       <p><strong>City:</strong> ${data.name}</p>
-//       <p><strong>Temperature:</strong> ${data.main.temp} °C</p>
-//       <p><strong>Weather:</strong> ${data.weather[0].description}</p>
-//       <p><strong>Humidity:</strong> ${data.main.humidity} %</p>
-//       <p><strong>Wind Speed:</strong> ${data.wind.speed} m/s</p>
-//   `;
-//   document.getElementById('weather-info').innerHTML = weatherInfo;
-// }
-document.addEventListener("DOMContentLoaded", async function () {
+$(document).ready(async function () {
   async function fetchNews() {
-      const apiKey = 'f426634050554b5cbd014eff25f76a2d';
-      const url = `https://api.allorigins.win/get?url=${encodeURIComponent(`https://newsapi.org/v2/top-headlines?country=us&apiKey=${apiKey}`)}`;
+    const apiKey = 'f426634050554b5cbd014eff25f76a2d';
+    const url = `https://api.allorigins.win/get?url=${encodeURIComponent(`https://newsapi.org/v2/top-headlines?country=us&apiKey=${apiKey}`)}`;
 
-      try {
-          const response = await fetch(url);
-
-          if (!response.ok) {
-              throw new Error(`Failed to fetch news: ${response.status}`);
-          }
-
-          const data = await response.json();
-          const newsData = JSON.parse(data.contents);
-          displayNews(newsData.articles.slice(0, 3)); // הצגת 3 כתבות בלבד
-      } catch (error) {
-          console.error('Error fetching news:', error);
-          document.getElementById('news-container').innerHTML = `<p>Failed to load news: ${error.message}</p>`;
+    try {
+      const response = await fetch(url);
+      if (!response.ok) {
+        throw new Error(`Failed to fetch news: ${response.status}`);
       }
+      const data = await response.json();
+      const newsData = JSON.parse(data.contents);
+      displayNews(newsData.articles.slice(0, 3)); // Display only 3 articles
+    } catch (error) {
+      console.error('Error fetching news:', error);
+      $('#news-container').html(`<p>Failed to load news: ${error.message}</p>`);
+    }
   }
 
   function displayNews(articles) {
-      const newsContainer = document.getElementById('news-container');
-      newsContainer.innerHTML = ''; // Clear any existing content
+    const $newsContainer = $('#news-container');
+    $newsContainer.empty(); // Clear any existing content
 
-      if (articles.length === 0) {
-          newsContainer.innerHTML = '<p>No news available.</p>';
-          return;
-      }
+    if (articles.length === 0) {
+      $newsContainer.html('<p>No news available.</p>');
+      return;
+    }
 
-      articles.forEach(article => {
-          const articleElement = document.createElement('div');
-          articleElement.classList.add('news-article');
-          articleElement.innerHTML = `
-              <h3>${article.title}</h3>
-              <p>${article.description}</p>
-              <a href="${article.url}" target="_blank">Read more</a>
-          `;
-          newsContainer.appendChild(articleElement);
-      });
+    articles.forEach(article => {
+      const $articleElement = $("<div>").addClass("news-article").html(`
+        <h3>${article.title}</h3>
+        <p>${article.description}</p>
+        <a href="${article.url}" target="_blank">Read more</a>
+      `);
+      $newsContainer.append($articleElement);
+    });
   }
 
   await fetchNews();

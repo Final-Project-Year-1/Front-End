@@ -11,7 +11,9 @@
 <body>
     <div class="top">
         <span>
-            <img src="../assets/home-images/img/logo-vacationHub.png" id="logo-top" width="200px">
+            <a href="../Home/home.html">
+                <img src="../assets/home-images/img/logo-vacationHub.png" id="logo-top" width="200px">
+            </a>          
         </span>
         <span class="top-button">
             <a href="../Auth/Register/register.html" id="register">Register</a>
@@ -141,7 +143,10 @@
             <span>Your ultimate travel companion. Discover, plan, and book your perfect getaway with us.</span>
         </div>
     </div>
-    <script src="reviews.js"></script>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jwt-decode/build/jwt-decode.min.js"></script>
+    <script src="../services/authService.js"></script>
+    <script src="reviews.js"></script>
 </body>
 </html>

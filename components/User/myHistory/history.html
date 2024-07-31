@@ -11,13 +11,20 @@
 </head>
 
 <body>
-    <div class="header">
-        <img src="../../assets/home-images/img/logo-vacationHub.png" id="logo-top" width="200px"
-            onclick="window.location.href='../../Home/home.html'">
-        <div class="logout-container">
-            <span id="hello-user"></span>
-            <button class="logout-button" onclick="logout()" id="logout">Log out</button>
-        </div>
+    <div class="top">
+        <span>
+            <a href="../../Home/home.html">
+                <img src="../../assets/home-images/img/logo-vacationHub.png" id="logo-top" width="200px">
+            </a>
+        </span>
+        <span class="top-button">
+            <a href="../../Auth/Register/register.html" id="register">Register</a>
+            <a href="../../Auth/Login/login.html" id="login">Log in</a>
+        </span>
+        <span class="top-button-logged-in" style="display: none;">
+            <span id="hello-user" class="user-info"></span>
+            <a href="../../Auth/Login/login.html" id="logout" class="user-info">Logout</a>
+        </span>
     </div>
 
     <div class="container">
@@ -115,8 +122,12 @@
         </div>
     </div>
 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jwt-decode/build/jwt-decode.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="../../services/authService.js"></script>
+    <script src="../../services/imageService.js"></script>
+    <script src="../../services/datesService.js"></script>
     <script src="history.js"></script>
 </body>
 

@@ -1,171 +1,169 @@
 const userRegisterUrl = "http://localhost:3000/api/auth/register/";
 
-const firstName = document.getElementById("first-name");
-const lastName = document.getElementById("last-name");
-const emailInput = document.getElementById("email");
-const gender = document.querySelectorAll("input[name='gender']");
-const password = document.getElementById("password");
-const registerButton = document.getElementById("sign-up");
+const firstName = $("#first-name");
+const lastName = $("#last-name");
+const emailInput = $("#email");
+const gender = $("input[name='gender']");
+const password = $("#password");
+const registerButton = $("#sign-up");
 
-const confirmPassword = document.getElementById("confirm-password");
-const passwordError = document.getElementById("password-error");
-const firstNameError = document.getElementById("first-name-error");
-const lastNameError = document.getElementById("last-name-error");
-const passwordMatchError = document.getElementById("password-match-error");
-const passwordLengthError = document.getElementById("password-length-error");
-const emailError = document.getElementById("email-error");
-
+const confirmPassword = $("#confirm-password");
+const passwordError = $("#password-error");
+const firstNameError = $("#first-name-error");
+const lastNameError = $("#last-name-error");
+const passwordMatchError = $("#password-match-error");
+const passwordLengthError = $("#password-length-error");
+const emailError = $("#email-error");
 
 const register = async (user) => {
-  try {
-    const response = await axios.post(userRegisterUrl, user);
-    const token = response.data;
-    if (typeof token === 'string') {
-      localStorage.setItem("token", token);
-      window.interceptorsService.setToken(token);
-      window.location.href = "../../Home/home.html";
-    } else {
-      console.log('Invalid Data');
+    try {
+        const response = await axios.post(userRegisterUrl, user);
+        const token = response.data;
+        if (typeof token === 'string') {
+            localStorage.setItem("token", token);
+            window.interceptorsService.setToken(token);
+            window.location.href = "../../Home/home.html";
+        } else {
+            console.log('Invalid Data');
+        }
+    } catch (error) {
+        console.error("Registration error:", error);
+        throw error;
     }
-  } catch (error) {
-    console.error("Registration error:", error);
-    throw error;
-  }
 }
 
 const validatePassword = () => {
-  const passValue = password.value;
-  let passMessage = "";
+    const passValue = password.val();
+    let passMessage = "";
 
-  if (passValue.length > 0) {
-    if (!/^[a-zA-Z0-9!@#$^₪]+$/.test(passValue)) {
-      passMessage = `Invalid input .`;
-    } else if (passValue.length < 8) {
-      passMessage = "Password too short";
-    } else if (passValue.length > 30) {
-      passMessage = "Password too long";
-    } else if (!/[a-zA-Z]/.test(passValue)) {
-      passMessage = "Password must contain letters";
-    } else if (!/[0-9]/.test(passValue)) {
-      passMessage = "Password must contain numbers";
+    if (passValue.length > 0) {
+        if (!/^[a-zA-Z0-9!@#$^₪]+$/.test(passValue)) {
+            passMessage = `Invalid input .`;
+        } else if (passValue.length < 8) {
+            passMessage = "Password too short";
+        } else if (passValue.length > 30) {
+            passMessage = "Password too long";
+        } else if (!/[a-zA-Z]/.test(passValue)) {
+            passMessage = "Password must contain letters";
+        } else if (!/[0-9]/.test(passValue)) {
+            passMessage = "Password must contain numbers";
+        }
     }
-  }
 
-  passwordLengthError.textContent = passMessage;
-  return passValue.length >= 8 && passMessage === "";
+    passwordLengthError.text(passMessage);
+    return passValue.length >= 8 && passMessage === "";
 };
 
 const validatePasswordsMatch = () => {
-  const passwordsMatch = password.value === confirmPassword.value;
-  if (!passwordsMatch && confirmPassword.value.length > 0) {
-    passwordMatchError.textContent = "Passwords do not match";
-  } else {
-    passwordMatchError.textContent = "";
-  }
-  return passwordsMatch;
+    const passwordsMatch = password.val() === confirmPassword.val();
+    if (!passwordsMatch && confirmPassword.val().length > 0) {
+        passwordMatchError.text("Passwords do not match");
+    } else {
+        passwordMatchError.text("");
+    }
+    return passwordsMatch;
 };
 
-const togglePasswordButton = document.getElementById("toggle-password");
-const passwordInput = document.getElementById("password");
-const eyeIcon = togglePasswordButton.querySelector(".bi-eye");
+const togglePasswordButton = $("#toggle-password");
+const eyeIcon = togglePasswordButton.find(".bi-eye");
 
-togglePasswordButton.addEventListener("click", () => {
-  const type = passwordInput.getAttribute("type") === "password" ? "text" : "password";
-  passwordInput.setAttribute("type", type);
-  eyeIcon.setAttribute("fill", type === "password" ? "currentColor" : "#000000");
+togglePasswordButton.on("click", () => {
+    const type = password.attr("type") === "password" ? "text" : "password";
+    password.attr("type", type);
+    eyeIcon.attr("fill", type === "password" ? "currentColor" : "#000000");
 });
 
 const validateEmail = () => {
-  const email = emailInput.value;
-  const validEmailPattern = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
-  const isValidEmail = validEmailPattern.test(email);
+    const email = emailInput.val();
+    const validEmailPattern = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+    const isValidEmail = validEmailPattern.test(email);
 
-  if (!isValidEmail) {
-    emailError.textContent = "Invalid email address";
-  } else {
-    emailError.textContent = "";
-  }
-  return isValidEmail;
+    if (!isValidEmail) {
+        emailError.text("Invalid email address");
+    } else {
+        emailError.text("");
+    }
+    return isValidEmail;
 };
 
 const validateNameInput = (inputElement, errorElement, nameType) => {
-  const value = inputElement.value;
-  let errorMessage = "";
+    const value = inputElement.val();
+    let errorMessage = "";
 
-  if (value.length > 0) {
-    if (!/^[a-zA-Z]+$/.test(value)) {
-      errorMessage = `Invalid input.`;
-    } else if (value.length < 2) {
-      errorMessage = `${nameType} too short`;
-    } else if (value.length > 20) {
-      errorMessage = `${nameType} too long`;
+    if (value.length > 0) {
+        if (!/^[a-zA-Z]+$/.test(value)) {
+            errorMessage = `Invalid input.`;
+        } else if (value.length < 2) {
+            errorMessage = `${nameType} too short`;
+        } else if (value.length > 20) {
+            errorMessage = `${nameType} too long`;
+        }
     }
-  }
 
-  errorElement.textContent = errorMessage;
-  return value.length >= 2 && errorMessage === "";
+    errorElement.text(errorMessage);
+    return value.length >= 2 && errorMessage === "";
 };
 
 const validateForm = () => {
-  const isFirstNameValid = validateNameInput(firstName, firstNameError, "First name");
-  const isLastNameValid = validateNameInput(lastName, lastNameError, "Last name");
-  const isEmailValid = validateEmail();
-  const isPasswordValid = validatePassword();
-  const passwordsMatch = validatePasswordsMatch();
-  const genderChecked = Array.from(gender).some((g) => g.checked);
-  const fieldsFilled =
-    isFirstNameValid &&
-    isLastNameValid &&
-    isEmailValid &&
-    genderChecked &&
-    isPasswordValid &&
-    passwordsMatch;
+    const isFirstNameValid = validateNameInput(firstName, firstNameError, "First name");
+    const isLastNameValid = validateNameInput(lastName, lastNameError, "Last name");
+    const isEmailValid = validateEmail();
+    const isPasswordValid = validatePassword();
+    const passwordsMatch = validatePasswordsMatch();
+    const genderChecked = gender.filter(":checked").length > 0;
+    const fieldsFilled =
+        isFirstNameValid &&
+        isLastNameValid &&
+        isEmailValid &&
+        genderChecked &&
+        isPasswordValid &&
+        passwordsMatch;
 
-  registerButton.classList.toggle("active", fieldsFilled);
-  registerButton.disabled = !fieldsFilled;
+    registerButton.toggleClass("active", fieldsFilled);
+    registerButton.prop("disabled", !fieldsFilled);
 };
 
-firstName.addEventListener("input", () => {
-  validateNameInput(firstName, firstNameError, "First name");
-  validateForm();
+firstName.on("input", () => {
+    validateNameInput(firstName, firstNameError, "First name");
+    validateForm();
 });
 
-lastName.addEventListener("input", () => {
-  validateNameInput(lastName, lastNameError, "Last name");
-  validateForm();
+lastName.on("input", () => {
+    validateNameInput(lastName, lastNameError, "Last name");
+    validateForm();
 });
 
-emailInput.addEventListener("input", () => {
-  validateEmail();
-  validateForm();
+emailInput.on("input", () => {
+    validateEmail();
+    validateForm();
 });
 
-password.addEventListener("input", () => {
-  validatePassword();
-  validatePasswordsMatch();
-  validateForm();
+password.on("input", () => {
+    validatePassword();
+    validatePasswordsMatch();
+    validateForm();
 });
 
-confirmPassword.addEventListener("input", () => {
-  validatePasswordsMatch();
-  validateForm();
+confirmPassword.on("input", () => {
+    validatePasswordsMatch();
+    validateForm();
 });
 
-gender.forEach((g) => g.addEventListener("change", validateForm));
+gender.on("change", validateForm);
 
-registerButton.addEventListener("click", async function () {
-  console.log("clicked");
-  if (!this.disabled) {
-    const selectedGender = Array.from(gender).find((g) => g.checked)?.value || "";
-    const user = {
-      firstName: firstName.value,
-      lastName: lastName.value,
-      email: emailInput.value,
-      gender: selectedGender,
-      password: password.value,
-      role: "user",
-    };
+registerButton.on("click", async function () {
+    console.log("clicked");
+    if (!$(this).prop("disabled")) {
+        const selectedGender = gender.filter(":checked").val() || "";
+        const user = {
+            firstName: firstName.val(),
+            lastName: lastName.val(),
+            email: emailInput.val(),
+            gender: selectedGender,
+            password: password.val(),
+            role: "user",
+        };
 
-    register(user);
-  }
+        register(user);
+    }
 });

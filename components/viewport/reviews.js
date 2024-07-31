@@ -1,93 +1,53 @@
-document.addEventListener('DOMContentLoaded', function() {
-    const getUserFromToken = () => {
-        let user = null;
-        const token = localStorage.getItem("token");
+const userObj = window.getUserFromToken();
+window.authVerificationAdjustments();
 
-        if (token) {
-            const encodedObject = jwt_decode(token);
-            user = encodedObject.user;
-        }
+$(document).ready(function () {
+  let $blogPosts = $(".blog-post");
+  let blogIndex = 0;
 
-        return {
-            user: user,
-            token: token
-        };
-    };
+  function showNextPost() {
+    $blogPosts.eq(blogIndex).hide();
+    blogIndex = (blogIndex + 1) % $blogPosts.length;
+    $blogPosts.eq(blogIndex).show();
+  }
 
-    if (localStorage.getItem('token') !== '') {
-        const userObj = getUserFromToken();
-        document.querySelector('.top-button-logged-in').style.display = 'block';
-        document.querySelector('.top-button').style.display = 'none';
-        document.getElementById('hello-user').textContent = `Hello ${userObj.user.firstName} ${userObj.user.lastName}`;
+  setInterval(showNextPost, 5000);
 
-        if (userObj.token) {
-            const decodedToken = jwt_decode(userObj.token);
-            // Extract role from the decoded token if present
-            const userRole = decodedToken.role || userObj.user.role;
+  $blogPosts.each(function (index) {
+    if (index !== 0) $(this).hide();
+  });
 
-            // Check if the user role is admin
-            if (userRole && userRole === 'admin') {
-                document.getElementById('admin-section').style.display = 'block';
-            }
-        }
-    }
+  let $slides = $(".video-slide");
+  let slideIndex = 0;
+  let $muteButton = $(".mute");
+  let isMuted = true;
 
-    const logoutButton = document.getElementById("logout");
-    logoutButton.addEventListener("click", () =>{
-        localStorage.setItem("token", "");
-        window.location.href = "../Auth/Login/login.html";
-    });
+  function showSlides(n) {
+    $slides.eq(slideIndex).hide();
+    $slides.eq(slideIndex).find("video").prop("muted", true);
+    slideIndex = (slideIndex + n + $slides.length) % $slides.length;
+    $slides.eq(slideIndex).show();
+    $slides.eq(slideIndex).find("video").prop("muted", isMuted);
+    $slides.eq(slideIndex).find("video").get(0).play();
+  }
 
-    // Blog post rotation
-    var blogPosts = document.querySelectorAll('.blog-post');
-    var blogIndex = 0;
+  showSlides(0);
 
-    function showNextPost() {
-        blogPosts[blogIndex].style.display = 'none';
-        blogIndex = (blogIndex + 1) % blogPosts.length;
-        blogPosts[blogIndex].style.display = 'flex';
-    }
+  $(".prev").on("click", function () {
+    showSlides(-1);
+  });
 
-    setInterval(showNextPost, 5000); // Change post every 5 seconds
+  $(".next").on("click", function () {
+    showSlides(1);
+  });
 
-    // Initial display setup for blog posts
-    blogPosts.forEach(function(post, index) {
-        if (index !== 0) post.style.display = 'none';
-    });
+  $muteButton.on("click", function () {
+    isMuted = !isMuted;
+    $slides.eq(slideIndex).find("video").prop("muted", isMuted);
+    $muteButton.text(isMuted ? "\uD83D\uDD07" : "\uD83D\uDD08");
+  });
 
-    // Video slide rotation
-    var slides = document.querySelectorAll('.video-slide');
-    var slideIndex = 0;
-    var muteButton = document.querySelector('.mute');
-    var isMuted = true;
-
-    function showSlides(n) {
-        slides[slideIndex].style.display = 'none';
-        slides[slideIndex].querySelector('video').muted = true; // Mute the previous video
-        slideIndex = (slideIndex + n + slides.length) % slides.length;
-        slides[slideIndex].style.display = 'block';
-        slides[slideIndex].querySelector('video').muted = isMuted; // Apply the current mute state
-        slides[slideIndex].querySelector('video').play();
-    }
-
-    showSlides(0); // Initialize the first slide
-
-    document.querySelector('.prev').addEventListener('click', function() {
-        showSlides(-1);
-    });
-
-    document.querySelector('.next').addEventListener('click', function() {
-        showSlides(1);
-    });
-
-    muteButton.addEventListener('click', function() {
-        isMuted = !isMuted;
-        slides[slideIndex].querySelector('video').muted = isMuted;
-        muteButton.textContent = isMuted ? '\uD83D\uDD07' : '\uD83D\uDD08';
-    });
-
-    // Play videos when DOM is fully loaded
-    slides.forEach(function(slide) {
-        slide.querySelector('video').play();
-    });
+  $slides.each(function () {
+    $(this).find("video").get(0).play();
+  });
 });
