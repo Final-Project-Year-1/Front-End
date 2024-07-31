@@ -11,10 +11,10 @@
 <body>
     <div class="top-section">
         <div>
-            <img src="../assets/home-images/img/logo-vacationHub.png" id="logo-top" width="200px"> 
+            <a href="../Home/home.html">
+                <img src="../assets/home-images/img/logo-vacationHub.png" id="logo-top" width="200px">
+            </a>        
         </div>
-
-
         <div>
             <span class="top-button-logged-in">
                 <span id="hello-user">
@@ -102,7 +102,10 @@
             <span>Your ultimate travel companion. Discover, plan, and book your perfect getaway with us.</span>
         </div>
     </div>
-    <script src="terms.js"></script>
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jwt-decode/build/jwt-decode.min.js"></script>
+    <script src="../services/authService.js"></script>
+    <script src="terms.js"></script>
 </body>
 </html>

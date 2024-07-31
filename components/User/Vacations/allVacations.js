@@ -1,13 +1,6 @@
 const getAllVacationsUrl = "http://localhost:3000/api/Allvacations";
 const getVacationImg = "http://localhost:3000/api/vacations/images/";
 
-//static delete later
-// document.addEventListener('DOMContentLoaded', function() {
-//     fetch('/vacations')
-//         .then(response => response.json())
-//         .then(data => createCards(data));
-// });
-
 //Auth
 if (localStorage.getItem("token") && localStorage.getItem("token") !== "") {
   document.querySelector(".logout").style.display = "block";
@@ -42,7 +35,6 @@ const fetchCountries = async () => {
   } 
 }
 
-//this is the function to add if the user needs to be logged in or admin
 window.addEventListener("load", () => {
   const token = localStorage.getItem("token");
   if (token) {
@@ -74,7 +66,6 @@ async function createVacationCard(vacation) {
   const imageSlider = document.createElement("div");
   imageSlider.classList.add("image-slider");
 
-  // Im changing here for now so it will work with one Img -- shir
   const vacationImg = document.createElement("img");
   vacationImg.classList.add("vacation-image");
   const imgSrc = await fetchVacationImg(vacation);
@@ -94,25 +85,6 @@ async function createVacationCard(vacation) {
     cardHeader.appendChild(vacationImg);
   }
 
-//   vacation.images.forEach((image, index) => {
-//     const img = document.createElement("img");
-//     img.src = image;
-//     img.classList.add("slide-image");
-//     if (index !== 0) img.style.display = "none";
-//     imageSlider.appendChild(img);
-//   });
-
-  // const prevBtn = document.createElement("button");
-  // prevBtn.classList.add("prev-btn");
-  // prevBtn.textContent = "❮";
-
-  // const nextBtn = document.createElement("button");
-  // nextBtn.classList.add("next-btn");
-  // nextBtn.textContent = "❯";
-
-  // imageSlider.appendChild(prevBtn);
-  // imageSlider.appendChild(nextBtn);
-  // cardHeader.appendChild(imageSlider);
   card.appendChild(cardHeader);
 
   const cardBody = document.createElement("div");
@@ -180,31 +152,6 @@ async function createVacationCard(vacation) {
   card.appendChild(cardFooter);
 
   cardsContainer.appendChild(card);
-
-  // Add image slider functionality for each card
-  // const sliderImages = card.querySelectorAll(".slide-image");
-  // let currentImage = 0;
-
-//   function showImage(index) {
-//     sliderImages.forEach((img) => {
-//       img.style.display = "none";
-//     });
-//     sliderImages[index].style.display = "block";
-//   }
-
-//   card.querySelector(".prev-btn").addEventListener("click", () => {
-//     currentImage =
-//       currentImage > 0 ? currentImage - 1 : sliderImages.length - 1;
-//     showImage(currentImage);
-//   });
-
-//   card.querySelector(".next-btn").addEventListener("click", () => {
-//     currentImage =
-//       currentImage < sliderImages.length - 1 ? currentImage + 1 : 0;
-//     showImage(currentImage);
-//   });
-
-//   showImage(currentImage);
 }
 
 const startInput = document.getElementById("start");

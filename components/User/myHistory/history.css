@@ -7,6 +7,7 @@
     --gray: #acacac;
     --blue: #5f9da7;
     --dark-blue: #305754;
+    --highlight-color: #305754;
 }
 
 body, html {
@@ -18,44 +19,6 @@ body, html {
     font-family: Arial, Helvetica, sans-serif;
 }
 
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    border-bottom: 2px solid #ccc;
-}
-
-#logo-top {
-    width: 200px;
-    cursor: pointer;
-}
-
-.logout-container {
-    display: flex;
-    align-items: center;
-}
-
-#hello-user {
-    margin-right: 15px;
-    font-size: 1.2em;
-    color: #305754;
-    font-weight: bold;
-}
-
-.logout-button {
-    background-color: #305754;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    border-radius: 5px;
-    font-size: 1em;
-}
-
-.logout-button:hover {
-    background-color: #4a7066;
-}
 
 .container {
     width: 100%;
@@ -87,7 +50,7 @@ h2 {
     background-color: white;
     border-radius: 5px;
     overflow: hidden;
-    width: calc(25% - 20px);
+    width: 308px;
     margin-bottom: 20px;
     box-sizing: border-box;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -489,4 +452,35 @@ button:hover {
     .modal-body strong {
         width: 80px; /* רוחב קטן יותר לתוויות */
     }
+}
+
+.top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2px 13px;
+    border-bottom: 0.6px solid var(--gray);
+    box-shadow: 0 2px 4px -2px rgba(0, 0, 0, 0.2);
+}
+
+.top-button a {
+    color: var(--dark-blue);
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+    margin: 0 10px;
+    transition: color 0.3s ease;
+}
+
+.top-button a:hover {
+    color: var(--red);
+}
+
+.user-info {
+    color: var(--highlight-color);
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+    margin: 0 10px;
+    transition: color 0.3s ease;
 }

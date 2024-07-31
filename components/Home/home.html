@@ -11,30 +11,20 @@
 </head>
 
 <body>
-    <div class="top-section">
-        <div>
-            <img src="../assets/home-images/img/logo-vacationHub.png" id="logo-top" width="200px">  
-        </div>
-
-        <div>
-            <span class="top-button-logged-in">
-                <span id="hello-user">
-                    Hello
-                </span>
-                <button id="logout">
-                    Logout
-                </button>
-            </span>
-
-            <span class="top-button">
-                <a href="../Auth/Register/register.html" id="login">
-                    Register
-                </a>
-                <a href="../Auth/Login/login.html" id="login">
-                    Login
-                </a>
-            </span>
-        </div>
+    <div class="top">
+        <span>
+            <a href="../Home/home.html">
+                <img src="../assets/home-images/img/logo-vacationHub.png" id="logo-top" width="200px">
+            </a>
+        </span>
+        <span class="top-button">
+            <a href="../Auth/Register/register.html" id="register">Register</a>
+            <a href="../Auth/Login/login.html" id="login">Log in</a>
+        </span>
+        <span class="top-button-logged-in" style="display: none;">
+            <span id="hello-user" class="user-info"></span>
+            <a href="../Auth/Login/login.html" id="logout" class="user-info">Logout</a>
+        </span>
     </div>
 
     <div class="mid">
@@ -228,8 +218,10 @@
             <span>Your ultimate travel companion. Discover, plan, and book your perfect getaway with us.</span>
         </div>
     </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jwt-decode/build/jwt-decode.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="../services/authService.js"></script>
     <script src="home.js"></script>
 </body>
 </html>

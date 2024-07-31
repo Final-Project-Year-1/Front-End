@@ -385,7 +385,7 @@ h1 {
     font-size: 10px;
     color: var(--gray);
 }
-/* אזור תחזית מזג האוויר */
+
 .weather {
     background-color: var(--background-light);
     padding: 20px;

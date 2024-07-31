@@ -10,4 +10,13 @@ const getDate = (dateString) => {
     return normalDateString;
 };
 
+function calculateDaysDifference(startDate, endDate) {
+    const start = new Date(startDate);
+    const end = new Date(endDate);
+    const timeDiff = end - start;
+    const daysDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
+    return daysDiff;
+}
+
 window.getDate = getDate;
+window.calculateDaysDifference = calculateDaysDifference;
