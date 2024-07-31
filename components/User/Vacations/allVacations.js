@@ -74,16 +74,25 @@ async function createVacationCard(vacation) {
   const imageSlider = document.createElement("div");
   imageSlider.classList.add("image-slider");
 
-  //Im changing here for now so it will work with one Img -- shir
+  // Im changing here for now so it will work with one Img -- shir
   const vacationImg = document.createElement("img");
   vacationImg.classList.add("vacation-image");
   const imgSrc = await fetchVacationImg(vacation);
   if (imgSrc) {
-    vacationImg.src = imgSrc; 
+    vacationImg.src = imgSrc;
+    vacationImg.style.cursor = 'pointer'; // הוסף קורסור לציין שהתמונה ניתנת ללחיצה
+
+    // יצירת תגית <a> עם ה- href הנכון
+    const link = document.createElement("a");
+    link.href = `vacationPage.html?id=${vacation._id}`;
+    link.appendChild(vacationImg); // עוטף את התמונה בתגית <a>
+    cardHeader.appendChild(link);
+
+
   } else {
     vacationImg.alt = "Image not available"; 
+    cardHeader.appendChild(vacationImg);
   }
-  cardHeader.appendChild(vacationImg);
 
 //   vacation.images.forEach((image, index) => {
 //     const img = document.createElement("img");
