@@ -349,3 +349,74 @@ h1 {
   font-size: 2vw;
     left: 15%;
 }
+
+.search-form-back{
+    margin-bottom: 20px;
+    display: flex;
+    font-size: 1vw;
+    justify-content: center;
+    align-items: center;
+   
+}
+.search-back{
+    margin: 10px;
+    border: 0.4px solid black;
+    border-radius: 10px;
+    z-index: 12;
+
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    position: relative;
+    min-width: 200px;
+  width: 50vw;
+  font-size: 2vw;
+    left: 15%;
+}
+
+
+
+.search-back-wrapper {
+    display: flex;
+    height: 100%;
+    width: 100%;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
+
+
+
+.search-back input {
+    border: none;
+    outline: none;
+    background-color: transparent;
+    flex-grow: 1;
+    font-size: 1vw;
+}
+
+.search-back button {
+    border: none;
+    width: 12%;
+    font-size: 1vw;
+    outline: none;
+    background-color: transparent;
+}
+
+.search-form-back .dropdown {
+    position: relative;
+    display: inline-block;
+    width: 180px;
+}
+.search-form-back .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    border-radius: 0 0 5px 5px;
+    width: 100%;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
