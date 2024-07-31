@@ -147,10 +147,20 @@ const fetchVacationImg = async (vacation) => {
     const imgSrc = await fetchVacationImg(vacation);
     
     if (imgSrc) {
-      vacationImg.src = imgSrc; 
+        vacationImg.src = imgSrc; 
+
+        // צור תגית <a> ועטוף בה את התמונה
+        const link = document.createElement("a");
+        link.href = `vacationPage.html?id=${vacation._id}`;
+        link.appendChild(vacationImg);
+
+        // אפשר גם להוסיף CSS כדי לציין שהתמונה ניתנת ללחיצה
+        vacationImg.style.cursor = 'pointer';
+
+        return link; // החזר את תגית <a> עם התמונה בתוכה
     } else {
-      vacationImg.alt = "Image not available"; 
+        const placeholderImg = document.createElement("img");
+        placeholderImg.alt = "Image not available";
+        return placeholderImg;
     }
-    
-    return vacationImg;
-  }
+}

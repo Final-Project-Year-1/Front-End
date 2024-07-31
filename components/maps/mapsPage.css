@@ -16,6 +16,11 @@ html, body {
     max-width: 100%; /* להבטיח שהתמונה לא תעלה על הרוחב של ההורה שלה */
     max-height: 100px; /* גובה מקסימלי של התמונה */
     border-radius: 8px;
+    transition: transform 0.2s; /* אנימציה חלקה בעת שינוי */
+    cursor: pointer;
+}
+.vacation-image:active {
+    transform: scale(0.95); /* הקטנה קלה של התמונה בעת לחיצה */
 }
 .custom-info-window {
     margin: 0; /* מסיר רווחים סביב התוכן */
@@ -27,4 +32,3 @@ html, body {
 .custom-info-window h4 {
     margin-top: 0; /* מסיר רווח מעל הכותרת */
 }
-
