@@ -50,7 +50,7 @@ const getUserFromToken = () => {
 };
 
 const redirectToLogin = () => {
-  window.location.href = "../Auth/Login/login.html";
+  window.location.href = "../../Auth/Login/login.html";
 };
 
 document.getElementById('search-id').addEventListener('keypress', function (e) {
@@ -126,43 +126,72 @@ function clearSearch() {
 function displayBookings(bookings, searchCriteria = '', searchId = '') {
   currentBookings = bookings;
   const cardsContainer = document.getElementById('cards-container');
-  cardsContainer.innerHTML = '';
+  cardsContainer.innerHTML = ''; // Clear existing content
 
   if (bookings.length === 0) {
-    cardsContainer.innerHTML = `<p class="no-results">Oops!<br>No orders with this ${searchCriteria}: ${searchId}</p>`;
+    const noResultsMessage = document.createElement('p');
+    noResultsMessage.classList.add('no-results');
+    noResultsMessage.textContent = `Oops! No orders with this ${searchCriteria}: ${searchId}`;
+    cardsContainer.appendChild(noResultsMessage);
     document.querySelector('.show-more-container').style.display = 'none';
     return;
   }
 
   const displayBookings = bookings.slice(0, currentIndex + ITEMS_PER_PAGE);
+
   displayBookings.forEach(booking => {
     const card = document.createElement('div');
     card.classList.add('card');
-    card.innerHTML = `
-      <div class="card-body">
-        <div class="order-number">
-          Order Number: ${booking.OrderNumber}
-        </div>
-        <div class="info">
-          <p><strong>Vacation ID:</strong> ${booking.vacationId._id}</p>
-          <p><strong>User Name:</strong> ${booking.userId.firstName || 'N/A'} ${booking.userId.lastName || 'N/A'}</p>
-          <p><strong>Email:</strong> ${booking.userId.email || 'N/A'}</p>
-          <p><strong>Company Name:</strong> ${booking.vacationId.companyName ? booking.vacationId.companyName.company : 'N/A'}</p>
-          <p><strong>Booking Date:</strong> ${new Date(booking.bookingDate).toLocaleDateString()}</p>
-          <p><strong>Passengers:</strong> ${booking.Passengers}</p>
-          <p><strong>Status:</strong> ${booking.status}</p>
-        </div>
-      </div>
-    `;
+
+    const cardBody = document.createElement('div');
+    cardBody.classList.add('card-body');
+
+    const orderNumber = document.createElement('div');
+    orderNumber.classList.add('order-number');
+    orderNumber.textContent = `Order Number: ${booking.OrderNumber}`;
+
+    const info = document.createElement('div');
+    info.classList.add('info');
+    
+    const vacationId = document.createElement('p');
+    vacationId.innerHTML = `<strong>Vacation ID:</strong> ${booking.vacationId._id}`;
+    
+    const userName = document.createElement('p');
+    userName.innerHTML = `<strong>User Name:</strong> ${booking.userId.firstName || 'N/A'} ${booking.userId.lastName || 'N/A'}`;
+    
+    const email = document.createElement('p');
+    email.innerHTML = `<strong>Email:</strong> ${booking.userId.email || 'N/A'}`;
+    
+    const companyName = document.createElement('p');
+    companyName.innerHTML = `<strong>Company Name:</strong> ${booking.vacationId.companyName ? booking.vacationId.companyName.company : 'N/A'}`;
+    
+    const bookingDate = document.createElement('p');
+    bookingDate.innerHTML = `<strong>Booking Date:</strong> ${new Date(booking.bookingDate).toLocaleDateString()}`;
+    
+    const passengers = document.createElement('p');
+    passengers.innerHTML = `<strong>Passengers:</strong> ${booking.Passengers}`;
+    
+    const status = document.createElement('p');
+    status.innerHTML = `<strong>Status:</strong> ${booking.status}`;
+    
+    info.appendChild(vacationId);
+    info.appendChild(userName);
+    info.appendChild(email);
+    info.appendChild(companyName);
+    info.appendChild(bookingDate);
+    info.appendChild(passengers);
+    info.appendChild(status);
+    
+    cardBody.appendChild(orderNumber);
+    cardBody.appendChild(info);
+    
+    card.appendChild(cardBody);
+    
     cardsContainer.appendChild(card);
   });
 
   const showMoreContainer = document.querySelector('.show-more-container');
-  if (bookings.length > currentIndex + ITEMS_PER_PAGE) {
-    showMoreContainer.style.display = 'flex';
-  } else {
-    showMoreContainer.style.display = 'none';
-  }
+  showMoreContainer.style.display = bookings.length > currentIndex + ITEMS_PER_PAGE ? 'flex' : 'none';
 }
 
 function showMoreBookings() {
@@ -179,8 +208,6 @@ logoutButton.addEventListener("click", () => {
 function handleError(error) {
   console.error("Error fetching data:", error);
   if (error.response) {
-    // The request was made, but the server responded with a status code
-    // that falls out of the range of 2xx
     console.error("Response data:", error.response.data);
     console.error("Response status:", error.response.status);
     console.error("Response headers:", error.response.headers);
@@ -188,123 +215,117 @@ function handleError(error) {
       redirectToLogin();
     }
   } else if (error.request) {
-    // The request was made but no response was received
     console.error("Request data:", error.request);
   } else {
-    // Something happened in setting up the request that triggered an Error
     console.error("Error message:", error.message);
   }
 }
-const countriesListUrl = "http://localhost:3000/api/vacations/destinations/countries/";
-const inputDestination = document.getElementById("destination");
-const dropdownDestination = document.getElementById("destination-dropdown");
-const inputMonth = document.getElementById("month");
-const dropdownMonth = document.getElementById("month-dropdown");
 
-const fetchCountriesList = async () => {
-  try {
-    const response = await axios.get(countriesListUrl);
-    return response.data.destinations;
-  } catch (error) {
-    console.error("Error fetching countries list:", error);
-    return [];
-  }
-};
+const searchFormButtonBack = document.getElementById('searchFormButtonBack');
 
-const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+searchFormButtonBack.addEventListener('click', async function () {
+    const email = document.getElementById('email-back').value;
+    const destination = document.getElementById('destination-back').value;
+    const month = document.getElementById('month-back').value;
 
-let vacationSearchQueryDestination;
-let vacationSearchQueryMonth;
-let vacationSearchQueryNumOfPeople;
+    const searchQuery = {
+        email: email,
+        destination: destination,
+        departureMonth: parseInt(month)
+    };
 
-function populateDropdown(dropdown, items, query) {
-  dropdown.innerHTML = "";
-  const filteredItems = items.filter(item => item.toLowerCase().includes(query.toLowerCase()));
-  filteredItems.forEach(item => {
-    const option = document.createElement("div");
-    option.className = "dropdown-item";
-    option.textContent = item;
-    option.addEventListener("click", () => {
-      dropdown.previousElementSibling.value = item;
-      if (dropdown === dropdownDestination) {
-        vacationSearchQueryDestination = item;
-      } else if (dropdown === dropdownMonth) {
-        vacationSearchQueryMonth = item;
-      }
-      dropdown.style.display = "none";
-      validateForm();
-    });
-    dropdown.appendChild(option);
-  });
-}
+    try {
+        const userObj = getUserFromToken();
+        if (!userObj || !userObj.token) {
+            redirectToLogin();
+            return;
+        }
 
-function setupInputListener(input, dropdown, items) {
-  input.addEventListener("input", () => {
-    const query = input.value;
-    if (query) {
-      dropdown.style.display = "block";
-      populateDropdown(dropdown, items, query);
-    } else {
-      dropdown.style.display = "none";
+        const response = await axios.post('http://localhost:3000/api/user-booking-query', searchQuery, {
+            headers: {
+                Authorization: `Bearer ${userObj.token}`
+            }
+        });
+
+        const bookings = response.data;
+        displaySearchBackBookings(bookings);
+
+    } catch (error) {
+        handleError(error);
     }
-  });
-}
-
-function setupClickOutsideListener(dropdown) {
-  document.addEventListener("click", (event) => {
-    if (!event.target.closest(".search-form-back")) {
-      dropdown.style.display = "none";
-    }
-  });
-}
-
-async function initialize() {
-  const destinations = await fetchCountriesList();
-  setupInputListener(inputDestination, dropdownDestination, destinations);
-  setupInputListener(inputMonth, dropdownMonth, months);
-  setupClickOutsideListener(dropdownDestination);
-  setupClickOutsideListener(dropdownMonth);
-}
-initialize();
-
-const validateForm = () => {
-  if (vacationSearchQueryDestination && vacationSearchQueryMonth && vacationSearchQueryNumOfPeople) {
-    searchFormButton.disabled = false;
-  } else {
-    searchFormButton.disabled = true;
-  }
-}
-
-const searchFormButton = document.getElementById("searchFormButton");
-searchFormButton.disabled = true;
-
-
-
-searchFormButton.addEventListener("click", async (event) => {
-  event.preventDefault();
-
-  const searchVacationData = {
-    "numOfPassengers": String(vacationSearchQueryNumOfPeople),
-    "departureMonth": String(vacationSearchQueryMonth),
-    "destination": vacationSearchQueryDestination
-  };
-
-  const searchQueryUrl = "http://localhost:3000/api/search-vacations";
-  
-  try {
-    const response = await axios.post(searchQueryUrl, searchVacationData);
-    displayVacations(response.data);
-
-  } catch (error) {
-    if (error.response && error.response.status === 404) {
-      displayVacations([]); // Handle 404 Not Found
-    } else {
-      console.error("Error searching vacations:", error);
-    }
-  }
 });
 
-const displayVacations = (vacations) => {
-  // Implement the display logic for vacations
-  console.log(vacations);
+function displaySearchBackBookings(bookings) {
+  const cardsContainer = document.getElementById('cards-container');
+  cardsContainer.innerHTML = ''; // Clear existing content
+
+  if (bookings.length === 0) {
+    const noResultsMessage = document.createElement('p');
+    noResultsMessage.classList.add('no-results');
+    noResultsMessage.textContent = 'No bookings found.';
+    cardsContainer.appendChild(noResultsMessage);
+    document.querySelector('.show-more-container').style.display = 'none';
+    return;
+  }
+
+  bookings.forEach(booking => {
+    const card = document.createElement('div');
+    card.classList.add('card');
+
+    const cardBody = document.createElement('div');
+    cardBody.classList.add('card-body');
+
+    const orderNumber = document.createElement('div');
+    orderNumber.classList.add('order-number');
+    orderNumber.textContent = `Order Number: ${booking.orderNumber}`;
+
+    const info = document.createElement('div');
+    info.classList.add('info');
+    
+    const destination = document.createElement('p');
+    destination.innerHTML = `<strong>Destination:</strong> ${booking.destination}`;
+    
+    const description = document.createElement('p');
+    description.innerHTML = `<strong>Description:</strong> ${booking.description}`;
+    
+    const bookingDate = document.createElement('p');
+    bookingDate.innerHTML = `<strong>Booking Date:</strong> ${new Date(booking.bookingDate).toLocaleDateString()}`;
+    
+    const passengers = document.createElement('p');
+    passengers.innerHTML = `<strong>Passengers:</strong> ${booking.passengers}`;
+    
+    const company = document.createElement('p');
+    company.innerHTML = `<strong>Company:</strong> ${booking.Company}`;
+    
+    const vacationType = document.createElement('p');
+    vacationType.innerHTML = `<strong>Vacation Type:</strong> ${booking.VacationType}`;
+    
+    const category = document.createElement('p');
+    category.innerHTML = `<strong>Category:</strong> ${booking.Category}`;
+    
+    const rating = document.createElement('p');
+    rating.innerHTML = `<strong>Rating:</strong> ${booking.Rating}`;
+    
+    const totalPrice = document.createElement('p');
+    totalPrice.innerHTML = `<strong>Total Price:</strong> ${booking.totalPrice}`;
+    
+    info.appendChild(destination);
+    info.appendChild(description);
+    info.appendChild(bookingDate);
+    info.appendChild(passengers);
+    info.appendChild(company);
+    info.appendChild(vacationType);
+    info.appendChild(category);
+    info.appendChild(rating);
+    info.appendChild(totalPrice);
+    
+    cardBody.appendChild(orderNumber);
+    cardBody.appendChild(info);
+    
+    card.appendChild(cardBody);
+    
+    cardsContainer.appendChild(card);
+  });
+
+  document.querySelector('.show-more-container').style.display = bookings.length > ITEMS_PER_PAGE ? 'flex' : 'none';
 }

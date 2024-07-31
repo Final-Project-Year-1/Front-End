@@ -11,8 +11,9 @@ const findVacationURL = "http://localhost:3000/api/vacations/"; // here comes th
 const totalVacationsURL = "http://localhost:3000/api/vacation/total-vacations";
 const allImagesURL = "http://localhost:3000/api/vacation-images/";
 const searchVacationsAdminQueryURL = "http://localhost:3000/api/search-vacations-admin-query";
+const uploadImageURL = "http://localhost:3000/api/upload"; // URL to upload image
 
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     const getUserFromToken = () => {
         let user = null;
         const token = localStorage.getItem("token");
@@ -63,10 +64,7 @@ document.addEventListener("DOMContentLoaded", function() {
         showForm('find-vacation-form');
         populateSelectOptions(false, true);
     });
-    document.getElementById('total-images-button').addEventListener('click', () => {
-        showForm('view-all-images');
-        loadAllImages();
-    });
+
 
     async function showForm(formId) {
         clearAllForms();
@@ -103,6 +101,13 @@ document.addEventListener("DOMContentLoaded", function() {
             return;
         }
 
+        // העלאת התמונה לשרת
+        const uploadResult = await uploadImage(images[0]);
+        if (!uploadResult.success) {
+            document.getElementById('images-error').textContent = 'Failed to upload image.';
+            return;
+        }
+
         const data = {
             destination: formData.get('destination').trim(),
             description: formData.get('description').trim(),
@@ -113,18 +118,33 @@ document.addEventListener("DOMContentLoaded", function() {
             vacationType: formData.get('vacationType').trim(),
             companyName: formData.get('companyName').trim(),
             tripCategory: formData.get('tripCategory').trim(),
-            imageName: ''
+            imageName: uploadResult.imagePath // שימוש בנתיב התמונה שהועלתה
         };
 
-        const image = images[0];
-        const reader = new FileReader();
-        reader.onload = function (event) {
-            data.imageName = image.name;
-            data.images = [event.target.result];
-            submitFormData(addNewVacationURL, 'POST', data, 'vacation-form-result');
-        };
-        reader.readAsDataURL(image);
+        submitFormData(addNewVacationURL, 'POST', data, 'vacation-form-result');
     });
+
+    async function uploadImage(image) {
+        const formData = new FormData();
+        formData.append('image', image);
+
+        try {
+            const response = await fetch(uploadImageURL, {
+                method: 'POST',
+                body: formData
+            });
+
+            if (response.ok) {
+                const result = await response.json();
+                return { success: true, imagePath: result.imagePath };
+            } else {
+                return { success: false };
+            }
+        } catch (error) {
+            console.error('Error uploading image:', error);
+            return { success: false };
+        }
+    }
 
     document.getElementById('update-vacation-id-form').addEventListener('submit', async function (event) {
         event.preventDefault();
@@ -156,21 +176,28 @@ document.addEventListener("DOMContentLoaded", function() {
     document.getElementById('update-vacation-form').addEventListener('submit', async function (event) {
         event.preventDefault();
         clearErrorMessages();
-    
+
         const vacationId = document.getElementById('vacation-id-update-hidden').value;
         const formData = new FormData(event.target);
         const images = formData.getAll('images');
         const spotsTaken = document.getElementById('vacation-id-update-hidden').dataset.spotsTaken;
-    
+
         if (images.length < 1) {
             document.getElementById('images-update-error').textContent = 'You must upload an image.';
             return;
         }
-    
+
         if (!await validateFormData(formData, true, spotsTaken)) {
             return;
         }
-    
+
+        // העלאת התמונה לשרת
+        const uploadResult = await uploadImage(images[0]);
+        if (!uploadResult.success) {
+            document.getElementById('images-update-error').textContent = 'Failed to upload image.';
+            return;
+        }
+
         const data = {
             destination: formData.get('destination').trim(),
             description: formData.get('description').trim(),
@@ -181,17 +208,10 @@ document.addEventListener("DOMContentLoaded", function() {
             vacationType: formData.get('vacationType').trim(),
             companyName: formData.get('companyName').trim(),
             tripCategory: formData.get('tripCategory').trim(),
-            images: []
+            imageName: uploadResult.imagePath // שימוש בנתיב התמונה שהועלתה
         };
-    
-        const image = images[0];
-        const reader = new FileReader();
-        reader.onload = function (event) {
-            data.images.push(event.target.result);
-            data.imageName = image.name;
-            submitFormData(`${updateVacationURL}${vacationId}`, 'PUT', data, 'update-vacation-result');
-        };
-        reader.readAsDataURL(image);
+
+        submitFormData(`${updateVacationURL}${vacationId}`, 'PUT', data, 'update-vacation-result');
     });
 
     document.getElementById('find-vacation-form').addEventListener('submit', async function (event) {
@@ -281,10 +301,10 @@ document.addEventListener("DOMContentLoaded", function() {
         const listItem = document.createElement('div');
         listItem.classList.add('vacation-card');
         listItem.id = vacation._id;
-        
+
         const companyName = vacation.companyName ? vacation.companyName.company : 'Unknown';
         const tripCategory = vacation.tripCategory ? vacation.tripCategory.category : 'Unknown';
-    
+
         listItem.innerHTML = `
             <img src="${getVacationImg}${vacation.imageName || 'logo-vacationHub.png'}" alt="Vacation Image">
             <div class="vacation-card-actions">
@@ -308,7 +328,7 @@ document.addEventListener("DOMContentLoaded", function() {
         vacationList.appendChild(listItem);
     }
 
-    document.addEventListener('click', function(event) {
+    document.addEventListener('click', function (event) {
         if (event.target.classList.contains('edit-icon')) {
             const vacationId = event.target.getAttribute('data-id');
             openUpdateForm(vacationId);
@@ -331,6 +351,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 await populateSelectOptions(true); // Ensure the select options are populated before filling in the form
                 populateUpdateForm(result);
                 displayVacationCard(result);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
             } else {
                 console.error('Vacation not found');
             }
@@ -342,12 +363,12 @@ document.addEventListener("DOMContentLoaded", function() {
     async function populateSelectOptions(isUpdate = false, isFind = false) {
         const companySelect = isUpdate ? document.getElementById('company-name-update') : (isFind ? document.getElementById('company-name-find') : document.getElementById('company-name'));
         const categorySelect = isUpdate ? document.getElementById('trip-category-update') : document.getElementById('trip-category');
-        
+
         try {
             const companyResponse = await fetch(allCompaniesURL);
             const companies = await companyResponse.json();
             companySelect.innerHTML = companies.map(company => `<option value="${company._id}">${company.company}</option>`).join('');
-    
+
             if (!isFind) {
                 const categoryResponse = await fetch(allCategoriesURL);
                 const categories = await categoryResponse.json();
@@ -371,10 +392,10 @@ document.addEventListener("DOMContentLoaded", function() {
         document.getElementById('company-name-update').value = vacation.companyName._id; // Ensure this matches the select option value
         document.getElementById('trip-category-update').value = vacation.tripCategory._id; // Ensure this matches the select option value
         document.getElementById('vacation-image-update').value = vacation.imageName;
-    
+
         const companySelect = document.getElementById('company-name-update');
         const categorySelect = document.getElementById('trip-category-update');
-    
+
         companySelect.value = vacation.companyName._id;
         categorySelect.value = vacation.tripCategory._id;
     }
@@ -404,7 +425,6 @@ document.addEventListener("DOMContentLoaded", function() {
         `;
         vacationCardContainer.appendChild(listItem);
     }
-
 
     async function submitFormData(url, method, data, resultElementId) {
         console.log('Submitting form data:', data);
@@ -455,28 +475,6 @@ document.addEventListener("DOMContentLoaded", function() {
             totalElement.style.display = 'block';
         } catch (error) {
             console.error('Error fetching total vacations count:', error);
-        }
-    }
-
-    async function loadAllImages() {
-        try {
-            const response = await fetch(allImagesURL);
-            const data = await response.json();
-            const imageList = document.getElementById('image-list');
-            const totalImagesResult = document.getElementById('total-images-result');
-            imageList.innerHTML = '';
-            totalImagesResult.textContent = `Total Images: ${data.totalImages}`;
-            data.imageNames.forEach((imageName, index) => {
-                const imageItem = document.createElement('div');
-                imageItem.classList.add('image-card');
-                imageItem.innerHTML = `
-                    <img src="${getVacationImg}${imageName}" alt="Image ${index + 1}">
-                    <p>${imageName}</p>
-                `;
-                imageList.appendChild(imageItem);
-            });
-        } catch (error) {
-            console.error('Error fetching images:', error);
         }
     }
 

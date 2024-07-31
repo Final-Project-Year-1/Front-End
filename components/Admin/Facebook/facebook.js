@@ -2,8 +2,6 @@ const accessToken = 'EAAZAbZCZAgww4UBO0I3BFaPzZAUJqyOstdhTAlsrgPhAm2UlyOOufowQiq
 const page_id = '403609402826152';
 
 
-
-
 document.getElementById('submitButton').addEventListener('click', function() {
     const userInput = document.getElementById('userInput').value;
     const postImageInput = document.getElementById('postImageInput');
