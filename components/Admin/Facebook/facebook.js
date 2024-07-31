@@ -1,8 +1,18 @@
-const accessToken = 'EAAZAbZCZAgww4UBO0I3BFaPzZAUJqyOstdhTAlsrgPhAm2UlyOOufowQiqWVkWPrgttt9ggT591GSrOZCYSBjuu3pC4ANBZCwmUclanSICzqXrNz1T4JpMFlA87ZATIcEiSSJY2hpZCcbQBtpvzqDvMGmsAbk7U53TsnwWaQF2kxfiKorWBUePv1bJvf0x2cCLBIODl7qzof'; // Your Page Access Token
-const page_id = '403609402826152';
+// const accessToken = 'EAAZAbZCZAgww4UBO0I3BFaPzZAUJqyOstdhTAlsrgPhAm2UlyOOufowQiqWVkWPrgttt9ggT591GSrOZCYSBjuu3pC4ANBZCwmUclanSICzqXrNz1T4JpMFlA87ZATIcEiSSJY2hpZCcbQBtpvzqDvMGmsAbk7U53TsnwWaQF2kxfiKorWBUePv1bJvf0x2cCLBIODl7qzof'; // Your Page Access Token
+// const page_id = '403609402826152';
 
-
-
+async function fetchConfig() {
+    const response = await fetch('/config');
+    const config = await response.json();
+    return config;
+  }
+  
+  fetchConfig().then(config => {
+    const { accessToken, pageId } = config;
+    console.log(accessToken); // Use the access token
+    // Now you can use accessToken and pageId in your API requests
+  });
+  
 
 document.getElementById('submitButton').addEventListener('click', function() {
     const userInput = document.getElementById('userInput').value;
