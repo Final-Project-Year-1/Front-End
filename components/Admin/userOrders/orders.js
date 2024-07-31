@@ -179,8 +179,6 @@ logoutButton.addEventListener("click", () => {
 function handleError(error) {
   console.error("Error fetching data:", error);
   if (error.response) {
-    // The request was made, but the server responded with a status code
-    // that falls out of the range of 2xx
     console.error("Response data:", error.response.data);
     console.error("Response status:", error.response.status);
     console.error("Response headers:", error.response.headers);
@@ -188,123 +186,79 @@ function handleError(error) {
       redirectToLogin();
     }
   } else if (error.request) {
-    // The request was made but no response was received
     console.error("Request data:", error.request);
   } else {
-    // Something happened in setting up the request that triggered an Error
     console.error("Error message:", error.message);
   }
 }
-const countriesListUrl = "http://localhost:3000/api/vacations/destinations/countries/";
-const inputDestination = document.getElementById("destination");
-const dropdownDestination = document.getElementById("destination-dropdown");
-const inputMonth = document.getElementById("month");
-const dropdownMonth = document.getElementById("month-dropdown");
 
-const fetchCountriesList = async () => {
-  try {
-    const response = await axios.get(countriesListUrl);
-    return response.data.destinations;
-  } catch (error) {
-    console.error("Error fetching countries list:", error);
-    return [];
-  }
-};
+const searchFormButtonBack = document.getElementById('searchFormButtonBack');
 
-const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+searchFormButtonBack.addEventListener('click', async function () {
+    const email = document.getElementById('email-back').value;
+    const destination = document.getElementById('destination-back').value;
+    const month = document.getElementById('month-back').value;
 
-let vacationSearchQueryDestination;
-let vacationSearchQueryMonth;
-let vacationSearchQueryNumOfPeople;
+    const searchQuery = {
+        email: email,
+        destination: destination,
+        departureMonth: parseInt(month)
+    };
 
-function populateDropdown(dropdown, items, query) {
-  dropdown.innerHTML = "";
-  const filteredItems = items.filter(item => item.toLowerCase().includes(query.toLowerCase()));
-  filteredItems.forEach(item => {
-    const option = document.createElement("div");
-    option.className = "dropdown-item";
-    option.textContent = item;
-    option.addEventListener("click", () => {
-      dropdown.previousElementSibling.value = item;
-      if (dropdown === dropdownDestination) {
-        vacationSearchQueryDestination = item;
-      } else if (dropdown === dropdownMonth) {
-        vacationSearchQueryMonth = item;
-      }
-      dropdown.style.display = "none";
-      validateForm();
-    });
-    dropdown.appendChild(option);
-  });
-}
+    try {
+        const userObj = getUserFromToken();
+        if (!userObj || !userObj.token) {
+            redirectToLogin();
+            return;
+        }
 
-function setupInputListener(input, dropdown, items) {
-  input.addEventListener("input", () => {
-    const query = input.value;
-    if (query) {
-      dropdown.style.display = "block";
-      populateDropdown(dropdown, items, query);
-    } else {
-      dropdown.style.display = "none";
+        const response = await axios.post('http://localhost:3000/api/bookings/bookings-by-user/${userObj.user._id}', searchQuery, {
+            headers: {
+                Authorization: `Bearer ${userObj.token}`
+            }
+        });
+
+        const bookings = response.data;
+        displaySearchBackBookings(bookings);
+
+    } catch (error) {
+        handleError(error);
     }
-  });
-}
-
-function setupClickOutsideListener(dropdown) {
-  document.addEventListener("click", (event) => {
-    if (!event.target.closest(".search-form-back")) {
-      dropdown.style.display = "none";
-    }
-  });
-}
-
-async function initialize() {
-  const destinations = await fetchCountriesList();
-  setupInputListener(inputDestination, dropdownDestination, destinations);
-  setupInputListener(inputMonth, dropdownMonth, months);
-  setupClickOutsideListener(dropdownDestination);
-  setupClickOutsideListener(dropdownMonth);
-}
-initialize();
-
-const validateForm = () => {
-  if (vacationSearchQueryDestination && vacationSearchQueryMonth && vacationSearchQueryNumOfPeople) {
-    searchFormButton.disabled = false;
-  } else {
-    searchFormButton.disabled = true;
-  }
-}
-
-const searchFormButton = document.getElementById("searchFormButton");
-searchFormButton.disabled = true;
-
-
-
-searchFormButton.addEventListener("click", async (event) => {
-  event.preventDefault();
-
-  const searchVacationData = {
-    "numOfPassengers": String(vacationSearchQueryNumOfPeople),
-    "departureMonth": String(vacationSearchQueryMonth),
-    "destination": vacationSearchQueryDestination
-  };
-
-  const searchQueryUrl = "http://localhost:3000/api/search-vacations";
-  
-  try {
-    const response = await axios.post(searchQueryUrl, searchVacationData);
-    displayVacations(response.data);
-
-  } catch (error) {
-    if (error.response && error.response.status === 404) {
-      displayVacations([]); // Handle 404 Not Found
-    } else {
-      console.error("Error searching vacations:", error);
-    }
-  }
 });
 
-const displayVacations = (vacations) => {
-  // Implement the display logic for vacations
-  console.log(vacations);
+function displaySearchBackBookings(bookings) {
+    const cardsContainer = document.getElementById('cards-container');
+    cardsContainer.innerHTML = '';
+
+    if (bookings.length === 0) {
+        cardsContainer.innerHTML = `<p class="no-results">No bookings found.</p>`;
+        document.querySelector('.show-more-container').style.display = 'none';
+        return;
+    }
+
+    bookings.forEach(booking => {
+        const card = document.createElement('div');
+        card.classList.add('card');
+        card.innerHTML = `
+            <div class="card-body">
+                <div class="order-number">
+                    Order Number: ${booking.orderNumber}
+                </div>
+                <div class="info">
+                    <p><strong>Destination:</strong> ${booking.destination}</p>
+                    <p><strong>Description:</strong> ${booking.description}</p>
+                    <p><strong>Booking Date:</strong> ${new Date(booking.bookingDate).toLocaleDateString()}</p>
+                    <p><strong>Passengers:</strong> ${booking.passengers}</p>
+                    <p><strong>Company:</strong> ${booking.Company}</p>
+                    <p><strong>Vacation Type:</strong> ${booking.VacationType}</p>
+                    <p><strong>Category:</strong> ${booking.Category}</p>
+                    <p><strong>Rating:</strong> ${booking.Rating}</p>
+                    <p><strong>Total Price:</strong> ${booking.totalPrice}</p>
+                </div>
+            </div>
+        `;
+        cardsContainer.appendChild(card);
+    });
+
+    document.querySelector('.show-more-container').style.display = bookings.length > ITEMS_PER_PAGE ? 'flex' : 'none';
 }
