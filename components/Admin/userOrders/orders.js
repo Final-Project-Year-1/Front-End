@@ -50,7 +50,7 @@ const getUserFromToken = () => {
 };
 
 const redirectToLogin = () => {
-  window.location.href = "../Auth/Login/login.html";
+  window.location.href = "../../Auth/Login/login.html";
 };
 
 document.getElementById('search-id').addEventListener('keypress', function (e) {
