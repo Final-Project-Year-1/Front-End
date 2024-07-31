@@ -10,3 +10,21 @@ html, body {
     height: 100%;
     width: 100%;
 }
+.vacation-image {
+    width: 150px; /* רוחב התמונה */
+    height: auto; /* גובה אוטומטי לפי פרופורציות התמונה */
+    max-width: 100%; /* להבטיח שהתמונה לא תעלה על הרוחב של ההורה שלה */
+    max-height: 100px; /* גובה מקסימלי של התמונה */
+    border-radius: 8px;
+}
+.custom-info-window {
+    margin: 0; /* מסיר רווחים סביב התוכן */
+    padding: 0; /* מסיר ריפוד פנימי מיותר */
+    line-height: 1.2; /* מותאם לפי הצורך */
+    box-sizing: border-box; /* כולל ריפוד ומרווחים בתוך הרוחב הכולל */
+}
+
+.custom-info-window h4 {
+    margin-top: 0; /* מסיר רווח מעל הכותרת */
+}
+
