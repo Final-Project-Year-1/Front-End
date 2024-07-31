@@ -363,7 +363,6 @@ h1 {
     border: 0.4px solid black;
     border-radius: 10px;
     z-index: 12;
-
     background-color: white;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     display: flex;
@@ -373,6 +372,9 @@ h1 {
   width: 50vw;
   font-size: 2vw;
     left: 15%;
+         justify-content: center;
+        padding: 10px;
+     
 }
 
 
@@ -420,3 +422,33 @@ h1 {
     transform: translateY(-10px);
     transition: opacity 0.3s ease, transform 0.3s ease;
 }
+.dropdown-item {
+    cursor: pointer;
+    padding: 10px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+  }
+  .dropdown-item:hover {
+    background-color: #f0f0f0;
+  }
+  .dropdown-menu {
+    display: none;
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    max-height: 150px;
+    overflow-y: auto;
+    z-index: 1000;
+  }
+  .search-form-back {
+    display: flex;
+  }
+  .input-icon-wrapper {
+    position: relative;
+  }
+  .input-icon-wrapper i {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 10px;
+  }

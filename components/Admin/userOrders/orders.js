@@ -195,3 +195,116 @@ function handleError(error) {
     console.error("Error message:", error.message);
   }
 }
+const countriesListUrl = "http://localhost:3000/api/vacations/destinations/countries/";
+const inputDestination = document.getElementById("destination");
+const dropdownDestination = document.getElementById("destination-dropdown");
+const inputMonth = document.getElementById("month");
+const dropdownMonth = document.getElementById("month-dropdown");
+
+const fetchCountriesList = async () => {
+  try {
+    const response = await axios.get(countriesListUrl);
+    return response.data.destinations;
+  } catch (error) {
+    console.error("Error fetching countries list:", error);
+    return [];
+  }
+};
+
+const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+
+let vacationSearchQueryDestination;
+let vacationSearchQueryMonth;
+let vacationSearchQueryNumOfPeople;
+
+function populateDropdown(dropdown, items, query) {
+  dropdown.innerHTML = "";
+  const filteredItems = items.filter(item => item.toLowerCase().includes(query.toLowerCase()));
+  filteredItems.forEach(item => {
+    const option = document.createElement("div");
+    option.className = "dropdown-item";
+    option.textContent = item;
+    option.addEventListener("click", () => {
+      dropdown.previousElementSibling.value = item;
+      if (dropdown === dropdownDestination) {
+        vacationSearchQueryDestination = item;
+      } else if (dropdown === dropdownMonth) {
+        vacationSearchQueryMonth = item;
+      }
+      dropdown.style.display = "none";
+      validateForm();
+    });
+    dropdown.appendChild(option);
+  });
+}
+
+function setupInputListener(input, dropdown, items) {
+  input.addEventListener("input", () => {
+    const query = input.value;
+    if (query) {
+      dropdown.style.display = "block";
+      populateDropdown(dropdown, items, query);
+    } else {
+      dropdown.style.display = "none";
+    }
+  });
+}
+
+function setupClickOutsideListener(dropdown) {
+  document.addEventListener("click", (event) => {
+    if (!event.target.closest(".search-form-back")) {
+      dropdown.style.display = "none";
+    }
+  });
+}
+
+async function initialize() {
+  const destinations = await fetchCountriesList();
+  setupInputListener(inputDestination, dropdownDestination, destinations);
+  setupInputListener(inputMonth, dropdownMonth, months);
+  setupClickOutsideListener(dropdownDestination);
+  setupClickOutsideListener(dropdownMonth);
+}
+initialize();
+
+const validateForm = () => {
+  if (vacationSearchQueryDestination && vacationSearchQueryMonth && vacationSearchQueryNumOfPeople) {
+    searchFormButton.disabled = false;
+  } else {
+    searchFormButton.disabled = true;
+  }
+}
+
+const searchFormButton = document.getElementById("searchFormButton");
+searchFormButton.disabled = true;
+
+
+
+searchFormButton.addEventListener("click", async (event) => {
+  event.preventDefault();
+
+  const searchVacationData = {
+    "numOfPassengers": String(vacationSearchQueryNumOfPeople),
+    "departureMonth": String(vacationSearchQueryMonth),
+    "destination": vacationSearchQueryDestination
+  };
+
+  const searchQueryUrl = "http://localhost:3000/api/search-vacations";
+  
+  try {
+    const response = await axios.post(searchQueryUrl, searchVacationData);
+    displayVacations(response.data);
+
+  } catch (error) {
+    if (error.response && error.response.status === 404) {
+      displayVacations([]); // Handle 404 Not Found
+    } else {
+      console.error("Error searching vacations:", error);
+    }
+  }
+});
+
+const displayVacations = (vacations) => {
+  // Implement the display logic for vacations
+  console.log(vacations);
+}
