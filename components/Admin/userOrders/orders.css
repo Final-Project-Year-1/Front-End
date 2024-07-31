@@ -157,7 +157,7 @@ h1 {
 
 .search-form .dropbtn {
     background-color: white;
-    color: rgb(83, 83, 83);
+    color: rgb(143, 143, 143);
     padding: 10px;
 
     font-size: 1vw;
@@ -213,6 +213,7 @@ h1 {
 
 .search-form button {
     cursor: pointer;
+    color: rgb(183, 183, 183);
     margin-left: 10px;
 }
 
@@ -220,7 +221,7 @@ h1 {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 20px;
+    gap: 40px;
 }
 
 .card {
@@ -369,10 +370,10 @@ h1 {
     align-items: center;
     position: relative;
     min-width: 200px;
-  width: 50vw;
+  width: 49vw;
   font-size: 2vw;
     left: 15%;
-         justify-content: center;
+       
         padding: 10px;
      
 }
@@ -394,7 +395,16 @@ h1 {
     outline: none;
     background-color: transparent;
     flex-grow: 1;
+    
     font-size: 1vw;
+    padding: 10px;
+    font-size: 1vw;
+    top: 5px;
+    cursor: pointer;
+    width: 12vw;
+    text-align: left;
+    position: relative;
+    border-right: 0.2px solid #bfbfbf;
 }
 
 .search-back button {
@@ -403,6 +413,9 @@ h1 {
     font-size: 1vw;
     outline: none;
     background-color: transparent;
+    position: relative;
+
+    left: 50px;
 }
 
 .search-form-back .dropdown {
@@ -442,7 +455,12 @@ h1 {
   }
   .search-form-back {
     display: flex;
-  }
+    justify-content: center;
+    align-items: center;
+    gap: 20px; /* כאן ניתן לקבוע את ה-gap בין האיברים */
+    margin-bottom: 20px;
+}
+
   .input-icon-wrapper {
     position: relative;
   }
@@ -451,4 +469,7 @@ h1 {
     top: 50%;
     transform: translateY(-50%);
     right: 10px;
+  }
+  #email{
+    width: 100%;
   }
