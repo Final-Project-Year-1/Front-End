@@ -415,7 +415,7 @@ h1 {
     background-color: transparent;
     position: relative;
 
-    left: 50px;
+    
 }
 
 .search-form-back .dropdown {
@@ -472,4 +472,12 @@ h1 {
   }
   #email{
     width: 100%;
+  }
+
+  #searchFormButtonBack{
+    cursor: pointer;
+    height: 5px;
+    position: relative;
+    right: 3.4%;
+
   }
