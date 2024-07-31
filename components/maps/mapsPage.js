@@ -35,8 +35,8 @@ async function fetchVacations() {
 
 function initMap() {
     const options = {
-        zoom: 8,
-        center: { lat: 31.0461, lng: 34.8516 },
+        zoom: 5,
+        center: { lat: 51.1657, lng: 10.4515 },
     }
 
     map = new google.maps.Map(
