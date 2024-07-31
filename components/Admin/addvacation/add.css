@@ -338,7 +338,7 @@ form button:hover {
     margin-bottom: 20px; /* מרווח למעלה לפני הכרטיסיות */
 }
 
-.vacation-card, .image-card {
+.vacation-card {
     display: block; /* ensures cards are block-level elements */
     text-align: center; /* centers the text inside the card */
     box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* soft shadow for depth */
@@ -380,45 +380,14 @@ form button:hover {
     color: var (--black);
 }
 
-.total-images {
-    font-size: 18px;
-    margin-bottom: 20px;
-    text-align: center;
-    color: var (--black);
-}
-
-#image-list.image-list {
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-}
 
 
 
-
-.image-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-}
-
-.image-card img {
-    width: 160px;
-    height: 90px;
-    object-fit: cover;
-    border-radius: 10px;
-}
-
-.image-card p {
-    margin: 5px 0;
-    color: var(--black);
-}
 
 .result-message {
     font-size: 14px;
     margin-top: 10px;
 }
-
-/* Add to your existing CSS file */
 
 .error-message {
     color: red;
@@ -431,14 +400,12 @@ form button:hover {
     color: green;
 }
 
-.total-vacations,
-.total-images {
+.total-vacations {
     margin-bottom: 20px;
     font-weight: bold;
 }
 
-.vacation-list,
-.images-list {
+.vacation-list{
     display: flex;
     flex-wrap: wrap;
 }
@@ -446,9 +413,6 @@ form button:hover {
 
 
 
-.image-card p {
-    margin: 5px 0;
-}
 
 
 #vacation-card-container {

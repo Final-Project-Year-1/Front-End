@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <link href="add.css" rel="stylesheet">
@@ -7,6 +8,7 @@
     <link rel="icon" type="image/png" href="../../assets/home-images/img/logo-small.jpeg">
     <title>Manage Vacations</title>
 </head>
+
 <body>
     <div class="top-section">
         <div>
@@ -28,36 +30,36 @@
             <button id="add-button" class="action-button">Add Vacation</button>
             <button id="view-all-button" class="action-button">View All Vacations</button>
             <button id="find-button" class="action-button">Find Vacations</button>
-            <button id="total-images-button" class="action-button">Total Images</button>
+
         </div>
-        
+
         <form id="vacation-form" class="form-section">
             <h2>Add a New Vacation</h2>
-            
+
             <label for="destination">Destination:</label>
             <input type="text" id="destination" name="destination" required>
             <span id="destination-error" class="error-message"></span>
-            
+
             <label for="description">Description:</label>
             <textarea id="description" name="description" required></textarea>
             <span id="description-error" class="error-message"></span>
-            
+
             <label for="start-date">Start Date:</label>
             <input type="date" id="start-date" name="startDate" required>
             <span id="start-date-error" class="error-message"></span>
-            
+
             <label for="end-date">End Date:</label>
             <input type="date" id="end-date" name="endDate" required>
             <span id="end-date-error" class="error-message"></span>
-            
+
             <label for="price">Price (in USD):</label>
             <input type="number" id="price" name="price" required>
             <span id="price-error" class="error-message"></span>
-            
+
             <label for="group-of">Group Size:</label>
             <input type="number" id="group-of" name="groupOf" required>
             <span id="group-of-error" class="error-message"></span>
-            
+
             <label for="vacation-type">Vacation Type:</label>
             <select id="vacation-type" name="vacationType" required>
                 <option value="All-Inclusive">All-Inclusive</option>
@@ -70,7 +72,7 @@
                 <option value="Relaxation">Relaxation</option>
             </select>
             <span id="vacation-type-error" class="error-message"></span>
-            
+
             <label for="company-name">Company Name:</label>
             <select id="company-name" name="companyName" required></select>
             <span id="company-name-validity" class="error-message"></span>
@@ -82,7 +84,7 @@
             <label for="images">Upload Image (Only one is allowed):</label>
             <input type="file" id="images" name="images" accept="image/*" required>
             <span id="images-error" class="error-message"></span>
-            
+
             <button type="submit">Submit Vacation</button>
             <div id="vacation-form-result" class="result-message"></div>
         </form>
@@ -99,31 +101,31 @@
             <form id="update-vacation-form">
                 <h2>Update Vacation Details</h2>
                 <input type="hidden" id="vacation-id-update-hidden" name="vacationId">
-                
+
                 <label for="destination-update">Destination:</label>
                 <input type="text" id="destination-update" name="destination" required>
                 <span id="destination-update-error" class="error-message"></span>
-                
+
                 <label for="description-update">Description:</label>
                 <textarea id="description-update" name="description" required></textarea>
                 <span id="description-update-error" class="error-message"></span>
-                
+
                 <label for="start-date-update">Start Date:</label>
                 <input type="date" id="start-date-update" name="startDate" required>
                 <span id="start-date-update-error" class="error-message"></span>
-                
+
                 <label for="end-date-update">End Date:</label>
                 <input type="date" id="end-date-update" name="endDate" required>
                 <span id="end-date-update-error" class="error-message"></span>
-                
+
                 <label for="price-update">Price (in USD):</label>
                 <input type="number" id="price-update" name="price" required>
                 <span id="price-update-error" class="error-message"></span>
-                
+
                 <label for="group-of-update">Group Size:</label>
                 <input type="number" id="group-of-update" name="groupOf" required>
                 <span id="group-of-update-error" class="error-message"></span>
-                
+
                 <label for="vacation-type-update">Vacation Type:</label>
                 <select id="vacation-type-update" name="vacationType" required>
                     <option value="All-Inclusive">All-Inclusive</option>
@@ -136,7 +138,7 @@
                     <option value="Relaxation">Relaxation</option>
                 </select>
                 <span id="vacation-type-update-error" class="error-message"></span>
-                
+
                 <label for="company-name-update">Company Name:</label>
                 <select id="company-name-update" name="companyName" required></select>
                 <span id="company-name-update-validity" class="error-message"></span>
@@ -144,7 +146,7 @@
                 <label for="trip-category-update">Trip Category:</label>
                 <select id="trip-category-update" name="tripCategory" required></select>
                 <span id="trip-category-update-validity" class="error-message"></span>
-                
+
                 <label for="vacation-image-update">Vacation Image:</label>
                 <input type="text" id="vacation-image-update" name="vacationImage" readonly>
                 <span id="vacation-image-update-error" class="error-message"></span>
@@ -152,7 +154,7 @@
                 <label for="images-update">Upload Image:</label>
                 <input type="file" id="images-update" name="images" accept="image/*" required>
                 <span id="images-update-error" class="error-message"></span>
-                
+
                 <button type="submit">Update Vacation</button>
                 <div id="update-vacation-result" class="result-message"></div>
             </form>
@@ -163,13 +165,13 @@
             <h2>Find Vacation</h2>
             <label for="destination-find">Destination:</label>
             <input type="text" id="destination-find" name="destinationFind">
-            
+
             <label for="company-name-find">Company Name:</label>
             <input type="text" id="company-name-find" name="companyNameFind">
-            
+
             <label for="departure-month-find">Departure Month:</label>
             <input type="number" id="departure-month-find" name="departureMonthFind">
-            
+
             <button type="submit">Find Vacation</button>
             <div id="find-vacation-result" class="result-message"></div>
         </form>
@@ -179,12 +181,9 @@
             <div id="vacation-list" class="vacation-list"></div>
         </div>
 
-        <div id="view-all-images" class="form-section">
-            <div id="total-images-result" class="total-images"></div>
-            <div id="image-list" class="image-list"></div>
-        </div>
+
     </div>
-    
+
     <div class="footer">
         <div class="footer-sections">
             <div class="footer-section">
@@ -209,27 +208,28 @@
                     <li><a href="../../FAQs/FAQs.html">FAQ</a></li>
                     <li><a href="../../PrivacyPolicy/PrivacyPolicy.html">Privacy Policy</a></li>
                     <li><a href="../../terms/terms.html">Terms of Service</a></li>
-                    
+
                 </ul>
             </div>
             <div class="footer-section" id="admin-section">
                 <h3>Admin</h3>
                 <ul>
-                <ul>
-                    <li><a href="../Facebook/facebook.html" id="admin-link">Facebook Page</a></li>
-                    <li><a href="../userOrders/orders.html"id="admin-link">Orders Management</a></li>
-                    <li><a href="../addvacation/add.html" id="admin-link">Vacation Management</a></li>
-                    <li><a href="../add/addComp.html" id="admin-link">Company & Category Management</a></li>
+                    <ul>
+                        <li><a href="../Facebook/facebook.html" id="admin-link">Facebook Page</a></li>
+                        <li><a href="../userOrders/orders.html" id="admin-link">Orders Management</a></li>
+                        <li><a href="../addvacation/add.html" id="admin-link">Vacation Management</a></li>
+                        <li><a href="../add/addComp.html" id="admin-link">Company & Category Management</a></li>
 
-                </ul>
+                    </ul>
             </div>
         </div>
         <div class="footer-bottom">
             <span>© 2024 VacationHub. All Rights Reserved.</span>
             <span>Your ultimate travel companion. Discover, plan, and book your perfect getaway with us.</span>
-    </div>
+        </div>
     </div>
     <script src="add.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jwt-decode/build/jwt-decode.min.js"></script>
 </body>
+
 </html>
