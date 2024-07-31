@@ -1,4 +1,3 @@
-<!-- נוסיף את האלמנטים להודעות שגיאה ב-HTML -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,7 +5,7 @@
     <link href="add.css" rel="stylesheet">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/png" href="../../assets/home-images/img/logo-small.jpeg">
-    <title>VacationHub</title>
+    <title>Manage Vacations</title>
 </head>
 <body>
     <div class="top-section">
@@ -15,9 +14,7 @@
         </div>
         <div>
             <span class="top-button-logged-in">
-                <span id="hello-user">
-                    Hello
-                </span>
+                <span id="hello-user">Hello</span>
                 <a href="../../Auth/Login/login.html" id="logout" class="button">Logout</a>
             </span>
             <span class="top-button">
@@ -26,12 +23,11 @@
         </div>
     </div>
     <div class="mid">
+        <h2>Vacations Management Control</h2>
         <div class="action-buttons">
             <button id="add-button" class="action-button">Add Vacation</button>
-            <button id="delete-button" class="action-button">Delete Vacation</button>
-            <button id="update-button" class="action-button">Update Vacation</button>
             <button id="view-all-button" class="action-button">View All Vacations</button>
-            <button id="find-button" class="action-button">Find Vacation</button>
+            <button id="find-button" class="action-button">Find Vacations</button>
             <button id="total-images-button" class="action-button">Total Images</button>
         </div>
         
@@ -75,32 +71,20 @@
             </select>
             <span id="vacation-type-error" class="error-message"></span>
             
-            <label for="company-name">Company Name (ID):</label>
-            <input type="text" id="company-name" name="companyName" required>
+            <label for="company-name">Company Name:</label>
+            <select id="company-name" name="companyName" required></select>
             <span id="company-name-validity" class="error-message"></span>
 
-            <label for="trip-category">Trip Category (ID):</label>
-            <input type="text" id="trip-category" name="tripCategory" required>
+            <label for="trip-category">Trip Category:</label>
+            <select id="trip-category" name="tripCategory" required></select>
             <span id="trip-category-validity" class="error-message"></span>
-            
-            <label for="vacation-image">Vacation Image:</label>
-            <input type="text" id="vacation-image" name="vacationImage" required>
-            <span id="vacation-image-error" class="error-message"></span>
 
-            <label for="images">Upload Images (at least 1):</label>
-            <input type="file" id="images" name="images" accept="image/*" multiple required>
+            <label for="images">Upload Image (Only one is allowed):</label>
+            <input type="file" id="images" name="images" accept="image/*" required>
             <span id="images-error" class="error-message"></span>
             
             <button type="submit">Submit Vacation</button>
             <div id="vacation-form-result" class="result-message"></div>
-        </form>
-
-        <form id="delete-vacation-form" class="form-section">
-            <h2>Delete Vacation</h2>
-            <label for="vacation-id-delete">Vacation ID:</label>    
-            <input type="text" id="vacation-id-delete" name="vacationIdDelete" required>
-            <button type="submit">Delete Vacation</button>
-            <div id="delete-vacation-result" class="result-message"></div>
         </form>
 
         <form id="update-vacation-id-form" class="form-section">
@@ -153,20 +137,20 @@
                 </select>
                 <span id="vacation-type-update-error" class="error-message"></span>
                 
-                <label for="company-name-update">Company Name (ID):</label>
-                <input type="text" id="company-name-update" name="companyName" required>
+                <label for="company-name-update">Company Name:</label>
+                <select id="company-name-update" name="companyName" required></select>
                 <span id="company-name-update-validity" class="error-message"></span>
 
-                <label for="trip-category-update">Trip Category (ID):</label>
-                <input type="text" id="trip-category-update" name="tripCategory" required>
+                <label for="trip-category-update">Trip Category:</label>
+                <select id="trip-category-update" name="tripCategory" required></select>
                 <span id="trip-category-update-validity" class="error-message"></span>
                 
                 <label for="vacation-image-update">Vacation Image:</label>
-                <input type="text" id="vacation-image-update" name="vacationImage" required>
+                <input type="text" id="vacation-image-update" name="vacationImage" readonly>
                 <span id="vacation-image-update-error" class="error-message"></span>
 
-                <label for="images-update">Upload Images (at least 1):</label>
-                <input type="file" id="images-update" name="images" accept="image/*" multiple required>
+                <label for="images-update">Upload Image:</label>
+                <input type="file" id="images-update" name="images" accept="image/*" required>
                 <span id="images-update-error" class="error-message"></span>
                 
                 <button type="submit">Update Vacation</button>
@@ -177,8 +161,15 @@
 
         <form id="find-vacation-form" class="form-section">
             <h2>Find Vacation</h2>
-            <label for="vacation-id-find">Vacation ID:</label>
-            <input type="text" id="vacation-id-find" name="vacationIdFind" required>
+            <label for="destination-find">Destination:</label>
+            <input type="text" id="destination-find" name="destinationFind">
+            
+            <label for="company-name-find">Company Name:</label>
+            <input type="text" id="company-name-find" name="companyNameFind">
+            
+            <label for="departure-month-find">Departure Month:</label>
+            <input type="number" id="departure-month-find" name="departureMonthFind">
+            
             <button type="submit">Find Vacation</button>
             <div id="find-vacation-result" class="result-message"></div>
         </form>
@@ -207,7 +198,7 @@
             <div class="footer-section">
                 <h3>Company</h3>
                 <ul>
-                    <li><a href ="../../aboutUs/about.html">About Us</a></li>
+                    <li><a href="../../aboutUs/about.html">About Us</a></li>
                     <li><a href="../../viewport/reviews.html">Reviews</a></li>
                     <li><a href="../../blog/blog.html">Blog</a></li>
                 </ul>
@@ -218,15 +209,26 @@
                     <li><a href="../../FAQs/FAQs.html">FAQ</a></li>
                     <li><a href="../../PrivacyPolicy/PrivacyPolicy.html">Privacy Policy</a></li>
                     <li><a href="../../terms/terms.html">Terms of Service</a></li>
+                    
+                </ul>
+            </div>
+            <div class="footer-section" id="admin-section">
+                <h3>Admin</h3>
+                <ul>
+                <ul>
+                    <li><a href="../Facebook/facebook.html" id="admin-link">Facebook Page</a></li>
+                    <li><a href="../userOrders/orders.html"id="admin-link">Orders Management</a></li>
+                    <li><a href="../addvacation/add.html" id="admin-link">Vacation Management</a></li>
+                    <li><a href="../add/addComp.html" id="admin-link">Company & Category Management</a></li>
+
                 </ul>
             </div>
         </div>
         <div class="footer-bottom">
             <span>© 2024 VacationHub. All Rights Reserved.</span>
             <span>Your ultimate travel companion. Discover, plan, and book your perfect getaway with us.</span>
-        </div>
     </div>
-
+    </div>
     <script src="add.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jwt-decode/build/jwt-decode.min.js"></script>
 </body>

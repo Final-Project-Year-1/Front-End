@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bookings Chart</title>
+    <link rel="stylesheet" href="./bookingsByMonth.css">
+</head>
+<body>
+    <select id="companySelector">
+        <option value="">All Companies</option>
+    </select>
+    <p id="no-data-message" style="display: none;">No data available</p>
+    <div id="my_dataviz">
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://d3js.org/d3.v4.js"></script>
+    <script src="./bookingsByMonth.js"></script>
+</body>
+</html>

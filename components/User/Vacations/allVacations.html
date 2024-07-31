@@ -1,66 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <link href="allVacations.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vacation Hub</title>
+    <title>All Vacations</title>
 </head>
-
 <body>
     <div class="mid">
         <img src="../../assets/home-images/img/sea-white-2.jpeg" class="mid-image">
 
         <div class="top-R">
-            <a class="shop">
-                <span>shopping basket</span>
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-basket2"
-                    viewBox="0 0 16 16">
-                    <path
-                        d="M4 10a1 1 0 0 1 2 0v2a1 1 0 0 1-2 0zm3 0a1 1 0 0 1 2 0v2a1 1 0 0 1-2 0zm3 0a1 1 0 1 1 2 0v2a1 1 0 0 1-2 0z" />
-                    <path
-                        d="M5.757 1.071a.5.5 0 0 1 .172.686L3.383 6h9.234L10.07 1.757a.5.5 0 1 1 .858-.514L13.783 6H15.5a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-.623l-1.844 6.456a.75.75 0 0 1-.722.544H3.69a.75.75 0 0 1-.722-.544L1.123 8H.5a.5.5 0 0 1-.5-.5v-1A.5.5 0 0 1 .5 6h1.717L5.07 1.243a.5.5 0 0 1 .686-.172zM2.163 8l1.714 6h8.246l1.714-6z" />
-                </svg>
+            <a href="../../Home/home.html">
+                <img src="../../assets/home-images/img/logo-vacationHub.png" id="logo-top" width="200px">
             </a>
-            <a href="../myHistory/history.html" class="shop">
-                <span>previous orders</span>
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                    class="bi bi-buildings" viewBox="0 0 16 16">
-                    <path
-                        d="M14.763.075A.5.5 0 0 1 15 .5v15a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5V14h-1v1.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V10a.5.5 0 0 1 .342-.474L6 7.64V4.5a.5.5 0 0 1 .276-.447l8-4a.5.5 0 0 1 .487.022M6 8.694 1 10.36V15h5zM7 15h2v-1.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5V15h2V1.309l-7 3.5z" />
-                    <path
-                        d="M2 11h1v1H2zm2 0h1v1H4zm-2 2h1v1H2zm2 0h1v1H4zm4-4h1v1H8zm2 0h1v1h-1zm-2 2h1v1H8zm2 0h1v1h-1zm2-2h1v1h-1zm0 2h1v1h-1zM8 7h1v1H8zm2 0h1v1h-1zm2 0h1v1h-1zM8 5h1v1H8zm2 0h1v1h-1zm2 0h1v1h-1zm0-2h1v1h-1z" />
-                </svg>
-            </a>
-            <a href="../../Home/home.html" class="shop">
-                <span>Home</span>
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-house"
-                    viewBox="0 0 16 16">
-                    <path fill-rule="evenodd"
-                        d="M8 3.293l6 6V15a1 1 0 0 1-1 1h-3v-4a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1v4H3a1 1 0 0 1-1-1V9.293l6-6zM7.5 10.5v4h1v-4h-1z" />
-                    <path fill-rule="evenodd"
-                        d="M7.293 1.5a1 1 0 0 1 1.414 0l6.5 6.5a.5.5 0 0 1-.707.707L8 2.207 1.5 8.707a.5.5 0 0 1-.707-.707l6.5-6.5z" />
-                </svg>
-            </a>
-            <a href="../../Auth/Login/login.html" class="shop login">
-                <span>Login</span>
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person"
-                    viewBox="0 0 16 16">
-                    <path
-                        d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z" />
-                </svg>
-            </a>
-            <a href="../../Auth/Login/login.html" class="shop logout" id="logout">
-                <span>Logout</span>
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person"
-                    viewBox="0 0 16 16">
-                    <path
-                        d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z" />
-                </svg>
-            </a>
+            <div class="top-menu-buttons">
+                <a class="shop previous-orders">
+                    <span>previous orders</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-buildings"
+                        viewBox="0 0 16 16">
+                        <path
+                            d="M14.763.075A.5.5 0 0 1 15 .5v15a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5V14h-1v1.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V10a.5.5 0 0 1 .342-.474L6 7.64V4.5a.5.5 0 0 1 .276-.447l8-4a.5.5 0 0 1 .487.022M6 8.694 1 10.36V15h5zM7 15h2v-1.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5V15h2V1.309l-7 3.5z" />
+                        <path
+                            d="M2 11h1v1H2zm2 0h1v1H4zm-2 2h1v1H2zm2 0h1v1H4zm4-4h1v1H8zm2 0h1v1h-1zm-2 2h1v1H8zm2 0h1v1h-1zm2-2h1v1h-1zm0 2h1v1h-1zM8 7h1v1H8zm2 0h1v1h-1zm2 0h1v1h-1zM8 5h1v1H8zm2 0h1v1h-1zm2 0h1v1h-1zm0-2h1v1h-1z" />
+                    </svg>
+                </a>
+                <a href="../../Auth/Login/login.html" class="shop login">
+                    <span>Login</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person"
+                        viewBox="0 0 16 16">
+                        <path
+                            d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z" />
+                    </svg>
+                </a>
+                <a href="../../Home/home.html" class="shop logout" id="logout">
+                    <span>Logout</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person"
+                        viewBox="0 0 16 16">
+                        <path
+                            d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z" />
+                    </svg>
+                </a>
+            </div>
         </div>
 
         <div class="title-content">
@@ -69,131 +51,108 @@
         </div>
         <div class="header-content">
             <form class="search-form">
-                <input type="text" id="destination" placeholder="Where do you want to go?" aria-label="Destination">
-                <div class="input-icon-wrapper">
-                    <input type="text" id="start" placeholder="Pick a month">
-                    <i class="icon-custom"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                            fill="currentColor" class="bi bi-calendar-heart" viewBox="0 0 16 16">
-                            <path fill-rule="evenodd"
-                                d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4zM1 14V4h14v10a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1m7-6.507c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132" />
-                        </svg></i>
+                <div class="search-form-div">
+                    <div class="menu-item">
+                        <input type="text" id="destination" placeholder="Where do you want to go?" aria-label="Destination">
+                        <div class="dropdown-content" id="destination-dropdown" style="display: none;">
+                            <!-- Options will be added dynamically here -->
+                        </div>
+                    </div>
+                    <div class="input-icon-wrapper">
+                        <input type="text" id="start" placeholder="Depart">
+                        <i class="icon-custom">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-calendar-heart" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4zM1 14V4h14v10a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1m7-6.507c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132" />
+                            </svg>
+                        </i>
+                    </div>
+                    <div class="input-icon-wrapper">
+                        <input type="text" id="end" placeholder="Arrival">
+                        <i class="icon-custom">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                class="bi bi-calendar-heart" viewBox="0 0 16 16">
+                                <path fill-rule="evenodd"
+                                    d="M4 .5a.5.5 0 0 0-1 0V1H2a2 2 0 0 0-2 2v11a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2h-1V.5a.5.5 0 0 0-1 0V1H4zM1 14V4h14v10a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1m7-6.507c1.664-1.711 5.825 1.283 0 5.132-5.825-3.85-1.664-6.843 0-5.132" />
+                            </svg>
+                        </i>
+                    </div>
+                    <div class="input-icon-wrapper">
+                        <input type="number" id="num-of-people" placeholder="How many people?" min=1>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="icon-custom"
+                            viewBox="0 0 16 16">
+                            <path
+                                d="M2 1.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5V5h.5A1.5 1.5 0 0 1 8 6.5V7H7v-.5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 .5.5H4v1H2.5v.25a.75.75 0 0 1-1.5 0v-.335A1.5 1.5 0 0 1 0 13.5v-7A1.5 1.5 0 0 1 1.5 5H2zM3 5h2V2H3z" />
+                            <path
+                                d="M2.5 7a.5.5 0 0 1 .5.5v5a.5.5 0 0 1-1 0v-5a.5.5 0 0 1 .5-.5m10 1v-.5A1.5 1.5 0 0 0 11 6h-1a1.5 1.5 0 0 0-1.5 1.5V8H8v8h5V8zM10 7h1a.5.5 0 0 1 .5.5V8h-2v-.5A.5.5 0 0 1 10 7M5 9.5A1.5 1.5 0 0 1 6.5 8H7v8h-.5A1.5 1.5 0 0 1 5 14.5zm9 6.5V8h.5A1.5 1.5 0 0 1 16 9.5v5a1.5 1.5 0 0 1-1.5 1.5z" />
+                        </svg>
+                    </div>
+                    <button id="searchFormButton">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search"
+                            viewBox="0 0 16 16">
+                            <path
+                                d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+                        </svg>
+                    </button>
                 </div>
-                <div class="input-icon-wrapper">
-                    <input type="text" id="bedrooms" placeholder="How many people?">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                        class="icon-custom" viewBox="0 0 16 16">
-                        <path
-                            d="M2 1.5a.5.5 0 0 1 .5-.5h3a.5.5 0 0 1 .5.5V5h.5A1.5 1.5 0 0 1 8 6.5V7H7v-.5a.5.5 0 0 0-.5-.5h-5a.5.5 0 0 0-.5.5v7a.5.5 0 0 0 .5.5H4v1H2.5v.25a.75.75 0 0 1-1.5 0v-.335A1.5 1.5 0 0 1 0 13.5v-7A1.5 1.5 0 0 1 1.5 5H2zM3 5h2V2H3z" />
-                        <path
-                            d="M2.5 7a.5.5 0 0 1 .5.5v5a.5.5 0 0 1-1 0v-5a.5.5 0 0 1 .5-.5m10 1v-.5A1.5 1.5 0 0 0 11 6h-1a1.5 1.5 0 0 0-1.5 1.5V8H8v8h5V8zM10 7h1a.5.5 0 0 1 .5.5V8h-2v-.5A.5.5 0 0 1 10 7M5 9.5A1.5 1.5 0 0 1 6.5 8H7v8h-.5A1.5 1.5 0 0 1 5 14.5zm9 6.5V8h.5A1.5 1.5 0 0 1 16 9.5v5a1.5 1.5 0 0 1-1.5 1.5z" />
-                    </svg>
-                </div>
-                <button type="submit">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                        class="bi bi-search" viewBox="0 0 16 16">
-                        <path
-                            d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
-                    </svg>
-                </button>
             </form>
         </div>
     </div>
     <div class="all-vacations-title">
         <div class="menu">
             <div class="menu-item">
-                <button>Rating</button>
+                <button class="filter-buttons">Category</button>
                 <div class="dropdown-content">
-                    <label><input type="checkbox"> 10 Stars</label>
-                    <label><input type="checkbox"> 9 Stars</label>
-                    <label><input type="checkbox"> 8 Stars</label>
-                    <label><input type="checkbox"> 7 Stars</label>
-                    <label><input type="checkbox"> 6 Stars</label>
-                    <label><input type="checkbox"> 5 Stars</label>
-                    <label><input type="checkbox"> 4 Stars</label>
-                    <label><input type="checkbox"> 3 Stars</label>
-                    <label><input type="checkbox"> 2 Stars</label>
-                    <label><input type="checkbox"> 1 Star</label>
+                    <button class="number-btn-category" data-category="All">All</button>
+                    <button class="number-btn-category" data-category="Family">Family</button>
+                    <button class="number-btn-category" data-category="Polar">Polar</button>
+                    <button class="number-btn-category" data-category="Food">Food</button>
+                    <button class="number-btn-category" data-category="Cruise">Cruise</button>
+                    <button class="number-btn-category" data-category="Cities">Cities</button>
+                    <button class="number-btn-category" data-category="Beaches">Beaches</button>
+                    <button class="number-btn-category" data-category="Ski">Ski</button>
+                </div>
+            </div>
+            <div class="menu-item">
+                <button class="filter-buttons">Duration</button>
+                <div class="dropdown-content days-content">
+                    <button class="number-btn-duration" data-duration="All">All</button>
+                    <button class="number-btn-duration" data-duration="less-than-week">less than a week</button>
+                    <button class="number-btn-duration" data-duration="over-week">over a week</button>
+                    <button class="number-btn-duration" data-duration="over-two-weeks">over two weeks</button>
+                    <button class="number-btn-duration" data-duration="over-three-weeks">over three weeks</button>
+                    <button class="number-btn-duration" data-duration="over-month">over a month</button>
+                </div>
+            </div>
+            <div class="menu-item">
+                <button class="filter-buttons">Type of Accommodation</button>
+                <div class="dropdown-content accommodationType">
+                    <label><input type="checkbox" data-type="Bed and Breakfast"> Breakfast Included</label>
+                    <label><input type="checkbox" data-type="Half Board"> Half Board</label>
+                    <label><input type="checkbox" data-type="Full Board"> Full Board</label>
+                    <label><input type="checkbox" data-type="All-Inclusive"> All Inclusive</label>
                     <div class="dropdown-actions">
-                        <button class="action-btn">Save</button>
                         <button class="action-btn">Clear Selection</button>
                     </div>
                 </div>
             </div>
             <div class="menu-item">
-                <button>Nights</button>
-                <div class="dropdown-content nights-content">
-                    <button class="number-btn">2</button>
-                    <button class="number-btn">3</button>
-                    <button class="number-btn">4</button>
-                    <button class="number-btn">5</button>
-                    <button class="number-btn">6</button>
-                    <button class="number-btn">7</button>
-                    <button class="number-btn">8</button>
-                    <button class="number-btn">9</button>
-                    <button class="number-btn">10</button>
-                    <button class="number-btn">11</button>
-                    <button class="number-btn">12</button>
-                    <button class="number-btn">13</button>
-                    <button class="number-btn">14</button>
-                    <div class="dropdown-actions">
-                        <button class="action-btn">Save</button>
-                        <button class="action-btn">Clear Selection</button>
-                    </div>
-                </div>
-            </div>
-            <div class="menu-item">
-                <button>Type of Accommodation</button>
-                <div class="dropdown-content">
-                    <label><input type="checkbox"> Breakfast Included</label>
-                    <label><input type="checkbox"> Half Board</label>
-                    <label><input type="checkbox"> Full Board</label>
-                    <label><input type="checkbox"> All Inclusive</label>
-                    <div class="dropdown-actions">
-                        <button class="action-btn">Save</button>
-                        <button class="action-btn">Clear Selection</button>
-                    </div>
-                </div>
-            </div>
-            <div class="menu-item">
-                <button>Stops</button>
-                <div class="dropdown-content">
-                    <label><input type="checkbox"> Non-stop</label>
-                    <label><input type="checkbox"> One Stop</label>
-                    <div class="dropdown-actions">
-                        <button class="action-btn">Save</button>
-                        <button class="action-btn">Clear Selection</button>
-                    </div>
-                </div>
-            </div>
-            <div class="menu-item">
-                <button>Hotel Features</button>
-                <div class="dropdown-content">
-                    <label><input type="checkbox"> Spa</label>
-                    <label><input type="checkbox"> Hairdryer in Room</label>
-                    <label><input type="checkbox"> Kids Club</label>
-                    <label><input type="checkbox"> Private Beach</label>
-                    <label><input type="checkbox"> Casino</label>
-                    <label><input type="checkbox"> Family Friendly</label>
-                    <label><input type="checkbox"> Near Chabad House</label>
-                    <label><input type="checkbox"> Parking</label>
-                    <label><input type="checkbox"> Pool</label>
-                    <label><input type="checkbox"> Pet Friendly</label>
-                    <label><input type="checkbox"> Room with Kitchen</label>
-                    <label><input type="checkbox"> WiFi</label>
-                    <label><input type="checkbox"> Air Conditioning</label>
-                    <label><input type="checkbox"> Restaurant</label>
-                    <label><input type="checkbox"> Room Service</label>
-                    <div class="dropdown-actions">
-                        <button class="action-btn">Save</button>
-                        <button class="action-btn">Clear Selection</button>
-                    </div>
+                <button class="filter-buttons">Price</button>
+                <div class="dropdown-content days-content">
+                    <button class="number-btn-price" data-price="All">All</button>
+                    <button class="number-btn-price" data-price="under-1000">Under 1000$</button>
+                    <button class="number-btn-price" data-price="under-2000">Under 2000$</button>
+                    <button class="number-btn-price" data-price="under-3000">Under 3000$</button>
+                    <button class="number-btn-price" data-price="under-4000">Under 4000$</button>
+                    <button class="number-btn-price" data-price="under-5000">Under 5000$</button>
                 </div>
             </div>
         </div>
     </div>
-
+    
     <div class="main">
-
+        
         <div class="cards-container" id="cards-container">
             <!-- Cards will be dynamically generated here -->
         </div>
@@ -203,25 +162,36 @@
             <div class="footer-section">
                 <h3>User Access</h3>
                 <ul>
-                    <li><a href="../../Auth/Register/register.html">Register</a></li>
-                    <li><a href="../../Auth/Login/login.html">Login</a></li>
-                    <li><a href="../../Home/home.html">Home</a></li>
+                    <li><a href="../Auth/Register/register.html">Register</a></li>
+                    <li><a href="../Auth/Login/login.html">Login</a></li>
+                    <li><a href="../Home/home.html">Home</a></li>
                 </ul>
             </div>
             <div class="footer-section">
                 <h3>Company</h3>
                 <ul>
-                    <li><a href="../../aboutUs/about.html">About Us</a></li>
-                    <li><a href="../../viewport/reviews.html">Reviews</a></li>
-                    <li><a href="../../blog/blog.html">Blog</a></li>
+                    <li><a href="../aboutUs/about.html">About Us</a></li>
+                    <li><a href="../viewport/reviews.html">Reviews</a></li>
+                    <li><a href="../blog/blog.html">Blog</a></li>
                 </ul>
             </div>
             <div class="footer-section">
                 <h3>Support</h3>
                 <ul>
-                    <li><a href="../../FAQs/FAQs.html">FAQ</a></li>
-                    <li><a href="../../PrivacyPolicy/PrivacyPolicy.html">Privacy Policy</a></li>
-                    <li><a href="../../terms/terms.html">Terms of Service</a></li>
+                    <li><a href="../FAQs/FAQs.html">FAQ</a></li>
+                    <li><a href="../PrivacyPolicy/PrivacyPolicy.html">Privacy Policy</a></li>
+                    <li><a href="../terms/terms.html">Terms of Service</a></li>
+                    
+                </ul>
+            </div>
+            <div class="footer-section" id="admin-section" style="display: none;">
+                <h3>Admin</h3>
+                <ul>
+                    <li><a href="../Admin/Facebook/facebook.html" id="admin-link">Facebook Page</a></li>
+                    <li><a href="../Admin/userOrders/orders.html" id="admin-link">Orders Management</a></li>
+                    <li><a href="../Admin/addvacation/add.html" id="admin-link">Vacation Management</a></li>
+                    <li><a href="../Admin/add/addComp.html" id="admin-link">Company Management</a></li>
+
                 </ul>
             </div>
         </div>
@@ -229,11 +199,13 @@
             <span>© 2024 VacationHub. All Rights Reserved.</span>
             <span>Your ultimate travel companion. Discover, plan, and book your perfect getaway with us.</span>
         </div>
-    </div>
+    </div>
+
 
     <script src="https://cdn.jsdelivr.net/npm/jwt-decode/build/jwt-decode.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="../../services/interceptorService.js"></script>
     <script src="allVacations.js"></script>
 </body>
-
 </html>

@@ -10,6 +10,7 @@ const getVacationImg = "http://localhost:3000/api/vacations/images/";
 const findVacationURL = "http://localhost:3000/api/vacations/"; // here comes the id
 const totalVacationsURL = "http://localhost:3000/api/vacation/total-vacations";
 const allImagesURL = "http://localhost:3000/api/vacation-images/";
+const searchVacationsAdminQueryURL = "http://localhost:3000/api/search-vacations-admin-query";
 
 document.addEventListener("DOMContentLoaded", function() {
     const getUserFromToken = () => {
@@ -32,6 +33,15 @@ document.addEventListener("DOMContentLoaded", function() {
         document.querySelector(".top-button-logged-in").style.display = "block";
         document.querySelector(".top-button").style.display = "none";
         document.getElementById("hello-user").textContent = `Hello ${userObj.user.firstName} ${userObj.user.lastName}`;
+
+        if (userObj.token) {
+            const decodedToken = jwt_decode(userObj.token);
+            const userRole = decodedToken.role || userObj.user.role;
+
+            if (userRole && userRole === 'admin') {
+                document.getElementById('admin-section').style.display = 'block';
+            }
+        }
     }
 
     const logoutButton = document.getElementById("logout");
@@ -42,12 +52,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
     document.getElementById('add-button').addEventListener('click', () => {
         showForm('vacation-form');
-    });
-    document.getElementById('delete-button').addEventListener('click', () => {
-        showForm('delete-vacation-form');
-    });
-    document.getElementById('update-button').addEventListener('click', () => {
-        showForm('update-vacation-id-form');
+        populateSelectOptions();
     });
     document.getElementById('view-all-button').addEventListener('click', () => {
         showForm('view-all-vacations');
@@ -56,6 +61,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
     document.getElementById('find-button').addEventListener('click', () => {
         showForm('find-vacation-form');
+        populateSelectOptions(false, true);
     });
     document.getElementById('total-images-button').addEventListener('click', () => {
         showForm('view-all-images');
@@ -63,7 +69,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     async function showForm(formId) {
-        clearAllForms(); // clear all forms before showing the new one
+        clearAllForms();
         document.querySelectorAll('.form-section').forEach(form => form.style.display = 'none');
         document.getElementById(formId).style.display = 'block';
         if (formId !== 'view-all-vacations') {
@@ -74,6 +80,11 @@ document.addEventListener("DOMContentLoaded", function() {
     function clearAllForms() {
         document.querySelectorAll('form').forEach(form => form.reset());
         clearErrorMessages();
+        clearMessages();
+    }
+
+    function clearMessages() {
+        document.querySelectorAll('.success, .error').forEach(el => el.textContent = '');
     }
 
     document.getElementById('vacation-form').addEventListener('submit', async function (event) {
@@ -93,84 +104,32 @@ document.addEventListener("DOMContentLoaded", function() {
         }
 
         const data = {
-            destination: formData.get('destination'),
-            description: formData.get('description'),
-            startDate: formData.get('startDate'),
-            endDate: formData.get('endDate'),
-            price: formData.get('price'),
-            groupOf: formData.get('groupOf'),
-            vacationType: formData.get('vacationType'),
-            companyName: formData.get('companyName'),
-            tripCategory: formData.get('tripCategory'),
-            imageName: formData.get('vacationImage'),
-            images: []
+            destination: formData.get('destination').trim(),
+            description: formData.get('description').trim(),
+            startDate: formData.get('startDate').trim(),
+            endDate: formData.get('endDate').trim(),
+            price: formData.get('price').trim(),
+            groupOf: formData.get('groupOf').trim(),
+            vacationType: formData.get('vacationType').trim(),
+            companyName: formData.get('companyName').trim(),
+            tripCategory: formData.get('tripCategory').trim(),
+            imageName: ''
         };
 
-        images.forEach((image, index) => {
-            const reader = new FileReader();
-            reader.onload = function (event) {
-                data.images.push(event.target.result);
-                if (index === images.length - 1) {
-                    submitFormData(addNewVacationURL, 'POST', data, 'vacation-form-result');
-                }
-            };
-            reader.readAsDataURL(image);
-        });
+        const image = images[0];
+        const reader = new FileReader();
+        reader.onload = function (event) {
+            data.imageName = image.name;
+            data.images = [event.target.result];
+            submitFormData(addNewVacationURL, 'POST', data, 'vacation-form-result');
+        };
+        reader.readAsDataURL(image);
     });
-
-    document.getElementById('delete-vacation-form').addEventListener('submit', async function (event) {
-        event.preventDefault();
-
-        const vacationId = document.getElementById('vacation-id-delete').value;
-
-        try {
-            const vacation = await fetchVacation(vacationId);
-            if (vacation) {
-                const response = await fetch(`${deleteVacationURL}${vacationId}`, {
-                    method: 'DELETE'
-                });
-                const result = await response.json();
-                const deleteResultDiv = document.getElementById('delete-vacation-result');
-                if (response.ok) {
-                    deleteResultDiv.textContent = 'Vacation deleted successfully';
-                    deleteResultDiv.className = 'success';
-                    document.getElementById(vacationId).remove();
-                    updateTotalVacationsCount();
-                } else {
-                    deleteResultDiv.textContent = 'Failed to delete vacation';
-                    deleteResultDiv.className = 'error';
-                }
-            } else {
-                const deleteResultDiv = document.getElementById('delete-vacation-result');
-                deleteResultDiv.textContent = 'Vacation not found';
-                deleteResultDiv.className = 'error';
-            }
-        } catch (error) {
-            console.error('Error:', error);
-            const deleteResultDiv = document.getElementById('delete-vacation-result');
-            deleteResultDiv.textContent = 'Failed to delete vacation';
-            deleteResultDiv.className = 'error';
-        }
-    });
-
-    async function fetchVacation(vacationId) {
-        try {
-            const response = await fetch(`${findVacationURL}${vacationId}`);
-            if (response.ok) {
-                return await response.json();
-            } else {
-                return null;
-            }
-        } catch (error) {
-            console.error('Error fetching vacation:', error);
-            return null;
-        }
-    }
 
     document.getElementById('update-vacation-id-form').addEventListener('submit', async function (event) {
         event.preventDefault();
 
-        const vacationId = document.getElementById('vacation-id-update').value;
+        const vacationId = document.getElementById('vacation-id-update').value.trim();
 
         try {
             const response = await fetch(`${findVacationURL}${vacationId}`);
@@ -179,6 +138,7 @@ document.addEventListener("DOMContentLoaded", function() {
             if (response.ok) {
                 updateIdResultDiv.textContent = '';
                 showForm('update-vacation-form-container');
+                populateSelectOptions(true);
                 populateUpdateForm(result);
                 displayVacationCard(result);
             } else {
@@ -193,8 +153,214 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
+    document.getElementById('update-vacation-form').addEventListener('submit', async function (event) {
+        event.preventDefault();
+        clearErrorMessages();
+    
+        const vacationId = document.getElementById('vacation-id-update-hidden').value;
+        const formData = new FormData(event.target);
+        const images = formData.getAll('images');
+        const spotsTaken = document.getElementById('vacation-id-update-hidden').dataset.spotsTaken;
+    
+        if (images.length < 1) {
+            document.getElementById('images-update-error').textContent = 'You must upload an image.';
+            return;
+        }
+    
+        if (!await validateFormData(formData, true, spotsTaken)) {
+            return;
+        }
+    
+        const data = {
+            destination: formData.get('destination').trim(),
+            description: formData.get('description').trim(),
+            startDate: formData.get('startDate').trim(),
+            endDate: formData.get('endDate').trim(),
+            price: formData.get('price').trim(),
+            groupOf: formData.get('groupOf').trim(),
+            vacationType: formData.get('vacationType').trim(),
+            companyName: formData.get('companyName').trim(),
+            tripCategory: formData.get('tripCategory').trim(),
+            images: []
+        };
+    
+        const image = images[0];
+        const reader = new FileReader();
+        reader.onload = function (event) {
+            data.images.push(event.target.result);
+            data.imageName = image.name;
+            submitFormData(`${updateVacationURL}${vacationId}`, 'PUT', data, 'update-vacation-result');
+        };
+        reader.readAsDataURL(image);
+    });
+
+    document.getElementById('find-vacation-form').addEventListener('submit', async function (event) {
+        event.preventDefault();
+
+        const destination = document.getElementById('destination-find').value.trim();
+        const companyName = document.getElementById('company-name-find').value.trim();
+        const departureMonth = document.getElementById('departure-month-find').value.trim();
+
+        const queryData = {
+            destination: destination,
+            companyName: companyName,
+            departureMonth: departureMonth ? parseInt(departureMonth) : undefined
+        };
+
+        // Remove undefined fields from queryData
+        Object.keys(queryData).forEach(key => {
+            if (queryData[key] === undefined || queryData[key] === "") {
+                delete queryData[key];
+            }
+        });
+
+        try {
+            const response = await fetch(searchVacationsAdminQueryURL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(queryData)
+            });
+            const resultDiv = document.getElementById('find-vacation-result');
+            if (response.ok) {
+                const vacations = await response.json();
+                showForm('view-all-vacations');
+                const vacationList = document.getElementById('vacation-list');
+                vacationList.innerHTML = ''; // Clear previous results
+
+                const totalVacationsResult = document.getElementById('total-vacations-result');
+                totalVacationsResult.textContent = `Total Results: ${vacations.length}`;
+                totalVacationsResult.style.display = 'block';
+
+                vacations.forEach(appendVacationCard);
+            } else {
+                resultDiv.textContent = 'No vacations found';
+                resultDiv.className = 'error';
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            const resultDiv = document.getElementById('find-vacation-result');
+            resultDiv.textContent = 'Failed to find vacation';
+            resultDiv.className = 'error';
+        }
+    });
+
+    async function loadAllVacations() {
+        try {
+            const response = await fetch(allVacationsURL);
+            const vacations = await response.json();
+            const vacationList = document.getElementById('vacation-list');
+            vacationList.innerHTML = '';
+            vacations.forEach((vacation) => {
+                appendVacationCard(vacation);
+            });
+        } catch (error) {
+            console.error('Error fetching vacations:', error);
+        }
+    }
+
+    async function deleteVacation(vacationId) {
+        try {
+            const response = await fetch(`${deleteVacationURL}${vacationId}`, {
+                method: 'DELETE'
+            });
+            if (response.ok) {
+                document.getElementById(vacationId).remove();
+                updateTotalVacationsCount();
+            } else {
+                console.error('Failed to delete vacation');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }
+
+    function appendVacationCard(vacation) {
+        const vacationList = document.getElementById('vacation-list');
+        const listItem = document.createElement('div');
+        listItem.classList.add('vacation-card');
+        listItem.id = vacation._id;
+        
+        const companyName = vacation.companyName ? vacation.companyName.company : 'Unknown';
+        const tripCategory = vacation.tripCategory ? vacation.tripCategory.category : 'Unknown';
+    
+        listItem.innerHTML = `
+            <img src="${getVacationImg}${vacation.imageName || 'logo-vacationHub.png'}" alt="Vacation Image">
+            <div class="vacation-card-actions">
+                <span class="edit-icon" data-id="${vacation._id}" style="cursor: pointer;">✏️</span>
+                <span class="delete-icon" data-id="${vacation._id}" style="cursor: pointer;">🗑️</span>
+            </div>
+            <h3>${vacation.destination}</h3>
+            <p class="details">Description: ${vacation.description}</p>
+            <p>Start Date: ${new Date(vacation.startDate).toLocaleDateString()}</p>
+            <p>End Date: ${new Date(vacation.endDate).toLocaleDateString()}</p>
+            <p>Price: $${vacation.price}</p>
+            <p>Group Size: ${vacation.groupOf}</p>
+            <p>Spots Taken: ${vacation.spotsTaken}</p>
+            <p>Spots Left: ${vacation.spotsLeft}</p>
+            <p>Vacation Type: ${vacation.vacationType}</p>
+            <p>Company Name: ${companyName}</p>
+            <p>Trip Category: ${tripCategory}</p>
+            <p>Rating: ${vacation.rating}</p>
+            <p>Image Name: ${vacation.imageName}</p>
+        `;
+        vacationList.appendChild(listItem);
+    }
+
+    document.addEventListener('click', function(event) {
+        if (event.target.classList.contains('edit-icon')) {
+            const vacationId = event.target.getAttribute('data-id');
+            openUpdateForm(vacationId);
+        }
+
+        if (event.target.classList.contains('delete-icon')) {
+            const vacationId = event.target.getAttribute('data-id');
+            if (confirm('Are you sure you want to delete this vacation?')) {
+                deleteVacation(vacationId);
+            }
+        }
+    });
+
+    async function openUpdateForm(vacationId) {
+        try {
+            const response = await fetch(`${findVacationURL}${vacationId}`);
+            const result = await response.json();
+            if (response.ok) {
+                showForm('update-vacation-form-container');
+                await populateSelectOptions(true); // Ensure the select options are populated before filling in the form
+                populateUpdateForm(result);
+                displayVacationCard(result);
+            } else {
+                console.error('Vacation not found');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+        }
+    }
+
+    async function populateSelectOptions(isUpdate = false, isFind = false) {
+        const companySelect = isUpdate ? document.getElementById('company-name-update') : (isFind ? document.getElementById('company-name-find') : document.getElementById('company-name'));
+        const categorySelect = isUpdate ? document.getElementById('trip-category-update') : document.getElementById('trip-category');
+        
+        try {
+            const companyResponse = await fetch(allCompaniesURL);
+            const companies = await companyResponse.json();
+            companySelect.innerHTML = companies.map(company => `<option value="${company._id}">${company.company}</option>`).join('');
+    
+            if (!isFind) {
+                const categoryResponse = await fetch(allCategoriesURL);
+                const categories = await categoryResponse.json();
+                categorySelect.innerHTML = categories.map(category => `<option value="${category._id}">${category.category}</option>`).join('');
+            }
+        } catch (error) {
+            console.error('Error fetching companies or categories:', error);
+        }
+    }
+
     function populateUpdateForm(vacation) {
         document.getElementById('vacation-id-update-hidden').value = vacation._id;
+        document.getElementById('vacation-id-update-hidden').dataset.spotsTaken = vacation.spotsTaken; // Save spotsTaken to data attribute
         document.getElementById('destination-update').value = vacation.destination;
         document.getElementById('description-update').value = vacation.description;
         document.getElementById('start-date-update').value = vacation.startDate.split('T')[0];
@@ -202,15 +368,21 @@ document.addEventListener("DOMContentLoaded", function() {
         document.getElementById('price-update').value = vacation.price;
         document.getElementById('group-of-update').value = vacation.groupOf;
         document.getElementById('vacation-type-update').value = vacation.vacationType;
-        document.getElementById('company-name-update').value = vacation.companyName._id;
-        document.getElementById('trip-category-update').value = vacation.tripCategory._id;
+        document.getElementById('company-name-update').value = vacation.companyName._id; // Ensure this matches the select option value
+        document.getElementById('trip-category-update').value = vacation.tripCategory._id; // Ensure this matches the select option value
         document.getElementById('vacation-image-update').value = vacation.imageName;
+    
+        const companySelect = document.getElementById('company-name-update');
+        const categorySelect = document.getElementById('trip-category-update');
+    
+        companySelect.value = vacation.companyName._id;
+        categorySelect.value = vacation.tripCategory._id;
     }
 
     function displayVacationCard(vacation) {
         const vacationCardContainer = document.getElementById('vacation-card-container');
         vacationCardContainer.innerHTML = '';
-        
+
         const listItem = document.createElement('div');
         listItem.classList.add('vacation-card');
         listItem.id = vacation._id;
@@ -225,90 +397,21 @@ document.addEventListener("DOMContentLoaded", function() {
             <p>Spots Taken: ${vacation.spotsTaken}</p>
             <p>Spots Left: ${vacation.spotsLeft}</p>
             <p>Vacation Type: ${vacation.vacationType}</p>
-            <p>Company Name: ${vacation.companyName.company} (ID: ${vacation.companyName._id})</p>
-            <p>Trip Category: ${vacation.tripCategory.category} (ID: ${vacation.tripCategory._id})</p>
+            <p>Company Name: ${vacation.companyName.company}</p>
+            <p>Trip Category: ${vacation.tripCategory.category}</p>
             <p>Rating: ${vacation.rating}</p>
             <p>Image Name: ${vacation.imageName}</p>
-            <p>ID: ${vacation._id}</p>
         `;
         vacationCardContainer.appendChild(listItem);
     }
 
-    document.getElementById('update-vacation-form').addEventListener('submit', async function (event) {
-        event.preventDefault();
-        clearErrorMessages();
-
-        const vacationId = document.getElementById('vacation-id-update-hidden').value;
-        const formData = new FormData(event.target);
-        const images = formData.getAll('images');
-
-        if (images.length < 1) {
-            document.getElementById('images-update-error').textContent = 'You must upload at least 1 image.';
-            return;
-        }
-
-        if (!await validateFormData(formData, true)) {
-            return;
-        }
-
-        const data = {
-            destination: formData.get('destination'),
-            description: formData.get('description'),
-            startDate: formData.get('startDate'),
-            endDate: formData.get('endDate'),
-            price: formData.get('price'),
-            groupOf: formData.get('groupOf'),
-            vacationType: formData.get('vacationType'),
-            companyName: formData.get('companyName'),
-            tripCategory: formData.get('tripCategory'),
-            imageName: formData.get('vacationImage'),
-            images: []
-        };
-
-        images.forEach((image, index) => {
-            const reader = new FileReader();
-            reader.onload = function (event) {
-                data.images.push(event.target.result);
-                if (index === images.length - 1) {
-                    submitFormData(`${updateVacationURL}${vacationId}`, 'PUT', data, 'update-vacation-result');
-                }
-            };
-            reader.readAsDataURL(image);
-        });
-    });
-
-    document.getElementById('find-vacation-form').addEventListener('submit', async function (event) {
-        event.preventDefault();
-
-        const vacationId = document.getElementById('vacation-id-find').value;
-
-        try {
-            const response = await fetch(`${findVacationURL}${vacationId}`);
-            if (response.ok) {
-                const vacation = await response.json();
-                showForm('view-all-vacations');
-                document.getElementById('vacation-list').innerHTML = ''; // Clear previous results
-                appendVacationCard(vacation);
-                document.getElementById('total-vacations-result').style.display = 'none';
-            } else {
-                const findResultDiv = document.getElementById('find-vacation-result');
-                findResultDiv.textContent = 'Vacation not found';
-                findResultDiv.className = 'error';
-            }
-        } catch (error) {
-            console.error('Error:', error);
-            const findResultDiv = document.getElementById('find-vacation-result');
-            findResultDiv.textContent = 'Failed to find vacation';
-            findResultDiv.className = 'error';
-        }
-    });
 
     async function submitFormData(url, method, data, resultElementId) {
-        console.log('Submitting form data:', data); // log for debugging
-    
+        console.log('Submitting form data:', data);
+
         const isValid = await validateCompanyAndCategory(data, resultElementId);
         if (!isValid) return;
-    
+
         try {
             const response = await fetch(url, {
                 method: method,
@@ -343,45 +446,6 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-    async function loadAllVacations() {
-        try {
-            const response = await fetch(allVacationsURL);
-            const vacations = await response.json();
-            const vacationList = document.getElementById('vacation-list');
-            vacationList.innerHTML = '';
-            vacations.forEach((vacation) => {
-                appendVacationCard(vacation);
-            });
-        } catch (error) {
-            console.error('Error fetching vacations:', error);
-        }
-    }
-
-    function appendVacationCard(vacation) {
-        const vacationList = document.getElementById('vacation-list');
-        const listItem = document.createElement('div');
-        listItem.classList.add('vacation-card');
-        listItem.id = vacation._id;
-        listItem.innerHTML = `
-            <img src="${getVacationImg}${vacation.imageName || 'logo-vacationHub.jpeg'}" alt="Vacation Image">
-            <h3>${vacation.destination}</h3>
-            <p class="details">Description: ${vacation.description}</p>
-            <p>Start Date: ${new Date(vacation.startDate).toLocaleDateString()}</p>
-            <p>End Date: ${new Date(vacation.endDate).toLocaleDateString()}</p>
-            <p>Price: $${vacation.price}</p>
-            <p>Group Size: ${vacation.groupOf}</p>
-            <p>Spots Taken: ${vacation.spotsTaken}</p>
-            <p>Spots Left: ${vacation.spotsLeft}</p>
-            <p>Vacation Type: ${vacation.vacationType}</p>
-            <p>Company Name: ${vacation.companyName.company} (ID: ${vacation.companyName._id})</p>
-            <p>Trip Category: ${vacation.tripCategory.category} (ID: ${vacation.tripCategory._id})</p>
-            <p>Rating: ${vacation.rating}</p>
-            <p>Image Name: ${vacation.imageName}</p>
-            <p>ID: ${vacation._id}</p>
-        `;
-        vacationList.appendChild(listItem);
-    }
-
     async function updateTotalVacationsCount() {
         try {
             const response = await fetch(totalVacationsURL);
@@ -407,7 +471,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 imageItem.classList.add('image-card');
                 imageItem.innerHTML = `
                     <img src="${getVacationImg}${imageName}" alt="Image ${index + 1}">
-                    <p>${index + 1}. ${imageName}</p>
+                    <p>${imageName}</p>
                 `;
                 imageList.appendChild(imageItem);
             });
@@ -416,40 +480,43 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-    async function validateFormData(formData, isUpdate = false) {
+    async function validateFormData(formData, isUpdate = false, spotsTaken = 0) {
         let isValid = true;
 
         // Validate destination (only letters and at least 2 characters)
-        const destination = formData.get('destination');
+        const destination = formData.get('destination').trim();
         if (!/^[a-zA-Z\s]{2,}$/.test(destination)) {
             document.getElementById(isUpdate ? 'destination-update-error' : 'destination-error').textContent = 'Destination must be at least 2 letters.';
             isValid = false;
         }
 
         // Validate description (only letters and at least 2 characters)
-        const description = formData.get('description');
+        const description = formData.get('description').trim();
         if (!/^[a-zA-Z\s]{2,}$/.test(description)) {
             document.getElementById(isUpdate ? 'description-update-error' : 'description-error').textContent = 'Description must be at least 2 letters.';
             isValid = false;
         }
 
         // Validate price (0 to 50000)
-        const price = formData.get('price');
+        const price = formData.get('price').trim();
         if (price < 0 || price > 50000) {
             document.getElementById(isUpdate ? 'price-update-error' : 'price-error').textContent = 'Price must be between 0 and 50000.';
             isValid = false;
         }
 
-        // Validate group size (1 to 100)
-        const groupOf = formData.get('groupOf');
+        // Validate group size (1 to 100) and spotsTaken constraint
+        const groupOf = formData.get('groupOf').trim();
         if (groupOf < 1 || groupOf > 100) {
             document.getElementById(isUpdate ? 'group-of-update-error' : 'group-of-error').textContent = 'Group size must be between 1 and 100.';
+            isValid = false;
+        } else if (groupOf < spotsTaken) {
+            document.getElementById(isUpdate ? 'group-of-update-error' : 'group-of-error').textContent = `Group size must be at least ${spotsTaken}.`;
             isValid = false;
         }
 
         // Validate dates
-        const startDate = formData.get('startDate');
-        const endDate = formData.get('endDate');
+        const startDate = formData.get('startDate').trim();
+        const endDate = formData.get('endDate').trim();
         if (!startDate) {
             document.getElementById(isUpdate ? 'start-date-update-error' : 'start-date-error').textContent = 'Start date is required.';
             isValid = false;
@@ -464,40 +531,18 @@ document.addEventListener("DOMContentLoaded", function() {
         }
 
         // Validate company name (ID)
-        const companyName = formData.get('companyName');
+        const companyName = formData.get('companyName').trim();
         if (!await validateId(findCompanyURL, companyName, isUpdate ? 'company-name-update-validity' : 'company-name-validity')) {
             isValid = false;
         }
 
         // Validate trip category (ID)
-        const tripCategory = formData.get('tripCategory');
+        const tripCategory = formData.get('tripCategory').trim();
         if (!await validateId(findCategoryURL, tripCategory, isUpdate ? 'trip-category-update-validity' : 'trip-category-validity')) {
             isValid = false;
         }
 
-        // Validate vacation image
-        const vacationImage = formData.get('vacationImage');
-        if (!await validateVacationImage(vacationImage, isUpdate ? 'vacation-image-update-error' : 'vacation-image-error')) {
-            isValid = false;
-        }
-
         return isValid;
-    }
-
-    async function validateVacationImage(imageName, elementId) {
-        try {
-            const response = await fetch(allImagesURL);
-            const data = await response.json();
-            if (!data.imageNames.includes(imageName)) {
-                document.getElementById(elementId).textContent = 'Image does not exist';
-                return false;
-            }
-            return true;
-        } catch (error) {
-            console.error('Error validating image name:', error);
-            document.getElementById(elementId).textContent = 'Error validating image';
-            return false;
-        }
     }
 
     function clearErrorMessages() {
