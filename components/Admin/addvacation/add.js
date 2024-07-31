@@ -331,6 +331,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 await populateSelectOptions(true); // Ensure the select options are populated before filling in the form
                 populateUpdateForm(result);
                 displayVacationCard(result);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
             } else {
                 console.error('Vacation not found');
             }
