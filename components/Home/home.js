@@ -75,13 +75,16 @@ async function createVacationCard(vacation) {
   const imgSrc = await fetchVacationImg(vacation);
   if (imgSrc) {
     vacationImg.src = imgSrc; 
+    vacationImg.style.cursor = 'pointer';
+    const link = document.createElement("a");
+    link.href = `vacationPage.html?id=${vacation._id}`;
+    link.appendChild(vacationImg); 
+    vacationCard.appendChild(link);
   } else {
-    vacationImg.src = ""; 
     vacationImg.alt = "Image not available"; 
+    vacationCard.appendChild(vacationImg); 
   }
 
-  vacationCard.appendChild(vacationImg);
-  
   const detailsDiv = document.createElement("div");
   detailsDiv.classList.add("vacation-details");
 
@@ -188,36 +191,36 @@ allVacationsButton.addEventListener("click", () => localStorage.setItem("tripCat
 
 
 // Weather forecast
-async function getWeather() {
-  const city = document.getElementById('city').value.trim();
-  const apiKey = '852035eefd087a5e214c33deadcb451b';
-  const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+// async function getWeather() {
+//   const city = document.getElementById('city').value.trim();
+//   const apiKey = '852035eefd087a5e214c33deadcb451b';
+//   const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
 
-  try {
-      const response = await fetch(url);
-      if (!response.ok) {
-          if (response.status === 401) {
-              throw new Error('Unauthorized: Invalid API key');
-          }
-          throw new Error('City not found');
-      }
-      const data = await response.json();
-      displayWeather(data);
-  } catch (error) {
-      document.getElementById('weather-info').innerHTML = `<p>${error.message}</p>`;
-  }
-}
+//   try {
+//       const response = await fetch(url);
+//       if (!response.ok) {
+//           if (response.status === 401) {
+//               throw new Error('Unauthorized: Invalid API key');
+//           }
+//           throw new Error('City not found');
+//       }
+//       const data = await response.json();
+//       displayWeather(data);
+//   } catch (error) {
+//       document.getElementById('weather-info').innerHTML = `<p>${error.message}</p>`;
+//   }
+// }
 
-function displayWeather(data) {
-  const weatherInfo = `
-      <p><strong>City:</strong> ${data.name}</p>
-      <p><strong>Temperature:</strong> ${data.main.temp} °C</p>
-      <p><strong>Weather:</strong> ${data.weather[0].description}</p>
-      <p><strong>Humidity:</strong> ${data.main.humidity} %</p>
-      <p><strong>Wind Speed:</strong> ${data.wind.speed} m/s</p>
-  `;
-  document.getElementById('weather-info').innerHTML = weatherInfo;
-}
+// function displayWeather(data) {
+//   const weatherInfo = `
+//       <p><strong>City:</strong> ${data.name}</p>
+//       <p><strong>Temperature:</strong> ${data.main.temp} °C</p>
+//       <p><strong>Weather:</strong> ${data.weather[0].description}</p>
+//       <p><strong>Humidity:</strong> ${data.main.humidity} %</p>
+//       <p><strong>Wind Speed:</strong> ${data.wind.speed} m/s</p>
+//   `;
+//   document.getElementById('weather-info').innerHTML = weatherInfo;
+// }
 document.addEventListener("DOMContentLoaded", async function () {
   async function fetchNews() {
       const apiKey = 'f426634050554b5cbd014eff25f76a2d';
