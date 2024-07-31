@@ -1,3 +1,5 @@
+const getVacationImg = "http://localhost:3000/api/vacations/images/";
+
 let map;
 let geocoder;
 let apiKeyWeather;
@@ -86,32 +88,37 @@ function geocodeLocation(location, vacation) {
     });
 }
 
-function getWeatherData(lat, lng, vacation) {
+async function getWeatherData(lat, lng, vacation) {
     const url = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&appid=${apiKeyWeather}&units=metric`;
 
-    fetch(url)
-        .then(response => response.json())
-        .then(data => {
-            const weatherDescription = data.weather[0].description;
-            const temperature = data.main.temp;
+    try {
+        const response = await fetch(url);
+        const data = await response.json();
+        const weatherDescription = data.weather[0].description;
+        const temperature = data.main.temp;
+        
+        // מחכים שהתמונה תיווצר
+        const imgElement = await createVacationImage(vacation);
 
-            const content = `
-                <h4>${vacation.destination}</h4>
-                <p>${vacation.description}</p>
-                <p>Price: $${vacation.price}</p>
-                <p>Weather: ${weatherDescription}</p>
-                <p>Temperature: ${temperature}°C</p>
-            `;
+        const content = `
+          <div class="custom-info-window">
+            <h4>${vacation.destination}</h4>
+            ${imgElement.outerHTML}
+            <p>${vacation.description}</p>
+            <p>Price: $${vacation.price}</p>
+            <p>Weather: ${weatherDescription}</p>
+            <p>Temperature: ${temperature}°C</p>
+        </div>
+        `;
 
-            const prop = {
-                coordinates: { lat, lng },
-                content: content,
-            };
-            addMarker(prop);
-        })
-        .catch(error => {
-            console.error('Error fetching weather data:', error);
-        });
+        const prop = {
+            coordinates: { lat, lng },
+            content: content,
+        };
+        addMarker(prop);
+    } catch (error) {
+        console.error('Error fetching weather data:', error);
+    }
 }
 
 async function getApiKey() {
@@ -121,3 +128,29 @@ async function getApiKey() {
     apiKeyWeather = data;
 }
 (async () => { await getApiKey(); console.log(apiKeyWeather); })();
+
+
+const fetchVacationImg = async (vacation) => {
+    try {
+        const response = await axios.get(getVacationImg + vacation?.imageName , { responseType: 'blob' });
+        const imageUrl = URL.createObjectURL(response.data);
+        return imageUrl;
+    } catch (error) {
+        console.error("Error fetching image:", error);
+        return null;
+    }
+  }
+
+  async function createVacationImage(vacation) {
+    const vacationImg = document.createElement("img");
+    vacationImg.classList.add("vacation-image");
+    const imgSrc = await fetchVacationImg(vacation);
+    
+    if (imgSrc) {
+      vacationImg.src = imgSrc; 
+    } else {
+      vacationImg.alt = "Image not available"; 
+    }
+    
+    return vacationImg;
+  }
