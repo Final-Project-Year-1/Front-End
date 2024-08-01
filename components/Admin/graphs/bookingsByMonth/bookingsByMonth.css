@@ -30,13 +30,13 @@ body {
     padding: 5px;
 }
 #my_dataviz {
-    background-color: rgba(255, 255, 255, 0.8); /* רקע חצי שקוף לגרף */
+    background-color: rgba(255, 255, 255, 0.8);
     padding: 20px;
     border-radius: 10px;
-    width: 80%; /* הגדל את רוחב המיכל */
-    max-width: 1100px; /* הגדרת רוחב מקסימלי */
-    height: 90vh; /* הגדל את גובה המיכל */
-    overflow: hidden; /* לוודא שאין גלילה פנימית */
+    width: 80%; 
+    max-width: 1100px;
+    height: 90vh; 
+    overflow: hidden; 
     margin-left: 200px;
     margin-right: 10px;
 }
@@ -50,7 +50,7 @@ body {
     padding: 10px;
     border-radius: 5px;
     font-size: 40px;
-    display: none; /* התחל עם הסתרה */
+    display: none;
 }
 @media (max-width: 768px) {
     #my_dataviz {
