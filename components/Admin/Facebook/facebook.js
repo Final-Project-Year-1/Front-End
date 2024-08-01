@@ -72,11 +72,11 @@ async function fetchAllPosts(page_id, accessToken) {
         }
         window.allPosts = posts;
         console.log('Fetched posts with comments:', window.allPosts);
-        displaySearchResults(posts); // Initial display
+        displaySearchResults(posts); 
     } catch (error) {
         console.error('Error: ' + error);
     } finally {
-        document.getElementById('loadingSpinner').style.display = 'none'; // הסתרת הספינר לאחר הטעינה
+        document.getElementById('loadingSpinner').style.display = 'none'; 
     }
 }
 
@@ -207,7 +207,7 @@ function updatePost(postId, updatedMessage) {
             alert('Error: ' + data.error.message);
         } else {
             alert('Post updated successfully!');
-            fetchAllPosts(page_id, accessToken); // Refresh posts
+            fetchAllPosts(page_id, accessToken); 
         }
     })
     .catch(error => {
@@ -231,7 +231,7 @@ function deletePost(postId) {
             alert('Error: ' + data.error.message);
         } else {
             alert('Post deleted successfully!');
-            fetchAllPosts(page_id, accessToken); // Refresh posts
+            fetchAllPosts(page_id, accessToken); 
         }
     })
     .catch(error => {
@@ -256,7 +256,7 @@ function postToFacebook(message) {
             document.getElementById('response').innerText = 'Error: ' + data.error.message;
         } else {
             document.getElementById('response').innerText = 'Post was successful!';
-            fetchAllPosts(page_id, accessToken); // Refresh posts
+            fetchAllPosts(page_id, accessToken);
         }
     })
     .catch(error => {
@@ -280,7 +280,7 @@ function uploadPostWithImage(message, file) {
             document.getElementById('response').innerText = 'Error: ' + data.error.message;
         } else {
             document.getElementById('response').innerText = 'Post with image was successful!';
-            fetchAllPosts(page_id, accessToken); // Refresh posts
+            fetchAllPosts(page_id, accessToken); 
         }
     })
     .catch(error => {
@@ -399,7 +399,7 @@ function uploadProfilePicture() {
     });
 }
 
-// Initial fetch of posts
+
 fetchAllPosts(page_id, accessToken);
 
 const getUserFromToken = () => {
@@ -425,10 +425,10 @@ if (localStorage.getItem('token') !== '') {
 
   if (userObj.token) {
       const decodedToken = jwt_decode(userObj.token);
-      // Extract role from the decoded token if present
+   
       const userRole = decodedToken.role || userObj.user.role;
 
-      // Check if the user role is admin
+  
       if (userRole && userRole === 'admin') {
           document.getElementById('admin-section').style.display = 'block';
       }

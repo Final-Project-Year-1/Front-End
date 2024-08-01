@@ -1,12 +1,12 @@
 const addCompanyURL = "http://localhost:3000/api/addCompany";
-const deleteCompanyURL = "http://localhost:3000/api/deleteCompany/"; // here comes the _id
-const updateCompanyURL = "http://localhost:3000/api/updateCompany/"; // here comes the _id
-const findCompanyURL = "http://localhost:3000/api/findCompany/"; // here comes the _id
+const deleteCompanyURL = "http://localhost:3000/api/deleteCompany/"; 
+const updateCompanyURL = "http://localhost:3000/api/updateCompany/"; 
+const findCompanyURL = "http://localhost:3000/api/findCompany/"; 
 const allCompaniesURL = "http://localhost:3000/api/all-companies";
 const addCategoryURL = "http://localhost:3000/api/addCategory";
-const deleteCategoryURL = "http://localhost:3000/api/deleteCategory/"; // here comes the _id
-const updateCategoryURL = "http://localhost:3000/api/updateCategory/"; // here comes the _id
-const findCategoryURL = "http://localhost:3000/api/find-category/"; // here comes the _id
+const deleteCategoryURL = "http://localhost:3000/api/deleteCategory/"; 
+const updateCategoryURL = "http://localhost:3000/api/updateCategory/"; 
+const findCategoryURL = "http://localhost:3000/api/find-category/"; 
 const allCategoriesURL = "http://localhost:3000/api/allCategories";
 
 document.addEventListener("DOMContentLoaded", function() {
@@ -218,7 +218,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     }
 
-    // Add Category
+  
     document.getElementById('category-form').addEventListener('submit', async function(event) {
         event.preventDefault();
         const formData = new FormData(event.target);
@@ -250,7 +250,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
-    // Update Category
+  
     document.getElementById('update-category-form').addEventListener('submit', async function(event) {
         event.preventDefault();
         const formData = new FormData(event.target);
@@ -283,7 +283,6 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
-    // Delete Category
     document.getElementById('delete-category-form').addEventListener('submit', async function(event) {
         event.preventDefault();
         const formData = new FormData(event.target);
@@ -313,7 +312,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
-    // Find Category
+ 
     document.getElementById('find-category-form').addEventListener('submit', async function(event) {
         event.preventDefault();
         const formData = new FormData(event.target);

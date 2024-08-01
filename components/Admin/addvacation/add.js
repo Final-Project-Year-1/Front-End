@@ -189,7 +189,6 @@ document.getElementById('view-all-button').addEventListener('click', () => {
             departureMonth: departureMonth ? parseInt(departureMonth) : undefined
         };
 
-        // Remove undefined fields from queryData
         Object.keys(queryData).forEach(key => {
             if (queryData[key] === undefined || queryData[key] === "") {
                 delete queryData[key];
@@ -325,7 +324,7 @@ document.getElementById('view-all-button').addEventListener('click', () => {
             const result = await response.json();
             if (response.ok) {
                 showForm('update-vacation-form-container');
-                await populateSelectOptions(true); // Ensure the select options are populated before filling in the form
+                await populateSelectOptions(true); 
                 populateUpdateForm(result);
                 displayVacationCard(result);
                 window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -358,7 +357,7 @@ document.getElementById('view-all-button').addEventListener('click', () => {
 
     function populateUpdateForm(vacation) {
         document.getElementById('vacation-id-update-hidden').value = vacation._id;
-        document.getElementById('vacation-id-update-hidden').dataset.spotsTaken = vacation.spotsTaken; // Save spotsTaken to data attribute
+        document.getElementById('vacation-id-update-hidden').dataset.spotsTaken = vacation.spotsTaken; 
         document.getElementById('destination-update').value = vacation.destination;
         document.getElementById('description-update').value = vacation.description;
         document.getElementById('start-date-update').value = vacation.startDate.split('T')[0];
@@ -366,8 +365,8 @@ document.getElementById('view-all-button').addEventListener('click', () => {
         document.getElementById('price-update').value = vacation.price;
         document.getElementById('group-of-update').value = vacation.groupOf;
         document.getElementById('vacation-type-update').value = vacation.vacationType;
-        document.getElementById('company-name-update').value = vacation.companyName._id; // Ensure this matches the select option value
-        document.getElementById('trip-category-update').value = vacation.tripCategory._id; // Ensure this matches the select option value
+        document.getElementById('company-name-update').value = vacation.companyName._id; 
+        document.getElementById('trip-category-update').value = vacation.tripCategory._id; 
         document.getElementById('vacation-image-update').value = vacation.imageName;
         loadExistingImage(vacation.imageName);
         const companySelect = document.getElementById('company-name-update');
@@ -389,7 +388,6 @@ document.getElementById('view-all-button').addEventListener('click', () => {
                 const fileInput = document.getElementById('images-update');
                 fileInput.files = dataTransfer.files;
 
-                // Create an event to trigger the input change
                 const event = new Event('change', { bubbles: true });
                 fileInput.dispatchEvent(event);
             })
@@ -531,7 +529,6 @@ async function submitFormData(url, method, data, resultElementId) {
             isValid = false;
         }
 
-        // Validate group size (1 to 100) and spotsTaken constraint
         const groupOf = parseInt(formData.get('groupOf').trim());
         const parsedSpotsTaken = parseInt(spotsTaken);
 
@@ -543,7 +540,7 @@ async function submitFormData(url, method, data, resultElementId) {
             isValid = false;
         }
 
-        // Validate dates
+   
         const startDate = formData.get('startDate').trim();
         const endDate = formData.get('endDate').trim();
         if (!startDate) {
@@ -559,13 +556,12 @@ async function submitFormData(url, method, data, resultElementId) {
             isValid = false;
         }
 
-        // Validate company name (ID)
         const companyName = formData.get('companyName').trim();
         if (!await validateId(findCompanyURL, companyName, isUpdate ? 'company-name-update-validity' : 'company-name-validity')) {
             isValid = false;
         }
 
-        // Validate trip category (ID)
+       
         const tripCategory = formData.get('tripCategory').trim();
         if (!await validateId(findCategoryURL, tripCategory, isUpdate ? 'trip-category-update-validity' : 'trip-category-validity')) {
             isValid = false;

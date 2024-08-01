@@ -88,13 +88,13 @@ body, html {
     padding: 20px;
 }
 .main-r {
-    flex: 0 0 15%; /* 15% רוחב */
+    flex: 0 0 15%;
     position: relative;
     bottom: 80px;
 }
 
 .sidebar {
-    font-size: 1vw; /* גודל גופן קטן יותר */
+    font-size: 1vw; 
     border-left: 0.5px solid var(--gray);
     display: flex;
     flex-direction: column;
@@ -104,7 +104,7 @@ body, html {
 }
 
 .menu-item {
-    padding: 5px; /* ריווח פנימי קטן יותר */
+    padding: 5px; 
     cursor: pointer;
     border-bottom: 0.5px solid var(--gray);
 }
@@ -115,7 +115,7 @@ body, html {
 
 .submenu {
     display: none;
-    padding: 5px; /* ריווח פנימי קטן יותר */
+    padding: 5px; 
 }
 
 .menu-item.active .submenu {
@@ -249,7 +249,7 @@ input[type="file"] {
     outline: none;
     border: none;
     font-size: 1vw;
-    width: calc(100% - 40px); /* Adjust to fit button next to input */
+    width: calc(100% - 40px); 
 }
 
 .button-post3 {
@@ -385,9 +385,9 @@ input[type="file"] {
     text-align: center;
     align-content: center;
 }
-/* Spinner */
+
 .spinner {
-    display: none; /* הוספת תכונה זו כדי להסתיר את הספינר כברירת מחדל */
+    display: none;
     border: 8px solid var(--gray-transparent);
     border-top: 8px solid var(--blue);
     border-radius: 50%;
