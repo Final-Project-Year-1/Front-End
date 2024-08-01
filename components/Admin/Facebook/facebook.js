@@ -1,14 +1,21 @@
-const accessToken = 'EAAZAbZCZAgww4UBO0I3BFaPzZAUJqyOstdhTAlsrgPhAm2UlyOOufowQiqWVkWPrgttt9ggT591GSrOZCYSBjuu3pC4ANBZCwmUclanSICzqXrNz1T4JpMFlA87ZATIcEiSSJY2hpZCcbQBtpvzqDvMGmsAbk7U53TsnwWaQF2kxfiKorWBUePv1bJvf0x2cCLBIODl7qzof'; // Your Page Access Token
 const page_id = '403609402826152';
+let accessToken;
 
-//let accessToken;
 
-/*async function initializeFacebook() {
-    const response = await fetch('http://localhost:3000/api/api-key/facebook')
-    accessToken = await response.json()
+
+async function initializeFacebook() {
+    try {
+        const response = await fetch('http://localhost:3000/api/api-key/facebook');
+        accessToken = await response.json();
+        // After initializing Facebook and setting the access token, call fetchAllPosts
+        await fetchAllPosts(page_id, accessToken);
+    } catch (error) {
+        console.error('Error initializing Facebook:', error);
+    }
 }
 
-document.addEventListener('DOMContentLoaded', initializeFacebook);*/
+initializeFacebook();
+
 
 document.getElementById('submitButton').addEventListener('click', function() {
     const userInput = document.getElementById('userInput').value;
@@ -408,7 +415,8 @@ function uploadProfilePicture() {
 }
 
 // Initial fetch of posts
-fetchAllPosts(page_id, accessToken);
+
+
 
 const getUserFromToken = () => {
     let user = null;
