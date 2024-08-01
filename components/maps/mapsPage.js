@@ -151,7 +151,7 @@ const fetchVacationImg = async (vacation) => {
 
         // צור תגית <a> ועטוף בה את התמונה
         const link = document.createElement("a");
-        link.href = `vacationPage.html?id=${vacation._id}`;
+        link.href = `/components/vacationPage/vacationPage.html?id=${vacation._id}`;
         link.appendChild(vacationImg);
 
         // אפשר גם להוסיף CSS כדי לציין שהתמונה ניתנת ללחיצה

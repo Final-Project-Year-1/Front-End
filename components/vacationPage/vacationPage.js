@@ -1,6 +1,11 @@
-
-const _id = '66a11e251eb3f43395f7aeaf'; //fetch dynamically from URL
+const url = new URL(window.location.href);
+const params = new URLSearchParams(url.search);
+const _id = params.get('id');
+if (!_id) {
+    console.error('No vacation id found in URL');
+}
 let vacation;
+
 
 const fetchVacation = async (vacationId) => {
     const fetchVacationUrl = `http://localhost:3000/api/vacations/${vacationId}`
@@ -23,10 +28,11 @@ const matchVacationContent = async () => {
     document.getElementById("vacationSumLiGroupOf").innerHTML = `<img src="../assets/home-images/img/persons.png" alt="icon"> ${vacation?.groupOf} people`;
     document.getElementById("vacationSumLiVacationCategory").innerHTML = `<img src="../assets/home-images/img/bed.png" alt="icon"> ${vacation?.tripCategory.category}`;
     const formattedDateStart = window.getDate(vacation?.startDate);
-    const formattedDateEnd = window.getDate(vacation?.startDate);
+    const formattedDateEnd = window.getDate(vacation?.endDate);
     document.getElementById("startingDateLi").textContent = `Starting at ${formattedDateStart}`;
     document.getElementById("endingDateLi").textContent = `Ending at ${formattedDateEnd}`;
     document.getElementById("vacationTypeLi").innerHTML = `<img src="../assets/home-images/img/breakfast.png" alt="icon"> ${vacation.vacationType}`;
+    document.getElementById("vacationSumPriceP").textContent = `${vacation?.price}$`;
     document.getElementById("vacationSumPriceSpan").textContent = `${vacation?.price}$ per person`;
 
     const mainImageDiv = document.querySelector(".main-image");
@@ -120,7 +126,7 @@ document.getElementById('add-review-form').addEventListener('submit', async func
         comment: reviewText
     };
 
-    console.log(newReview);
+    console.log('Submitting new review:', newReview); // הדפס את הביקורת לפני שליחה
 
     try {
         await axios.post(addReviewUrl, newReview);
@@ -135,18 +141,31 @@ document.getElementById('add-review-form').addEventListener('submit', async func
 const reviewsWrapper = document.getElementById("reviews-wrapper");
 
 const fetchReviewsByVacationId = async (vacationId) => {
+    console.log(vacationId);
     const reviewsByVacationId = `http://localhost:3000/api/vacation/reviews/${vacationId}`
     try {
-      const response = await axios.get(reviewsByVacationId);
+      const response = await axios.get(reviewsByVacationId);;
       const reviews = response.data;
-      reviews.forEach((review) => createReviewDiv(review));
+      if (reviews.length === 0) {
+        // אם אין תגובות, הצג את ההודעה "be the first to..."
+        const messageDiv = document.createElement('div');
+        messageDiv.textContent = 'Be the first to leave a review!';
+        reviewsContainer.appendChild(messageDiv);
+    } else {
+        // אם יש תגובות, צור את ה-DIVים המתאימים
+        reviews.forEach((review) => createReviewDiv(review));
+    }
     } 
     catch (error) {
       console.log(error);
     }
 }
 
+
+
 const createReviewDiv = (review) => {
+    console.log('Creating review for:', review);
+
     const reviewElement = document.createElement("div");
     reviewElement.classList.add("review");
     reviewElement.id = `review-${review._id}`;
@@ -160,6 +179,7 @@ const createReviewDiv = (review) => {
     reviewRating.textContent = filledStars + emptyStars;
 
     const user = getUserFromToken();
+    console.log('user', user);
     const currentUserId = user.user._id;
 
     const commentAndDeleteDiv = document.createElement("div");
@@ -249,54 +269,53 @@ document.getElementById('add-review-form').addEventListener('submit', async (eve
 });
 
 
-// document.getElementById('person-selection-form').addEventListener('submit', async function(event) {
-//     event.preventDefault();
+const form = document.getElementById("person-selection-form");
+    const availabilityMessage = document.getElementById("availability-message");
+    const spotsTakenDiv = document.getElementById("spotsTakenDiv");
+    const bookNowButton = document.querySelector(".order-button"); // ודא שהכפתור נכון
+    const vacationSumPriceP = document.getElementById("vacationSumPriceP");
+    const vacationSumPriceSpan = document.getElementById("vacationSumPriceSpan");
+
+    // הצג את המחיר לאדם
+    vacationSumPriceSpan.textContent = `${vacation?.price}$ per person`;
+
+    // הקש על שליחת הטופס
+    form.addEventListener("submit", function(event) {
+        event.preventDefault(); // מנע את שליחת הטופס
+
+        // קבל את מספר האנשים מהקלט
+        const numberOfPersons = parseInt(document.getElementById("number-of-persons").value, 10);
+
+        // בדוק אם מספר האנשים קטן או שווה למספר המקומות הנותרים
+        if (numberOfPersons <= vacation?.spotsLeft && numberOfPersons > 0) {
+            localStorage.setItem("numOfPeople", numberOfPersons);
+            availabilityMessage.textContent = `Lucky You! there are enough spots!`;
+            availabilityMessage.style.color = 'green'; // הגדר את צבע הטקסט לירוק
+            bookNowButton.disabled = false; // אפשר את כפתור "Book Now"
+            bookNowButton.classList.remove('disabled'); // הסר את ה-class שמונע לחיצה
+            const totalAmount = numberOfPersons * vacation?.price;
+            vacationSumPriceP.textContent = `${totalAmount}$`;
+        } else {
+            availabilityMessage.textContent = "Not enough spots available.";
+            availabilityMessage.style.color = 'red'; // הגדר את צבע הטקסט לאדום במקרה שאין מספיק מקומות
+            bookNowButton.disabled = true; // חסום את כפתור "Book Now"
+            bookNowButton.classList.add('disabled'); // הוסף את ה-class שמונע לחיצה
+            const totalAmount = 1 * vacation?.price;
+            vacationSumPriceP.textContent = `${totalAmount}$`;
+        }
+    });
+
+    const loginMessage = document.querySelector("#login-message");
+
+    bookNowButton.addEventListener("click", function(event) {
+        const token = localStorage.getItem("token");
     
-//     const numberOfPersons = document.getElementById('number-of-persons').value;
-//     const vacationId = '66a11e251eb3f43395f7aeaf'; // Replace with the actual vacation ID
-    
-//     try {
-//         const response = await axios.get('http://localhost:3000/api/vacation/spots-left', {
-//             vacationId: vacationId,
-//             passengers: parseInt(numberOfPersons)
-//         }, {
-//             headers: {
-//                 'Content-Type': 'application/json'
-//             }
-//         });
-        
-//         const messageElement = document.getElementById('availability-message');
-        
-//         if (response.status === 200) {
-//             messageElement.textContent = 'Spots are available!';
-//             messageElement.style.color = 'green';
-//         } else {
-//             messageElement.textContent = 'Not enough spots available!';
-//             messageElement.style.color = 'red';
-//         }
-//     } catch (error) {
-//         console.error("Error checking spots:", error);
-//         const messageElement = document.getElementById('availability-message');
-//         messageElement.textContent = 'Error checking availability. Please try again.';
-//         messageElement.style.color = 'red';
-//     }
-// });
-
-
-// Footer
-// if (localStorage.getItem('token') !== '') {
-//     const userObj = getUserFromToken();
-//     document.querySelector('.top-button-logged-in').style.display = 'block';
-//     document.querySelector('.top-button').style.display = 'none';
-//     document.getElementById('hello-user').textContent = 'Hello ${userObj.user.firstName} ${userObj.user.lastName}';
-
-//     if (userObj.token) {
-//         const decodedToken = jwt_decode(userObj.token);
-//         // Extract role from the decoded token if present
-//         const userRole = decodedToken.role || userObj.user.role;
-
-//         // Check if the user role is admin
-//         if (userRole && userRole === 'admin') {
-//             document.getElementById('admin-section').style.display = 'block';
-//         }
-// }}
+        if (!token) {
+            loginMessage.textContent = "Please log in before booking.";
+            loginMessage.classList.remove("hidden");
+            event.preventDefault();
+        } else {
+            loginMessage.classList.add("hidden");
+            window.location.href = `/components/User/Purchases/purchase.html?id=${vacation._id}`;
+        }
+    });

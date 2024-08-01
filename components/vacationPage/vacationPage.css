@@ -164,6 +164,14 @@ body, html {
     cursor: pointer;
 }
 
+.order-button.disabled {
+    background-color: var(--gray-dark); /* צבע רקע אפור בהיר */
+    cursor: not-allowed; /* שינוי הסמן לקרסר שמראה שאין אפשרות ללחוץ */
+    opacity: 0.6; /* שקיפות קלה */
+    pointer-events: none; /* מניעת לחיצות */
+}
+
+
 /* middle part */
 .content-wrapper {
     display: flex;
@@ -764,4 +772,14 @@ body, html {
     border: none;
     border-radius: 12px;
     cursor: pointer;
+}
+
+.hidden {
+    display: none;
+}
+
+#login-message {
+    color: red;
+    margin-left: 10px;
+    font-size: 14px;
 }
