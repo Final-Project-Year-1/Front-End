@@ -1,8 +1,6 @@
 const page_id = '403609402826152';
 let accessToken;
 
-
-
 async function initializeFacebook() {
     try {
         const response = await fetch('http://localhost:3000/api/api-key/facebook');
