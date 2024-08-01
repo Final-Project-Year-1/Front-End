@@ -136,7 +136,7 @@ form button:hover {
 .container {
     width: 80%;
     margin: 0 auto;
-    text-align: center;
+    text-align: left;
     padding: 20px;
 }
 
@@ -144,6 +144,7 @@ h1 {
     margin-bottom: 20px;
     font-size: 24px;
     color: var(--dark-blue);
+    text-align: center;
 }
 
 .search-form {
