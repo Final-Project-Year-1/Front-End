@@ -65,7 +65,6 @@ document.addEventListener("DOMContentLoaded", function () {
         populateSelectOptions(false, true);
     });
 
-
     async function showForm(formId) {
         clearAllForms();
         document.querySelectorAll('.form-section').forEach(form => form.style.display = 'none');
@@ -399,27 +398,27 @@ document.addEventListener("DOMContentLoaded", function () {
         companySelect.value = vacation.companyName._id;
         categorySelect.value = vacation.tripCategory._id;
     }
+
     function loadExistingImage(imageName) {
         const imageUrl = `${getVacationImg}${imageName}`;
-    
 
         fetch(imageUrl)
-        .then(response => response.blob())
-        .then(blob => {
-            const file = new File([blob], imageName, { type: blob.type });
-            const dataTransfer = new DataTransfer();
-            dataTransfer.items.add(file);
-            const fileInput = document.getElementById('images-update');
-            fileInput.files = dataTransfer.files;
+            .then(response => response.blob())
+            .then(blob => {
+                const file = new File([blob], imageName, { type: blob.type });
+                const dataTransfer = new DataTransfer();
+                dataTransfer.items.add(file);
+                const fileInput = document.getElementById('images-update');
+                fileInput.files = dataTransfer.files;
 
-            // Create an event to trigger the input change
-            const event = new Event('change', { bubbles: true });
-            fileInput.dispatchEvent(event);
-        })
-        .catch(error => {
-            console.error('Error loading existing image:', error);
-        });
-}
+                // Create an event to trigger the input change
+                const event = new Event('change', { bubbles: true });
+                fileInput.dispatchEvent(event);
+            })
+            .catch(error => {
+                console.error('Error loading existing image:', error);
+            });
+    }
 
     function displayVacationCard(vacation) {
         const vacationCardContainer = document.getElementById('vacation-card-container');
@@ -499,34 +498,54 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
+    function validateDescription(description, errorElementId) {
+        const words = description.split(/\s+/).filter(word => word); // Split and filter out empty strings
+        const firstWord = words[0] || ""; // First word or empty string if no words
+        const wordCount = words.length;
+        if (firstWord.length < 2 || wordCount > 100 || /\d/.test(description)) {
+            document.getElementById(errorElementId).textContent = 'Maximum 100 words and atleast 2 letters.';
+            return false;
+        }
+        return true;
+    }
+
+    function validateDestination(destination, errorElementId) {
+        const words = destination.split(/\s+/).filter(word => word); // Split and filter out empty strings
+        const firstWord = words[0] || ""; // First word or empty string if no words
+        const wordCount = words.length;
+        if (firstWord.length < 2 || wordCount > 20 || /\d/.test(destination)) {
+            document.getElementById(errorElementId).textContent = 'Maximum 20 words and atleast 2 letters';
+            return false;
+        }
+        return true;
+    }
+
     async function validateFormData(formData, isUpdate = false, spotsTaken = 0) {
         let isValid = true;
-    
-        // Validate destination (only letters and at least 2 characters)
+
+        // Validate destination (1 to 20 words with first word at least 2 letters)
         const destination = formData.get('destination').trim();
-        if (!/^[a-zA-Z\s]{2,}$/.test(destination)) {
-            document.getElementById(isUpdate ? 'destination-update-error' : 'destination-error').textContent = 'Destination must be at least 2 letters.';
+        if (!validateDestination(destination, isUpdate ? 'destination-update-error' : 'destination-error')) {
             isValid = false;
         }
-    
-        // Validate description (only letters and at least 2 characters)
+
+        // Validate description (1 to 100 words with first word at least 2 letters)
         const description = formData.get('description').trim();
-        if (!/^[a-zA-Z\s]{2,}$/.test(description)) {
-            document.getElementById(isUpdate ? 'description-update-error' : 'description-error').textContent = 'Description must be at least 2 letters.';
+        if (!validateDescription(description, isUpdate ? 'description-update-error' : 'description-error')) {
             isValid = false;
         }
-    
+
         // Validate price (0 to 50000)
         const price = parseFloat(formData.get('price').trim());
         if (isNaN(price) || price < 0 || price > 50000) {
             document.getElementById(isUpdate ? 'price-update-error' : 'price-error').textContent = 'Price must be between 0 and 50000.';
             isValid = false;
         }
-    
+
         // Validate group size (1 to 100) and spotsTaken constraint
         const groupOf = parseInt(formData.get('groupOf').trim());
         const parsedSpotsTaken = parseInt(spotsTaken);
-    
+
         if (isNaN(groupOf) || groupOf < 1 || groupOf > 100) {
             document.getElementById(isUpdate ? 'group-of-update-error' : 'group-of-error').textContent = 'Group size must be between 1 and 100.';
             isValid = false;
@@ -534,7 +553,7 @@ document.addEventListener("DOMContentLoaded", function () {
             document.getElementById(isUpdate ? 'group-of-update-error' : 'group-of-error').textContent = `Group size must be at least ${parsedSpotsTaken}.`;
             isValid = false;
         }
-    
+
         // Validate dates
         const startDate = formData.get('startDate').trim();
         const endDate = formData.get('endDate').trim();
@@ -550,22 +569,21 @@ document.addEventListener("DOMContentLoaded", function () {
             document.getElementById(isUpdate ? 'end-date-update-error' : 'end-date-error').textContent = 'End date must be after start date.';
             isValid = false;
         }
-    
+
         // Validate company name (ID)
         const companyName = formData.get('companyName').trim();
         if (!await validateId(findCompanyURL, companyName, isUpdate ? 'company-name-update-validity' : 'company-name-validity')) {
             isValid = false;
         }
-    
+
         // Validate trip category (ID)
         const tripCategory = formData.get('tripCategory').trim();
         if (!await validateId(findCategoryURL, tripCategory, isUpdate ? 'trip-category-update-validity' : 'trip-category-validity')) {
             isValid = false;
         }
-    
+
         return isValid;
     }
-    
 
     function clearErrorMessages() {
         document.querySelectorAll('.error-message').forEach(el => el.textContent = '');
