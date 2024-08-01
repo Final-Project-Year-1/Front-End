@@ -286,6 +286,9 @@ const form = document.getElementById("person-selection-form");
         // קבל את מספר האנשים מהקלט
         const numberOfPersons = parseInt(document.getElementById("number-of-persons").value, 10);
 
+        // שמור את המספר בלוקל סטורג
+        localStorage.setItem("numPassengers", numberOfPersons);
+        
         // בדוק אם מספר האנשים קטן או שווה למספר המקומות הנותרים
         if (numberOfPersons <= vacation?.spotsLeft && numberOfPersons > 0) {
             localStorage.setItem("numOfPeople", numberOfPersons);
