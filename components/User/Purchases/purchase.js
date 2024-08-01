@@ -2,8 +2,9 @@ const BookingQueryUrl = 'http://localhost:3000/api/newbooking';
 
 const url = new URL(window.location.href);
 const params = new URLSearchParams(url.search);
-const _id = params.get('id');
-if (!_id) {
+const vacationIdUrl = params.get('id');
+console.log(vacationIdUrl)
+if (!vacationIdUrl) {
     console.error('No vacation id found in URL');
 }
 
@@ -20,7 +21,7 @@ const fetchVacation = async (vacationId) => {
         console.log(error);
     }
 }
-fetchVacation(_id);
+fetchVacation(vacationIdUrl);
 const userObj = window.getUserFromToken();
 window.authVerificationAdjustments();
 
@@ -30,18 +31,19 @@ const $nextButton = $("#next-button");
 const $contentContainer = $("#content-container");
 let currentStep = 0;
 
+const numPassengers = localStorage.getItem("numPassengers");
+
 const updateVacationCard = (vacation) => {
   $("#destination").text(vacation.destination);
   $("#description").text(vacation.description);
   $("#start-date").text(window.getDate(vacation.startDate));
   $("#end-date").text(window.getDate(vacation.endDate));
-  $("#price").text(vacation.price);
+  $("#price").text(vacation.price*numPassengers+'$');
   $("#vacation-type").text(vacation.vacationType);
   $("#company-name").text(vacation.companyName?.company || "");
   $("#trip-category").text(vacation.tripCategory?.category || "");
   $("#rating").text(vacation.rating);
 
-  const numPassengers = localStorage.getItem("numPassengers");
   document.getElementById("num-passengers").textContent = numPassengers ? numPassengers : "Not specified";
   
   window.fetchVacationImgWithName(vacation.imageName).then((imageUrl) => {
@@ -50,52 +52,16 @@ const updateVacationCard = (vacation) => {
       imageUrl || "https://via.placeholder.com/150"
     );
   });
-//   sessionStorage.setItem("booking", JSON.stringify(booking));
   
 };
 
-// const fetchBookingsForUser = async (userId) => {
-//   try {
-//     const response = await axios.get(
-//       `http://localhost:3000/api/bookings/bookings-by-user/${userId}?populate=true`
-//     );
-//     return response.data;
-//   } catch (error) {
-//     console.error("Error fetching bookings:", error);
-//     return [];
-//   }
-// };
-
-// const initializePage = async () => {
-//   const userObj = getUserFromToken();
-//   const bookings = await fetchBookingsForUser(userObj.user._id);
-
-//   if (bookings.length > 0) {
-//     const booking = bookings[0];
-//     const vacation = booking.vacationId;
-
-//     updateVacationCard(vacation);
-//     $("#num-passengers").text(booking.Passengers);
-
-//     generatePassengerFields(booking.Passengers);
-
-//     sessionStorage.setItem("booking", JSON.stringify(booking));
-//   }
-// };
 
 const initializePage = async () => {
-    // קח את נתוני מספר הנוסעים מהלוקל סטורג
     const numPassengers = localStorage.getItem("numPassengers");
-      
-    // עדכן את פרטי החופשה בעמוד
-    
-    // הצג את מספר הנוסעים בעמוד
     if (numPassengers) {
       $("#num-passengers").text(numPassengers);
-      generatePassengerFields(numPassengers); // הנחתי שאתה זקוק לפונקציה זו לצורך יצירת שדות נוסעים
+      generatePassengerFields(numPassengers);
     }
-  
-    // לא שומר נתוני הזמנה ב-sessionStorage
   };
   
 function generatePassengerFields(numPassengers) {
@@ -365,7 +331,6 @@ $backButton.on("click", function () {
 $nextButton.on("click", handleNextClick);
 
 function storePassengerData() {
-//   const numPassengers = parseInt($("#num-passengers").text(), 10);
     const numPassengers = localStorage.getItem("numPassengers");
     console.log(numPassengers);
     const passengers = [];
@@ -398,7 +363,7 @@ function updateFinishSection(vacation) {
   $("#finish-description").text(vacation.description);
   $("#finish-start-date").text(window.getDate(vacation.startDate));
   $("#finish-end-date").text(window.getDate(vacation.endDate));
-  $("#finish-price").text(vacation.price);
+  $("#finish-price").text(vacation.price*numPassengers+'$');
   $("#finish-num-passengers").text($("#num-passengers").text());
   $("#finish-vacation-type").text(vacation.vacationType);
   $("#finish-company-name").text(vacation.companyName?.company || "");
@@ -450,7 +415,6 @@ function loadStepContent() {
       break;
     case 2:
       const storedBooking = JSON.parse(sessionStorage.getItem("booking"));
-    //   const vacation = storedBooking.vacationId;
       updateFinishSection(vacation);
       displayPassengerSummary();
       $("#booking-number").text(storedBooking.OrderNumber);
@@ -459,22 +423,21 @@ function loadStepContent() {
   }
 }
 
-// function handlePaymentSubmit(event) {
-//   event.preventDefault();
-//   if (validateStep(currentStep)) {
-//     alert("Payment processed.");
-//     currentStep++;
-//     updateSteps();
-//     $(window).scrollTop(0);
-//   } else {
-//     alert("Please fill out all required fields correctly.");
-//   }
-// }
 function handlePaymentSubmit(event) {
     event.preventDefault();
+    console.log(userObj.user._id);
+    console.log(localStorage.getItem("numPassengers"))
     if (validateStep(currentStep)) {
-        createBooking().then((booking) => {
-            // עדכון השלב הבא לאחר הצלחה
+        const bookingData = {
+            vacationId: vacationIdUrl,
+            userId: userObj.user._id, 
+            Passengers: Number(localStorage.getItem("numPassengers")),
+            status: 'confirmed',
+        };
+
+        
+        window.interceptorsService.setToken(userObj.user._id); 
+        createBooking(bookingData).then((booking) => {
             currentStep++;
             updateSteps();
             $(window).scrollTop(0);
@@ -485,25 +448,12 @@ function handlePaymentSubmit(event) {
         alert("Please fill out all required fields correctly.");
     }
 }
-const createBooking = async () => {
-    const Passengers = localStorage.getItem("numPassengers");
-    const vacationId = _id;
-    
 
-    const bookingData = {
-        vacationId,
-        userId,
-        Passengers,
-        status:'confirmed',
-    };
-
-    const token = localStorage.getItem('authToken'); // הנחה שהטוקן נשמר ב-localStorage
+const createBooking = async (bookingData) => {
+    console.log('Creating booking with data:', bookingData);
 
     try {
-        const userObj = window.getUserFromToken();
-        window.interceptorsService.setToken(userObj.token);
         const response = await axios.post(BookingQueryUrl, bookingData);
-        const bookings = response.data;
         const addedBooking = response.data;
         sessionStorage.setItem("booking", JSON.stringify(addedBooking));
         return addedBooking;
@@ -512,7 +462,6 @@ const createBooking = async () => {
         throw error;
     }
 };
-
 
 initializePage();
 updateSteps();
