@@ -244,9 +244,23 @@ document.getElementById('view-all-button').addEventListener('click', () => {
 
     async function deleteVacation(vacationId) {
         try {
+            const token = userObj.token;
+    
+            const headers = {
+                "Content-Type": "application/json",
+            };
+            if (token) {
+                window.interceptorsService.setToken(token);
+                headers['Authorization'] = `Bearer ${token}`;
+            }
+    
+            console.log("Headers:", headers);
+    
             const response = await fetch(`${deleteVacationURL}${vacationId}`, {
-                method: 'DELETE'
+                method: 'DELETE',
+                headers: headers
             });
+    
             if (response.ok) {
                 document.getElementById(vacationId).remove();
                 updateTotalVacationsCount();
@@ -257,6 +271,7 @@ document.getElementById('view-all-button').addEventListener('click', () => {
             console.error('Error:', error);
         }
     }
+    
 
     function appendVacationCard(vacation) {
         const vacationList = document.getElementById('vacation-list');
