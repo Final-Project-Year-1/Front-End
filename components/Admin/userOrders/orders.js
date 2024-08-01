@@ -2,52 +2,31 @@ let currentIndex = 0; // Declare currentIndex at the top
 const ITEMS_PER_PAGE = 9;
 let currentBookings = [];
 
-const apiUrl = "http://localhost:3000/api/bookings";
+const userObj = window.getUserFromToken();
+window.authVerificationAdjustments();
 
-document.addEventListener("DOMContentLoaded", async function () {
-  try {
-    const userObj = getUserFromToken();
-    if (userObj && userObj.token) {
-      const response = await axios.get(apiUrl, {
-        headers: {
-          Authorization: `Bearer ${userObj.token}`
-        }
-      });
-      const bookings = response.data;
-      displayBookings(bookings);
-
-      const topButtonLoggedIn = document.querySelector(".top-button-logged-in");
-      const topButton = document.querySelector(".top-button");
-
-      if (topButtonLoggedIn && topButton) {
-        if (userObj.user) {
-          topButtonLoggedIn.style.display = "block";
-          topButton.style.display = "none";
-          document.getElementById("hello-user").textContent = `Hello ${userObj.user.firstName} ${userObj.user.lastName}`;
-        }
-      }
-    } else {
-      redirectToLogin();
-    }
-  } catch (error) {
-    handleError(error);
+$(window).on("load", function() {
+  const token = localStorage.getItem("token");
+  if (token) {
+    window.interceptorsService.setToken(token);
+    fetchAllBooking();
+  }
+  else {
+    redirectToLogin();
   }
 });
 
-const getUserFromToken = () => {
-  let user = null;
-  const token = localStorage.getItem("token");
-
-  if (token) {
-    const encodedObject = jwt_decode(token);
-    user = encodedObject.user;
+const fetchBookingsUrl = "http://localhost:3000/api/bookings/";
+const fetchAllBooking = async () =>{
+  try {
+      const response = await axios.get(fetchBookingsUrl)
+      const bookings = response.data;
+      console.log(bookings);
+      displayBookings(bookings);
+  } catch (error) {
+    console.log(error);
   }
-
-  return {
-    user: user,
-    token: token
-  };
-};
+}
 
 const redirectToLogin = () => {
   window.location.href = "../../Auth/Login/login.html";
@@ -61,20 +40,11 @@ document.getElementById('search-id').addEventListener('keypress', function (e) {
 
 const fetchBookings = async () => {
   try {
-    const userObj = getUserFromToken();
-    if (!userObj || !userObj.token) {
-      redirectToLogin();
-      return [];
-    }
-
-    const response = await axios.get(apiUrl, {
-      headers: {
-        Authorization: `Bearer ${userObj.token}`
-      }
-    });
+    window.interceptorsService.setToken(userObj.token);
+    const response = await axios.get(fetchBookingsUrl)
     return response.data;
   } catch (error) {
-    handleError(error);
+    console.log(error)
     return [];
   }
 };
@@ -95,23 +65,23 @@ function searchBooking() {
     let filteredBookings = [];
 
     if (searchCriteria === 'OrderNumber') {
-      filteredBookings = bookings.filter(b => b.OrderNumber.toLowerCase().includes(searchId));
+      filteredBookings = bookings.filter(b => b?.OrderNumber.toLowerCase().includes(searchId));
     } else if (searchCriteria === 'vacationId') {
-      filteredBookings = bookings.filter(b => b.vacationId._id.toLowerCase().includes(searchId));
+      filteredBookings = bookings.filter(b => b?.vacationId?._id.toLowerCase().includes(searchId));
     } else if (searchCriteria === 'status') {
-      filteredBookings = bookings.filter(b => b.status.toLowerCase().includes(searchId));
+      filteredBookings = bookings.filter(b => b?.status.toLowerCase().includes(searchId));
     } else if (searchCriteria === 'email') {
-      filteredBookings = bookings.filter(b => b.userId.email && b.userId.email.toLowerCase().includes(searchId));
+      filteredBookings = bookings.filter(b => b?.userId?.email && b?.userId?.email.toLowerCase().includes(searchId));
     } else if (searchCriteria === 'userName') {
       filteredBookings = bookings.filter(b => {
-        const fullName = `${b.userId.firstName || ''} ${b.userId.lastName || ''}`.toLowerCase();
+        const fullName = `${b?.userId?.firstName || ''} ${b?.userId?.lastName || ''}`.toLowerCase();
         return fullName.includes(searchId);
       });
     } else if (searchCriteria === 'companyName') {
-      filteredBookings = bookings.filter(b => b.vacationId.companyName && b.vacationId.companyName.company.toLowerCase().includes(searchId));
+      filteredBookings = bookings.filter(b => b?.vacationId?.companyName && b?.vacationId?.companyName?.company.toLowerCase().includes(searchId));
     }
 
-    currentIndex = 0; // Reset index for new search
+    currentIndex = 0; 
     displayBookings(filteredBookings, searchCriteria, searchId);
   });
 }
@@ -119,14 +89,14 @@ function searchBooking() {
 function clearSearch() {
   document.getElementById('search-id').value = '';
   document.querySelector('.dropbtn').textContent = 'Select Search Criteria';
-  currentIndex = 0; // Reset index for cleared search
+  currentIndex = 0;
   fetchBookings().then(displayBookings);
 }
 
 function displayBookings(bookings, searchCriteria = '', searchId = '') {
   currentBookings = bookings;
   const cardsContainer = document.getElementById('cards-container');
-  cardsContainer.innerHTML = ''; // Clear existing content
+  cardsContainer.innerHTML = ''; 
 
   if (bookings.length === 0) {
     const noResultsMessage = document.createElement('p');
@@ -148,31 +118,31 @@ function displayBookings(bookings, searchCriteria = '', searchId = '') {
 
     const orderNumber = document.createElement('div');
     orderNumber.classList.add('order-number');
-    orderNumber.textContent = `Order Number: ${booking.OrderNumber}`;
+    orderNumber.textContent = `Order Number: ${booking?.OrderNumber}`;
 
     const info = document.createElement('div');
     info.classList.add('info');
     
     const vacationId = document.createElement('p');
-    vacationId.innerHTML = `<strong>Vacation ID:</strong> ${booking.vacationId._id}`;
+    vacationId.innerHTML = `<strong>Vacation ID:</strong> ${booking?.vacationId?._id}`;
     
     const userName = document.createElement('p');
-    userName.innerHTML = `<strong>User Name:</strong> ${booking.userId.firstName || 'N/A'} ${booking.userId.lastName || 'N/A'}`;
+    userName.innerHTML = `<strong>User Name:</strong> ${booking?.userId?.firstName || 'N/A'} ${booking?.userId?.lastName || 'N/A'}`;
     
     const email = document.createElement('p');
-    email.innerHTML = `<strong>Email:</strong> ${booking.userId.email || 'N/A'}`;
+    email.innerHTML = `<strong>Email:</strong> ${booking?.userId?.email || 'N/A'}`;
     
     const companyName = document.createElement('p');
-    companyName.innerHTML = `<strong>Company Name:</strong> ${booking.vacationId.companyName ? booking.vacationId.companyName.company : 'N/A'}`;
+    companyName.innerHTML = `<strong>Company Name:</strong> ${booking?.vacationId?.companyName ? booking?.vacationId?.companyName?.company : 'N/A'}`;
     
     const bookingDate = document.createElement('p');
-    bookingDate.innerHTML = `<strong>Booking Date:</strong> ${new Date(booking.bookingDate).toLocaleDateString()}`;
+    bookingDate.innerHTML = `<strong>Booking Date:</strong> ${new Date(booking?.bookingDate).toLocaleDateString()}`;
     
     const passengers = document.createElement('p');
-    passengers.innerHTML = `<strong>Passengers:</strong> ${booking.Passengers}`;
+    passengers.innerHTML = `<strong>Passengers:</strong> ${booking?.Passengers}`;
     
     const status = document.createElement('p');
-    status.innerHTML = `<strong>Status:</strong> ${booking.status}`;
+    status.innerHTML = `<strong>Status:</strong> ${booking?.status}`;
     
     info.appendChild(vacationId);
     info.appendChild(userName);
@@ -205,22 +175,6 @@ logoutButton.addEventListener("click", () => {
   redirectToLogin();
 });
 
-function handleError(error) {
-  console.error("Error fetching data:", error);
-  if (error.response) {
-    console.error("Response data:", error.response.data);
-    console.error("Response status:", error.response.status);
-    console.error("Response headers:", error.response.headers);
-    if (error.response.status === 401) {
-      redirectToLogin();
-    }
-  } else if (error.request) {
-    console.error("Request data:", error.request);
-  } else {
-    console.error("Error message:", error.message);
-  }
-}
-
 const searchFormButtonBack = document.getElementById('searchFormButtonBack');
 
 searchFormButtonBack.addEventListener('click', async function () {
@@ -234,6 +188,8 @@ searchFormButtonBack.addEventListener('click', async function () {
         departureMonth: parseInt(month)
     };
 
+    console.log(searchQuery)
+
     try {
         const userObj = getUserFromToken();
         if (!userObj || !userObj.token) {
@@ -241,23 +197,23 @@ searchFormButtonBack.addEventListener('click', async function () {
             return;
         }
 
-        const response = await axios.post('http://localhost:3000/api/user-booking-query', searchQuery, {
-            headers: {
-                Authorization: `Bearer ${userObj.token}`
-            }
-        });
+        const BookingQueryUrl= "http://localhost:3000/api/user-booking-query/"; 
+        
+        window.interceptorsService.setToken(userObj.token);
+        const response = await axios.post(BookingQueryUrl, searchQuery);
 
         const bookings = response.data;
         displaySearchBackBookings(bookings);
 
     } catch (error) {
-        handleError(error);
+        console.log(error);
     }
 });
 
+
 function displaySearchBackBookings(bookings) {
   const cardsContainer = document.getElementById('cards-container');
-  cardsContainer.innerHTML = ''; // Clear existing content
+  cardsContainer.innerHTML = ''; 
 
   if (bookings.length === 0) {
     const noResultsMessage = document.createElement('p');
@@ -277,7 +233,7 @@ function displaySearchBackBookings(bookings) {
 
     const orderNumber = document.createElement('div');
     orderNumber.classList.add('order-number');
-    orderNumber.textContent = `Order Number: ${booking.orderNumber}`;
+    orderNumber.textContent = `Order Number: ${booking?.OrderNumber}`;
 
     const info = document.createElement('div');
     info.classList.add('info');
