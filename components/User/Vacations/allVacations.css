@@ -608,8 +608,8 @@ input[type="date"] {
     color: var(--black);
     border: 1px solid #ddd;
     border-radius: 4px;
-    margin: 5px;
-    margin-top: 18px;
+    margin-left: 11px;
+    margin-top: -7px;
 }
   
 .dropdown-item {

@@ -12,14 +12,20 @@
 </head>
 
 <body>
-    <div class="header">
-        <img src="../../assets/home-images/img/logo-vacationHub.png" id="logo-top" class="logo"
-            onclick="window.location.href='../../Home/home.html'">
-        <div class="logout-container">
-            <span id="hello-user"></span>
-
-            <button class="logout-button" id="logout">Log out</button>
-        </div>
+    <div class="top">
+        <span>
+            <a href="../../Home/home.html">
+                <img src="../../assets/home-images/img/logo-vacationHub.png" id="logo-top" width="200px">
+            </a>
+        </span>
+        <span class="top-button">
+            <a href="../../Auth/Register/register.html" id="register">Register</a>
+            <a href="../../Auth/Login/login.html" id="login">Log in</a>
+        </span>
+        <span class="top-button-logged-in" style="display: none;">
+            <span id="hello-user" class="user-info"></span>
+            <a href="../../Auth/Login/login.html" id="logout" class="user-info">Logout</a>
+        </span>
     </div>
     <img src="../../assets/purchaseImages/purchaseImage.jpg" class="mid-image" alt="Background Image">
     <div class="progress-container">
@@ -150,13 +156,57 @@
         <button class="btn" id="back-button">Back</button>
         <button class="btn" id="next-button">Continue</button>
     </div>
-    <div class="footer-separator"></div>
-    <div class="footer-text">
-        <p>© 2024 VacationHub. All Rights Reserved. Your ultimate travel companion. Discover, plan, and book your
-            perfect getaway with us.</p>
+    <!-- <div class="footer-separator"></div> -->
+    <div class="footer">
+        <div class="footer-sections">
+            <div class="footer-section">
+                <h3>User Access</h3>
+                <ul>
+                    <li><a href="../Auth/Register/register.html">Register</a></li>
+                    <li><a href="../Auth/Login/login.html">Login</a></li>
+                    <li><a href="../Home/home.html">Home</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Company</h3>
+                <ul>
+                    <li><a href="../aboutUs/about.html">About Us</a></li>
+                    <li><a href="../viewport/reviews.html">Reviews</a></li>
+                    <li><a href="../blog/blog.html">Blog</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Support</h3>
+                <ul>
+                    <li><a href="../FAQs/FAQs.html">FAQ</a></li>
+                    <li><a href="../PrivacyPolicy/PrivacyPolicy.html">Privacy Policy</a></li>
+                    <li><a href="../terms/terms.html">Terms of Service</a></li>
+                    
+                </ul>
+            </div>
+            <div class="footer-section" id="admin-section" style="display: none;">
+                <h3>Admin</h3>
+                <ul>
+                    <li><a href="../Admin/Facebook/facebook.html" id="admin-link">Facebook Page</a></li>
+                    <li><a href="../Admin/userorders /userorder.html" id="admin-link">Orders Management</a></li>
+                    <li><a href="../Admin/addvacation/add.html" id="admin-link">Vacation Management</a></li>
+                    <li><a href="../Admin/add/addComp.html" id="admin-link">Company Management</a></li>
+
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>© 2024 VacationHub. All Rights Reserved.</span>
+            <span>Your ultimate travel companion. Discover, plan, and book your perfect getaway with us.</span>
+        </div>
     </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/jwt-decode/build/jwt-decode.min.js"></script>
+    <script src="../../services/authService.js"></script>
+    <script src="../../services/imageService.js"></script>
+    <script src="../../services/datesService.js"></script>
+    <script src="../../services/interceptorService.js"></script>
     <script src="purchase.js"></script>
 </body>
 
