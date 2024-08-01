@@ -1,6 +1,14 @@
 const accessToken = 'EAAZAbZCZAgww4UBO0I3BFaPzZAUJqyOstdhTAlsrgPhAm2UlyOOufowQiqWVkWPrgttt9ggT591GSrOZCYSBjuu3pC4ANBZCwmUclanSICzqXrNz1T4JpMFlA87ZATIcEiSSJY2hpZCcbQBtpvzqDvMGmsAbk7U53TsnwWaQF2kxfiKorWBUePv1bJvf0x2cCLBIODl7qzof'; // Your Page Access Token
 const page_id = '403609402826152';
 
+//let accessToken;
+
+/*async function initializeFacebook() {
+    const response = await fetch('http://localhost:3000/api/api-key/facebook')
+    accessToken = await response.json()
+}
+
+document.addEventListener('DOMContentLoaded', initializeFacebook);*/
 
 document.getElementById('submitButton').addEventListener('click', function() {
     const userInput = document.getElementById('userInput').value;
