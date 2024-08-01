@@ -392,13 +392,34 @@ document.addEventListener("DOMContentLoaded", function () {
         document.getElementById('company-name-update').value = vacation.companyName._id; // Ensure this matches the select option value
         document.getElementById('trip-category-update').value = vacation.tripCategory._id; // Ensure this matches the select option value
         document.getElementById('vacation-image-update').value = vacation.imageName;
-
+        loadExistingImage(vacation.imageName);
         const companySelect = document.getElementById('company-name-update');
         const categorySelect = document.getElementById('trip-category-update');
 
         companySelect.value = vacation.companyName._id;
         categorySelect.value = vacation.tripCategory._id;
     }
+    function loadExistingImage(imageName) {
+        const imageUrl = `${getVacationImg}${imageName}`;
+    
+
+        fetch(imageUrl)
+        .then(response => response.blob())
+        .then(blob => {
+            const file = new File([blob], imageName, { type: blob.type });
+            const dataTransfer = new DataTransfer();
+            dataTransfer.items.add(file);
+            const fileInput = document.getElementById('images-update');
+            fileInput.files = dataTransfer.files;
+
+            // Create an event to trigger the input change
+            const event = new Event('change', { bubbles: true });
+            fileInput.dispatchEvent(event);
+        })
+        .catch(error => {
+            console.error('Error loading existing image:', error);
+        });
+}
 
     function displayVacationCard(vacation) {
         const vacationCardContainer = document.getElementById('vacation-card-container');
@@ -480,38 +501,40 @@ document.addEventListener("DOMContentLoaded", function () {
 
     async function validateFormData(formData, isUpdate = false, spotsTaken = 0) {
         let isValid = true;
-
+    
         // Validate destination (only letters and at least 2 characters)
         const destination = formData.get('destination').trim();
         if (!/^[a-zA-Z\s]{2,}$/.test(destination)) {
             document.getElementById(isUpdate ? 'destination-update-error' : 'destination-error').textContent = 'Destination must be at least 2 letters.';
             isValid = false;
         }
-
+    
         // Validate description (only letters and at least 2 characters)
         const description = formData.get('description').trim();
         if (!/^[a-zA-Z\s]{2,}$/.test(description)) {
             document.getElementById(isUpdate ? 'description-update-error' : 'description-error').textContent = 'Description must be at least 2 letters.';
             isValid = false;
         }
-
+    
         // Validate price (0 to 50000)
-        const price = formData.get('price').trim();
-        if (price < 0 || price > 50000) {
+        const price = parseFloat(formData.get('price').trim());
+        if (isNaN(price) || price < 0 || price > 50000) {
             document.getElementById(isUpdate ? 'price-update-error' : 'price-error').textContent = 'Price must be between 0 and 50000.';
             isValid = false;
         }
-
+    
         // Validate group size (1 to 100) and spotsTaken constraint
-        const groupOf = formData.get('groupOf').trim();
-        if (groupOf < 1 || groupOf > 100) {
+        const groupOf = parseInt(formData.get('groupOf').trim());
+        const parsedSpotsTaken = parseInt(spotsTaken);
+    
+        if (isNaN(groupOf) || groupOf < 1 || groupOf > 100) {
             document.getElementById(isUpdate ? 'group-of-update-error' : 'group-of-error').textContent = 'Group size must be between 1 and 100.';
             isValid = false;
-        } else if (groupOf < spotsTaken) {
-            document.getElementById(isUpdate ? 'group-of-update-error' : 'group-of-error').textContent = `Group size must be at least ${spotsTaken}.`;
+        } else if (isUpdate && !isNaN(parsedSpotsTaken) && groupOf < parsedSpotsTaken) {
+            document.getElementById(isUpdate ? 'group-of-update-error' : 'group-of-error').textContent = `Group size must be at least ${parsedSpotsTaken}.`;
             isValid = false;
         }
-
+    
         // Validate dates
         const startDate = formData.get('startDate').trim();
         const endDate = formData.get('endDate').trim();
@@ -527,21 +550,22 @@ document.addEventListener("DOMContentLoaded", function () {
             document.getElementById(isUpdate ? 'end-date-update-error' : 'end-date-error').textContent = 'End date must be after start date.';
             isValid = false;
         }
-
+    
         // Validate company name (ID)
         const companyName = formData.get('companyName').trim();
         if (!await validateId(findCompanyURL, companyName, isUpdate ? 'company-name-update-validity' : 'company-name-validity')) {
             isValid = false;
         }
-
+    
         // Validate trip category (ID)
         const tripCategory = formData.get('tripCategory').trim();
         if (!await validateId(findCategoryURL, tripCategory, isUpdate ? 'trip-category-update-validity' : 'trip-category-validity')) {
             isValid = false;
         }
-
+    
         return isValid;
     }
+    
 
     function clearErrorMessages() {
         document.querySelectorAll('.error-message').forEach(el => el.textContent = '');
