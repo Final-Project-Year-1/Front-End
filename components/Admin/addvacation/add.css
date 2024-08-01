@@ -337,6 +337,10 @@ form button:hover {
     font-weight: bold;
     margin-bottom: 20px; /* מרווח למעלה לפני הכרטיסיות */
 }
+.vacation-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
 
 .vacation-card {
     display: block; /* ensures cards are block-level elements */
@@ -347,17 +351,11 @@ form button:hover {
     border-radius: 10px; /* rounded corners */
     overflow: hidden; /* prevents content from spilling out */
     padding-bottom:10px;
-    
-}
-
-
-.vacation-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    width: 300px; /* set a fixed width */
 }
 
 .vacation-card img {
-    width: 300px;
+    width: 100%; /* make the image fit the card width */
     height: 200px;
     object-fit: cover;
     border-radius: 10px;
@@ -366,11 +364,26 @@ form button:hover {
 .vacation-card h3 {
     color: var(--highlight-color);
     margin-bottom: 10px;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: pre-wrap;
 }
 
 .vacation-card p {
     margin: 5px 0;
     color: var (--black);
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    white-space: pre-wrap;
+}
+
+.vacation-card p.details {
+    max-height: 80px; /* Limit the height of the description */
+    overflow: hidden; /* Hide overflow content */
+    text-overflow: ellipsis; /* Add ellipsis for overflowed text */
+    display: -webkit-box;
+    -webkit-line-clamp: 4; /* Limits the number of lines */
+    -webkit-box-orient: vertical;
 }
 
 .total-vacations {
