@@ -43,9 +43,6 @@ async function createVacationCard(vacation) {
 
   const $detailsDiv = $("<div>").addClass("vacation-details");
 
-  const $descriptionDiv = $("<span>").addClass("description").html(vacation.description);
-  $detailsDiv.append($descriptionDiv);
-
   const $destinationDiv = $("<button>").addClass("destination").html(vacation.destination);
   $detailsDiv.append($destinationDiv);
 
