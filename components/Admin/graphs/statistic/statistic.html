@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./statistic.css">
+</head>
+<body>
+    <div class="top">
+        <span>
+            <a href="../../../Home/home.html">
+                <img src="../../../assets/home-images/img/logo-vacationHub.png" id="logo-top" width="200px">
+            </a>
+        </span>
+        <span class="top-button">
+            <a href="../../../Auth/Register/register.html" id="register">Register</a>
+            <a href="../../../Auth/Login/login.html" id="login">Log in</a>
+        </span>
+        <span class="top-button-logged-in" style="display: none;">
+            <span id="hello-user" class="user-info"></span>
+            <a href="../../../Auth/Login/login.html" id="logout" class="user-info">Logout</a>
+        </span>
+    </div>
+    <div class="content">
+        <a id="company-button" class="company-button" href="../bookingsByCompany/bookingsByCompany.html">Bookings By Company</a>
+        <a id="month-button" class="month-button" href="../bookingsByMonth/bookingsByMonth.html">Bookings By Month</a>
+    </div>
+
+    <div class="footer">
+        <div class="footer-sections">
+            <div class="footer-section">
+                <h3>User Access</h3>
+                <ul>
+                    <li><a href="../../../Auth/Register/register.html">Register</a></li>
+                    <li><a href="../../../Auth/Login/login.html">Login</a></li>
+                    <li><a href="../../../Home/home.html">Home</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Company</h3>
+                <ul>
+                    <li><a href="../../../aboutUs/about.html">About Us</a></li>
+                    <li><a href="../../../viewport/reviews.html">Reviews</a></li>
+                    <li><a href="../../../blog/blog.html">Blog</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Support</h3>
+                <ul>
+                    <li><a href="../../../FAQs/FAQs.html">FAQ</a></li>
+                    <li><a href="../../../PrivacyPolicy/PrivacyPolicy.html">Privacy Policy</a></li>
+                    <li><a href="../../../terms/terms.html">Terms of Service</a></li>
+                    
+                </ul>
+            </div>
+            <div class="footer-section" id="admin-section" style="display: none;">
+                <h3>Admin</h3>
+                <ul>
+                    <li><a href="../../../Admin/Facebook/facebook.html" id="admin-link">Facebook Page</a></li>
+                    <li><a href="../../../Admin/userOrders/orders.html" id="admin-link">Orders Management</a></li>
+                    <li><a href="../../../Admin/addvacation/add.html" id="admin-link">Vacation Management</a></li>
+                    <li><a href="../../../Admin/add/addComp.html" id="admin-link">Company Management</a></li>
+
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <span>© 2024 VacationHub. All Rights Reserved.</span>
+            <span>Your ultimate travel companion. Discover, plan, and book your perfect getaway with us.</span>
+        </div>
+    </div>
+</body>
+<script src="statistic.js"></script>
+<script src="../../../services/authService.js"></script>
+</html>

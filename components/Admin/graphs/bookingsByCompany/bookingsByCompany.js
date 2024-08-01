@@ -1,6 +1,5 @@
 
 const bookingsByMonthUrl = "http://localhost:3000/api/bookings-by-month";
-// const bookingsByCompanyByMonthUrl = "http://localhost:3000/api/bookings-by-company-by-month";
 
 let allData = []
 async function getAllData() {
@@ -15,7 +14,6 @@ async function getAllData() {
 }
 (async () => { allData = await getAllData() })()
 
-// פונקציה לטעינת נתונים לפי חודש
 function getDataByMonth(month) {
 
     if (!month) return allData;
@@ -24,11 +22,9 @@ function getDataByMonth(month) {
     return filterdMonth
 }
 
-// פונקציה לעדכון הגרף עם הנתונים
 function updateGraph(data) {
     console.log(data);
 
-    // עיבוד נתונים כדי לחשב את סך ההזמנות לכל חברה
     const companyData = data.reduce((acc, d) => {
         const company = acc.find(c => c.company === d.companyName);
         if (company) {
@@ -37,28 +33,23 @@ function updateGraph(data) {
             acc.push({ company: d.companyName, totalBookings: d.totalBookings });
         }
         return acc;
-    }, []).filter(d => d.totalBookings > 0); // סינון חברות ללא הזמנות
+    }, []).filter(d => d.totalBookings > 0); 
 
 
     if (companyData.length === 0) {
-        // אם אין נתונים, הצג גרף ריק
         renderEmptyGraph();
     } else {
         renderGraph(companyData);
     }
 }
 
-// פונקציה לרנדר את הגרף
 function renderGraph(data) {
-    // הסרת SVG קיים
     d3.select("#my_dataviz").html("");
 
-    // הגדרת מידות ומרווחים
     const margin = { top: 30, right: 30, bottom: 70, left: 60 };
     const width = document.getElementById('my_dataviz').clientWidth - margin.left - margin.right;
     const height = document.getElementById('my_dataviz').clientHeight - margin.top - margin.bottom;
 
-    // הוספת SVG לדף
     const svg = d3.select("#my_dataviz")
         .append("svg")
         .attr("width", width + margin.left + margin.right)
@@ -66,7 +57,6 @@ function renderGraph(data) {
         .append("g")
         .attr("transform", `translate(${margin.left},${margin.top})`);
 
-    // ציר X
     const x = d3.scaleBand()
         .range([0, width])
         .domain(data.map(d => d.company))
@@ -78,14 +68,12 @@ function renderGraph(data) {
         .attr("transform", "translate(-10,0)rotate(-45)")
         .style("text-anchor", "end");
 
-    // ציר Y
     const y = d3.scaleLinear()
         .domain([0, d3.max(data, d => d.totalBookings)])
         .range([height, 0]);
     svg.append("g")
         .call(d3.axisLeft(y));
 
-    // עמודות
     svg.selectAll("mybar")
         .data(data)
         .enter()
@@ -96,13 +84,11 @@ function renderGraph(data) {
         .attr("height", d => height - y(d.totalBookings))
         .attr("fill", "#69b3a2");
 
-    // תווית ציר X
     svg.append("text")
         .attr("text-anchor", "middle")
         .attr("transform", `translate(${width / 2},${height + margin.bottom - 30})`)
         .text("Company");
 
-    // תווית ציר Y
     svg.append("text")
         .attr("text-anchor", "middle")
         .attr("transform", "rotate(-90)")
@@ -111,12 +97,9 @@ function renderGraph(data) {
         .text("Total Bookings");
 }
 
-// פונקציה לרנדר גרף ריק
 function renderEmptyGraph() {
-    // הסרת SVG קיים
     d3.select("#my_dataviz").html("");
 
-    // הוספת SVG ריק לדף
     const margin = { top: 30, right: 30, bottom: 70, left: 60 };
     const width = document.getElementById('my_dataviz').clientWidth - margin.left - margin.right;
     const height = document.getElementById('my_dataviz').clientHeight - margin.top - margin.bottom;
@@ -137,9 +120,7 @@ function renderEmptyGraph() {
         .text("No Data Available");
 }
 
-// אתחול עם נתוני ברירת מחדל
 document.addEventListener('DOMContentLoaded', async () => {
-    // הוספת אפשרויות לסלקטור החודשים
     const monthSelector = document.getElementById('monthSelector');
     for (let month = 1; month <= 12; month++) {
         const option = document.createElement('option');
@@ -148,15 +129,13 @@ document.addEventListener('DOMContentLoaded', async () => {
         monthSelector.appendChild(option);
     }
 
-    // הוספת מאזין לאירוע בחירה בחודש
     monthSelector.addEventListener('change', async (event) => {
         const selectedMonth = event.target.value;
         const data = getDataByMonth(selectedMonth);
         updateGraph(data);
     });
 
-    // אתחול עם החודש שנבחר כברירת מחדל
-    const defaultMonth = monthSelector.value || 1; // ברירת מחדל לחודש 1 אם אין ערך
+    const defaultMonth = monthSelector.value || 1; 
     const data = await getAllData(defaultMonth);
     updateGraph(data);
 });

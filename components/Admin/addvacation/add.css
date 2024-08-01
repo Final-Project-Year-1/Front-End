@@ -96,7 +96,21 @@ html {
     transition: background-color 0.3s ease;
     font-size: 16px;
 }
-
+.graphs-button
+{
+    background-color: var(--highlight-color);
+    color: var(--white);
+    padding: 15px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 16px;
+    text-decoration: none;
+}
+.graphs-button:hover{
+    background-color: var(--dark-blue);
+}
 .action-button:hover {
     background-color: var(--dark-blue);
 }
