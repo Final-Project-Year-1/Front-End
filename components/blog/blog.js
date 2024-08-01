@@ -30,10 +30,22 @@ const randomTip = tips[Math.floor(Math.random() * tips.length)];
 $tipElement.text(randomTip);
 
 // Weather forecast
+
+let apiKeyWeather;
+
+async function getApiKey() {
+  const response = await fetch('http://localhost:3000/api/api-key/weather')
+  const data = await response.json()
+
+  apiKeyWeather = data;
+}
+(async () => { await getApiKey(); console.log(apiKeyWeather); })();
+
+
+
 async function getWeather() {
   const city = $("#city").val().trim();
-  const apiKey = "852035eefd087a5e214c33deadcb451b";
-  const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
+  const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKeyWeather}&units=metric`;
 
   try {
     const response = await fetch(url);

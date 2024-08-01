@@ -1,9 +1,11 @@
 const userObj = window.getUserFromToken();
 window.authVerificationAdjustments();
 
+
 // Top rated vacations
 const topRatedVacationsUrl = "http://localhost:3000/api/top-rated-vacations";
 const getVacationImg = "http://localhost:3000/api/vacations/images/";
+let apiKeyNews;
 
 $(document).ready(async function () {
   try {
@@ -101,9 +103,21 @@ $(".vacation-inspired").on("click", function () {
 
 $(".all-vacations").on("click", () => localStorage.setItem("tripCategory", ''));
 
+
+
+
+async function getApiKey() {
+  const response = await fetch('http://localhost:3000/api/api-key/news')
+  const data = await response.json()
+
+  apiKeyNews = data;
+}
+(async () => { await getApiKey(); console.log(apiKeyNews); })();
+
+
 $(document).ready(async function () {
   async function fetchNews() {
-    const apiKey = 'f426634050554b5cbd014eff25f76a2d';
+    const apiKey = apiKeyNews;
     const url = `https://api.allorigins.win/get?url=${encodeURIComponent(`https://newsapi.org/v2/top-headlines?country=us&apiKey=${apiKey}`)}`;
 
     try {
@@ -139,5 +153,6 @@ $(document).ready(async function () {
     });
   }
 
+  await getApiKey();
   await fetchNews();
 });
