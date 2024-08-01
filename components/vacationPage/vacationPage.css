@@ -5,6 +5,7 @@
     --gray-dark: #4d443d;
     --white: #fffeea;
     --gray: #acacac;
+    --light-gray:
     --light-gray: #f0f0f0;
     --blue: #5f9da7;
     --dark-blue: #305754;
@@ -165,14 +166,12 @@ body, html {
 }
 
 .order-button.disabled {
-    background-color: var(--gray-dark); /* צבע רקע אפור בהיר */
-    cursor: not-allowed; /* שינוי הסמן לקרסר שמראה שאין אפשרות ללחוץ */
-    opacity: 0.6; /* שקיפות קלה */
-    pointer-events: none; /* מניעת לחיצות */
+    background-color: var(--gray-dark);
+    cursor: not-allowed;
+    opacity: 0.6;
+    pointer-events: none;
 }
 
-
-/* middle part */
 .content-wrapper {
     display: flex;
     justify-content: center; 
@@ -253,12 +252,6 @@ body, html {
 .location {
     font-size: 14px;
     color: #888;
-}
-
-.buttons {
-    display: flex;
-    gap: 10px;
-    margin: 10px 0;
 }
 
 .button {
@@ -555,7 +548,6 @@ body, html {
     cursor: pointer;
     transition: background-color 0.3s ease;
     width: 154px;
-
 }
 
 .person-selection button:hover {
@@ -569,8 +561,6 @@ body, html {
     color: var(--red);
 }
 
-
-/* customer reviews*/
 .reviews-container {
     display: flex;
     justify-content: space-between;
@@ -676,7 +666,6 @@ body, html {
     background-color: var(--dark-blue);
 }
 
-/* vertical scroll bar */
 .reviews-wrapper::-webkit-scrollbar {
     width: 12px; 
 }
@@ -692,7 +681,6 @@ body, html {
     border-radius: 6px;
 }
 
-/* footer */
 .footer {
     background-color: var(--gray-dark);
     color: #fff;
@@ -782,4 +770,17 @@ body, html {
     color: red;
     margin-left: 10px;
     font-size: 14px;
+}
+
+.nav-button {
+    background-color: transparent;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 0 10px;
+}
+
+.nav-button:focus {
+
+    outline: none;
 }

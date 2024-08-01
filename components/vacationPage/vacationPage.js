@@ -6,17 +6,18 @@ if (!_id) {
 }
 let vacation;
 
-
 const fetchVacation = async (vacationId) => {
-    const fetchVacationUrl = `http://localhost:3000/api/vacations/${vacationId}`
+    const fetchVacationUrl = `http://localhost:3000/api/vacations/${vacationId}`;
     try {
         const response = await axios.get(fetchVacationUrl);
         vacation = response.data;
         console.log(vacation);
         matchVacationContent();
-        renderStaticCalendar();
+        // Set the initial month and year to the start date of the vacation
+        currentMonth = new Date(vacation.startDate).getMonth();
+        currentYear = new Date(vacation.startDate).getFullYear();
+        renderStaticCalendar(currentMonth, currentYear);
         fetchReviewsByVacationId(vacationId);
-
     } catch (error) {
         console.log(error);
     }
@@ -24,7 +25,7 @@ const fetchVacation = async (vacationId) => {
 fetchVacation(_id);
 
 const matchVacationContent = async () => {
-    document.getElementById("vacationSumH3").textContent = `vacation in ${vacation?.destination}`;
+    document.getElementById("vacationSumH3").textContent = `Vacation in ${vacation?.destination}`;
     document.getElementById("vacationSumLiGroupOf").innerHTML = `<img src="../assets/home-images/img/persons.png" alt="icon"> ${vacation?.groupOf} people`;
     document.getElementById("vacationSumLiVacationCategory").innerHTML = `<img src="../assets/home-images/img/bed.png" alt="icon"> ${vacation?.tripCategory.category}`;
     const formattedDateStart = window.getDate(vacation?.startDate);
@@ -40,15 +41,15 @@ const matchVacationContent = async () => {
     vacationImg.classList.add("slides", "active");
 
     try {
-      const imgSrc = await window.fetchVacationImg(vacation);
-      if (imgSrc) {
-        vacationImg.src = imgSrc;
-      } else {
-        vacationImg.alt = "Image not available";
-      }
-      mainImageDiv.appendChild(vacationImg);
+        const imgSrc = await window.fetchVacationImg(vacation);
+        if (imgSrc) {
+            vacationImg.src = imgSrc;
+        } else {
+            vacationImg.alt = "Image not available";
+        }
+        mainImageDiv.appendChild(vacationImg);
     } catch (error) {
-      console.error("Error fetching and displaying image:", error);
+        console.error("Error fetching and displaying image:", error);
     }
 
     document.getElementById("destinationH2").textContent = `${vacation?.destination}`;
@@ -58,17 +59,21 @@ const matchVacationContent = async () => {
     document.getElementById("spotsTakenDiv").textContent = `${vacation?.spotsLeft} Spots Left !`;
 }
 
-function renderStaticCalendar() {
-    const vacationStartDate = new Date(window.getDate(vacation?.startDate));
-    const vacationEndDate = new Date(window.getDate(vacation?.endDate));
+let currentMonth;
+let currentYear;
 
-    const month = vacationStartDate.getMonth();
-    const year = vacationStartDate.getFullYear();
+const renderStaticCalendar = (month, year) => {
+    const vacationStartDate = new Date(vacation?.startDate);
+    const vacationEndDate = new Date(vacation?.endDate);
+
+    // Add the day before the vacation start date
+    const vacationStartDateWithExtraDay = new Date(vacationStartDate);
+    vacationStartDateWithExtraDay.setDate(vacationStartDateWithExtraDay.getDate() - 1);
 
     const firstDayOfMonth = new Date(year, month, 1).getDay();
     const lastDateOfMonth = new Date(year, month + 1, 0).getDate();
 
-    document.getElementById('month-year').innerText = `${vacationStartDate.toLocaleString('default', { month: 'long' })}, ${year}`;
+    document.getElementById('month-year').innerText = `${new Date(year, month).toLocaleString('default', { month: 'long' })}, ${year}`;
 
     let days = '';
 
@@ -81,7 +86,7 @@ function renderStaticCalendar() {
         const dateString = `${year}-${month + 1}-${i}`;
         let dayClass = 'day current-month';
 
-        if (date >= vacationStartDate && date <= vacationEndDate) {
+        if (date >= vacationStartDateWithExtraDay && date <= vacationEndDate) {
             dayClass += ' vacation-day';
         }
 
@@ -91,30 +96,48 @@ function renderStaticCalendar() {
     daysContainer.innerHTML = days;
 }
 
+document.getElementById('prev-month').addEventListener('click', () => {
+    if (currentMonth === 0) {
+        currentMonth = 11;
+        currentYear--;
+    } else {
+        currentMonth--;
+    }
+    renderStaticCalendar(currentMonth, currentYear);
+});
 
+document.getElementById('next-month').addEventListener('click', () => {
+    if (currentMonth === 11) {
+        currentMonth = 0;
+        currentYear++;
+    } else {
+        currentMonth++;
+    }
+    renderStaticCalendar(currentMonth, currentYear);
+});
 
 // Reviews Section 
 const getUserFromToken = () => {
     let user = null;
     const token = localStorage.getItem("token");
-    
+
     if (token) {
         const encodedObject = jwt_decode(token);
         user = encodedObject.user;
     }
-    
+
     return {
         user: user,
         token: token
     };
 }
 
-document.getElementById('add-review-form').addEventListener('submit', async function(event) {
-
-    const addReviewUrl = `http://localhost:3000/api/vacation/reviews/`;
+const submitReview = async (event) => {
     event.preventDefault();
 
-    const user = getUserFromToken()
+    const addReviewUrl = `http://localhost:3000/api/vacation/reviews/`;
+
+    const user = getUserFromToken();
     const userId = user.user._id;
     const rating = document.getElementById('review-rating').value;
     const reviewText = document.getElementById('review-text').value;
@@ -126,42 +149,46 @@ document.getElementById('add-review-form').addEventListener('submit', async func
         comment: reviewText
     };
 
-    console.log('Submitting new review:', newReview); // הדפס את הביקורת לפני שליחה
-
-    try {
-        await axios.post(addReviewUrl, newReview);
-        fetchReviewsByVacationId(vacation?._id);
-        document.getElementById('add-review-form').reset();
-
-    } catch (error) {
-        console.error("Error submitting review:", error);
+    const reviewId = document.getElementById('review-id').value;
+    if (reviewId) {
+        // Update existing review
+        newReview._id = reviewId;
+        await updateReview(newReview);
+    } else {
+        // Submit new review
+        try {
+            await axios.post(addReviewUrl, newReview);
+            fetchReviewsByVacationId(vacation?._id);
+            document.getElementById('add-review-form').reset();
+            document.getElementById('submit-review-button').textContent = "Submit Review";
+        } catch (error) {
+            console.error("Error submitting review:", error);
+        }
     }
-});
+};
+
+document.getElementById('add-review-form').addEventListener('submit', submitReview);
 
 const reviewsWrapper = document.getElementById("reviews-wrapper");
 
 const fetchReviewsByVacationId = async (vacationId) => {
     console.log(vacationId);
-    const reviewsByVacationId = `http://localhost:3000/api/vacation/reviews/${vacationId}`
+    const reviewsByVacationId = `http://localhost:3000/api/vacation/reviews/${vacationId}`;
     try {
-      const response = await axios.get(reviewsByVacationId);;
-      const reviews = response.data;
-      if (reviews.length === 0) {
-        // אם אין תגובות, הצג את ההודעה "be the first to..."
-        const messageDiv = document.createElement('div');
-        messageDiv.textContent = 'Be the first to leave a review!';
-        reviewsContainer.appendChild(messageDiv);
-    } else {
-        // אם יש תגובות, צור את ה-DIVים המתאימים
-        reviews.forEach((review) => createReviewDiv(review));
-    }
-    } 
-    catch (error) {
-      console.log(error);
+        const response = await axios.get(reviewsByVacationId);
+        const reviews = response.data;
+        reviewsWrapper.innerHTML = ''; // Clear previous reviews
+        if (reviews.length === 0) {
+            const messageDiv = document.createElement('div');
+            messageDiv.textContent = 'Be the first to leave a review!';
+            reviewsWrapper.appendChild(messageDiv);
+        } else {
+            reviews.forEach((review) => createReviewDiv(review));
+        }
+    } catch (error) {
+        console.log(error);
     }
 }
-
-
 
 const createReviewDiv = (review) => {
     console.log('Creating review for:', review);
@@ -216,11 +243,11 @@ const createReviewDiv = (review) => {
     reviewsWrapper.appendChild(reviewElement);
 }
 
-const deleteReview = async(_id) =>{
+const deleteReview = async (_id) => {
     const deleteReviewUrl = `http://localhost:3000/api/vacation/reviews/${_id}`;
-    try{
-       await axios.delete(deleteReviewUrl);
-    }catch(error){
+    try {
+        await axios.delete(deleteReviewUrl);
+    } catch (error) {
         console.log(error);
     }
 }
@@ -237,88 +264,58 @@ const updateReview = async (review) => {
     try {
         await axios.put(updateReviewUrl, review);
         console.log('Review updated successfully');
+        fetchReviewsByVacationId(vacation._id); // Refresh reviews after update
     } catch (error) {
         console.log(error);
     }
 }
 
-document.getElementById('add-review-form').addEventListener('submit', async (event) => {
+// Booking form
+const form = document.getElementById("person-selection-form");
+const availabilityMessage = document.getElementById("availability-message");
+const spotsTakenDiv = document.getElementById("spotsTakenDiv");
+const bookNowButton = document.querySelector(".order-button");
+const vacationSumPriceP = document.getElementById("vacationSumPriceP");
+const vacationSumPriceSpan = document.getElementById("vacationSumPriceSpan");
+
+vacationSumPriceSpan.textContent = `${vacation?.price}$ per person`;
+
+form.addEventListener("submit", function (event) {
     event.preventDefault();
-    
-    const reviewId = document.getElementById('review-id').value;
-    const rating = document.getElementById('review-rating').value;
-    const comment = document.getElementById('review-text').value;
-    const user = getUserFromToken();
-    const vacationId = vacation._id;
 
-    if (reviewId) {
-        const review = {
-            _id: reviewId,
-            rating: parseInt(rating),
-            comment: comment,
-            userId: user.user._id,
-            vacationId: vacationId
-        };
-        await updateReview(review);
-    } 
+    const numberOfPersons = parseInt(document.getElementById("number-of-persons").value, 10);
 
-    document.getElementById('review-id').value = '';
-    document.getElementById('review-rating').value = '';
-    document.getElementById('review-text').value = '';
-    document.getElementById('submit-review-button').textContent = "Submit Review";
+    localStorage.setItem("numPassengers", numberOfPersons);
+
+    if (numberOfPersons <= vacation?.spotsLeft && numberOfPersons > 0) {
+        localStorage.setItem("numOfPeople", numberOfPersons);
+        availabilityMessage.textContent = `Lucky You! there are enough spots!`;
+        availabilityMessage.style.color = 'green';
+        bookNowButton.disabled = false;
+        bookNowButton.classList.remove('disabled');
+        const totalAmount = numberOfPersons * vacation?.price;
+        vacationSumPriceP.textContent = `${totalAmount}$`;
+    } else {
+        availabilityMessage.textContent = "Not enough spots available.";
+        availabilityMessage.style.color = 'red';
+        bookNowButton.disabled = true;
+        bookNowButton.classList.add('disabled');
+        const totalAmount = 1 * vacation?.price;
+        vacationSumPriceP.textContent = `${totalAmount}$`;
+    }
 });
 
+const loginMessage = document.querySelector("#login-message");
 
-const form = document.getElementById("person-selection-form");
-    const availabilityMessage = document.getElementById("availability-message");
-    const spotsTakenDiv = document.getElementById("spotsTakenDiv");
-    const bookNowButton = document.querySelector(".order-button"); // ודא שהכפתור נכון
-    const vacationSumPriceP = document.getElementById("vacationSumPriceP");
-    const vacationSumPriceSpan = document.getElementById("vacationSumPriceSpan");
+bookNowButton.addEventListener("click", function (event) {
+    const token = localStorage.getItem("token");
 
-    // הצג את המחיר לאדם
-    vacationSumPriceSpan.textContent = `${vacation?.price}$ per person`;
-
-    // הקש על שליחת הטופס
-    form.addEventListener("submit", function(event) {
-        event.preventDefault(); // מנע את שליחת הטופס
-
-        // קבל את מספר האנשים מהקלט
-        const numberOfPersons = parseInt(document.getElementById("number-of-persons").value, 10);
-
-        // שמור את המספר בלוקל סטורג
-        localStorage.setItem("numPassengers", numberOfPersons);
-        
-        // בדוק אם מספר האנשים קטן או שווה למספר המקומות הנותרים
-        if (numberOfPersons <= vacation?.spotsLeft && numberOfPersons > 0) {
-            localStorage.setItem("numOfPeople", numberOfPersons);
-            availabilityMessage.textContent = `Lucky You! there are enough spots!`;
-            availabilityMessage.style.color = 'green'; // הגדר את צבע הטקסט לירוק
-            bookNowButton.disabled = false; // אפשר את כפתור "Book Now"
-            bookNowButton.classList.remove('disabled'); // הסר את ה-class שמונע לחיצה
-            const totalAmount = numberOfPersons * vacation?.price;
-            vacationSumPriceP.textContent = `${totalAmount}$`;
-        } else {
-            availabilityMessage.textContent = "Not enough spots available.";
-            availabilityMessage.style.color = 'red'; // הגדר את צבע הטקסט לאדום במקרה שאין מספיק מקומות
-            bookNowButton.disabled = true; // חסום את כפתור "Book Now"
-            bookNowButton.classList.add('disabled'); // הוסף את ה-class שמונע לחיצה
-            const totalAmount = 1 * vacation?.price;
-            vacationSumPriceP.textContent = `${totalAmount}$`;
-        }
-    });
-
-    const loginMessage = document.querySelector("#login-message");
-
-    bookNowButton.addEventListener("click", function(event) {
-        const token = localStorage.getItem("token");
-    
-        if (!token) {
-            loginMessage.textContent = "Please log in before booking.";
-            loginMessage.classList.remove("hidden");
-            event.preventDefault();
-        } else {
-            loginMessage.classList.add("hidden");
-            window.location.href = `/components/User/Purchases/purchase.html?id=${vacation._id}`;
-        }
-    });
+    if (!token) {
+        loginMessage.textContent = "Please log in before booking.";
+        loginMessage.classList.remove("hidden");
+        event.preventDefault();
+    } else {
+        loginMessage.classList.add("hidden");
+        window.location.href = `/components/User/Purchases/purchase.html?id=${vacation._id}`;
+    }
+});

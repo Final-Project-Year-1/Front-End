@@ -39,8 +39,8 @@
             <div class="flight-details">
                 <h3>Vacation Dates</h3>
                 <ul>
-                    <li id="startingDateLi">Starting Date: 12/08/2024 </li>
-                    <li id="endingDateLi">Ending Date: 18/08/2024</li>
+                    <li id="startingDateLi"></li>
+                    <li id="endingDateLi"></li>
                 </ul>
             </div>
             <div class="vacation-details">
@@ -80,9 +80,6 @@
                         <div class="top-review-slides">
                             <p id="descriptionP" class="top-review active"></p>
                         </div>
-                        <div class="buttons">
-                            <a href="#" class="button">Show on Map</a>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -95,7 +92,9 @@
                     <h3>Departure dates</h3>
                     <div class="calendar-box">
                         <div class="month">
+                            <button id="prev-month" class="nav-button">←</button>
                             <span id="month-year"></span>
+                            <button id="next-month" class="nav-button">→</button>
                         </div>
                         <div class="days" id="calendar-days"></div>
                     </div>
@@ -190,7 +189,7 @@
             <span>© 2024 VacationHub. All Rights Reserved.</span>
             <span>Your ultimate travel companion. Discover, plan, and book your perfect getaway with us.</span>
         </div>
-        </div>
+    </div>
 
 <script src="https://cdn.jsdelivr.net/npm/jwt-decode/build/jwt-decode.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
