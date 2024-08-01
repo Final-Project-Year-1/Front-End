@@ -1,61 +1,26 @@
 const addNewVacationURL = "http://localhost:3000/api/vacations";
 const allCompaniesURL = "http://localhost:3000/api/all-companies";
 const allCategoriesURL = "http://localhost:3000/api/allCategories";
-const deleteVacationURL = "http://localhost:3000/api/vacations/"; // here comes the id
-const updateVacationURL = "http://localhost:3000/api/vacations/"; // here comes the id
+const deleteVacationURL = "http://localhost:3000/api/vacations/"; 
+const updateVacationURL = "http://localhost:3000/api/vacations/"; 
 const allVacationsURL = "http://localhost:3000/api/Allvacations";
-const findCategoryURL = "http://localhost:3000/api/find-category/"; // here comes the id
-const findCompanyURL = "http://localhost:3000/api/findCompany/"; // here comes the id
+const findCategoryURL = "http://localhost:3000/api/find-category/";
+const findCompanyURL = "http://localhost:3000/api/findCompany/"; 
 const getVacationImg = "http://localhost:3000/api/vacations/images/";
-const findVacationURL = "http://localhost:3000/api/vacations/"; // here comes the id
+const findVacationURL = "http://localhost:3000/api/vacations/"; 
 const totalVacationsURL = "http://localhost:3000/api/vacation/total-vacations";
 const allImagesURL = "http://localhost:3000/api/vacation-images/";
 const searchVacationsAdminQueryURL = "http://localhost:3000/api/search-vacations-admin-query";
-const uploadImageURL = "http://localhost:3000/api/upload"; // URL to upload image
+const uploadImageURL = "http://localhost:3000/api/upload"; 
 
-document.addEventListener("DOMContentLoaded", function () {
-    const getUserFromToken = () => {
-        let user = null;
-        const token = localStorage.getItem("token");
+const userObj = window.getUserFromToken();
+window.authVerificationAdjustments();
 
-        if (token) {
-            const encodedObject = jwt_decode(token);
-            user = encodedObject.user;
-        }
-
-        return {
-            user: user,
-            token: token
-        };
-    };
-
-    if (localStorage.getItem("token") && localStorage.getItem("token") !== "") {
-        const userObj = getUserFromToken();
-        document.querySelector(".top-button-logged-in").style.display = "block";
-        document.querySelector(".top-button").style.display = "none";
-        document.getElementById("hello-user").textContent = `Hello ${userObj.user.firstName} ${userObj.user.lastName}`;
-
-        if (userObj.token) {
-            const decodedToken = jwt_decode(userObj.token);
-            const userRole = decodedToken.role || userObj.user.role;
-
-            if (userRole && userRole === 'admin') {
-                document.getElementById('admin-section').style.display = 'block';
-            }
-        }
-    }
-
-    const logoutButton = document.getElementById("logout");
-    logoutButton.addEventListener("click", () => {
-        localStorage.setItem("token", "");
-        window.location.href = "../Auth/Login/login.html";
-    });
-
-    document.getElementById('add-button').addEventListener('click', () => {
+document.getElementById('add-button').addEventListener('click', () => {
         showForm('vacation-form');
         populateSelectOptions();
-    });
-    document.getElementById('view-all-button').addEventListener('click', () => {
+});
+document.getElementById('view-all-button').addEventListener('click', () => {
         showForm('view-all-vacations');
         loadAllVacations();
         updateTotalVacationsCount();
@@ -100,7 +65,6 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        // העלאת התמונה לשרת
         const uploadResult = await uploadImage(images[0]);
         if (!uploadResult.success) {
             document.getElementById('images-error').textContent = 'Failed to upload image.';
@@ -117,7 +81,7 @@ document.addEventListener("DOMContentLoaded", function () {
             vacationType: formData.get('vacationType').trim(),
             companyName: formData.get('companyName').trim(),
             tripCategory: formData.get('tripCategory').trim(),
-            imageName: uploadResult.imagePath // שימוש בנתיב התמונה שהועלתה
+            imageName: uploadResult.imagePath 
         };
 
         submitFormData(addNewVacationURL, 'POST', data, 'vacation-form-result');
@@ -190,7 +154,6 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
 
-        // העלאת התמונה לשרת
         const uploadResult = await uploadImage(images[0]);
         if (!uploadResult.success) {
             document.getElementById('images-update-error').textContent = 'Failed to upload image.';
@@ -207,7 +170,7 @@ document.addEventListener("DOMContentLoaded", function () {
             vacationType: formData.get('vacationType').trim(),
             companyName: formData.get('companyName').trim(),
             tripCategory: formData.get('tripCategory').trim(),
-            imageName: uploadResult.imagePath // שימוש בנתיב התמונה שהועלתה
+            imageName: uploadResult.imagePath 
         };
 
         submitFormData(`${updateVacationURL}${vacationId}`, 'PUT', data, 'update-vacation-result');
@@ -446,45 +409,58 @@ document.addEventListener("DOMContentLoaded", function () {
         vacationCardContainer.appendChild(listItem);
     }
 
-    async function submitFormData(url, method, data, resultElementId) {
-        console.log('Submitting form data:', data);
+async function submitFormData(url, method, data, resultElementId) {
+  console.log("Submitting form data:", data);
 
-        const isValid = await validateCompanyAndCategory(data, resultElementId);
-        if (!isValid) return;
+  const isValid = await validateCompanyAndCategory(data, resultElementId);
+  if (!isValid) return;
 
-        try {
-            const response = await fetch(url, {
-                method: method,
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(data)
-            });
-            const result = await response.json();
-            const resultElement = document.getElementById(resultElementId);
-            if (response.ok) {
-                resultElement.textContent = 'Vacation submitted successfully';
-                resultElement.className = 'success';
-                if (method === 'POST') {
-                    appendVacationCard(result);
-                    updateTotalVacationsCount();
-                } else if (method === 'PUT') {
-                    resultElement.textContent = 'Vacation updated successfully';
-                    resultElement.className = 'success';
-                    document.getElementById(result._id).remove();
-                    appendVacationCard(result);
-                }
-            } else {
-                resultElement.textContent = 'Failed to submit vacation';
-                resultElement.className = 'error';
-            }
-        } catch (error) {
-            console.error('Error:', error);
-            const resultElement = document.getElementById(resultElementId);
-            resultElement.textContent = 'Failed to submit vacation';
-            resultElement.className = 'error';
-        }
+  const token = userObj.token;
+
+  if (token) {
+    window.interceptorsService.setToken(token);
+  }
+
+  try {
+    const headers = {
+      "Content-Type": "application/json",
+    };
+    if (token) {
+      headers["Authorization"] = `Bearer ${token}`;
     }
+
+    const response = await fetch(url, {
+      method: method,
+      headers: headers,
+      body: JSON.stringify(data),
+    });
+    const result = await response.json();
+    const resultElement = document.getElementById(resultElementId);
+
+    if (response.ok) {
+      if (method === "POST") {
+        resultElement.textContent = "Vacation submitted successfully";
+        resultElement.className = "success";
+        appendVacationCard(result);
+        updateTotalVacationsCount();
+      } else if (method === "PUT") {
+        resultElement.textContent = "Vacation updated successfully";
+        resultElement.className = "success";
+        document.getElementById(result._id).remove();
+        appendVacationCard(result);
+      }
+    } else {
+      resultElement.textContent = result.message || "Failed to submit vacation";
+      resultElement.className = "error";
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    const resultElement = document.getElementById(resultElementId);
+    resultElement.textContent = "Failed to submit vacation";
+    resultElement.className = "error";
+  }
+}
+      
 
     async function updateTotalVacationsCount() {
         try {
@@ -499,8 +475,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function validateDescription(description, errorElementId) {
-        const words = description.split(/\s+/).filter(word => word); // Split and filter out empty strings
-        const firstWord = words[0] || ""; // First word or empty string if no words
+        const words = description.split(/\s+/).filter(word => word); 
+        const firstWord = words[0] || ""; 
         const wordCount = words.length;
         if (firstWord.length < 2 || wordCount > 100 || /\d/.test(description)) {
             document.getElementById(errorElementId).textContent = 'Maximum 100 words and atleast 2 letters.';
@@ -510,8 +486,8 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     function validateDestination(destination, errorElementId) {
-        const words = destination.split(/\s+/).filter(word => word); // Split and filter out empty strings
-        const firstWord = words[0] || ""; // First word or empty string if no words
+        const words = destination.split(/\s+/).filter(word => word); 
+        const firstWord = words[0] || ""; 
         const wordCount = words.length;
         if (firstWord.length < 2 || wordCount > 20 || /\d/.test(destination)) {
             document.getElementById(errorElementId).textContent = 'Maximum 20 words and atleast 2 letters';
@@ -523,19 +499,17 @@ document.addEventListener("DOMContentLoaded", function () {
     async function validateFormData(formData, isUpdate = false, spotsTaken = 0) {
         let isValid = true;
 
-        // Validate destination (1 to 20 words with first word at least 2 letters)
+        
         const destination = formData.get('destination').trim();
         if (!validateDestination(destination, isUpdate ? 'destination-update-error' : 'destination-error')) {
             isValid = false;
         }
 
-        // Validate description (1 to 100 words with first word at least 2 letters)
         const description = formData.get('description').trim();
         if (!validateDescription(description, isUpdate ? 'description-update-error' : 'description-error')) {
             isValid = false;
         }
 
-        // Validate price (0 to 50000)
         const price = parseFloat(formData.get('price').trim());
         if (isNaN(price) || price < 0 || price > 50000) {
             document.getElementById(isUpdate ? 'price-update-error' : 'price-error').textContent = 'Price must be between 0 and 50000.';
@@ -615,4 +589,3 @@ document.addEventListener("DOMContentLoaded", function () {
 
         return true;
     }
-});
