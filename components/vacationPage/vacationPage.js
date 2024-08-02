@@ -170,21 +170,17 @@ const fetchReviewsByVacationId = async (vacationId) => {
 }
 
 const createReviewDiv = (review) => {
-
     const reviewElement = document.createElement("div");
     reviewElement.classList.add("review");
     reviewElement.id = `review-${review._id}`;
 
     const reviewName = document.createElement("h3");
-    reviewName.textContent = review?.userId?.firstName + " " + review?.userId?.lastName;
+    reviewName.textContent = `${review?.userId?.firstName} ${review?.userId?.lastName}`;
 
     const reviewRating = document.createElement("p");
     const filledStars = '★'.repeat(review.rating);
     const emptyStars = '☆'.repeat(10 - review.rating);
     reviewRating.textContent = filledStars + emptyStars;
-
-    const user = window.getUserFromToken();
-    const currentUserId = user.user._id;
 
     const commentAndDeleteDiv = document.createElement("div");
     commentAndDeleteDiv.classList.add("comment-delete");
@@ -193,24 +189,38 @@ const createReviewDiv = (review) => {
     reviewTextElement.textContent = review?.comment;
     commentAndDeleteDiv.appendChild(reviewTextElement);
 
-    if (currentUserId === review.userId?._id) {
-        const deleteButton = document.createElement("button");
-        deleteButton.textContent = "Delete";
-        deleteButton.classList.add("delete-button");
-        deleteButton.addEventListener("click", () => {
-            deleteReview(review._id);
-            reviewElement.remove();
-        });
+    const user = window.getUserFromToken();
+    const currentUserId = user.user._id;
+    const userRole = user.user.role; 
 
-        const updateButton = document.createElement("button");
-        updateButton.textContent = "Update";
-        updateButton.classList.add("update-button");
-        updateButton.addEventListener("click", () => {
-            populateUpdateForm(review);
-        });
 
-        commentAndDeleteDiv.appendChild(deleteButton);
-        commentAndDeleteDiv.appendChild(updateButton);
+    if (userRole === 'admin' || currentUserId === review.userId?._id) {
+        if (userRole === 'admin') {
+
+            const deleteButton = document.createElement("button");
+            deleteButton.textContent = "Delete";
+            deleteButton.classList.add("delete-button");
+            deleteButton.addEventListener("click", async () => {
+                try {
+                    await deleteReview(review._id);
+                    reviewElement.remove();
+                } catch (error) {
+                    console.error("Error deleting review:", error);
+                }
+            });
+
+            commentAndDeleteDiv.appendChild(deleteButton);
+        }
+        if (userRole === 'admin') {
+            const updateButton = document.createElement("button");
+            updateButton.textContent = "Update";
+            updateButton.classList.add("update-button");
+            updateButton.addEventListener("click", () => {
+                populateUpdateForm(review);
+            });
+
+            commentAndDeleteDiv.appendChild(updateButton);
+        }
     }
 
     reviewElement.appendChild(reviewName);
