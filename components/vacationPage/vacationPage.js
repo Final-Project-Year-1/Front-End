@@ -175,57 +175,52 @@ const createReviewDiv = (review) => {
     reviewElement.id = `review-${review._id}`;
 
     const reviewName = document.createElement("h3");
-    reviewName.textContent = `${review?.userId?.firstName} ${review?.userId?.lastName}`;
+    reviewName.textContent = `${review.userId.firstName} ${review.userId.lastName}`;
 
     const reviewRating = document.createElement("p");
     const filledStars = '★'.repeat(review.rating);
     const emptyStars = '☆'.repeat(10 - review.rating);
     reviewRating.textContent = filledStars + emptyStars;
 
-    const commentAndDeleteDiv = document.createElement("div");
-    commentAndDeleteDiv.classList.add("comment-delete");
+    const commentAndActionDiv = document.createElement("div");
+    commentAndActionDiv.classList.add("comment-delete");
 
     const reviewTextElement = document.createElement("p");
-    reviewTextElement.textContent = review?.comment;
-    commentAndDeleteDiv.appendChild(reviewTextElement);
+    reviewTextElement.textContent = review.comment;
+    commentAndActionDiv.appendChild(reviewTextElement);
 
     const user = window.getUserFromToken();
     const currentUserId = user.user._id;
-    const userRole = user.user.role; 
+    const userRole = user.user.role;
 
+    if (userRole === 'admin' || currentUserId === review.userId._id) {
+        const deleteButton = document.createElement("button");
+        deleteButton.textContent = "Delete";
+        deleteButton.classList.add("delete-button");
+        deleteButton.addEventListener("click", async () => {
+            try {
+                await deleteReview(review._id);
+                reviewElement.remove();
+            } catch (error) {
+                console.error("Error deleting review:", error);
+            }
+        });
+        commentAndActionDiv.appendChild(deleteButton);
 
-    if (userRole === 'admin' || currentUserId === review.userId?._id) {
-        if (userRole === 'admin') {
-
-            const deleteButton = document.createElement("button");
-            deleteButton.textContent = "Delete";
-            deleteButton.classList.add("delete-button");
-            deleteButton.addEventListener("click", async () => {
-                try {
-                    await deleteReview(review._id);
-                    reviewElement.remove();
-                } catch (error) {
-                    console.error("Error deleting review:", error);
-                }
-            });
-
-            commentAndDeleteDiv.appendChild(deleteButton);
-        }
-        if (userRole === 'admin') {
+        if (userRole === 'admin' || currentUserId === review.userId._id) {
             const updateButton = document.createElement("button");
             updateButton.textContent = "Update";
             updateButton.classList.add("update-button");
             updateButton.addEventListener("click", () => {
                 populateUpdateForm(review);
             });
-
-            commentAndDeleteDiv.appendChild(updateButton);
+            commentAndActionDiv.appendChild(updateButton);
         }
     }
 
     reviewElement.appendChild(reviewName);
     reviewElement.appendChild(reviewRating);
-    reviewElement.appendChild(commentAndDeleteDiv);
+    reviewElement.appendChild(commentAndActionDiv);
 
     reviewsWrapper.appendChild(reviewElement);
 }
@@ -248,15 +243,19 @@ const populateUpdateForm = (review) => {
 
 const updateReview = async (review) => {
     const updateReviewUrl = `http://localhost:3000/api/vacation/reviews/${review._id}`;
+    const user = window.getUserFromToken(); 
+
     try {
-        await axios.put(updateReviewUrl, review);
+        await axios.put(updateReviewUrl, {
+            rating: review.rating,
+            comment: review.comment,
+        });
         fetchReviewsByVacationId(vacation._id); 
     } catch (error) {
-        console.log(error);
+        console.log("Error updating review:", error);
     }
-}
+};
 
-// Booking form
 const form = document.getElementById("person-selection-form");
 const availabilityMessage = document.getElementById("availability-message");
 const spotsTakenDiv = document.getElementById("spotsTakenDiv");
