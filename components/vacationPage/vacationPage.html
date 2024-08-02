@@ -8,22 +8,20 @@
     <link rel="icon" type="image/png" href="../assets/home-images/img/logo-small.jpeg">
 </head>
 <body>
-    <div class="top-section">
-        <div>
-            <a href="/components/Home/home.html">
+    <div class="top">
+        <span>
+            <a href="../Home/home.html">
                 <img src="../assets/home-images/img/logo-vacationHub.png" id="logo-top" width="200px">
             </a>
-        </div>
-        <div>
-            <span class="top-button-logged-in">
-                <span id="hello-user">Hello</span>
-                <button id="logout">Logout</button>
-            </span>
-            <span class="top-button">
-                <a href="../Auth/Register/register.html" id="login">Register</a>
-                <a href="../Auth/Login/login.html" id="login">Login</a>
-            </span>
-        </div>
+        </span>
+        <span class="top-button">
+            <a href="../Auth/Register/register.html" id="register">Register</a>
+            <a href="../Auth/Login/login.html" id="login">Log in</a>
+        </span>
+        <span class="top-button-logged-in" style="display: none;">
+            <span id="hello-user" class="user-info"></span>
+            <a href="../Auth/Login/login.html" id="logout" class="user-info">Logout</a>
+        </span>
     </div>
 
     <!--Vacation Summary on the top-->
@@ -173,6 +171,7 @@
                     <li><a href="../FAQs/FAQs.html">FAQ</a></li>
                     <li><a href="../PrivacyPolicy/PrivacyPolicy.html">Privacy Policy</a></li>
                     <li><a href="../terms/terms.html">Terms of Service</a></li>
+                    
                 </ul>
             </div>
             <div class="footer-section" id="admin-section" style="display: none;">
@@ -182,6 +181,7 @@
                     <li><a href="../Admin/userOrders/orders.html" id="admin-link">Orders Management</a></li>
                     <li><a href="../Admin/addvacation/add.html" id="admin-link">Vacation Management</a></li>
                     <li><a href="../Admin/add/addComp.html" id="admin-link">Company Management</a></li>
+
                 </ul>
             </div>
         </div>
@@ -191,10 +191,12 @@
         </div>
     </div>
 
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/jwt-decode/build/jwt-decode.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script src="../services/datesService.js"></script>
 <script src="../services/imageService.js"></script>
+<script src="../services/authService.js"></script>
 <script src="vacationPage.js"></script>
 </body>
 </html>

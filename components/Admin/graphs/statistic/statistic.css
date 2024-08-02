@@ -8,6 +8,15 @@
     --blue: #5d9792;
     --dark-blue: #467470;
 }
+#hello-user {
+    color: #467470;
+    font-size: 14px;
+    font-weight: bolder;
+    padding: 5px 15px; 
+}
+#logout{
+    color: #467470;
+}
 body {
     margin: 0;
     padding: 0;

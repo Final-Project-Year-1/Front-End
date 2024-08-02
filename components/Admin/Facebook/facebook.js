@@ -1,6 +1,18 @@
-const accessToken = 'EAAZAbZCZAgww4UBO0I3BFaPzZAUJqyOstdhTAlsrgPhAm2UlyOOufowQiqWVkWPrgttt9ggT591GSrOZCYSBjuu3pC4ANBZCwmUclanSICzqXrNz1T4JpMFlA87ZATIcEiSSJY2hpZCcbQBtpvzqDvMGmsAbk7U53TsnwWaQF2kxfiKorWBUePv1bJvf0x2cCLBIODl7qzof'; // Your Page Access Token
 const page_id = '403609402826152';
 
+let accessToken;
+
+async function initializeFacebook() {
+    try {
+        const response = await fetch('http://localhost:3000/api/api-key/facebook');
+        accessToken = await response.json();
+        await fetchAllPosts(page_id, accessToken);
+    } catch (error) {
+        console.error('Error initializing Facebook:', error);
+    }
+}
+
+initializeFacebook();
 
 document.getElementById('submitButton').addEventListener('click', function() {
     const userInput = document.getElementById('userInput').value;
@@ -17,8 +29,6 @@ document.getElementById('submitButton').addEventListener('click', function() {
         document.getElementById('response').innerText = 'Please enter some text.';
     }
 });
-
-
 
 document.getElementById('checkVisitorsButton').addEventListener('click', checkVisitorsCount);
 document.getElementById('checkFollowersButton').addEventListener('click', checkFollowersCount);
@@ -51,7 +61,7 @@ document.getElementById('searchInput').addEventListener('keydown', function(even
 });
 
 async function fetchAllPosts(page_id, accessToken) {
-    document.getElementById('loadingSpinner').style.display = 'block'; // הצגת הספינר
+    document.getElementById('loadingSpinner').style.display = 'block'; 
 
     try {
         const response = await fetch(`https://graph.facebook.com/v20.0/${page_id}/posts?fields=message,attachments,likes.summary(true)&access_token=${accessToken}`, {
@@ -256,7 +266,7 @@ function postToFacebook(message) {
             document.getElementById('response').innerText = 'Error: ' + data.error.message;
         } else {
             document.getElementById('response').innerText = 'Post was successful!';
-            fetchAllPosts(page_id, accessToken);
+            fetchAllPosts(page_id, accessToken); 
         }
     })
     .catch(error => {
@@ -399,9 +409,6 @@ function uploadProfilePicture() {
     });
 }
 
-
-fetchAllPosts(page_id, accessToken);
-
 const getUserFromToken = () => {
     let user = null;
     const token = localStorage.getItem("token");
@@ -418,24 +425,23 @@ const getUserFromToken = () => {
 }
 
 if (localStorage.getItem('token') !== '') {
-  const userObj = getUserFromToken();
-  document.querySelector('.top-button-logged-in').style.display = 'block';
-  document.querySelector('.top-button').style.display = 'none';
-  document.getElementById('hello-user').textContent = `Hello ${userObj.user.firstName} ${userObj.user.lastName}`;
+    const userObj = getUserFromToken();
+    document.querySelector('.top-button-logged-in').style.display = 'block';
+    document.querySelector('.top-button').style.display = 'none';
+    document.getElementById('hello-user').textContent = `Hello ${userObj.user.firstName} ${userObj.user.lastName}`;
 
-  if (userObj.token) {
-      const decodedToken = jwt_decode(userObj.token);
-   
-      const userRole = decodedToken.role || userObj.user.role;
+    if (userObj.token) {
+        const decodedToken = jwt_decode(userObj.token);
+        const userRole = decodedToken.role || userObj.user.role;
 
-  
-      if (userRole && userRole === 'admin') {
-          document.getElementById('admin-section').style.display = 'block';
-      }
-  }
+        if (userRole && userRole === 'admin') {
+            document.getElementById('admin-section').style.display = 'block';
+        }
+    }
 }
+
 const logoutButton = document.getElementById("logout");
-logoutButton.addEventListener("click", () =>{
+logoutButton.addEventListener("click", () => {
     localStorage.setItem("token", "");
     window.location.href = "../../Auth/Login/login.html";
 });

@@ -1,9 +1,19 @@
 const userObj = window.getUserFromToken();
 window.authVerificationAdjustments();
 
-// Top rated vacations
+
 const topRatedVacationsUrl = "http://localhost:3000/api/top-rated-vacations";
 const getVacationImg = "http://localhost:3000/api/vacations/images/";
+
+let apiKeynews;
+async function getApiKey() {
+  const response = await fetch('http://localhost:3000/api/api-key/news')
+  const data = await response.json()
+
+  apiKeynews = data;
+}
+(async () => { await getApiKey(); console.log(apiKeyNews); })();
+
 
 $(document).ready(async function () {
   try {
@@ -58,7 +68,7 @@ async function createVacationCard(vacation) {
   }
 }
 
-// End of fetching vacations
+
 
 const $slider = $(".slider");
 const $slides = $(".slide");
@@ -101,9 +111,12 @@ $(".vacation-inspired").on("click", function () {
 
 $(".all-vacations").on("click", () => localStorage.setItem("tripCategory", ''));
 
+
+
+
 $(document).ready(async function () {
   async function fetchNews() {
-    const apiKey = 'f426634050554b5cbd014eff25f76a2d';
+    const apiKey = apiKeynews;
     const url = `https://api.allorigins.win/get?url=${encodeURIComponent(`https://newsapi.org/v2/top-headlines?country=us&apiKey=${apiKey}`)}`;
 
     try {
@@ -113,7 +126,7 @@ $(document).ready(async function () {
       }
       const data = await response.json();
       const newsData = JSON.parse(data.contents);
-      displayNews(newsData.articles.slice(0, 3)); // Display only 3 articles
+      displayNews(newsData.articles.slice(0, 3)); 
     } catch (error) {
       console.error('Error fetching news:', error);
       $('#news-container').html(`<p>Failed to load news: ${error.message}</p>`);
@@ -122,7 +135,7 @@ $(document).ready(async function () {
 
   function displayNews(articles) {
     const $newsContainer = $('#news-container');
-    $newsContainer.empty(); // Clear any existing content
+    $newsContainer.empty(); 
 
     if (articles.length === 0) {
       $newsContainer.html('<p>No news available.</p>');
@@ -139,5 +152,6 @@ $(document).ready(async function () {
     });
   }
 
+  await getApiKey();
   await fetchNews();
 });

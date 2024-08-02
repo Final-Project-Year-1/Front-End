@@ -52,6 +52,7 @@ h2 {
     overflow: hidden;
     width: 308px;
     margin-bottom: 20px;
+    height: 99px;
     box-sizing: border-box;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.2s;
