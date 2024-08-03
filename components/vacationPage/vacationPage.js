@@ -5,15 +5,14 @@ if (!_id) {
     console.error('No vacation id found in URL');
 }
 let vacation;
+window.authVerificationAdjustments();
 
 const fetchVacation = async (vacationId) => {
     const fetchVacationUrl = `http://localhost:3000/api/vacations/${vacationId}`;
     try {
         const response = await axios.get(fetchVacationUrl);
         vacation = response.data;
-        console.log(vacation);
         matchVacationContent();
-        // Set the initial month and year to the start date of the vacation
         currentMonth = new Date(vacation.startDate).getMonth();
         currentYear = new Date(vacation.startDate).getFullYear();
         renderStaticCalendar(currentMonth, currentYear);
@@ -65,8 +64,6 @@ let currentYear;
 const renderStaticCalendar = (month, year) => {
     const vacationStartDate = new Date(vacation?.startDate);
     const vacationEndDate = new Date(vacation?.endDate);
-
-    // Add the day before the vacation start date
     const vacationStartDateWithExtraDay = new Date(vacationStartDate);
     vacationStartDateWithExtraDay.setDate(vacationStartDateWithExtraDay.getDate() - 1);
 
@@ -116,28 +113,12 @@ document.getElementById('next-month').addEventListener('click', () => {
     renderStaticCalendar(currentMonth, currentYear);
 });
 
-// Reviews Section 
-const getUserFromToken = () => {
-    let user = null;
-    const token = localStorage.getItem("token");
-
-    if (token) {
-        const encodedObject = jwt_decode(token);
-        user = encodedObject.user;
-    }
-
-    return {
-        user: user,
-        token: token
-    };
-}
-
 const submitReview = async (event) => {
     event.preventDefault();
 
     const addReviewUrl = `http://localhost:3000/api/vacation/reviews/`;
 
-    const user = getUserFromToken();
+    const user = window.getUserFromToken();
     const userId = user.user._id;
     const rating = document.getElementById('review-rating').value;
     const reviewText = document.getElementById('review-text').value;
@@ -151,11 +132,9 @@ const submitReview = async (event) => {
 
     const reviewId = document.getElementById('review-id').value;
     if (reviewId) {
-        // Update existing review
         newReview._id = reviewId;
         await updateReview(newReview);
     } else {
-        // Submit new review
         try {
             await axios.post(addReviewUrl, newReview);
             fetchReviewsByVacationId(vacation?._id);
@@ -172,7 +151,6 @@ document.getElementById('add-review-form').addEventListener('submit', submitRevi
 const reviewsWrapper = document.getElementById("reviews-wrapper");
 
 const fetchReviewsByVacationId = async (vacationId) => {
-    console.log(vacationId);
     const reviewsByVacationId = `http://localhost:3000/api/vacation/reviews/${vacationId}`;
     try {
         const response = await axios.get(reviewsByVacationId);
@@ -191,7 +169,6 @@ const fetchReviewsByVacationId = async (vacationId) => {
 }
 
 const createReviewDiv = (review) => {
-    console.log('Creating review for:', review);
 
     const reviewElement = document.createElement("div");
     reviewElement.classList.add("review");
@@ -205,8 +182,7 @@ const createReviewDiv = (review) => {
     const emptyStars = '☆'.repeat(10 - review.rating);
     reviewRating.textContent = filledStars + emptyStars;
 
-    const user = getUserFromToken();
-    console.log('user', user);
+    const user = window.getUserFromToken();
     const currentUserId = user.user._id;
 
     const commentAndDeleteDiv = document.createElement("div");
@@ -263,7 +239,6 @@ const updateReview = async (review) => {
     const updateReviewUrl = `http://localhost:3000/api/vacation/reviews/${review._id}`;
     try {
         await axios.put(updateReviewUrl, review);
-        console.log('Review updated successfully');
         fetchReviewsByVacationId(vacation._id); // Refresh reviews after update
     } catch (error) {
         console.log(error);

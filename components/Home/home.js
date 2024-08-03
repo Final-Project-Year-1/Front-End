@@ -34,7 +34,9 @@ async function createVacationCard(vacation) {
   if (imgSrc) {
     $vacationImg.attr("src", imgSrc);
     $vacationImg.css("cursor", "pointer");
-    const $link = $("<a>").attr("href", `/components/vacationPage/vacationPage.html?id=${vacation._id}`).append($vacationImg);
+    const baseUrl = window.location.origin + "/Front-End";
+    const vacationPageUrl = `${baseUrl}/components/vacationPage/vacationPage.html?id=${vacation._id}`;    
+    const $link = $("<a>").attr("href", vacationPageUrl).append($vacationImg);
     $vacationCard.append($link);
   } else {
     $vacationImg.attr("alt", "Image not available");

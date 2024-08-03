@@ -34,12 +34,6 @@ const fetchCountries = async () => {
   } 
 }
 
-// $(window).on("load", function() {
-//   const token = localStorage.getItem("token");
-//   if (token) {
-//     window.interceptorsService.setToken(token);
-//   }
-// });
 fetchCountries();
 
 async function createVacationCard(vacation) {
@@ -54,7 +48,9 @@ async function createVacationCard(vacation) {
   if (imgSrc) {
     $vacationImg.attr("src", imgSrc).css("cursor", "pointer");
 
-    const $link = $("<a>").attr("href", `/components/vacationPage/vacationPage.html?id=${vacation._id}`).append($vacationImg);
+    const baseUrl = window.location.origin + "/Front-End";
+    const vacationPageUrl = `${baseUrl}/components/vacationPage/vacationPage.html?id=${vacation._id}`;    
+    const $link = $("<a>").attr("href", vacationPageUrl).append($vacationImg);    
     $cardHeader.append($link);
   } else {
     $vacationImg.attr("alt", "Image not available");
